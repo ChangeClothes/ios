@@ -61,12 +61,12 @@ Inline-style:
 Messaging and Note Example Pages
 
 Inline-style: 
-![alt text](/Wireframes/DesigneOne/IMG_0676.JPG "Logo Title Text 1")
+![alt text](/Wireframes/DesignOne/IMG_0676.JPG "Logo Title Text 1")
 
 Calendar Example Page
 
 Inline-style: 
-![alt text](/Wireframes/DesigneOne/IMG_0677.JPG "Logo Title Text 1")
+![alt text](/Wireframes/DesignOne/IMG_0677.JPG "Logo Title Text 1")
 
 ###Design Two
 
