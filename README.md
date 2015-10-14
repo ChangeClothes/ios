@@ -1,10 +1,5 @@
 # ios
 iOS app for Change Clothes
-Sketch our functional user stories
-Add a README to your project repo with the following elements:
-Paragraph that describes your app and what it does
-Required (core) user stories for your app in a bulleted list
-Optional (nice to have) user stories listed separately
 
 ###Features
 
@@ -55,32 +50,32 @@ Optional (nice to have) user stories listed separately
 Clients Page 
 
 Inline-style: 
-![alt text](IMG_0675.JPG "Logo Title Text 1")
+![alt text](Wireframes\DesignOne\IMG_0675.JPG "Logo Title Text 1")
 
 
 Client Page 
 
 Inline-style: 
-![alt text](IMG_0674.JPG "Logo Title Text 1")
+![alt text](Wireframes\DesignOne\IMG_0674.JPG "Logo Title Text 1")
 
 Messaging and Note Example Pages
 
 Inline-style: 
-![alt text](IMG_0676.JPG "Logo Title Text 1")
+![alt text](Wireframes\DesigneOne\IMG_0676.JPG "Logo Title Text 1")
 
 Calendar Example Page
 
 Inline-style: 
-![alt text](IMG_0677.JPG "Logo Title Text 1")
+![alt text](Wireframes\DesigneOne\IMG_0677.JPG "Logo Title Text 1")
 
 ###Design Two
 
 Clients Page
 
 Inline-style: 
-![alt text](IMG_0679.JPG "Logo Title Text 1")
+![alt text](Wireframes\DesignTwo\IMG_0679.JPG "Logo Title Text 1")
 
 
 Client Page
 Inline-style: 
-![alt text](IMG_0680.JPG "Logo Title Text 1")
+![alt text](Wireframes\DesignTwo\IMG_0680.JPG "Logo Title Text 1")
