@@ -50,32 +50,32 @@ iOS app for Change Clothes
 Clients Page 
 
 Inline-style: 
-![alt text](Wireframes\DesignOne\IMG_0675.JPG "Logo Title Text 1")
+![alt text](\Wireframes\DesignOne\IMG_0675.JPG "Logo Title Text 1")
 
 
 Client Page 
 
 Inline-style: 
-![alt text](Wireframes\DesignOne\IMG_0674.JPG "Logo Title Text 1")
+![alt text](\Wireframes\DesignOne\IMG_0674.JPG "Logo Title Text 1")
 
 Messaging and Note Example Pages
 
 Inline-style: 
-![alt text](Wireframes\DesigneOne\IMG_0676.JPG "Logo Title Text 1")
+![alt text](\Wireframes\DesigneOne\IMG_0676.JPG "Logo Title Text 1")
 
 Calendar Example Page
 
 Inline-style: 
-![alt text](Wireframes\DesigneOne\IMG_0677.JPG "Logo Title Text 1")
+![alt text](\Wireframes\DesigneOne\IMG_0677.JPG "Logo Title Text 1")
 
 ###Design Two
 
 Clients Page
 
 Inline-style: 
-![alt text](Wireframes\DesignTwo\IMG_0679.JPG "Logo Title Text 1")
+![alt text](\Wireframes\DesignTwo\IMG_0679.JPG "Logo Title Text 1")
 
 
 Client Page
 Inline-style: 
-![alt text](Wireframes\DesignTwo\IMG_0680.JPG "Logo Title Text 1")
+![alt text](\Wireframes\DesignTwo\IMG_0680.JPG "Logo Title Text 1")
