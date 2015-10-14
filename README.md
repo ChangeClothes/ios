@@ -1,6 +1,14 @@
 # ios
 iOS app for Change Clothes
 
+###What Armoire Does
+
+Armoire aims to be a CRM for personal shoppers running their own small businesses. The goal is for personal shoppers to be able to find in the Armoire app everything necessary to manage their one-person business: a list of their clients, profile pages that allow quick access to the most relevant facts about their clients (measurements, price range for different types of clothing, along with basic demographic data), a communication platform that provides an easy to follow history, notes for future reference about what works and doesn't work for the client, a camera that creates photos that are associated with the appropriate client, and the ability to create appointments (including providing a history of past appointments and notifing both client and stylist about upcoming appointments). 
+
+The above is the bare minimum that needs to be provided to ensure value is added through the Armoire application; further enhancements such as reminder notifications related to clients that are primed for further engagement, a billing feature, and a shipping feature would further establish the Armoire app as a valuable tool in this space. 
+
+Ideally, personal shoppers who run their own small businesses will be able to use this tool to optimize their client management and clients will be able to use the app to keep track of the service they're being provided and engage with their stylist
+
 ###Features
 
 ####Required (MVP)
