@@ -47,37 +47,24 @@ iOS app for Change Clothes
     - [ ] integrate with ship or something similar
 
 
-### Design One
+### Design Variant One
 
-Clients Page 
-
-Inline-style: 
+(Personal Shopper's View) Clients Page
 ![alt text](/Wireframes/DesignOne/IMG_0675.gif "Logo Title Text 1")
 
-
-Client Page 
-
-Inline-style: 
+(Personal Shopper's and Client's View) Client Profile Page
 ![alt text](/Wireframes/DesignOne/IMG_0674.gif "Logo Title Text 1")
 
-Messaging and Note Example Pages
-
-Inline-style: 
+(Personal Shopper's and Client's View) Messaging and Note Example Pages
 ![alt text](/Wireframes/DesignOne/IMG_0676.gif "Logo Title Text 1")
 
-Calendar Example Page
-
-Inline-style: 
+(Personal Shopper's View) Calendar Example Page
 ![alt text](/Wireframes/DesignOne/IMG_0677.gif "Logo Title Text 1")
 
-###Design Two
+###Design Variant Two
 
-Clients Page
-
-Inline-style: 
+(Personal Shopper's View) Clients Page
 ![alt text](/Wireframes/DesignTwo/IMG_0679.gif "Logo Title Text 1")
 
-
-Client Page
-Inline-style: 
+(Personal Shopper's and Client's View) Client Profile Page - This is similar to the instagram middle tab bar UI.
 ![alt text](/Wireframes/DesignTwo/IMG_0680.gif "Logo Title Text 1")
