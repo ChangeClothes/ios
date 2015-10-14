@@ -5,7 +5,7 @@ iOS app for Change Clothes
 
 ####Required (MVP)
 
-- [ ] (Peronal Shopper's View) Client Management
+- (Peronal Shopper's View) Client Management
   - Clients Page
     - [ ] list of clients which show their names
     - [ ] click cell leads to individual profile page
