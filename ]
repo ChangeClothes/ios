@@ -170,21 +170,21 @@ Layout: Facebook group for contextual layout
 
 ##Calendar Reservatons ( owner of the object, stylist but client id visible)
 
-### Workflow(Tuesday Midnight; this functionality should be operable)
+### Workflow
 
 - Matt: DB and Messaging
-- Randy: Camera and Calendar
-- Morgan: Notifications and Container View Controller
+- Randy: Camera and Calendar, Container View Controller
+- Morgan: Notifications
 
-### Milestone One (Wednesday; submitted Tuesday midnight)
+### Milestone One
 
 - Separate your features into required, optional and bonus.
   - Morgan
 - Break down work for each team member to complete for this week into issues on Github assigned to a milestone.
   - Morgan
 - Setup and configure Parse (or similar) server-side data store
-  - Randy
+  - Randy (setup)
+  - Matt (configure)
 - Design your database schema and generated model objects with initial fields
   - Matt
 - Create view controllers needed for early functionality.
-  - Morgan
