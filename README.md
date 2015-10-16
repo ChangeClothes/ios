@@ -15,7 +15,12 @@ The above is the bare minimum that needs to be provided to ensure value is added
 
 ####Required (MVP)
 
-- (Peronal Shopper's View) Client Management
+- (Personal Shopper's View) Client Management
+  - Sign Up Page
+    - [ ] Designer or Client can sign up
+    - [ ] If the client was invited they will have a text sent with code and url to download
+      OR
+    - [ ] the link to download auto-sets the email field
   - Clients Page
     - [ ] list of clients which show their names
     - [ ] click cell leads to individual profile page
@@ -32,6 +37,8 @@ The above is the bare minimum that needs to be provided to ensure value is added
     - [ ] history of messaging history
   - Add Client
     - [ ] Add a client which sends email to client with link to download the Armoire App
+    - [ ] First check if client already exists, in which case notify them and allow process to associate them with the designer attempting to claim them
+    - [ ] If no client exists, create client and text them with a code that will confirm their identity and association to designer
   - Photo
     - [ ] Take Photo and associate it with a client
 
@@ -48,8 +55,10 @@ The above is the bare minimum that needs to be provided to ensure value is added
   - [ ] send a request for payment to client
   - [ ] see history of payments and outstanding requests
 - Reminders
+  - [ ] reminder system that has toggles for common concern
   - [ ] haven't spoken to them in a while, but they logged in recently so reach out
   - [ ] bill overdue
+  - [ ] sales
 - Shipping
   - [ ] ships to clients seamlessly
     - [ ] print label option
@@ -86,3 +95,61 @@ The above is the bare minimum that needs to be provided to ensure value is added
 - Add in the back button area, the word "Client" to return to index
 - Notifications should appear with custom notification that is clickable, leading to modal for quick response, when modal is closed the view from before the notification appeared still exists (classic modal)
 - Conceptualize Client and Stylist views separately; ensure all shared content is module
+
+### Required Xibs
+
+- sign up page
+- log in page
+- add client page
+- custom menu
+- nav bar
+- patient index page
+- messaging page
+- the note page
+- the calendar page
+- patient show page
+- setting page
+- camera page
+
+### Required Research and Chosen Tools
+
+- DB 
+  - [x] Chosen Tool: Parse (open to discussion)
+  - [] Spike:
+    - [ ] authentication tokens
+- Messaging
+  - [x] Chosen Tool: Layer
+  - [] Spike:
+    - [ ] authentication tokens
+- Camera
+  - [ ] Chosen Tool:
+  - [ ] Spike: 
+- Calendar
+  - [ ] Chosen Tool: 
+  - [ ] Spike:
+- Notifications
+  - [ ] Chosen Tool: 
+  - [ ] Spike:
+
+### Database
+
+##User Object
+- types: Stylist and Client
+  - Stylists has many clients
+  - Client have many stylists (we only code for supporting ONE at this point)
+  - relation between users?
+- picture references
+- note objects
+- message objects
+- calendar reservations 
+
+
+##Pictures ( references inside user, no owner)
+
+##Notes ( owner of the object )
+
+##Messages ( owner of the object, stylist but client id visible)
+
+##Calendar Reservatons ( owner of the object, stylist but client id visible)
+
+
