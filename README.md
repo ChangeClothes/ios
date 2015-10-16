@@ -78,3 +78,11 @@ The above is the bare minimum that needs to be provided to ensure value is added
 
 (Personal Shopper's and Client's View) Client Profile Page - This is similar to the instagram middle tab bar UI.
 ![alt text](/Wireframes/DesignTwo/IMG_0680.gif "Logo Title Text 1")
+
+
+### Modifications Post Ben Conversations
+
+- First workflow
+- Add in the back button area, the word "Client" to return to index
+- Notifications should appear with custom notification that is clickable, leading to modal for quick response, when modal is closed the view from before the notification appeared still exists (classic modal)
+- Conceptualize Client and Stylist views separately; ensure all shared content is module
