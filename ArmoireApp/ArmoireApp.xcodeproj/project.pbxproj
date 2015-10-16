@@ -9,19 +9,24 @@
 /* Begin PBXBuildFile section */
 		6F41E1FA1BCE0FF900729AC5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F41E1F91BCE0FF900729AC5 /* AppDelegate.swift */; };
 		6F41E1FC1BCE0FF900729AC5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F41E1FB1BCE0FF900729AC5 /* ViewController.swift */; };
-		6F41E1FF1BCE0FF900729AC5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F41E1FD1BCE0FF900729AC5 /* Main.storyboard */; };
 		6F41E2011BCE0FF900729AC5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6F41E2001BCE0FF900729AC5 /* Assets.xcassets */; };
-		6F41E2041BCE0FF900729AC5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F41E2021BCE0FF900729AC5 /* LaunchScreen.storyboard */; };
+		6FDD83961BD0832C00028E3D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6FDD83951BD0832C00028E3D /* Main.storyboard */; settings = {ASSET_TAGS = (); }; };
+		6FDD83981BD0833500028E3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6FDD83971BD0833500028E3D /* LaunchScreen.storyboard */; settings = {ASSET_TAGS = (); }; };
+		DC763B98356184B1E36FDC2B /* libPods-ArmoireApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 406AF373DF68CB583A6ACFC0 /* libPods-ArmoireApp.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1993BFE730F24C865BE5C48B /* Pods-ArmoireApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArmoireApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-ArmoireApp/Pods-ArmoireApp.release.xcconfig"; sourceTree = "<group>"; };
+		406AF373DF68CB583A6ACFC0 /* libPods-ArmoireApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ArmoireApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		540C02D174B0814FAFCB2B92 /* Pods-ArmoireApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArmoireApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ArmoireApp/Pods-ArmoireApp.debug.xcconfig"; sourceTree = "<group>"; };
 		6F41E1F61BCE0FF900729AC5 /* ArmoireApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ArmoireApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		6F41E1F91BCE0FF900729AC5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		6F41E1FB1BCE0FF900729AC5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		6F41E1FE1BCE0FF900729AC5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		6F41E2001BCE0FF900729AC5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		6F41E2031BCE0FF900729AC5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		6F41E2051BCE0FF900729AC5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6F41E1F91BCE0FF900729AC5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Application/AppDelegate.swift; sourceTree = "<group>"; };
+		6F41E1FB1BCE0FF900729AC5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = ViewControllers/ViewController.swift; sourceTree = "<group>"; };
+		6F41E2001BCE0FF900729AC5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Resources/Assets.xcassets; sourceTree = "<group>"; };
+		6F41E2051BCE0FF900729AC5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = Application/Info.plist; sourceTree = "<group>"; };
+		6FDD838D1BD080B000028E3D /* ArmoireApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "ArmoireApp-Bridging-Header.h"; path = "Application/ArmoireApp-Bridging-Header.h"; sourceTree = "<group>"; };
+		6FDD83951BD0832C00028E3D /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = ViewControllers/Main.storyboard; sourceTree = "<group>"; };
+		6FDD83971BD0833500028E3D /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Application/LaunchScreen.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +34,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC763B98356184B1E36FDC2B /* libPods-ArmoireApp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3651528C7C9BC0521E13AFB9 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				540C02D174B0814FAFCB2B92 /* Pods-ArmoireApp.debug.xcconfig */,
+				1993BFE730F24C865BE5C48B /* Pods-ArmoireApp.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		6F41E1ED1BCE0FF900729AC5 = {
 			isa = PBXGroup;
 			children = (
 				6F41E1F81BCE0FF900729AC5 /* ArmoireApp */,
 				6F41E1F71BCE0FF900729AC5 /* Products */,
+				3651528C7C9BC0521E13AFB9 /* Pods */,
+				D02AB9F9D35F934BA7F89B1E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,14 +71,71 @@
 		6F41E1F81BCE0FF900729AC5 /* ArmoireApp */ = {
 			isa = PBXGroup;
 			children = (
-				6F41E1F91BCE0FF900729AC5 /* AppDelegate.swift */,
-				6F41E1FB1BCE0FF900729AC5 /* ViewController.swift */,
-				6F41E1FD1BCE0FF900729AC5 /* Main.storyboard */,
-				6F41E2001BCE0FF900729AC5 /* Assets.xcassets */,
-				6F41E2021BCE0FF900729AC5 /* LaunchScreen.storyboard */,
-				6F41E2051BCE0FF900729AC5 /* Info.plist */,
+				6FDD83921BD082CC00028E3D /* ViewControllers */,
+				6FDD83911BD082C800028E3D /* Views */,
+				6FDD838C1BD0807800028E3D /* Application */,
+				6FDD83941BD0830800028E3D /* Models */,
+				6FDD83931BD082D200028E3D /* Resources */,
+				6FDD83991BD083F800028E3D /* Credentials */,
 			);
 			path = ArmoireApp;
+			sourceTree = "<group>";
+		};
+		6FDD838C1BD0807800028E3D /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				6FDD83971BD0833500028E3D /* LaunchScreen.storyboard */,
+				6F41E2051BCE0FF900729AC5 /* Info.plist */,
+				6F41E1F91BCE0FF900729AC5 /* AppDelegate.swift */,
+				6FDD838D1BD080B000028E3D /* ArmoireApp-Bridging-Header.h */,
+			);
+			name = Application;
+			sourceTree = "<group>";
+		};
+		6FDD83911BD082C800028E3D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		6FDD83921BD082CC00028E3D /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				6F41E1FB1BCE0FF900729AC5 /* ViewController.swift */,
+				6FDD83951BD0832C00028E3D /* Main.storyboard */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		6FDD83931BD082D200028E3D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				6F41E2001BCE0FF900729AC5 /* Assets.xcassets */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		6FDD83941BD0830800028E3D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		6FDD83991BD083F800028E3D /* Credentials */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Credentials;
+			sourceTree = "<group>";
+		};
+		D02AB9F9D35F934BA7F89B1E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				406AF373DF68CB583A6ACFC0 /* libPods-ArmoireApp.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,9 +145,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6F41E2081BCE0FF900729AC5 /* Build configuration list for PBXNativeTarget "ArmoireApp" */;
 			buildPhases = (
+				F3CD51B806E9FC0901A9E31D /* Check Pods Manifest.lock */,
 				6F41E1F21BCE0FF900729AC5 /* Sources */,
 				6F41E1F31BCE0FF900729AC5 /* Frameworks */,
 				6F41E1F41BCE0FF900729AC5 /* Resources */,
+				CAE3680A1583D26BB2A5EA9F /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -90,6 +166,7 @@
 		6F41E1EE1BCE0FF900729AC5 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = Armoire;
 				TargetAttributes = {
@@ -121,13 +198,46 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6F41E2041BCE0FF900729AC5 /* LaunchScreen.storyboard in Resources */,
+				6FDD83981BD0833500028E3D /* LaunchScreen.storyboard in Resources */,
 				6F41E2011BCE0FF900729AC5 /* Assets.xcassets in Resources */,
-				6F41E1FF1BCE0FF900729AC5 /* Main.storyboard in Resources */,
+				6FDD83961BD0832C00028E3D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		CAE3680A1583D26BB2A5EA9F /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ArmoireApp/Pods-ArmoireApp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F3CD51B806E9FC0901A9E31D /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		6F41E1F21BCE0FF900729AC5 /* Sources */ = {
@@ -140,25 +250,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		6F41E1FD1BCE0FF900729AC5 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				6F41E1FE1BCE0FF900729AC5 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		6F41E2021BCE0FF900729AC5 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				6F41E2031BCE0FF900729AC5 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		6F41E2061BCE0FF900729AC5 /* Debug */ = {
@@ -246,25 +337,32 @@
 		};
 		6F41E2091BCE0FF900729AC5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 540C02D174B0814FAFCB2B92 /* Pods-ArmoireApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = ArmoireApp/Info.plist;
+				CLANG_ENABLE_MODULES = YES;
+				INFOPLIST_FILE = ArmoireApp/Application/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.randyting.ArmoireApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ArmoireApp/Application/ArmoireApp-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		6F41E20A1BCE0FF900729AC5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1993BFE730F24C865BE5C48B /* Pods-ArmoireApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = ArmoireApp/Info.plist;
+				CLANG_ENABLE_MODULES = YES;
+				INFOPLIST_FILE = ArmoireApp/Application/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.randyting.ArmoireApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ArmoireApp/Application/ArmoireApp-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -287,6 +385,7 @@
 				6F41E20A1BCE0FF900729AC5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
