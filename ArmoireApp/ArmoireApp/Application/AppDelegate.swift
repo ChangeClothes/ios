@@ -12,10 +12,18 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
-
+  var mainVC: AMRMainViewController?
 
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-    // Override point for customization after application launch.
+    
+    let credentials = Credentials.defaultCredentials
+    Parse.setApplicationId(credentials.ApplicationID, clientKey: credentials.ClientKey)
+    
+    window = UIWindow(frame: UIScreen.mainScreen().bounds)
+    mainVC = AMRMainViewController()
+    window?.rootViewController = mainVC
+    window?.makeKeyAndVisible()
+    
     return true
   }
 
@@ -41,6 +49,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
   }
 
-
+  struct Credentials {
+    static let defaultCredentialsFile = "Credentials"
+    static let defaultCredentials     = Credentials.loadFromPropertyListNamed(defaultCredentialsFile)
+    
+    let ApplicationID: String
+    let ClientKey: String
+    
+    private static func loadFromPropertyListNamed(name: String) -> Credentials {
+      let path           = NSBundle.mainBundle().pathForResource(name, ofType: "plist")!
+      let dictionary     = NSDictionary(contentsOfFile: path)!
+      let applicationID    = dictionary["ApplicationID"] as! String
+      let clientKey = dictionary["ClientKey"] as! String
+      
+      return Credentials(ApplicationID: applicationID, ClientKey: clientKey)
+    }
+  }
 }
 
