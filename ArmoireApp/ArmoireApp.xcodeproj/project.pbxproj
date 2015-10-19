@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F4590911BD4867800C839F9 /* Credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0F4590901BD4867800C839F9 /* Credentials.plist */; settings = {ASSET_TAGS = (); }; };
 		6F41E1FA1BCE0FF900729AC5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F41E1F91BCE0FF900729AC5 /* AppDelegate.swift */; };
 		6F41E2011BCE0FF900729AC5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6F41E2001BCE0FF900729AC5 /* Assets.xcassets */; };
-		6F5579051BD22D0D0033A7C8 /* Credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6F5579041BD22D0D0033A7C8 /* Credentials.plist */; settings = {ASSET_TAGS = (); }; };
 		6F55790E1BD2335C0033A7C8 /* AMRMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F55790C1BD2335C0033A7C8 /* AMRMainViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		6F55790F1BD2335C0033A7C8 /* AMRMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F55790D1BD2335C0033A7C8 /* AMRMainViewController.xib */; settings = {ASSET_TAGS = (); }; };
 		6FDD83981BD0833500028E3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6FDD83971BD0833500028E3D /* LaunchScreen.storyboard */; settings = {ASSET_TAGS = (); }; };
@@ -17,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0F4590901BD4867800C839F9 /* Credentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Credentials.plist; sourceTree = "<group>"; };
 		1993BFE730F24C865BE5C48B /* Pods-ArmoireApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArmoireApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-ArmoireApp/Pods-ArmoireApp.release.xcconfig"; sourceTree = "<group>"; };
 		406AF373DF68CB583A6ACFC0 /* libPods-ArmoireApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ArmoireApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		540C02D174B0814FAFCB2B92 /* Pods-ArmoireApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArmoireApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ArmoireApp/Pods-ArmoireApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -24,7 +25,6 @@
 		6F41E1F91BCE0FF900729AC5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Application/AppDelegate.swift; sourceTree = "<group>"; };
 		6F41E2001BCE0FF900729AC5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Resources/Assets.xcassets; sourceTree = "<group>"; };
 		6F41E2051BCE0FF900729AC5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = Application/Info.plist; sourceTree = "<group>"; };
-		6F5579041BD22D0D0033A7C8 /* Credentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Credentials.plist; path = Credentials/Credentials.plist; sourceTree = "<group>"; };
 		6F55790C1BD2335C0033A7C8 /* AMRMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRMainViewController.swift; path = ViewControllers/AMRMainViewController.swift; sourceTree = "<group>"; };
 		6F55790D1BD2335C0033A7C8 /* AMRMainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AMRMainViewController.xib; path = ViewControllers/AMRMainViewController.xib; sourceTree = "<group>"; };
 		6FDD838D1BD080B000028E3D /* ArmoireApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "ArmoireApp-Bridging-Header.h"; path = "Application/ArmoireApp-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -128,7 +128,7 @@
 		6FDD83991BD083F800028E3D /* Credentials */ = {
 			isa = PBXGroup;
 			children = (
-				6F5579041BD22D0D0033A7C8 /* Credentials.plist */,
+				0F4590901BD4867800C839F9 /* Credentials.plist */,
 			);
 			name = Credentials;
 			sourceTree = "<group>";
@@ -202,7 +202,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6FDD83981BD0833500028E3D /* LaunchScreen.storyboard in Resources */,
-				6F5579051BD22D0D0033A7C8 /* Credentials.plist in Resources */,
+				0F4590911BD4867800C839F9 /* Credentials.plist in Resources */,
 				6F55790F1BD2335C0033A7C8 /* AMRMainViewController.xib in Resources */,
 				6F41E2011BCE0FF900729AC5 /* Assets.xcassets in Resources */,
 			);
