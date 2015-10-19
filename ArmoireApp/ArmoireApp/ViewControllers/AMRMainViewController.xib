@@ -27,6 +27,7 @@
                     <subviews>
                         <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="woman" translatesAutoresizingMaskIntoConstraints="NO" id="esp-ki-vJa">
                             <rect key="frame" x="275" y="10" width="50" height="49"/>
+                            <color key="backgroundColor" red="0.24704212850000001" green="0.4015940657" blue="0.239423096" alpha="1" colorSpace="calibratedRGB"/>
                             <gestureRecognizers/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="50" id="YQA-O2-SXI"/>
@@ -120,6 +121,11 @@
                         <constraint firstItem="A7i-DM-NRi" firstAttribute="top" secondItem="484-uT-3HW" secondAttribute="top" constant="10" id="lhV-zt-FXU"/>
                         <constraint firstAttribute="bottom" secondItem="cZq-Wf-5iE" secondAttribute="bottom" constant="10" id="n79-JZ-rWY"/>
                     </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="Tco-uO-OJn"/>
+                        </mask>
+                    </variation>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="45x-mO-ZQ3">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="531"/>

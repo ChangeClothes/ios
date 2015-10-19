@@ -10,6 +10,8 @@ import UIKit
 
 class AMRCalendarViewController: UIViewController {
 
+    @IBOutlet weak var appointmentTable: UITableView!
+    var appointments: NSDictionary?
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Appointments"
@@ -22,7 +24,18 @@ class AMRCalendarViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    let cell = appointmentTable.dequeueReusableCellWithIdentifier("AppointmentCell", forIndexPath: indexPath) as! AMRAppointmentTableViewCell
+    return cell
+  }
+  
+  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    if let appointmentList = self.appointments {
+      return appointmentList.count
+    } else {
+      return 0
+    }
+  }
     /*
     // MARK: - Navigation
 

@@ -8,8 +8,10 @@
 
 import UIKit
 
-class AMRMessagesViewController: UIViewController {
+class AMRMessagesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
+    var messages: NSDictionary?
+    @IBOutlet weak var messagesTable: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Messages"
@@ -22,7 +24,19 @@ class AMRMessagesViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+      //need to deque from table; planning to switch over to different view than table so wait
+        let cell = messagesTable.dequeueReusableCellWithIdentifier("MessageCell", forIndexPath: indexPath) as! AMRMessageTableViewCell
+        return cell
+    }
+  
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if let messageList = self.messages {
+          return messageList.count
+        } else {
+          return 0
+        }
+    }
     /*
     // MARK: - Navigation
 

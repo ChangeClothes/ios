@@ -8,7 +8,9 @@
 
 import UIKit
 
-class AMRClientsViewController: UIViewController {
+class AMRClientsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+  
+    var clients: NSDictionary?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +23,25 @@ class AMRClientsViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+  
+  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    //need to deque from table; planning to switch over to different view than table so wait
+    return AMRClientTableViewCell()
+  }
+  
+  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+//    let cell = tweetTable.cellForRowAtIndexPath(indexPath) as! TweetTableViewCell
+//    performSegueWithIdentifier("segueToTweet", sender: cell)
+  }
+  
+  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    if let clientList = self.clients {
+      return clientList.count
+    } else {
+      return 0
+    }
+  }
+  
     
 
     /*
