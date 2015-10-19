@@ -64,7 +64,6 @@ class AMRMainViewController: UIViewController {
   
   
   @IBAction func onTapMessages(sender: UITapGestureRecognizer) {
-    print("on tap messages")
     selectViewController(vcArray[2])
   }
 
