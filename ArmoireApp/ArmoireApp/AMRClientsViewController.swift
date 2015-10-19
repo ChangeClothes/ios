@@ -14,9 +14,8 @@ class AMRClientsViewController: UIViewController, UITableViewDataSource, UITable
 
     override func viewDidLoad() {
         super.viewDidLoad()
-      self.title = "Clients"
-
-        // Do any additional setup after loading the view.
+        self.title = "Clients"
+    // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
@@ -24,23 +23,23 @@ class AMRClientsViewController: UIViewController, UITableViewDataSource, UITable
         // Dispose of any resources that can be recreated.
     }
   
-  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     //need to deque from table; planning to switch over to different view than table so wait
-    return AMRClientTableViewCell()
-  }
-  
-  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-//    let cell = tweetTable.cellForRowAtIndexPath(indexPath) as! TweetTableViewCell
-//    performSegueWithIdentifier("segueToTweet", sender: cell)
-  }
-  
-  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    if let clientList = self.clients {
-      return clientList.count
-    } else {
-      return 0
+        return AMRClientTableViewCell()
     }
-  }
+  
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    //    let cell = tweetTable.cellForRowAtIndexPath(indexPath) as! TweetTableViewCell
+    //    performSegueWithIdentifier("segueToTweet", sender: cell)
+    }
+
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if let clientList = self.clients {
+          return clientList.count
+        } else {
+          return 0
+        }
+    }
   
     
 

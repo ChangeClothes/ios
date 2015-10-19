@@ -24,7 +24,7 @@ class AMRMainViewController: UIViewController {
     UINavigationController(rootViewController: AMRMessagesViewController()),
     UINavigationController(rootViewController: AMRNotesViewController()),
     UINavigationController(rootViewController: AMRCalendarViewController()),
-    UINavigationController(rootViewController: AMRClientViewController())
+    UINavigationController(rootViewController: AMRClientsViewController())
   ]
   
   override func viewDidLoad() {
@@ -70,11 +70,14 @@ class AMRMainViewController: UIViewController {
   @IBAction func onTapNotes(sender: AnyObject) {
     selectViewController(vcArray[3])
   }
+    
   @IBAction func onTapProfile(sender: AnyObject) {
   }
 
   @IBAction func onTapProfileIcon(sender: AnyObject) {
+    selectViewController(vcArray[1])
   }
+
   @IBAction func onTapCalendar(sender: AnyObject) {
     selectViewController(vcArray[4])
   }

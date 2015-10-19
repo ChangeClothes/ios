@@ -1,5 +1,5 @@
 //
-//  AMRClientViewController.swift
+//  AMRClientsDetailViewController.swift
 //  ArmoireApp
 //
 //  Created by Morgan Wildermuth on 10/18/15.
@@ -8,11 +8,11 @@
 
 import UIKit
 
-class AMRClientViewController: UIViewController {
+class AMRClientsDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Client"
+        self.title = "Client Details"
 
         // Do any additional setup after loading the view.
     }

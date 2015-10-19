@@ -18,14 +18,18 @@
 		0F4590A51BD49ACF00C839F9 /* AMRNotesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F4590A31BD49ACF00C839F9 /* AMRNotesViewController.xib */; settings = {ASSET_TAGS = (); }; };
 		0F4590A81BD49AE700C839F9 /* AMRCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4590A61BD49AE700C839F9 /* AMRCalendarViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		0F4590A91BD49AE700C839F9 /* AMRCalendarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F4590A71BD49AE700C839F9 /* AMRCalendarViewController.xib */; settings = {ASSET_TAGS = (); }; };
-		0F4590AC1BD49BCD00C839F9 /* AMRClientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4590AA1BD49BCD00C839F9 /* AMRClientViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		0F4590AD1BD49BCD00C839F9 /* AMRClientViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F4590AB1BD49BCD00C839F9 /* AMRClientViewController.xib */; settings = {ASSET_TAGS = (); }; };
 		0F4590B01BD4A58000C839F9 /* AMRClientTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4590AE1BD4A58000C839F9 /* AMRClientTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
 		0F4590B11BD4A58000C839F9 /* AMRClientTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F4590AF1BD4A58000C839F9 /* AMRClientTableViewCell.xib */; settings = {ASSET_TAGS = (); }; };
 		0F4590B41BD4A59300C839F9 /* AMRMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4590B21BD4A59300C839F9 /* AMRMessageTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
 		0F4590B51BD4A59300C839F9 /* AMRMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F4590B31BD4A59300C839F9 /* AMRMessageTableViewCell.xib */; settings = {ASSET_TAGS = (); }; };
 		0F4590B81BD4A5D500C839F9 /* AMRAppointmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4590B61BD4A5D500C839F9 /* AMRAppointmentTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
 		0F4590B91BD4A5D500C839F9 /* AMRAppointmentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F4590B71BD4A5D500C839F9 /* AMRAppointmentTableViewCell.xib */; settings = {ASSET_TAGS = (); }; };
+		0F4590BC1BD4B57300C839F9 /* AMRClientsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4590BA1BD4B57300C839F9 /* AMRClientsDetailViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		0F4590BD1BD4B57300C839F9 /* AMRClientsDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F4590BB1BD4B57300C839F9 /* AMRClientsDetailViewController.xib */; settings = {ASSET_TAGS = (); }; };
+		0F4590C21BD4B5CA00C839F9 /* AMRCalendarDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4590C01BD4B5CA00C839F9 /* AMRCalendarDetailViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		0F4590C31BD4B5CA00C839F9 /* AMRCalendarDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F4590C11BD4B5CA00C839F9 /* AMRCalendarDetailViewController.xib */; settings = {ASSET_TAGS = (); }; };
+		0F4590C61BD4B88100C839F9 /* AMRMessagesDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4590C41BD4B88100C839F9 /* AMRMessagesDetailsViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		0F4590C71BD4B88100C839F9 /* AMRMessagesDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F4590C51BD4B88100C839F9 /* AMRMessagesDetailsViewController.xib */; settings = {ASSET_TAGS = (); }; };
 		6F41E1FA1BCE0FF900729AC5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F41E1F91BCE0FF900729AC5 /* AppDelegate.swift */; };
 		6F41E2011BCE0FF900729AC5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6F41E2001BCE0FF900729AC5 /* Assets.xcassets */; };
 		6F55790E1BD2335C0033A7C8 /* AMRMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F55790C1BD2335C0033A7C8 /* AMRMainViewController.swift */; settings = {ASSET_TAGS = (); }; };
@@ -46,14 +50,18 @@
 		0F4590A31BD49ACF00C839F9 /* AMRNotesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AMRNotesViewController.xib; sourceTree = "<group>"; };
 		0F4590A61BD49AE700C839F9 /* AMRCalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AMRCalendarViewController.swift; sourceTree = "<group>"; };
 		0F4590A71BD49AE700C839F9 /* AMRCalendarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AMRCalendarViewController.xib; sourceTree = "<group>"; };
-		0F4590AA1BD49BCD00C839F9 /* AMRClientViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AMRClientViewController.swift; sourceTree = "<group>"; };
-		0F4590AB1BD49BCD00C839F9 /* AMRClientViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AMRClientViewController.xib; sourceTree = "<group>"; };
 		0F4590AE1BD4A58000C839F9 /* AMRClientTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AMRClientTableViewCell.swift; sourceTree = "<group>"; };
 		0F4590AF1BD4A58000C839F9 /* AMRClientTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AMRClientTableViewCell.xib; sourceTree = "<group>"; };
 		0F4590B21BD4A59300C839F9 /* AMRMessageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AMRMessageTableViewCell.swift; sourceTree = "<group>"; };
 		0F4590B31BD4A59300C839F9 /* AMRMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AMRMessageTableViewCell.xib; sourceTree = "<group>"; };
 		0F4590B61BD4A5D500C839F9 /* AMRAppointmentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AMRAppointmentTableViewCell.swift; sourceTree = "<group>"; };
 		0F4590B71BD4A5D500C839F9 /* AMRAppointmentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AMRAppointmentTableViewCell.xib; sourceTree = "<group>"; };
+		0F4590BA1BD4B57300C839F9 /* AMRClientsDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AMRClientsDetailViewController.swift; sourceTree = "<group>"; };
+		0F4590BB1BD4B57300C839F9 /* AMRClientsDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AMRClientsDetailViewController.xib; sourceTree = "<group>"; };
+		0F4590C01BD4B5CA00C839F9 /* AMRCalendarDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AMRCalendarDetailViewController.swift; sourceTree = "<group>"; };
+		0F4590C11BD4B5CA00C839F9 /* AMRCalendarDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AMRCalendarDetailViewController.xib; sourceTree = "<group>"; };
+		0F4590C41BD4B88100C839F9 /* AMRMessagesDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AMRMessagesDetailsViewController.swift; sourceTree = "<group>"; };
+		0F4590C51BD4B88100C839F9 /* AMRMessagesDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AMRMessagesDetailsViewController.xib; sourceTree = "<group>"; };
 		1993BFE730F24C865BE5C48B /* Pods-ArmoireApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArmoireApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-ArmoireApp/Pods-ArmoireApp.release.xcconfig"; sourceTree = "<group>"; };
 		406AF373DF68CB583A6ACFC0 /* libPods-ArmoireApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ArmoireApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		540C02D174B0814FAFCB2B92 /* Pods-ArmoireApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArmoireApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ArmoireApp/Pods-ArmoireApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -158,8 +166,12 @@
 				0F4590A31BD49ACF00C839F9 /* AMRNotesViewController.xib */,
 				0F4590A61BD49AE700C839F9 /* AMRCalendarViewController.swift */,
 				0F4590A71BD49AE700C839F9 /* AMRCalendarViewController.xib */,
-				0F4590AA1BD49BCD00C839F9 /* AMRClientViewController.swift */,
-				0F4590AB1BD49BCD00C839F9 /* AMRClientViewController.xib */,
+				0F4590BA1BD4B57300C839F9 /* AMRClientsDetailViewController.swift */,
+				0F4590BB1BD4B57300C839F9 /* AMRClientsDetailViewController.xib */,
+				0F4590C01BD4B5CA00C839F9 /* AMRCalendarDetailViewController.swift */,
+				0F4590C11BD4B5CA00C839F9 /* AMRCalendarDetailViewController.xib */,
+				0F4590C41BD4B88100C839F9 /* AMRMessagesDetailsViewController.swift */,
+				0F4590C51BD4B88100C839F9 /* AMRMessagesDetailsViewController.xib */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -255,14 +267,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F4590C71BD4B88100C839F9 /* AMRMessagesDetailsViewController.xib in Resources */,
 				0F4590B11BD4A58000C839F9 /* AMRClientTableViewCell.xib in Resources */,
 				6FDD83981BD0833500028E3D /* LaunchScreen.storyboard in Resources */,
+				0F4590C31BD4B5CA00C839F9 /* AMRCalendarDetailViewController.xib in Resources */,
 				0F4590911BD4867800C839F9 /* Credentials.plist in Resources */,
-				0F4590AD1BD49BCD00C839F9 /* AMRClientViewController.xib in Resources */,
 				0F4590B51BD4A59300C839F9 /* AMRMessageTableViewCell.xib in Resources */,
 				0F4590A11BD49AC200C839F9 /* AMRMessagesViewController.xib in Resources */,
 				0F4590A51BD49ACF00C839F9 /* AMRNotesViewController.xib in Resources */,
 				6F55790F1BD2335C0033A7C8 /* AMRMainViewController.xib in Resources */,
+				0F4590BD1BD4B57300C839F9 /* AMRClientsDetailViewController.xib in Resources */,
 				0F4590991BD4884700C839F9 /* AMRLoginViewController.xib in Resources */,
 				0F4590B91BD4A5D500C839F9 /* AMRAppointmentTableViewCell.xib in Resources */,
 				0F45909D1BD48D3300C839F9 /* AMRClientsViewController.xib in Resources */,
@@ -311,15 +325,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F4590C21BD4B5CA00C839F9 /* AMRCalendarDetailViewController.swift in Sources */,
 				0F4590B81BD4A5D500C839F9 /* AMRAppointmentTableViewCell.swift in Sources */,
 				6F55790E1BD2335C0033A7C8 /* AMRMainViewController.swift in Sources */,
+				0F4590BC1BD4B57300C839F9 /* AMRClientsDetailViewController.swift in Sources */,
 				0F4590A01BD49AC200C839F9 /* AMRMessagesViewController.swift in Sources */,
 				0F45909C1BD48D3300C839F9 /* AMRClientsViewController.swift in Sources */,
 				0F4590B01BD4A58000C839F9 /* AMRClientTableViewCell.swift in Sources */,
 				6F41E1FA1BCE0FF900729AC5 /* AppDelegate.swift in Sources */,
 				0F4590981BD4884700C839F9 /* AMRLoginViewController.swift in Sources */,
 				0F4590A41BD49ACF00C839F9 /* AMRNotesViewController.swift in Sources */,
-				0F4590AC1BD49BCD00C839F9 /* AMRClientViewController.swift in Sources */,
+				0F4590C61BD4B88100C839F9 /* AMRMessagesDetailsViewController.swift in Sources */,
 				0F4590B41BD4A59300C839F9 /* AMRMessageTableViewCell.swift in Sources */,
 				0F4590A81BD49AE700C839F9 /* AMRCalendarViewController.swift in Sources */,
 			);
