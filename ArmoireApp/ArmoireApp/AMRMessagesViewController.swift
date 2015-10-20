@@ -15,7 +15,20 @@ class AMRMessagesViewController: UIViewController, UITableViewDataSource, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Messages"
-
+        
+//        var btnName: UIButton = UIButton()
+//        btnName.setImage(UIImage(named: "settings"), forState: .Normal)
+//        btnName.frame = CGRectMake(0, 0, 30, 30)
+//        btnName.backgroundColor = UIColor.blackColor()
+//        btnName.addTarget(self, action: Selector("action"), forControlEvents: .TouchUpInside)
+//        
+//        //.... Set Right/Left Bar Button item
+//        var rightBarButton:UIBarButtonItem = UIBarButtonItem()
+//        rightBarButton.customView = btnName
+//        self.navigationItem.rightBarButtonItem = rightBarButton
+//
+//        self.view.addSubview(btnName);
+        
         // Do any additional setup after loading the view.
     }
 

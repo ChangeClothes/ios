@@ -13,7 +13,15 @@ class AMRNotesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Notes"
-
+        
+        var settings: UIButton = UIButton()
+        settings.setImage(UIImage(named: "settings"), forState: .Normal)
+        settings.frame = CGRectMake(0, 0, 30, 30)
+        settings.addTarget(self, action: Selector("action"), forControlEvents: .TouchUpInside)
+        
+        var rightNavBarButton = UIBarButtonItem(customView: settings)
+        self.navigationItem.rightBarButtonItem = rightNavBarButton
+        
         // Do any additional setup after loading the view.
     }
 
