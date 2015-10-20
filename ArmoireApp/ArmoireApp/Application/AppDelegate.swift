@@ -17,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     
+    AMRMeeting.registerSubclass()
     let credentials = Credentials.defaultCredentials
     Parse.setApplicationId(credentials.ApplicationID, clientKey: credentials.ClientKey)
     

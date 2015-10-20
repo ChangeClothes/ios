@@ -23,7 +23,7 @@ class AMRMainViewController: UIViewController {
     UINavigationController(rootViewController: AMRClientsViewController()),
     UINavigationController(rootViewController: AMRMessagesViewController()),
     UINavigationController(rootViewController: AMRNotesViewController()),
-    UINavigationController(rootViewController: AMRCalendarViewController()),
+    UINavigationController(rootViewController: AMRUpcomingMeetingsViewController()),
     UINavigationController(rootViewController: AMRClientsViewController())
   ]
   
