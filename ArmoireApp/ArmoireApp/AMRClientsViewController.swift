@@ -10,11 +10,16 @@ import UIKit
 
 class AMRClientsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
   
-    var clients: NSDictionary?
+    @IBOutlet weak var clientTable: UITableView!
+    var clients: [PFUser]?
+    let cellConstant = "clientTableViewCellReuseIdentifier"
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUpClientTable()
+        loadClients()
         self.title = "Clients"
+        
     // Do any additional setup after loading the view.
     }
 
@@ -23,14 +28,29 @@ class AMRClientsViewController: UIViewController, UITableViewDataSource, UITable
         // Dispose of any resources that can be recreated.
     }
   
+    func loadClients(){
+        var query : PFQuery = PFUser.query()!
+        query.findObjectsInBackgroundWithBlock { (arrayOfUsers, error) -> Void in
+            self.clients = arrayOfUsers as? [PFUser]
+            self.clientTable.reloadData()
+        }
+    }
+    func setUpClientTable(){
+        clientTable.delegate = self
+        clientTable.dataSource = self
+        let celNib = UINib(nibName: "AMRClientTableViewCell", bundle: nil)
+        clientTable.registerNib(celNib, forCellReuseIdentifier: cellConstant)
+    }
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    //need to deque from table; planning to switch over to different view than table so wait
-        return AMRClientTableViewCell()
+        let cell = clientTable.dequeueReusableCellWithIdentifier(cellConstant, forIndexPath: indexPath)
+        cell.textLabel!.text = clients![indexPath.row]["firstName"] as! String
+        return cell
     }
   
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    //    let cell = tweetTable.cellForRowAtIndexPath(indexPath) as! TweetTableViewCell
-    //    performSegueWithIdentifier("segueToTweet", sender: cell)
+        let cell = clientTable.cellForRowAtIndexPath(indexPath) as! AMRClientTableViewCell
+        self.
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
