@@ -2,7 +2,7 @@
 //  AMRClientTableViewCell.swift
 //  ArmoireApp
 //
-//  Created by Morgan Wildermuth on 10/18/15.
+//  Created by Morgan Wildermuth on 10/20/15.
 //  Copyright © 2015 Armoire. All rights reserved.
 //
 

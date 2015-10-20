@@ -24,12 +24,14 @@ class AMRMainViewController: UIViewController {
     UINavigationController(rootViewController: AMRMessagesViewController()),
     UINavigationController(rootViewController: AMRNotesViewController()),
     UINavigationController(rootViewController: AMRUpcomingMeetingsViewController()),
-    UINavigationController(rootViewController: AMRClientsViewController())
+    UINavigationController(rootViewController: AMRClientsViewController()),
+    UINavigationController (rootViewController: AMRSettingsViewController())
   ]
   
   override func viewDidLoad() {
     super.viewDidLoad()
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "onUserLogin:", name: "userDidLoginNotification", object: nil)
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "onTapSettings:", name: "userDidTapSettingsNotification", object: nil)
 //    selectViewController(vcArray[1])
     let testObject = PFObject(className: "TestObject")
     testObject["foo"] = "bar"
@@ -41,6 +43,11 @@ class AMRMainViewController: UIViewController {
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
+  }
+
+    
+  func onTapSettings(notification: NSNotification){
+    selectViewController(vcArray[6])
   }
   
   func onUserLogin(notification: NSNotification){

@@ -10,26 +10,28 @@ import UIKit
 
 class AMRNotesViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.title = "Notes"
-        
-        var settings: UIButton = UIButton()
-        settings.setImage(UIImage(named: "settings"), forState: .Normal)
-        settings.frame = CGRectMake(0, 0, 30, 30)
-        settings.addTarget(self, action: Selector("action"), forControlEvents: .TouchUpInside)
-        
-        var rightNavBarButton = UIBarButtonItem(customView: settings)
-        self.navigationItem.rightBarButtonItem = rightNavBarButton
-        
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    self.title = "Notes"
+    var settings: UIButton = UIButton()
+    settings.setImage(UIImage(named: "settings"), forState: .Normal)
+    settings.frame = CGRectMake(0, 0, 30, 30)
+    settings.addTarget(self, action: Selector("onSettingsTap"), forControlEvents: .TouchUpInside)
     
+    var leftNavBarButton = UIBarButtonItem(customView: settings)
+    self.navigationItem.leftBarButtonItem = leftNavBarButton
+    // Do any additional setup after loading the view.
+  }
+
+  override func didReceiveMemoryWarning() {
+    super.didReceiveMemoryWarning()
+    // Dispose of any resources that can be recreated.
+  }
+  
+  func onSettingsTap(){
+    let settingsVC = AMRSettingsViewController()
+    navigationController?.pushViewController(settingsVC, animated: true)
+  }
 
     /*
     // MARK: - Navigation
