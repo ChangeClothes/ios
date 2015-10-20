@@ -13,16 +13,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
   var mainVC: AMRMainViewController?
+  var loginVC: AMRLoginViewController?
 
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     
+    AMRMeeting.registerSubclass()
     let credentials = Credentials.defaultCredentials
     Parse.setApplicationId(credentials.ApplicationID, clientKey: credentials.ClientKey)
     
     window = UIWindow(frame: UIScreen.mainScreen().bounds)
     mainVC = AMRMainViewController()
+    loginVC = AMRLoginViewController()
+    //add logic here for whether they're already logged in or not; if not send to loginpage instead of mainvc
     window?.rootViewController = mainVC
     window?.makeKeyAndVisible()
+    NSNotificationCenter.defaultCenter().postNotificationName("userDidLoginNotification", object: self)
     
     return true
   }
