@@ -50,7 +50,8 @@ class AMRClientsViewController: UIViewController, UITableViewDataSource, UITable
   
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let cell = clientTable.cellForRowAtIndexPath(indexPath) as! AMRClientTableViewCell
-        self.
+        var clientDetailVC = AMRClientsDetailViewController()
+        navigationController?.pushViewController(clientDetailVC, animated: true)
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
