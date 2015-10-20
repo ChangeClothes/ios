@@ -44,6 +44,15 @@ class AMRUpcomingMeetingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        var settings: UIButton = UIButton()
+        settings.setImage(UIImage(named: "settings"), forState: .Normal)
+        settings.frame = CGRectMake(0, 0, 30, 30)
+        settings.addTarget(self, action: Selector("onSettingsTap"), forControlEvents: .TouchUpInside)
+        
+        var leftNavBarButton = UIBarButtonItem(customView: settings)
+        self.navigationItem.leftBarButtonItem = leftNavBarButton
+
+        
         // BEGIN For Testing
         PFUser.logInWithUsernameInBackground("randy", password: "abc123", block: { (user: PFUser?, error: NSError?) -> Void in
             if let user = user {
@@ -74,7 +83,12 @@ class AMRUpcomingMeetingsViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         checkCalendarAuthorizationStatus()
     }
-    
+  
+    func onSettingsTap(){
+      let settingsVC = AMRSettingsViewController()
+      navigationController?.pushViewController(settingsVC, animated: true)
+    }
+  
     // MARK: - Initial Setup
     private func setupNavigationBar(){
         title = "Upcoming Meetings"
