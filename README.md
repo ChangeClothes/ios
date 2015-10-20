@@ -1,5 +1,4 @@
-# ios
-iOS app for Change Clothes
+###![Video Walkthrough](151020_ArmoireApp_Walkthrough.gif)
 
 ###What Armoire Does
 
