@@ -8,12 +8,15 @@
 
 import UIKit
 
+let kCurrentUserKey = "com.ArmoireApp.currentUserKey"
+let kUserLoggedOutNotification = "com."
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
   var mainVC: AMRMainViewController?
-  var loginVC: AMRLoginViewController?
+  var loginVC: PFLogInViewController?
 
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     
@@ -23,11 +26,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     window = UIWindow(frame: UIScreen.mainScreen().bounds)
     mainVC = AMRMainViewController()
-    loginVC = AMRLoginViewController()
-    //add logic here for whether they're already logged in or not; if not send to loginpage instead of mainvc
-    window?.rootViewController = mainVC
+    loginVC = PFLogInViewController()
+    loginVC?.delegate = self
+    
+    if let _ = PFUser.currentUser() {
+      window?.rootViewController = mainVC
+    } else {
+      window?.rootViewController = loginVC
+    }
+    
     window?.makeKeyAndVisible()
-    NSNotificationCenter.defaultCenter().postNotificationName("userDidLoginNotification", object: self)
     
     return true
   }
@@ -69,6 +77,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       
       return Credentials(ApplicationID: applicationID, ClientKey: clientKey)
     }
+  }
+}
+
+extension AppDelegate: PFLogInViewControllerDelegate {
+  func logInViewController(logInController: PFLogInViewController, didFailToLogInWithError error: NSError?) {
+    //
+  }
+  
+  func logInViewController(logInController: PFLogInViewController, didLogInUser user: PFUser) {
+    window?.rootViewController = mainVC
+  }
+  
+  func logInViewControllerDidCancelLogIn(logInController: PFLogInViewController) {
+    //
   }
 }
 
