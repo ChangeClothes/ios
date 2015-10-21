@@ -16,6 +16,13 @@ class AMRLoginViewController: PFLogInViewController {
     super.viewDidLoad()
     logInView?.signUpButton?.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)
     logInView?.signUpButton?.addTarget(self, action: "signUpButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+    
+    logInView?.logInButton?.addTarget(self, action: "loginButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+  }
+  
+  func loginButtonTapped(sender: UIButton) {
+    logInView?.usernameField?.text = ""
+    logInView?.passwordField?.text = ""
   }
   
   func signUpButtonTapped(sender: UIButton) {

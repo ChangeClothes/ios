@@ -32,7 +32,7 @@ class AMRMainViewController: UIViewController {
     super.viewDidLoad()
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "onUserLogin:", name: "userDidLoginNotification", object: nil)
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "onTapSettings:", name: "userDidTapSettingsNotification", object: nil)
-//    selectViewController(vcArray[1])
+    selectViewController(vcArray[1])
     let testObject = PFObject(className: "TestObject")
     testObject["foo"] = "bar"
     testObject.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
@@ -79,6 +79,13 @@ class AMRMainViewController: UIViewController {
   }
     
   @IBAction func onTapProfile(sender: AnyObject) {
+    PFUser.logOutInBackgroundWithBlock { (error: NSError?) -> Void in
+      if let error = error {
+        print(error.localizedDescription)
+      } else {
+        NSNotificationCenter.defaultCenter().postNotificationName(kUserDidLogoutNotification, object: self)
+      }
+    }
   }
 
   @IBAction func onTapProfileIcon(sender: AnyObject) {
