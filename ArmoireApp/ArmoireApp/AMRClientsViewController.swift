@@ -19,12 +19,12 @@ class AMRClientsViewController: UIViewController, UITableViewDataSource, UITable
     setUpClientTable()
     loadClients()
     self.title = "Clients"
-    var settings: UIButton = UIButton()
+    let settings: UIButton = UIButton()
     settings.setImage(UIImage(named: "settings"), forState: .Normal)
     settings.frame = CGRectMake(0, 0, 30, 30)
     settings.addTarget(self, action: Selector("onSettingsTap"), forControlEvents: .TouchUpInside)
     
-    var leftNavBarButton = UIBarButtonItem(customView: settings)
+    let leftNavBarButton = UIBarButtonItem(customView: settings)
     self.navigationItem.leftBarButtonItem = leftNavBarButton
     
 
@@ -42,7 +42,7 @@ class AMRClientsViewController: UIViewController, UITableViewDataSource, UITable
   }
   
   func loadClients(){
-    var query : PFQuery = PFUser.query()!
+    let query : PFQuery = PFUser.query()!
     query.findObjectsInBackgroundWithBlock { (arrayOfUsers, error) -> Void in
         self.clients = arrayOfUsers as? [PFUser]
         self.clientTable.reloadData()
@@ -58,13 +58,13 @@ class AMRClientsViewController: UIViewController, UITableViewDataSource, UITable
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = clientTable.dequeueReusableCellWithIdentifier(cellConstant, forIndexPath: indexPath)
-    cell.textLabel!.text = clients![indexPath.row]["firstName"] as! String
+    cell.textLabel!.text = clients![indexPath.row]["firstName"] as? String
     return cell
   }
 
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    let cell = clientTable.cellForRowAtIndexPath(indexPath) as! AMRClientTableViewCell
-    var clientDetailVC = AMRClientsDetailViewController()
+    tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    let clientDetailVC = AMRClientsDetailViewController()
     navigationController?.pushViewController(clientDetailVC, animated: true)
   }
 

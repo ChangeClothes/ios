@@ -72,8 +72,8 @@
                         <segment title="Client"/>
                     </segments>
                 </segmentedControl>
-                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OBf-QS-ddP">
-                    <rect key="frame" x="23" y="15" width="30" height="30"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OBf-QS-ddP">
+                    <rect key="frame" x="15" y="15" width="30" height="30"/>
                     <animations/>
                     <state key="normal" title="X">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>

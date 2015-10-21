@@ -11,7 +11,7 @@ import UIKit
 
 @objc protocol AMRSignUpViewControllerDelegate: class {
   optional func signUpViewController(signUpViewController: AMRSignUpViewController, shouldBeginSignUp: NSDictionary) -> Bool
-  optional func signUpViewController(signUpViewController: AMRSignUpViewController, didSignUpUser: PFUser)
+  optional func signUpViewController(signUpViewController: AMRSignUpViewController, didSignUpUser: AMRUser)
   optional func signUpViewController(signUpViewController: AMRSignUpViewController, didFailToSignUpWithError: NSError)
   optional func signUpViewControllerDidCancelSignUp(signUpViewController: AMRSignUpViewController)
   
@@ -37,16 +37,16 @@ class AMRSignUpViewController: UIViewController {
   }
   
   @IBAction func signUpButtonTapped(sender: UIButton) {
-    let user = PFUser()
+    let user = AMRUser()
     user.username = usernameTextField.text
     user.password = passwordTextField.text
     user.email = emailAddressTextField.text
-    user["firstName"] = firstNameTextField.text!
-    user["lastName"] = lastNameTextField.text!
+    user.firstName = firstNameTextField.text!
+    user.lastName = lastNameTextField.text!
     if stylistOrClientSegmentedControl.selectedSegmentIndex == 0 {
-      user["isStylist"] = true
+      user.isStylist = true
     } else {
-      user["isStylist"] = false
+      user.isStylist = false
     }
     
     let info: NSDictionary =
@@ -56,7 +56,7 @@ class AMRSignUpViewController: UIViewController {
       "email"     : emailAddressTextField.text!,
       "firstName" : firstNameTextField.text!,
       "lastName"  : lastNameTextField.text!,
-      "isStylist" : user["isStylist"]
+      "isStylist" : user.isStylist
     ]
     
     guard let shouldBeginSetup = delegate?.signUpViewController?(self, shouldBeginSignUp: info) where shouldBeginSetup == false else {

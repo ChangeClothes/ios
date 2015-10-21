@@ -10,6 +10,7 @@ import UIKit
 
 let kCurrentUserKey = "com.ArmoireApp.currentUserKey"
 let kUserDidLogoutNotification = "com.ArmoireApp.userDidLogoutNotification"
+let kUserDidLoginNotification = "com.ArmoireApp.userDidLoginNotification"
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -23,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDidLogout:", name: kUserDidLogoutNotification, object: nil)
     
+    AMRUser.registerSubclass()
     AMRMeeting.registerSubclass()
     let credentials = Credentials.defaultCredentials
     Parse.setApplicationId(credentials.ApplicationID, clientKey: credentials.ClientKey)
@@ -37,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     loginVC?.delegate = self
     loginVC?.customSignUpViewController = signUpVC
     
-    if let _ = PFUser.currentUser() {
+    if let _ = AMRUser.currentUser() {
       window?.rootViewController = mainVC
     } else {
       window?.rootViewController = loginVC
@@ -99,6 +101,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate: PFLogInViewControllerDelegate {
   func logInViewController(logInController: PFLogInViewController, didLogInUser user: PFUser) {
     window?.rootViewController = mainVC
+    NSNotificationCenter.defaultCenter().postNotificationName(kUserDidLoginNotification, object: self)
   }
   
 }
@@ -109,7 +112,7 @@ extension AppDelegate: AMRSignUpViewControllerDelegate {
     signUpViewController.dismissViewControllerAnimated(true, completion: nil)
   }
   
-  func signUpViewController(signUpViewController: AMRSignUpViewController, didSignUpUser: PFUser) {
+  func signUpViewController(signUpViewController: AMRSignUpViewController, didSignUpUser: AMRUser) {
     signUpViewController.dismissViewControllerAnimated(true, completion: nil)
   }
   
