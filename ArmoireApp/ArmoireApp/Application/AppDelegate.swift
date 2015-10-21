@@ -16,7 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
   var mainVC: AMRMainViewController?
-  var loginVC: PFLogInViewController?
+//  var loginVC: PFLogInViewController?
+    var loginVC: AMRLoginViewController?
+  var signUpVC: AMRSignUpViewController?
 
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     
@@ -26,9 +28,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     window = UIWindow(frame: UIScreen.mainScreen().bounds)
     mainVC = AMRMainViewController()
-    loginVC = PFLogInViewController()
-    loginVC?.delegate = self
     
+    signUpVC = AMRSignUpViewController()
+    signUpVC?.delegate = self
+    
+    loginVC = AMRLoginViewController()
+    loginVC?.delegate = self
+    loginVC?.customSignUpViewController = signUpVC
+
     if let _ = PFUser.currentUser() {
       window?.rootViewController = mainVC
     } else {
@@ -81,16 +88,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 extension AppDelegate: PFLogInViewControllerDelegate {
-  func logInViewController(logInController: PFLogInViewController, didFailToLogInWithError error: NSError?) {
-    //
-  }
-  
   func logInViewController(logInController: PFLogInViewController, didLogInUser user: PFUser) {
     window?.rootViewController = mainVC
   }
   
-  func logInViewControllerDidCancelLogIn(logInController: PFLogInViewController) {
-    //
+}
+
+extension AppDelegate: AMRSignUpViewControllerDelegate {
+  func signUpViewController(signUpViewController: AMRSignUpViewController, didFailToSignUpWithError: NSError) {
+    print(didFailToSignUpWithError.localizedDescription)
+    signUpViewController.dismissViewControllerAnimated(true, completion: nil)
   }
+  
+  func signUpViewController(signUpViewController: AMRSignUpViewController, didSignUpUser: PFUser) {
+    signUpViewController.dismissViewControllerAnimated(true, completion: nil)
+  }
+  
+  func signUpViewControllerDidCancelSignUp(signUpViewController: AMRSignUpViewController) {
+    signUpViewController.dismissViewControllerAnimated(true, completion: nil)
+  }
+
+  
 }
 
