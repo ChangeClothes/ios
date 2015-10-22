@@ -1,0 +1,1 @@
+../../../../Atlas/Code/Protocols/ATLAvatarItem.h

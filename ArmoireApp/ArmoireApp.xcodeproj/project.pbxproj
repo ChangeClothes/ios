@@ -234,6 +234,7 @@
 				6F41E1F31BCE0FF900729AC5 /* Frameworks */,
 				6F41E1F41BCE0FF900729AC5 /* Resources */,
 				CAE3680A1583D26BB2A5EA9F /* Copy Pods Resources */,
+				7B89DDE4969BE423139D212E /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -304,6 +305,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		7B89DDE4969BE423139D212E /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ArmoireApp/Pods-ArmoireApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		CAE3680A1583D26BB2A5EA9F /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

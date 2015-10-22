@@ -1,0 +1,1 @@
+../../../../Atlas/Code/Models/ATLMediaAttachment.h
