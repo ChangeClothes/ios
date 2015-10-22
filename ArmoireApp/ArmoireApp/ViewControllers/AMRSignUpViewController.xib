@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AMRSignUpViewController" customModule="ArmoireApp" customModuleProvider="target">
+            <connections>
+                <outlet property="emailAddressTextField" destination="t7r-PG-0I0" id="WZ5-rt-Mkf"/>
+                <outlet property="firstNameTextField" destination="lMC-gb-AUt" id="tjZ-rd-0nU"/>
+                <outlet property="lastNameTextField" destination="78D-Ue-yow" id="md3-vJ-mrl"/>
+                <outlet property="passwordTextField" destination="Z77-K1-CSA" id="Ksj-Yr-sNH"/>
+                <outlet property="stylistOrClientSegmentedControl" destination="Gx2-Pc-tuA" id="yaA-b5-iJE"/>
+                <outlet property="usernameTextField" destination="wgq-9V-TdW" id="yIs-At-cqN"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="wgq-9V-TdW">
+                    <rect key="frame" x="175" y="30" width="250" height="30"/>
+                    <animations/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="250" id="4Tp-EP-QIj"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Z77-K1-CSA">
+                    <rect key="frame" x="175" y="60" width="250" height="30"/>
+                    <animations/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                </textField>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="E-mail Address" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="t7r-PG-0I0">
+                    <rect key="frame" x="175" y="90" width="250" height="30"/>
+                    <animations/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                </textField>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First Name" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="lMC-gb-AUt">
+                    <rect key="frame" x="175" y="120" width="250" height="30"/>
+                    <animations/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" keyboardType="namePhonePad"/>
+                </textField>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last Name" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="78D-Ue-yow">
+                    <rect key="frame" x="175" y="150" width="250" height="30"/>
+                    <animations/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" keyboardType="namePhonePad"/>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z7T-s3-auB">
+                    <rect key="frame" x="175" y="249" width="60" height="30"/>
+                    <animations/>
+                    <color key="backgroundColor" red="0.10980392160000001" green="0.30980392159999998" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="tintColor" red="1" green="0.66727261559999995" blue="0.33022761319999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="normal" title="SIGN UP"/>
+                    <connections>
+                        <action selector="signUpButtonTapped:" destination="-1" eventType="touchUpInside" id="4Q3-xR-Cb6"/>
+                    </connections>
+                </button>
+                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="Gx2-Pc-tuA">
+                    <rect key="frame" x="175" y="190" width="105" height="29"/>
+                    <animations/>
+                    <segments>
+                        <segment title="Stylist"/>
+                        <segment title="Client"/>
+                    </segments>
+                </segmentedControl>
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OBf-QS-ddP">
+                    <rect key="frame" x="23" y="15" width="30" height="30"/>
+                    <animations/>
+                    <state key="normal" title="X">
+                        <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                    </state>
+                    <connections>
+                        <action selector="dimissButtonTapped:" destination="-1" eventType="touchUpInside" id="PxG-ws-VDR"/>
+                    </connections>
+                </button>
+            </subviews>
+            <animations/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="lMC-gb-AUt" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="2Op-hD-3ZL"/>
+                <constraint firstItem="wgq-9V-TdW" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="30" id="5sX-1m-ctl"/>
+                <constraint firstItem="Z7T-s3-auB" firstAttribute="leading" secondItem="Gx2-Pc-tuA" secondAttribute="leading" id="7rN-R7-R45"/>
+                <constraint firstItem="Z7T-s3-auB" firstAttribute="top" secondItem="Gx2-Pc-tuA" secondAttribute="bottom" constant="31" id="8XA-D2-1XA"/>
+                <constraint firstItem="Gx2-Pc-tuA" firstAttribute="top" secondItem="78D-Ue-yow" secondAttribute="bottom" constant="10" id="AlY-Iz-spZ"/>
+                <constraint firstItem="lMC-gb-AUt" firstAttribute="width" secondItem="wgq-9V-TdW" secondAttribute="width" id="B4Y-vf-DsA"/>
+                <constraint firstItem="Gx2-Pc-tuA" firstAttribute="leading" secondItem="wgq-9V-TdW" secondAttribute="leading" id="FnN-tV-Wpv"/>
+                <constraint firstItem="OBf-QS-ddP" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="15" id="HfB-H0-yHz"/>
+                <constraint firstItem="Z77-K1-CSA" firstAttribute="top" secondItem="wgq-9V-TdW" secondAttribute="bottom" id="Q17-pT-uod"/>
+                <constraint firstItem="t7r-PG-0I0" firstAttribute="top" secondItem="Z77-K1-CSA" secondAttribute="bottom" id="QB5-qn-fMU"/>
+                <constraint firstItem="wgq-9V-TdW" firstAttribute="leading" secondItem="Z77-K1-CSA" secondAttribute="leading" id="aLk-Yk-fwY"/>
+                <constraint firstItem="wgq-9V-TdW" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="ems-99-zHo"/>
+                <constraint firstItem="78D-Ue-yow" firstAttribute="top" secondItem="lMC-gb-AUt" secondAttribute="bottom" id="fPu-3x-TgI"/>
+                <constraint firstItem="t7r-PG-0I0" firstAttribute="leading" secondItem="Z77-K1-CSA" secondAttribute="leading" id="fTw-gY-BoQ"/>
+                <constraint firstItem="lMC-gb-AUt" firstAttribute="top" secondItem="t7r-PG-0I0" secondAttribute="bottom" id="hXo-3O-IDd"/>
+                <constraint firstItem="78D-Ue-yow" firstAttribute="leading" secondItem="Z77-K1-CSA" secondAttribute="leading" id="ild-Wr-vER"/>
+                <constraint firstItem="Z77-K1-CSA" firstAttribute="width" secondItem="wgq-9V-TdW" secondAttribute="width" id="mmD-7z-3HN"/>
+                <constraint firstItem="78D-Ue-yow" firstAttribute="width" secondItem="wgq-9V-TdW" secondAttribute="width" id="s1Q-Dj-41H"/>
+                <constraint firstItem="t7r-PG-0I0" firstAttribute="width" secondItem="wgq-9V-TdW" secondAttribute="width" id="sDS-BW-WYz"/>
+                <constraint firstItem="lMC-gb-AUt" firstAttribute="leading" secondItem="Z77-K1-CSA" secondAttribute="leading" id="ybG-vh-GrL"/>
+                <constraint firstItem="OBf-QS-ddP" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="yxf-TO-a7z"/>
+            </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="2Op-hD-3ZL"/>
+                </mask>
+            </variation>
+        </view>
+    </objects>
+</document>
