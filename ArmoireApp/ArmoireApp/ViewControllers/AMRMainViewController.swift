@@ -33,11 +33,6 @@ class AMRMainViewController: UIViewController {
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "onUserLogin:", name: "userDidLoginNotification", object: nil)
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "onTapSettings:", name: "userDidTapSettingsNotification", object: nil)
     selectViewController(vcArray[1])
-    let testObject = PFObject(className: "TestObject")
-    testObject["foo"] = "bar"
-    testObject.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
-      print("Object has been saved.")
-    }
   }
     
   override func didReceiveMemoryWarning() {

@@ -13,11 +13,11 @@ class AMRMeeting: PFObject {
     @NSManaged var location: String?
     @NSManaged var startDate: NSDate
     @NSManaged var endDate: NSDate
-    @NSManaged var client: PFUser
-    @NSManaged var stylist: PFUser
+    @NSManaged var client: AMRUser
+    @NSManaged var stylist: AMRUser
     @NSManaged var title: String
     
-    class func meetingArrayForStylist(stylist: PFUser?, client: PFUser?, completion: (objects: [AMRMeeting]?, error: NSError?) -> Void)  {
+    class func meetingArrayForStylist(stylist: AMRUser?, client: AMRUser?, completion: (objects: [AMRMeeting]?, error: NSError?) -> Void)  {
         
         let query = self.query()
         if let stylist = stylist {
