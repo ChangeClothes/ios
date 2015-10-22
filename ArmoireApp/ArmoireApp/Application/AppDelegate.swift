@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     AMRUser.registerSubclass()
     AMRMeeting.registerSubclass()
     let credentials = Credentials.defaultCredentials
-    Parse.setApplicationId(credentials.ApplicationID, clientKey: credentials.ClientKey)
+    Parse.setApplicationId(credentials.ParseApplicationID, clientKey: credentials.ParseClientKey)
     
     window = UIWindow(frame: UIScreen.mainScreen().bounds)
     mainVC = AMRMainViewController()
@@ -80,16 +80,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     static let defaultCredentialsFile = "Credentials"
     static let defaultCredentials     = Credentials.loadFromPropertyListNamed(defaultCredentialsFile)
     
-    let ApplicationID: String
-    let ClientKey: String
+    let ParseApplicationID: String
+    let ParseClientKey: String
+    let LayerApplicationID: String
     
     private static func loadFromPropertyListNamed(name: String) -> Credentials {
       let path           = NSBundle.mainBundle().pathForResource(name, ofType: "plist")!
       let dictionary     = NSDictionary(contentsOfFile: path)!
-      let applicationID    = dictionary["ApplicationID"] as! String
-      let clientKey = dictionary["ClientKey"] as! String
+      let parseApplicationID = dictionary["ParseApplicationID"] as! String
+      let parseClientKey = dictionary["ParseClientKey"] as! String
+      let layerApplicationID = dictionary["LayerApplicationID"] as! String
       
-      return Credentials(ApplicationID: applicationID, ClientKey: clientKey)
+      return Credentials(ParseApplicationID: parseApplicationID, ParseClientKey: parseClientKey, LayerApplicationID: layerApplicationID)
     }
   }
   
