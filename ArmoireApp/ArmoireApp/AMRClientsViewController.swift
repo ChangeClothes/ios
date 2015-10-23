@@ -65,7 +65,7 @@ class AMRClientsViewController: UIViewController, UITableViewDataSource, UITable
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     tableView.deselectRowAtIndexPath(indexPath, animated: true)
     let clientDetailVC = AMRClientsDetailViewController()
-    navigationController?.pushViewController(clientDetailVC, animated: true)
+    self.presentViewController(clientDetailVC, animated: true, completion: nil)
   }
 
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

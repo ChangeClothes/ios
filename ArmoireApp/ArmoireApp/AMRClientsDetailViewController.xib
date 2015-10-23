@@ -14,7 +14,20 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h0r-oz-VMO">
+                    <rect key="frame" x="273" y="520" width="54" height="30"/>
+                    <state key="normal" title="Dismiss"/>
+                    <connections>
+                        <action selector="onTapDismiss:" destination="-1" eventType="touchUpInside" id="eDV-oi-kyl"/>
+                    </connections>
+                </button>
+            </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="h0r-oz-VMO" secondAttribute="bottom" constant="50" id="LPf-a3-N9t"/>
+                <constraint firstItem="h0r-oz-VMO" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="MLE-y6-aX6"/>
+            </constraints>
         </view>
     </objects>
 </document>
