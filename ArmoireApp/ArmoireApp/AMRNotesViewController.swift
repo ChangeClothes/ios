@@ -30,7 +30,7 @@ class AMRNotesViewController: UIViewController {
   
   func onSettingsTap(){
     let settingsVC = AMRSettingsViewController()
-    navigationController?.pushViewController(settingsVC, animated: true)
+    self.presentViewController(settingsVC, animated: true, completion: nil)
   }
 
     /*

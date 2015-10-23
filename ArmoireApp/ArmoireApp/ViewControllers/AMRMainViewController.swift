@@ -42,7 +42,8 @@ class AMRMainViewController: UIViewController {
 
     
   func onTapSettings(notification: NSNotification){
-    selectViewController(vcArray[6])
+    let settingsVC = AMRSettingsViewController()
+    self.presentViewController(settingsVC, animated: true, completion: nil)
   }
   
   func onUserLogin(notification: NSNotification){
