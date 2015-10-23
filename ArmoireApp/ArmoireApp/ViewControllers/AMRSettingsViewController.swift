@@ -25,6 +25,15 @@ class AMRSettingsViewController: UIViewController {
     self.dismissViewControllerAnimated(true, completion: nil)
   }
 
+  @IBAction func onTapLogout(sender: UIButton) {
+    PFUser.logOutInBackgroundWithBlock { (error: NSError?) -> Void in
+      if let error = error {
+        print(error.localizedDescription)
+      } else {
+        NSNotificationCenter.defaultCenter().postNotificationName(kUserDidLogoutNotification, object: self)
+      }
+    }
+  }
     /*
     // MARK: - Navigation
 

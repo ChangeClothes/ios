@@ -22,12 +22,21 @@
                         <action selector="onTapDismiss:" destination="-1" eventType="touchUpInside" id="gBQ-do-6KM"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rcc-fG-VeW">
+                    <rect key="frame" x="276" y="285" width="48" height="30"/>
+                    <state key="normal" title="Logout"/>
+                    <connections>
+                        <action selector="onTapLogout:" destination="-1" eventType="touchUpInside" id="wT1-AO-JgR"/>
+                    </connections>
+                </button>
             </subviews>
             <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="cNR-AJ-xLA" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="FB9-ct-y4Q"/>
                 <constraint firstItem="cNR-AJ-xLA" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="UKX-Ro-wQB"/>
+                <constraint firstItem="rcc-fG-VeW" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Ufm-Dg-nut"/>
+                <constraint firstItem="rcc-fG-VeW" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="emo-uN-xZx"/>
                 <constraint firstAttribute="bottom" secondItem="cNR-AJ-xLA" secondAttribute="bottom" constant="40" id="vJ3-F4-jIh"/>
             </constraints>
             <variation key="default">
