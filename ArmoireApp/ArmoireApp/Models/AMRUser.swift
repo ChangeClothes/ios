@@ -13,6 +13,7 @@ class AMRUser: PFUser {
   @NSManaged var isStylist: Bool
   @NSManaged var firstName: String
   @NSManaged var lastName: String
+  @NSManaged var fullName: String
   
   override class func currentUser() -> AMRUser? {
     return PFUser.currentUser() as? AMRUser

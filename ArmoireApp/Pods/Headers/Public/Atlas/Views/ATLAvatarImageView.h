@@ -1,0 +1,1 @@
+../../../../Atlas/Code/Views/ATLAvatarImageView.h

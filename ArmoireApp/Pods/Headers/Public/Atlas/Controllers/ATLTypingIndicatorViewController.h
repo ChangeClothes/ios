@@ -1,0 +1,1 @@
+../../../../Atlas/Code/Controllers/ATLTypingIndicatorViewController.h

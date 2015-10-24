@@ -43,6 +43,7 @@ class AMRSignUpViewController: UIViewController {
     user.email = emailAddressTextField.text
     user.firstName = firstNameTextField.text!
     user.lastName = lastNameTextField.text!
+    user.fullName = firstNameTextField.text! + " " + lastNameTextField.text!
     if stylistOrClientSegmentedControl.selectedSegmentIndex == 0 {
       user.isStylist = true
     } else {
@@ -56,6 +57,7 @@ class AMRSignUpViewController: UIViewController {
       "email"     : emailAddressTextField.text!,
       "firstName" : firstNameTextField.text!,
       "lastName"  : lastNameTextField.text!,
+      "fullName"  : firstNameTextField.text! + " " + lastNameTextField.text!,
       "isStylist" : user.isStylist
     ]
     
