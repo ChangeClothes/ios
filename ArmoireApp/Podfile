@@ -3,6 +3,8 @@ platform :ios, '8.0'
 
 target 'ArmoireApp' do
 
+pod 'LayerKit'
+pod 'Atlas'
 pod 'Parse'
 pod 'ParseUI'
 
