@@ -10,19 +10,23 @@ import UIKit
 
 class AMRClientsDetailViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.title = "Client Details"
+  override func viewDidLoad() {
+      super.viewDidLoad()
+      self.title = "Client Details"
 
-        // Do any additional setup after loading the view.
-    }
+      // Do any additional setup after loading the view.
+  }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+  override func didReceiveMemoryWarning() {
+      super.didReceiveMemoryWarning()
+      // Dispose of any resources that can be recreated.
+  }
     
 
+  @IBAction func onTapDismiss(sender: AnyObject) {
+    self.dismissViewControllerAnimated(true, completion: nil)
+  }
+  
     /*
     // MARK: - Navigation
 

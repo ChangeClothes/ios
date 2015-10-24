@@ -69,6 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   private func setupParse() {
     AMRUser.registerSubclass()
     AMRMeeting.registerSubclass()
+    AMRNote.registerSubclass()
     let credentials = Credentials.defaultCredentials
     Parse.setApplicationId(credentials.ParseApplicationID, clientKey: credentials.ParseClientKey)
   }

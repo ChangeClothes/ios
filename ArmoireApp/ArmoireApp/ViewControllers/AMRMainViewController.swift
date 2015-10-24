@@ -36,7 +36,8 @@ class AMRMainViewController: UIViewController {
   
   
   func onTapSettings(notification: NSNotification){
-    selectViewController(vcArray[6])
+    let settingsVC = AMRSettingsViewController()
+    self.presentViewController(settingsVC, animated: true, completion: nil)
   }
   
   func onUserLogin(notification: NSNotification){
@@ -79,13 +80,6 @@ class AMRMainViewController: UIViewController {
   }
   
   @IBAction func onTapProfile(sender: AnyObject) {
-    PFUser.logOutInBackgroundWithBlock { (error: NSError?) -> Void in
-      if let error = error {
-        print(error.localizedDescription)
-      } else {
-        NSNotificationCenter.defaultCenter().postNotificationName(kUserDidLogoutNotification, object: self)
-      }
-    }
   }
   
   @IBAction func onTapProfileIcon(sender: AnyObject) {

@@ -38,7 +38,7 @@ class AMRClientsViewController: UIViewController, UITableViewDataSource, UITable
   
   func onSettingsTap(){
     let settingsVC = AMRSettingsViewController()
-    navigationController?.pushViewController(settingsVC, animated: true)
+    self.presentViewController(settingsVC, animated: true, completion: nil)
   }
   
   func loadClients(){
@@ -65,7 +65,7 @@ class AMRClientsViewController: UIViewController, UITableViewDataSource, UITable
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     tableView.deselectRowAtIndexPath(indexPath, animated: true)
     let clientDetailVC = AMRClientsDetailViewController()
-    navigationController?.pushViewController(clientDetailVC, animated: true)
+    self.presentViewController(clientDetailVC, animated: true, completion: nil)
   }
 
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
