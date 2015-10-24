@@ -17,7 +17,11 @@ class AMRMainViewController: UIViewController {
   @IBOutlet weak var profileIconImageView: UIImageView!
   @IBOutlet weak var profileImageView: UIImageView!
   @IBOutlet weak var containerView: UIView!
+
   var selectedViewController: UIViewController?
+  var stylist: AMRUser?
+  var client: AMRUser?
+
   let vcArray = [
     UINavigationController(rootViewController: AMRLoginViewController()),
     UINavigationController(rootViewController: AMRClientsViewController()),

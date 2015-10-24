@@ -10,6 +10,9 @@ import UIKit
 
 class AMRClientsDetailViewController: UIViewController {
 
+  var stylist: AMRUser?
+  var client: AMRUser?
+
   override func viewDidLoad() {
       super.viewDidLoad()
       self.title = "Client Details"

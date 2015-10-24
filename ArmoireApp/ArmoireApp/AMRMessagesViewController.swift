@@ -11,6 +11,8 @@ import UIKit
 class AMRMessagesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
   var messages: NSDictionary?
+  var stylist: AMRUser?
+  var client: AMRUser?
   @IBOutlet weak var messagesTable: UITableView!
   override func viewDidLoad() {
     super.viewDidLoad()

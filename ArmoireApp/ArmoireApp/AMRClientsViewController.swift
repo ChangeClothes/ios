@@ -11,6 +11,8 @@ import UIKit
 class AMRClientsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
   
   @IBOutlet weak var clientTable: UITableView!
+  var stylist: AMRUser?
+  var client: AMRUser?
   var clients: [PFUser]?
   let cellConstant = "clientTableViewCellReuseIdentifier"
 
