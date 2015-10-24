@@ -77,6 +77,7 @@ class AMRMessagesDetailsViewController: ATLConversationViewController {
   
 }
 
+// MARK: - ATLConversationViewController Delegate Methods
 extension AMRMessagesDetailsViewController: ATLConversationViewControllerDelegate {
   func conversationViewController(viewController: ATLConversationViewController, didSendMessage message: LYRMessage) {
     print("Message sent!")
@@ -92,6 +93,7 @@ extension AMRMessagesDetailsViewController: ATLConversationViewControllerDelegat
 
 }
 
+// MARK: - ATLConversationViewController Datasource Methods
 extension AMRMessagesDetailsViewController: ATLConversationViewControllerDataSource {
   func conversationViewController(conversationViewController: ATLConversationViewController, participantForIdentifier participantIdentifier: String) -> ATLParticipant? {
     if (participantIdentifier == AMRUser.currentUser()!.objectId!) {
@@ -152,6 +154,7 @@ extension AMRMessagesDetailsViewController: ATLConversationViewControllerDataSou
 
 }
 
+// MARK: - ATLParticipantTableViewController Delegate Methods
 extension AMRMessagesDetailsViewController: ATLParticipantTableViewControllerDelegate {
   func participantTableViewController(participantTableViewController: ATLParticipantTableViewController, didSelectParticipant participant: ATLParticipant) {
     print("participant: \(participant)")
