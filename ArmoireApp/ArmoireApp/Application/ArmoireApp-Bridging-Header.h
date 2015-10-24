@@ -5,3 +5,4 @@
 #import <ParseUI/ParseUI.h>
 #import <Parse/Parse.h>
 #import <Parse/PFObject+Subclass.h>
+#import <Atlas/Atlas.h>
