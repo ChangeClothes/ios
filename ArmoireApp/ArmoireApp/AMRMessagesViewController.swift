@@ -19,6 +19,8 @@ class AMRMessagesViewController: ATLConversationListViewController {
     
     super.viewDidLoad()
     self.title = "Messages"
+    
+    // TODO: Remove this when settings button is refactored
     var settings: UIButton = UIButton()
     settings.setImage(UIImage(named: "settings"), forState: .Normal)
     settings.frame = CGRectMake(0, 0, 30, 30)
@@ -26,9 +28,12 @@ class AMRMessagesViewController: ATLConversationListViewController {
     
     var leftNavBarButton = UIBarButtonItem(customView: settings)
     self.navigationItem.leftBarButtonItem = leftNavBarButton
+    // End TODO
     
     self.dataSource = self
     self.delegate = self
+    
+    setupNavigationBar()
 
     displaysAvatarItem = true
   }
@@ -38,6 +43,39 @@ class AMRMessagesViewController: ATLConversationListViewController {
     // Dispose of any resources that can be recreated.
   }
   
+  // MARK: - Initial setup
+  private func setupNavigationBar(){
+    let composeItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Compose, target: self, action: Selector("composeButtonTapped:"))
+    self.navigationItem.setRightBarButtonItem(composeItem, animated: false)
+  }
+  
+  // MARK: - Behavior
+  func composeButtonTapped(sender: AnyObject) {
+    let controller = AMRMessagesDetailsViewController(layerClient: self.layerClient)
+    controller.displaysAddressBar = true
+    self.navigationController!.pushViewController(controller, animated: true)
+  }
+  
+  // MARK:- Conversation Selection
+  
+  // The following method handles presenting the correct `AMRMessagesViewController`, regardeless of the current state of the navigation stack.
+  func presentControllerWithConversation(conversation: LYRConversation) {
+    let shouldShowAddressBar: Bool  = conversation.participants.count > 2 || conversation.participants.count == 0
+    let conversationViewController: AMRMessagesDetailsViewController = AMRMessagesDetailsViewController(layerClient: self.layerClient)
+    conversationViewController.displaysAddressBar = shouldShowAddressBar
+    conversationViewController.conversation = conversation
+    
+    if self.navigationController!.topViewController == self {
+      self.navigationController!.pushViewController(conversationViewController, animated: true)
+    } else {
+      var viewControllers = self.navigationController!.viewControllers
+      let listViewControllerIndex: Int = self.navigationController!.viewControllers.indexOf(self)!
+      viewControllers[listViewControllerIndex + 1 ..< viewControllers.count] = [conversationViewController]
+      self.navigationController!.setViewControllers(viewControllers, animated: true)
+    }
+  }
+  
+  // TODO: Remove this when settings button in refactored
   func onSettingsTap(){
     let settingsVC = AMRSettingsViewController()
     self.presentViewController(settingsVC, animated: true, completion: nil)
@@ -48,7 +86,7 @@ class AMRMessagesViewController: ATLConversationListViewController {
 // MARK: - ATLConversationListViewController Delegate
 extension AMRMessagesViewController: ATLConversationListViewControllerDelegate {
   func conversationListViewController(conversationListViewController: ATLConversationListViewController, didSelectConversation conversation:LYRConversation) {
-//    self.presentControllerWithConversation(conversation)
+    self.presentControllerWithConversation(conversation)
   }
   
   func conversationListViewController(conversationListViewController: ATLConversationListViewController, didDeleteConversation conversation: LYRConversation, deletionMode: LYRDeletionMode) {
