@@ -26,6 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     AMRUser.registerSubclass()
     AMRMeeting.registerSubclass()
+    AMRNote.registerSubclass()
     let credentials = Credentials.defaultCredentials
     Parse.setApplicationId(credentials.ApplicationID, clientKey: credentials.ClientKey)
     
