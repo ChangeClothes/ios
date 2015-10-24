@@ -52,12 +52,12 @@ class AMRNotesViewController: UIViewController {
   }
   
   func loadNote(){
-    var testUser = AMRUser.currentUser()
-    AMRNote.noteForUser(testUser, client: testUser) { (objects, error) -> Void in
+    AMRNote.noteForUser(AMRUser.currentUser(), client: AMRUser.currentUser()) { (objects, error) -> Void in
       if let error = error {
         print(error.localizedDescription)
       } else if (objects!.isEmpty) {
         // handle there being no note; create initial note
+        self.createNote()
       } else if let notes = objects {
         if (notes.count > 1 ){
           // problem because there is more than one note associated with this user
@@ -67,6 +67,20 @@ class AMRNotesViewController: UIViewController {
           self.startingText = self.note?.content
           self.noteTextView.text = self.note?.content
         }
+      }
+    }
+  }
+  
+  private func createNote(){
+    var note = PFObject(className: "Note")
+    note.setObject(AMRUser.currentUser()!, forKey: "client")
+    note.setObject(AMRUser.currentUser()!, forKey: "stylist")
+    note.saveInBackgroundWithBlock { (success, error) -> Void in
+      if success {
+        NSLog("Note created")
+        self.loadNote()
+      } else {
+        NSLog("%@", error!)
       }
     }
   }
