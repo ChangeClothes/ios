@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AMRMainViewController: UIViewController {
+class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
   
   @IBOutlet weak var menuView: UIView!
   @IBOutlet weak var messagesImageView: UIImageView!
@@ -34,8 +34,8 @@ class AMRMainViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: "onUserLogin:", name: "userDidLoginNotification", object: nil)
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: "onTapSettings:", name: "userDidTapSettingsNotification", object: nil)
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "onUserLogin:", name: kUserDidLoginNotification, object: nil)
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "onUserLogout:", name: kUserDidLogoutNotification, object: nil)
     selectViewController(vcArray[1])
   }
     
@@ -43,17 +43,17 @@ class AMRMainViewController: UIViewController {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
   }
-
-    
-  func onTapSettings(notification: NSNotification){
-    let settingsVC = AMRSettingsViewController()
-    self.presentViewController(settingsVC, animated: true, completion: nil)
-  }
   
   func onUserLogin(notification: NSNotification){
+    setVCData()
     selectViewController(vcArray[1])
   }
   
+  func onUserLogout(notification: NSNotification){
+    flushVCData()
+    self.dismissViewControllerAnimated(true, completion: nil)
+  }
+
   func selectViewController(viewController: UIViewController){
     if let oldViewController = selectedViewController{
       oldViewController.willMoveToParentViewController(nil)
@@ -69,6 +69,19 @@ class AMRMainViewController: UIViewController {
     selectedViewController = viewController
   }
   
+  func flushVCData() {
+    print("main vc: flush")
+//    for vc in vcArray {
+//      vc.flushVCData()
+//    }
+  }
+
+  func setVCData() {
+    print("main vc: set")
+//    for vc in vcArray {
+//      vc.setVCData()
+//    }
+  }
   
   @IBAction func onTapMessages(sender: UITapGestureRecognizer) {
     selectViewController(vcArray[2])
@@ -98,4 +111,9 @@ class AMRMainViewController: UIViewController {
   }
   */
   
+}
+
+protocol AMRViewControllerProtocol {
+  func flushVCData()
+  func setVCData()
 }
