@@ -11,7 +11,7 @@ import UIKit
 class AMRSettingsViewController: UIViewController {
   var stylist: AMRUser?
   var client: AMRUser?
-
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     self.title = "Settings"

@@ -46,8 +46,12 @@ class AMRClientsViewController: UIViewController, UITableViewDataSource, UITable
   func loadClients(){
     let query : PFQuery = PFUser.query()!
     query.findObjectsInBackgroundWithBlock { (arrayOfUsers, error) -> Void in
+      if let error = error {
+        print(error.localizedDescription)
+      } else {
         self.clients = arrayOfUsers as? [PFUser]
         self.clientTable.reloadData()
+      }
     }
   }
   

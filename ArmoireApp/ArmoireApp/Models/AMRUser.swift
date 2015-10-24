@@ -14,6 +14,7 @@ class AMRUser: PFUser {
   @NSManaged var firstName: String
   @NSManaged var lastName: String
   @NSManaged var fullName: String
+  @NSManaged var stylist: AMRUser
   
   override class func currentUser() -> AMRUser? {
     return PFUser.currentUser() as? AMRUser

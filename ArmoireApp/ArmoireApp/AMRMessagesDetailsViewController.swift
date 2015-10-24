@@ -11,7 +11,7 @@ import UIKit
 class AMRMessagesDetailsViewController: UIViewController {
   var stylist: AMRUser?
   var client: AMRUser?
-
+  
   override func viewDidLoad() {
       super.viewDidLoad()
       self.title = "Message Detail"
@@ -23,7 +23,7 @@ class AMRMessagesDetailsViewController: UIViewController {
       super.didReceiveMemoryWarning()
       // Dispose of any resources that can be recreated.
   }
-
+  
 
   /*
   // MARK: - Navigation

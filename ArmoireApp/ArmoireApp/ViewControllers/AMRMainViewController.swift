@@ -18,7 +18,7 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
   @IBOutlet weak var profileIconImageView: UIImageView!
   @IBOutlet weak var profileImageView: UIImageView!
   @IBOutlet weak var containerView: UIView!
-
+  
   var selectedViewController: UIViewController?
   var layerClient: LYRClient!
   var stylist: AMRUser?
@@ -52,7 +52,7 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
       UINavigationController(rootViewController: AMRClientsViewController()),
       UINavigationController (rootViewController: AMRSettingsViewController())
     ]
-    setVCData()
+    setVCData(nil, client: nil)
     selectViewController(vcArray[1])
   }
   
@@ -60,7 +60,7 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
     flushVCData()
     self.dismissViewControllerAnimated(true, completion: nil)
   }
-
+  
   func selectViewController(viewController: UIViewController){
     if let oldViewController = selectedViewController{
       oldViewController.willMoveToParentViewController(nil)
@@ -77,17 +77,39 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
   }
   
   func flushVCData() {
-    print("main vc: flush")
 //    for vc in vcArray {
 //      vc.flushVCData()
 //    }
   }
-
-  func setVCData() {
-    print("main vc: set")
-//    for vc in vcArray {
-//      vc.setVCData()
-//    }
+  
+  func setVCData(stylist: AMRUser?, client: AMRUser?) {
+    setLocalVCData()
+    setVCDataForTabs()
+  }
+  
+  private func setVCDataForTabs(){
+    for nav in vcArray {
+      let vc = nav.viewControllers.first as? AMRViewControllerProtocol
+      vc?.setVCData(self.stylist, client: self.client)
+    }
+  }
+  
+  private func setLocalVCData(){
+    if let user = AMRUser.currentUser(){
+      if (user.isStylist){
+        self.stylist = user
+      } else {
+        self.client = user
+        let client_stylist = user["stylist"] as? AMRUser
+        client_stylist?.fetchInBackgroundWithBlock({ (loaded_client_stylist, error) -> Void in
+          if let error = error {
+            print(error.localizedDescription)
+          } else {
+            self.stylist = loaded_client_stylist as? AMRUser
+          }
+        })
+      }
+    }
   }
   
   @IBAction func onTapMessages(sender: UITapGestureRecognizer) {
@@ -122,5 +144,5 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
 
 protocol AMRViewControllerProtocol {
   func flushVCData()
-  func setVCData()
+  func setVCData(stylist: AMRUser?, client: AMRUser?)
 }
