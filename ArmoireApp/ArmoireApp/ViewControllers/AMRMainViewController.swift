@@ -25,33 +25,32 @@ class AMRMainViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: "onUserLogin:", name: "userDidLoginNotification", object: nil)
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "onUserLogin:", name: kUserDidLoginNotification, object: nil)
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "onTapSettings:", name: "userDidTapSettingsNotification", object: nil)
-    
-    vcArray = [
-    UINavigationController(rootViewController: AMRLoginViewController()),
-    UINavigationController(rootViewController: AMRClientsViewController()),
-      UINavigationController(rootViewController: AMRMessagesViewController(layerClient: layerClient) ),
-    UINavigationController(rootViewController: AMRNotesViewController()),
-    UINavigationController(rootViewController: AMRUpcomingMeetingsViewController()),
-    UINavigationController(rootViewController: AMRClientsViewController()),
-    UINavigationController (rootViewController: AMRSettingsViewController())
-    ]
-    
-    selectViewController(vcArray[1])
   }
-    
+  
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
   }
-
-    
+  
+  
   func onTapSettings(notification: NSNotification){
     selectViewController(vcArray[6])
   }
   
   func onUserLogin(notification: NSNotification){
+    
+    vcArray = [
+      UINavigationController(rootViewController: AMRLoginViewController()),
+      UINavigationController(rootViewController: AMRClientsViewController()),
+      UINavigationController(rootViewController: AMRMessagesViewController(layerClient: layerClient) ),
+      UINavigationController(rootViewController: AMRNotesViewController()),
+      UINavigationController(rootViewController: AMRUpcomingMeetingsViewController()),
+      UINavigationController(rootViewController: AMRClientsViewController()),
+      UINavigationController (rootViewController: AMRSettingsViewController())
+    ]
+    
     selectViewController(vcArray[1])
   }
   
@@ -61,7 +60,7 @@ class AMRMainViewController: UIViewController {
       oldViewController.view.removeFromSuperview()
       oldViewController.removeFromParentViewController()
     }
-
+    
     self.addChildViewController(viewController)
     viewController.view.frame = self.containerView.bounds
     viewController.view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
@@ -74,11 +73,11 @@ class AMRMainViewController: UIViewController {
   @IBAction func onTapMessages(sender: UITapGestureRecognizer) {
     selectViewController(vcArray[2])
   }
-
+  
   @IBAction func onTapNotes(sender: AnyObject) {
     selectViewController(vcArray[3])
   }
-    
+  
   @IBAction func onTapProfile(sender: AnyObject) {
     PFUser.logOutInBackgroundWithBlock { (error: NSError?) -> Void in
       if let error = error {
@@ -88,11 +87,11 @@ class AMRMainViewController: UIViewController {
       }
     }
   }
-
+  
   @IBAction func onTapProfileIcon(sender: AnyObject) {
     selectViewController(vcArray[1])
   }
-
+  
   @IBAction func onTapCalendar(sender: AnyObject) {
     selectViewController(vcArray[4])
   }

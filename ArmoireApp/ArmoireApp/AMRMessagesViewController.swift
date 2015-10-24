@@ -31,8 +31,6 @@ class AMRMessagesViewController: ATLConversationListViewController {
     self.delegate = self
 
     displaysAvatarItem = true
-    
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDidLogin:", name: kUserDidLoginNotification, object: nil)
   }
 
   override func didReceiveMemoryWarning() {
@@ -45,10 +43,6 @@ class AMRMessagesViewController: ATLConversationListViewController {
     navigationController?.pushViewController(settingsVC, animated: true)
   }
   
-  func userDidLogin(sender: NSNotification) {
-    tableView.reloadData()
-  }
-
 }
 
 // MARK: - ATLConversationListViewController Delegate
