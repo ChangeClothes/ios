@@ -16,6 +16,7 @@ class AMRMessagesViewController: ATLConversationListViewController {
   
   // MARK: - Lifecycle
   override func viewDidLoad() {
+    
     super.viewDidLoad()
     self.title = "Messages"
     var settings: UIButton = UIButton()
@@ -29,6 +30,9 @@ class AMRMessagesViewController: ATLConversationListViewController {
     self.dataSource = self
     self.delegate = self
 
+    displaysAvatarItem = true
+    
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDidLogin:", name: kUserDidLoginNotification, object: nil)
   }
 
   override func didReceiveMemoryWarning() {
@@ -40,8 +44,10 @@ class AMRMessagesViewController: ATLConversationListViewController {
     let settingsVC = AMRSettingsViewController()
     navigationController?.pushViewController(settingsVC, animated: true)
   }
-
-
+  
+  func userDidLogin(sender: NSNotification) {
+    tableView.reloadData()
+  }
 
 }
 
@@ -97,4 +103,35 @@ extension AMRMessagesViewController: ATLConversationListViewControllerDelegate {
 // MARK: - ATLConversationListViewController Datasource
 extension AMRMessagesViewController: ATLConversationListViewControllerDataSource {
   
+  func conversationListViewController(conversationListViewController: ATLConversationListViewController, titleForConversation conversation: LYRConversation) -> String {
+    if conversation.metadata["title"] != nil {
+      return conversation.metadata["title"] as! String
+    } else {
+      let listOfParticipant = Array(conversation.participants)
+      let unresolvedParticipants: NSArray = AMRUserManager.sharedManager.unCachedUserIDsFromParticipants(listOfParticipant)
+      let resolvedNames: NSArray = AMRUserManager.sharedManager.resolvedNamesFromParticipants(listOfParticipant)
+      
+      if (unresolvedParticipants.count > 0) {
+        AMRUserManager.sharedManager.queryAndCacheUsersWithIDs(unresolvedParticipants as! [String]) { (participants: NSArray?, error: NSError?) in
+          if (error == nil) {
+            if (participants?.count > 0) {
+              self.reloadCellForConversation(conversation)
+            }
+          } else {
+            print("Error querying for Users: \(error)")
+          }
+        }
+      }
+      
+      if (resolvedNames.count > 0 && unresolvedParticipants.count > 0) {
+        let resolved = resolvedNames.componentsJoinedByString(", ")
+        return "\(resolved) and \(unresolvedParticipants.count) others"
+      } else if (resolvedNames.count > 0 && unresolvedParticipants.count == 0) {
+        return resolvedNames.componentsJoinedByString(", ")
+      } else {
+        return "Conversation with \(conversation.participants.count) users..."
+      }
+    }
+  }
+
 }

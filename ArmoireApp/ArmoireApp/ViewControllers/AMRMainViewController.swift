@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import LayerKit
 
 class AMRMainViewController: UIViewController {
   
@@ -18,20 +19,25 @@ class AMRMainViewController: UIViewController {
   @IBOutlet weak var profileImageView: UIImageView!
   @IBOutlet weak var containerView: UIView!
   var selectedViewController: UIViewController?
-  let vcArray = [
-    UINavigationController(rootViewController: AMRLoginViewController()),
-    UINavigationController(rootViewController: AMRClientsViewController()),
-    UINavigationController(rootViewController: AMRMessagesViewController()),
-    UINavigationController(rootViewController: AMRNotesViewController()),
-    UINavigationController(rootViewController: AMRUpcomingMeetingsViewController()),
-    UINavigationController(rootViewController: AMRClientsViewController()),
-    UINavigationController (rootViewController: AMRSettingsViewController())
-  ]
+  var layerClient: LYRClient!
+  
+  var vcArray: [UINavigationController]!
   
   override func viewDidLoad() {
     super.viewDidLoad()
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "onUserLogin:", name: "userDidLoginNotification", object: nil)
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "onTapSettings:", name: "userDidTapSettingsNotification", object: nil)
+    
+    vcArray = [
+    UINavigationController(rootViewController: AMRLoginViewController()),
+    UINavigationController(rootViewController: AMRClientsViewController()),
+      UINavigationController(rootViewController: AMRMessagesViewController(layerClient: layerClient) ),
+    UINavigationController(rootViewController: AMRNotesViewController()),
+    UINavigationController(rootViewController: AMRUpcomingMeetingsViewController()),
+    UINavigationController(rootViewController: AMRClientsViewController()),
+    UINavigationController (rootViewController: AMRSettingsViewController())
+    ]
+    
     selectViewController(vcArray[1])
   }
     

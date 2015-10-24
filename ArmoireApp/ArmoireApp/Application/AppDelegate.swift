@@ -32,6 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     window = UIWindow(frame: UIScreen.mainScreen().bounds)
     mainVC = AMRMainViewController()
+    mainVC?.layerClient = layerClient
     
     signUpVC = AMRSignUpViewController()
     signUpVC?.delegate = self
