@@ -42,6 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     loginVC?.customSignUpViewController = signUpVC
     
     if let _ = AMRUser.currentUser() {
+      loginLayer()
       window?.rootViewController = mainVC
     } else {
       window?.rootViewController = loginVC
