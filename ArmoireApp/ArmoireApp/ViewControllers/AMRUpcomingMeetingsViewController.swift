@@ -10,7 +10,7 @@ import UIKit
 import EventKit
 import EventKitUI
 
-class AMRUpcomingMeetingsViewController: UIViewController {
+class AMRUpcomingMeetingsViewController: UIViewController, AMRViewControllerProtocol {
   
   // MARK: - Constants
   private let meetingTableViewCellReuseIdentifier = "com.armoireapp.meetingTableViewCellReuseIdentifier"
@@ -69,7 +69,7 @@ class AMRUpcomingMeetingsViewController: UIViewController {
   
   func onSettingsTap(){
     let settingsVC = AMRSettingsViewController()
-    navigationController?.pushViewController(settingsVC, animated: true)
+    self.presentViewController(settingsVC, animated: true, completion: nil)
   }
   
   // MARK: - Initial Setup
@@ -97,6 +97,12 @@ class AMRUpcomingMeetingsViewController: UIViewController {
     tableView.registerNib(cellNib, forCellReuseIdentifier: meetingTableViewCellReuseIdentifier)
   }
   
+  internal func setVcData(stylist: AMRUser?, client: AMRUser?) {
+    self.stylist = stylist
+    self.client = client
+  }
+
+
   // MARK: - Behavior
   func createNewEvent(sender: UIBarButtonItem){
     let newEventVC = EKEventEditViewController()
@@ -145,6 +151,8 @@ class AMRUpcomingMeetingsViewController: UIViewController {
   }
   
   // MARK: - Utility
+
+
   private func  getEventsforCalendarIdentifier(calendarIdentifier: String) -> [EKEvent]{
     
     let calendar = calendarForIdentifier(calendarIdentifier)

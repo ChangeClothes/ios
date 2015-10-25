@@ -9,11 +9,13 @@
 import UIKit
 import LayerKit
 
-class AMRMessagesViewController: ATLConversationListViewController {
+class AMRMessagesViewController: ATLConversationListViewController, AMRViewControllerProtocol {
 
+  var messages: NSDictionary?
   var stylist: AMRUser?
   var client: AMRUser?
-  
+  @IBOutlet weak var messagesTable: UITableView!
+
   // MARK: - Lifecycle
   override func viewDidLoad() {
     
@@ -128,6 +130,11 @@ extension AMRMessagesViewController: ATLConversationListViewControllerDelegate {
       })
     }
     return user;
+  }
+
+  internal func setVcData(stylist: AMRUser?, client: AMRUser?) {
+    self.stylist = stylist
+    self.client = client
   }
 
 }

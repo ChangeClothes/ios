@@ -8,9 +8,11 @@
 
 import UIKit
 
-class AMRClientsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class AMRClientsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AMRViewControllerProtocol {
   
   @IBOutlet weak var clientTable: UITableView!
+  var stylist: AMRUser?
+  var client: AMRUser?
   var clients: [PFUser]?
   let cellConstant = "clientTableViewCellReuseIdentifier"
 
@@ -44,8 +46,12 @@ class AMRClientsViewController: UIViewController, UITableViewDataSource, UITable
   func loadClients(){
     let query : PFQuery = PFUser.query()!
     query.findObjectsInBackgroundWithBlock { (arrayOfUsers, error) -> Void in
+      if let error = error {
+        print(error.localizedDescription)
+      } else {
         self.clients = arrayOfUsers as? [PFUser]
         self.clientTable.reloadData()
+      }
     }
   }
   
@@ -76,6 +82,10 @@ class AMRClientsViewController: UIViewController, UITableViewDataSource, UITable
     }
   }
 
+  internal func setVcData(stylist: AMRUser?, client: AMRUser?) {
+    self.stylist = stylist
+    self.client = client
+  }
   
 
   /*

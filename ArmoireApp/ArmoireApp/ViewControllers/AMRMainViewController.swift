@@ -9,7 +9,7 @@
 import UIKit
 import LayerKit
 
-class AMRMainViewController: UIViewController {
+class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
   
   @IBOutlet weak var menuView: UIView!
   @IBOutlet weak var messagesImageView: UIImageView!
@@ -18,15 +18,17 @@ class AMRMainViewController: UIViewController {
   @IBOutlet weak var profileIconImageView: UIImageView!
   @IBOutlet weak var profileImageView: UIImageView!
   @IBOutlet weak var containerView: UIView!
+  
   var selectedViewController: UIViewController?
   var layerClient: LYRClient!
-  
+  var stylist: AMRUser?
+  var client: AMRUser?
   var vcArray: [UINavigationController]!
   
   override func viewDidLoad() {
     super.viewDidLoad()
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "onUserLogin:", name: kUserDidLoginNotification, object: nil)
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: "onTapSettings:", name: "userDidTapSettingsNotification", object: nil)
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "onUserLogout:", name: kUserDidLogoutNotification, object: nil)
   }
   
   override func didReceiveMemoryWarning() {
@@ -34,25 +36,25 @@ class AMRMainViewController: UIViewController {
     // Dispose of any resources that can be recreated.
   }
   
-  
   func onTapSettings(notification: NSNotification){
     let settingsVC = AMRSettingsViewController()
     self.presentViewController(settingsVC, animated: true, completion: nil)
   }
   
   func onUserLogin(notification: NSNotification){
-    
-    vcArray = [
-      UINavigationController(rootViewController: AMRLoginViewController()),
-      UINavigationController(rootViewController: AMRClientsViewController()),
-      UINavigationController(rootViewController: AMRMessagesViewController(layerClient: layerClient) ),
-      UINavigationController(rootViewController: AMRNotesViewController()),
-      UINavigationController(rootViewController: AMRUpcomingMeetingsViewController()),
-      UINavigationController(rootViewController: AMRClientsViewController()),
-      UINavigationController (rootViewController: AMRSettingsViewController())
-    ]
-    
-    selectViewController(vcArray[1])
+    setVcData(nil, client: nil)
+    if (self.client != nil) {
+      //client workflow
+      selectViewController(vcArray[6])
+    } else {
+      //stylist workflow
+      selectViewController(vcArray[1])
+    }
+  }
+  
+  func onUserLogout(notification: NSNotification){
+    flushVcArray()
+    self.dismissViewControllerAnimated(true, completion: nil)
   }
   
   func selectViewController(viewController: UIViewController){
@@ -70,6 +72,54 @@ class AMRMainViewController: UIViewController {
     selectedViewController = viewController
   }
   
+  internal func flushVcArray() {
+    vcArray = nil
+  }
+  
+  internal func setVcData(stylist: AMRUser?, client: AMRUser?) {
+    setVcArray()
+    setLocalVcData()
+    setVcDataForTabs()
+  }
+  
+  private func setVcArray(){
+    vcArray = [
+      UINavigationController(rootViewController: AMRLoginViewController()),
+      UINavigationController(rootViewController: AMRClientsViewController()),
+      UINavigationController(rootViewController: AMRMessagesViewController(layerClient: layerClient) ),
+      UINavigationController(rootViewController: AMRNotesViewController()),
+      UINavigationController(rootViewController: AMRUpcomingMeetingsViewController()),
+      UINavigationController (rootViewController: AMRSettingsViewController()),
+      UINavigationController (rootViewController: AMRClientsDetailViewController())
+    ]
+  }
+  
+  private func setVcDataForTabs(){
+    for (index, value) in vcArray.enumerate() {
+      if (index != 0) {
+        let vc = value.viewControllers.first as? AMRViewControllerProtocol
+        vc?.setVcData(self.stylist, client: self.client)
+      }
+    }
+  }
+
+  private func setLocalVcData(){
+    if let user = AMRUser.currentUser(){
+      if (user.isStylist){
+        self.stylist = user
+      } else {
+        self.client = user
+        let client_stylist = user["stylist"] as? AMRUser
+        client_stylist?.fetchInBackgroundWithBlock({ (loaded_client_stylist, error) -> Void in
+          if let error = error {
+            print(error.localizedDescription)
+          } else {
+            self.stylist = loaded_client_stylist as? AMRUser
+          }
+        })
+      }
+    }
+  }
   
   @IBAction func onTapMessages(sender: UITapGestureRecognizer) {
     selectViewController(vcArray[2])
@@ -99,4 +149,8 @@ class AMRMainViewController: UIViewController {
   }
   */
   
+}
+
+protocol AMRViewControllerProtocol {
+  func setVcData(stylist: AMRUser?, client: AMRUser?)
 }
