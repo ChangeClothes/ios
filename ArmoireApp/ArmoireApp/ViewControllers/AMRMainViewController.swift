@@ -43,7 +43,13 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
   
   func onUserLogin(notification: NSNotification){
     setVcData(nil, client: nil)
-    selectViewController(vcArray[1])
+    if (self.client != nil) {
+      //client workflow
+      selectViewController(vcArray[6])
+    } else {
+      //stylist workflow
+      selectViewController(vcArray[1])
+    }
   }
   
   func onUserLogout(notification: NSNotification){
