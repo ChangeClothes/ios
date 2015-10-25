@@ -9,7 +9,7 @@
 import UIKit
 import LayerKit
 
-class AMRMessagesViewController: ATLConversationListViewController {
+class AMRMessagesViewController: ATLConversationListViewController, AMRViewControllerProtocol {
 
   var messages: NSDictionary?
   var stylist: AMRUser?
@@ -130,6 +130,11 @@ extension AMRMessagesViewController: ATLConversationListViewControllerDelegate {
       })
     }
     return user;
+  }
+
+  internal func setVcData(stylist: AMRUser?, client: AMRUser?) {
+    self.stylist = stylist
+    self.client = client
   }
 
 }

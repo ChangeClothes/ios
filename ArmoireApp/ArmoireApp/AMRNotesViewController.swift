@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AMRNotesViewController: UIViewController, AMRViewControllerProtocol {
+class AMRNotesViewController: UIViewController, AMRViewControllerProtocol{
 
   @IBOutlet weak var noteTextView: UITextView!
   var stylist: AMRUser?
@@ -95,6 +95,11 @@ class AMRNotesViewController: UIViewController, AMRViewControllerProtocol {
         NSLog("%@", error!)
       }
     }
+  }
+
+  internal func setVcData(stylist: AMRUser?, client: AMRUser?) {
+    self.stylist = stylist
+    self.client = client
   }
 
     /*

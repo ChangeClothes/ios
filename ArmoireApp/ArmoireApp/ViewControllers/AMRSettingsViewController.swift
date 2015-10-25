@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AMRSettingsViewController: UIViewController {
+class AMRSettingsViewController: UIViewController, AMRViewControllerProtocol {
   var stylist: AMRUser?
   var client: AMRUser?
   
@@ -35,6 +35,11 @@ class AMRSettingsViewController: UIViewController {
         NSNotificationCenter.defaultCenter().postNotificationName(kUserDidLogoutNotification, object: self)
       }
     }
+  }
+
+  internal func setVcData(stylist: AMRUser?, client: AMRUser?) {
+    self.stylist = stylist
+    self.client = client
   }
     /*
     // MARK: - Navigation

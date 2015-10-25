@@ -42,22 +42,12 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
   }
   
   func onUserLogin(notification: NSNotification){
-    
-    vcArray = [
-      UINavigationController(rootViewController: AMRLoginViewController()),
-      UINavigationController(rootViewController: AMRClientsViewController()),
-      UINavigationController(rootViewController: AMRMessagesViewController(layerClient: layerClient) ),
-      UINavigationController(rootViewController: AMRNotesViewController()),
-      UINavigationController(rootViewController: AMRUpcomingMeetingsViewController()),
-      UINavigationController(rootViewController: AMRClientsViewController()),
-      UINavigationController (rootViewController: AMRSettingsViewController())
-    ]
-    setVCData(nil, client: nil)
+    setVcData(nil, client: nil)
     selectViewController(vcArray[1])
   }
   
   func onUserLogout(notification: NSNotification){
-    flushVCData()
+    flushVcArray()
     self.dismissViewControllerAnimated(true, completion: nil)
   }
   
@@ -76,25 +66,37 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
     selectedViewController = viewController
   }
   
-  func flushVCData() {
-//    for vc in vcArray {
-//      vc.flushVCData()
-//    }
+  internal func flushVcArray() {
+    vcArray = nil
   }
   
-  func setVCData(stylist: AMRUser?, client: AMRUser?) {
-//    setLocalVCData()
-//    setVCDataForTabs()
+  internal func setVcData(stylist: AMRUser?, client: AMRUser?) {
+    setVcArray()
+    setLocalVcData()
+    setVcDataForTabs()
   }
   
-  private func setVCDataForTabs(){
-    for nav in vcArray {
-      let vc = nav.viewControllers.first as? AMRViewControllerProtocol
-      vc?.setVCData(self.stylist, client: self.client)
+  private func setVcArray(){
+    vcArray = [
+      UINavigationController(rootViewController: AMRLoginViewController()),
+      UINavigationController(rootViewController: AMRClientsViewController()),
+      UINavigationController(rootViewController: AMRMessagesViewController(layerClient: layerClient) ),
+      UINavigationController(rootViewController: AMRNotesViewController()),
+      UINavigationController(rootViewController: AMRUpcomingMeetingsViewController()),
+      UINavigationController (rootViewController: AMRSettingsViewController())
+    ]
+  }
+  
+  private func setVcDataForTabs(){
+    for (index, value) in vcArray.enumerate() {
+      if (index != 0) {
+        let vc = value.viewControllers.first as? AMRViewControllerProtocol
+        vc?.setVcData(self.stylist, client: self.client)
+      }
     }
   }
-  
-  private func setLocalVCData(){
+
+  private func setLocalVcData(){
     if let user = AMRUser.currentUser(){
       if (user.isStylist){
         self.stylist = user
@@ -143,6 +145,5 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
 }
 
 protocol AMRViewControllerProtocol {
-  func flushVCData()
-  func setVCData(stylist: AMRUser?, client: AMRUser?)
+  func setVcData(stylist: AMRUser?, client: AMRUser?)
 }

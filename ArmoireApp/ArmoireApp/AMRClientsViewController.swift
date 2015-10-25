@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AMRClientsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class AMRClientsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AMRViewControllerProtocol {
   
   @IBOutlet weak var clientTable: UITableView!
   var stylist: AMRUser?
@@ -82,6 +82,10 @@ class AMRClientsViewController: UIViewController, UITableViewDataSource, UITable
     }
   }
 
+  internal func setVcData(stylist: AMRUser?, client: AMRUser?) {
+    self.stylist = stylist
+    self.client = client
+  }
   
 
   /*
