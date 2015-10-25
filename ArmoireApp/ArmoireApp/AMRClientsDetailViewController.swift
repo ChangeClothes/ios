@@ -8,21 +8,21 @@
 
 import UIKit
 
-class AMRClientsDetailViewController: UIViewController {
+class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtocol {
   
   var stylist: AMRUser?
   var client: AMRUser?
   
   override func viewDidLoad() {
-      super.viewDidLoad()
-      self.title = "Client Details"
+    super.viewDidLoad()
+    self.title = "Client Details"
 
-      // Do any additional setup after loading the view.
+    // Do any additional setup after loading the view.
   }
 
   override func didReceiveMemoryWarning() {
-      super.didReceiveMemoryWarning()
-      // Dispose of any resources that can be recreated.
+    super.didReceiveMemoryWarning()
+    // Dispose of any resources that can be recreated.
   }
     
 
@@ -30,6 +30,10 @@ class AMRClientsDetailViewController: UIViewController {
     self.dismissViewControllerAnimated(true, completion: nil)
   }
   
+  internal func setVcData(stylist: AMRUser?, client: AMRUser?) {
+    self.stylist = stylist
+    self.client = client
+  }
     /*
     // MARK: - Navigation
 
