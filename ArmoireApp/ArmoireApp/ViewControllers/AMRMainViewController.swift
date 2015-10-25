@@ -83,8 +83,8 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
   }
   
   func setVCData(stylist: AMRUser?, client: AMRUser?) {
-    setLocalVCData()
-    setVCDataForTabs()
+//    setLocalVCData()
+//    setVCDataForTabs()
   }
   
   private func setVCDataForTabs(){
