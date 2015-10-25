@@ -109,14 +109,15 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
         self.stylist = user
       } else {
         self.client = user
-        let client_stylist = user["stylist"] as? AMRUser
-        client_stylist?.fetchInBackgroundWithBlock({ (loaded_client_stylist, error) -> Void in
-          if let error = error {
-            print(error.localizedDescription)
-          } else {
-            self.stylist = loaded_client_stylist as? AMRUser
-          }
-        })
+//        code to load stylist below if we decide we want to
+//        let client_stylist = user["stylist"] as? AMRUser
+//        client_stylist?.fetchInBackgroundWithBlock({ (loaded_client_stylist, error) -> Void in
+//          if let error = error {
+//            print(error.localizedDescription)
+//          } else {
+//            self.stylist = loaded_client_stylist as? AMRUser
+//          }
+//        })
       }
     }
   }
