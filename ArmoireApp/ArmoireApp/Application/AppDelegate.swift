@@ -12,6 +12,7 @@ import LayerKit
 let kCurrentUserKey = "com.ArmoireApp.currentUserKey"
 let kUserDidLogoutNotification = "com.ArmoireApp.userDidLogoutNotification"
 let kUserDidLoginNotification = "com.ArmoireApp.userDidLoginNotification"
+let AMRErrorDomain = "com.ArmoireApp.errorDomain"
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

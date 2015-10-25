@@ -48,7 +48,7 @@ class AMRMessagesDetailsViewController: ATLConversationViewController {
   // MARK - ATLAddressBarViewController Delegate methods methods
   
   override func addressBarViewController(addressBarViewController: ATLAddressBarViewController, didTapAddContactsButton addContactsButton: UIButton) {
-    AMRUserManager.sharedManager.queryForAllUsersWithCompletion { (users: NSArray?, error: NSError?) in
+    AMRUserManager.sharedManager.queryForAllClientsOfStylist(AMRUser.currentUser()!) { (users: NSArray?, error: NSError?) -> Void in
       if error == nil {
         let participants = NSSet(array: users as! [AMRUser]) as Set<NSObject>
         let controller = AMRParticipantTableViewController(participants: participants, sortType: ATLParticipantPickerSortType.FirstName)
@@ -60,6 +60,7 @@ class AMRMessagesDetailsViewController: ATLConversationViewController {
         print("Error querying for All Users: \(error)")
       }
     }
+  
   }
   
   override func addressBarViewController(addressBarViewController: ATLAddressBarViewController, searchForParticipantsMatchingText searchText: String, completion: (([AnyObject]) -> Void)?) {
