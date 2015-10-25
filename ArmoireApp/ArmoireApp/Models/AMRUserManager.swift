@@ -40,6 +40,28 @@ class AMRUserManager {
     }
   }
   
+  func queryForAllClientsOfStylist(stylist: AMRUser, completion: ((NSArray?, NSError?) -> Void)?) {
+    if stylist.isStylist {
+      let query: PFQuery! = AMRUser.query()
+      query.whereKey("stylist", equalTo: stylist)
+      query.findObjectsInBackgroundWithBlock { objects, error in
+        if let callback = completion {
+          callback(objects, error)
+        }
+      }
+    } else {
+      let userInfo =
+      [
+        NSLocalizedDescriptionKey: "User is not a stylist",
+        NSLocalizedFailureReasonErrorKey: "Only stylists' have clients.",
+        NSLocalizedRecoverySuggestionErrorKey: "Please make sure that user is a stylist."
+      ]
+      let error = NSError(domain: AMRErrorDomain, code: 0, userInfo: userInfo)
+      completion?(nil,error)
+    }
+
+  }
+  
   func queryAndCacheUsersWithIDs(userIDs: [String], completion: ((NSArray?, NSError?) -> Void)?) {
     let query: PFQuery! = AMRUser.query()
     query.whereKey("objectId", containedIn: userIDs)
