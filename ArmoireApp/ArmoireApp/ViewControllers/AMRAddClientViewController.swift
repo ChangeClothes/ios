@@ -11,6 +11,8 @@ import MessageUI
 
 class AMRAddClientViewController: UIViewController, AMRViewControllerProtocol, MFMailComposeViewControllerDelegate {
 
+  @IBOutlet weak var firstNameTextField: UITextField!
+  @IBOutlet weak var lastNameTextField: UITextField!
   var client: AMRUser?
   var stylist: AMRUser?
 
@@ -35,6 +37,7 @@ class AMRAddClientViewController: UIViewController, AMRViewControllerProtocol, M
   @IBAction func onInviteClientTap(sender: UIButton) {
     let mailComposeViewController = configuredMailComposeViewController()
     if MFMailComposeViewController.canSendMail() {
+      createUser()
       self.presentViewController(mailComposeViewController, animated: true, completion: nil)
     } else {
       self.showSendMailErrorAlert()
@@ -48,7 +51,7 @@ class AMRAddClientViewController: UIViewController, AMRViewControllerProtocol, M
     var client_email = clientEmailTextField.text!
     mailComposerVC.setToRecipients([client_email])
     mailComposerVC.setSubject("Your Personal Stylist Invites You To Armoire")
-    mailComposerVC.setMessageBody("You have been invited to use Armoire, a tool to keep track of your communications, meetings, and conversations with your personal stylist. Download Armoire from here and use the password 'testpassword' to sign in. You'll be prompted to change the password before getting access to your Stylist Created profile for security purposes. Welcome!", isHTML: false)
+    mailComposerVC.setMessageBody("You have been signed up to use Armoire, a tool to keep track of your communications, meetings, and conversations with your personal stylist. Download Armoire from here and use the password 'testpassword' while signing in with the username \(firstNameTextField.text!)_\(lastNameTextField.text!). You'll be prompted to change the password before getting access to your Stylist Created profile for security purposes. Welcome!", isHTML: false)
 
     return mailComposerVC
   }
@@ -63,6 +66,34 @@ class AMRAddClientViewController: UIViewController, AMRViewControllerProtocol, M
   func mailComposeController(controller: MFMailComposeViewController!, didFinishWithResult result: MFMailComposeResult, error: NSError!) {
     controller.dismissViewControllerAnimated(true, completion: nil)
 
+  }
+
+  private func createUser(){
+    var user = PFUser()
+    if (allFieldsFilledOut()) {
+      user.setObject(clientEmailTextField.text!, forKey: "email")
+      user.setObject(firstNameTextField.text!, forKey: "firstName")
+      user.setObject(lastNameTextField.text!, forKey: "lastName")
+      user.setObject(firstNameTextField.text! + "_" + lastNameTextField.text!, forKey: "username")
+      user.setObject("testpassword", forKey: "password")
+      user.signUpInBackgroundWithBlock { (success, error) -> Void in
+        if success {
+          NSLog("User created")
+        } else {
+          NSLog("%@", error!)
+        }
+      }
+    } else {
+      //error, not all fields filled out
+    }
+
+  }
+
+  internal func allFieldsFilledOut() -> Bool {
+    let clientValue = clientEmailTextField.text!
+    let firstNameValue = firstNameTextField.text!
+    let lastNameValue = lastNameTextField.text!
+    return (clientValue != "" && firstNameValue != "" && lastNameValue != "")
   }
 
   internal func setVcData(stylist: AMRUser?, client: AMRUser?) {
