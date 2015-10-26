@@ -35,6 +35,9 @@
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2hv-wH-kQl">
                     <rect key="frame" x="222" y="354" width="157" height="30"/>
                     <state key="normal" title="Invite Client to Armoire"/>
+                    <connections>
+                        <action selector="onInviteClientTap:" destination="-1" eventType="touchUpInside" id="jqA-r6-wYM"/>
+                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
