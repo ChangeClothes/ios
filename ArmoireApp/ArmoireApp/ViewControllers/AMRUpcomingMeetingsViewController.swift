@@ -36,6 +36,9 @@ class AMRUpcomingMeetingsViewController: UIViewController, AMRViewControllerProt
     }
   }
   
+  var sections: [NSDate: [EKEvent]]!
+  var sortedDays: [NSDate]!
+  
   // MARK: - Outlets
   //  @IBOutlet weak var needPermissionView: UIView!
   @IBOutlet weak var meetingsTableView: UITableView!
@@ -101,8 +104,7 @@ class AMRUpcomingMeetingsViewController: UIViewController, AMRViewControllerProt
     self.stylist = stylist
     self.client = client
   }
-
-
+  
   // MARK: - Behavior
   func createNewEvent(sender: UIBarButtonItem){
     let newEventVC = EKEventEditViewController()
@@ -151,8 +153,6 @@ class AMRUpcomingMeetingsViewController: UIViewController, AMRViewControllerProt
   }
   
   // MARK: - Utility
-
-
   private func  getEventsforCalendarIdentifier(calendarIdentifier: String) -> [EKEvent]{
     
     let calendar = calendarForIdentifier(calendarIdentifier)
@@ -191,11 +191,36 @@ class AMRUpcomingMeetingsViewController: UIViewController, AMRViewControllerProt
         self.createEventsForUnmatchedMeetings(unmatchedMeetingsArray) // Add events if missing from local calendar, but exist in database.
         allCalendarEvents = self.getEventsforCalendarIdentifier(self.calendarIdentifier!)
         self.events = self.eventsMatchingMeetings(meetings, events: allCalendarEvents)
+        self.sections = self.sectionsForEvents(self.events)
+        self.sortedDays = self.sortedDaysForUnsortedDates(Array(self.sections.keys))
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
           self.refreshTableView()
         })
       }
     })
+  }
+  
+  private func sectionsForEvents(events: [EKEvent]) -> [NSDate: [EKEvent]] {
+    var sections = [NSDate: [EKEvent]]()
+    for event in events {
+      let dateRepresentingThisDay = self.dateAtBeginningOfDayForDate(event.startDate)
+      
+      if let eventsOnThisDay = sections[dateRepresentingThisDay] {
+        var copyEventsOnThisDay = eventsOnThisDay
+        copyEventsOnThisDay.append(event)
+        sections[dateRepresentingThisDay] = copyEventsOnThisDay
+      } else {
+        var eventsOnThisDay = [EKEvent]()
+        eventsOnThisDay.append(event)
+        sections[dateRepresentingThisDay] = eventsOnThisDay
+      }
+    }
+    
+    return sections
+  }
+  
+  private func sortedDaysForUnsortedDates(unsortedDates: [NSDate]) -> [NSDate] {
+    return unsortedDates.sort { $0.compare($1) == NSComparisonResult.OrderedDescending }
   }
   
   private func createEventsForUnmatchedMeetings(unmatchedMeetings: [AMRMeeting]) {
@@ -259,6 +284,27 @@ class AMRUpcomingMeetingsViewController: UIViewController, AMRViewControllerProt
     UIApplication.sharedApplication().openURL(openSettingsUrl!)
   }
   
+  // MARK: - Date Calculations
+  
+  private func dateAtBeginningOfDayForDate(inputDate: NSDate) -> NSDate {
+    // Use the user's current calendar and time zone
+    let calendar = NSCalendar.currentCalendar()
+    let timeZone = NSTimeZone.systemTimeZone()
+    calendar.timeZone = timeZone
+    
+    // Selectively convert the date components (year, month, day) of the input date
+    let dateComps = calendar.components([.Year, .Month, .Day], fromDate: inputDate)
+    
+    // Set the time components manually
+    dateComps.hour = 0
+    dateComps.minute = 0
+    dateComps.second = 0
+    
+    // Convert back
+    let beginningOfDay = calendar.dateFromComponents(dateComps)
+    return beginningOfDay!
+  }
+  
   // MARK: - Types
   struct EventStore {
     static let defaultEventStore = EKEventStore()
@@ -273,8 +319,18 @@ class AMRUpcomingMeetingsViewController: UIViewController, AMRViewControllerProt
 // MARK: - TableViewDelegate and Datasource
 extension AMRUpcomingMeetingsViewController: UITableViewDelegate, UITableViewDataSource {
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    if let events = events {
-      return events.count
+    if let sections = sections {
+      let dateRepresentingThisDay = sortedDays[section]
+      let eventsOnThisDay = sections[dateRepresentingThisDay]
+      return (eventsOnThisDay?.count)!
+    }
+    
+    return 0
+  }
+  
+  func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    if let sections = sections {
+      return sections.count
     }
     
     return 0
@@ -283,14 +339,23 @@ extension AMRUpcomingMeetingsViewController: UITableViewDelegate, UITableViewDat
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier(meetingTableViewCellReuseIdentifier)!
     
-    if let events = events {
-      let eventName = events[indexPath.row].title
-      cell.textLabel?.text = eventName
+    let dateRepresentingThisDay = sortedDays[indexPath.section]
+    let eventsOnThisDay = sections[dateRepresentingThisDay]
+    let event = eventsOnThisDay![indexPath.row]
+    
+    cell.textLabel?.text = event.title
+    if event.allDay {
+      cell.detailTextLabel!.text = "all day"
     } else {
-      cell.textLabel?.text = "Unknown Event Name"
+      cell.detailTextLabel?.text = DateFormatters.cellDateFormatter.stringFromDate(event.startDate)
     }
     
     return cell
+  }
+  
+  func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    let dateRepresentingThisDay = sortedDays[section]
+    return DateFormatters.sectionDateFormatter.stringFromDate(dateRepresentingThisDay)
   }
   
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -302,6 +367,25 @@ extension AMRUpcomingMeetingsViewController: UITableViewDelegate, UITableViewDat
     meetingDetailVC.navigationItem.hidesBackButton = true
     
     navigationController?.pushViewController(meetingDetailVC, animated: true)
+  }
+  
+  struct DateFormatters {
+    static let sectionDateFormatter = DateFormatters.sharedSectionDateFormatter()
+    static let cellDateFormatter = DateFormatters.sharedCellDateFormatter()
+    
+    private static func sharedSectionDateFormatter() -> NSDateFormatter {
+      let dateFormatter = NSDateFormatter()
+      dateFormatter.dateStyle = .MediumStyle
+      dateFormatter.timeStyle = .NoStyle
+      return dateFormatter
+    }
+    
+    private static func sharedCellDateFormatter() -> NSDateFormatter {
+      let dateFormatter = NSDateFormatter()
+      dateFormatter.dateStyle = .NoStyle
+      dateFormatter.timeStyle = .MediumStyle
+      return dateFormatter
+    }
   }
 }
 
