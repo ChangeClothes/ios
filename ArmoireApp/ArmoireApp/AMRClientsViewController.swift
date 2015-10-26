@@ -21,6 +21,7 @@ class AMRClientsViewController: UIViewController, UITableViewDataSource, UITable
     setUpClientTable()
     loadClients()
     self.title = "Clients"
+
     let settings: UIButton = UIButton()
     settings.setImage(UIImage(named: "settings"), forState: .Normal)
     settings.frame = CGRectMake(0, 0, 30, 30)
@@ -29,6 +30,13 @@ class AMRClientsViewController: UIViewController, UITableViewDataSource, UITable
     let leftNavBarButton = UIBarButtonItem(customView: settings)
     self.navigationItem.leftBarButtonItem = leftNavBarButton
     
+    let addClient: UIButton = UIButton()
+    addClient.setImage(UIImage(named: "plus"), forState: .Normal)
+    addClient.frame = CGRectMake(0, 0, 30, 30)
+    addClient.addTarget(self, action: Selector("onAddClientType"), forControlEvents: .TouchUpInside)
+
+    let rightNavBarButton = UIBarButtonItem(customView: addClient)
+    self.navigationItem.rightBarButtonItem = rightNavBarButton
 
   // Do any additional setup after loading the view.
   }
@@ -43,6 +51,12 @@ class AMRClientsViewController: UIViewController, UITableViewDataSource, UITable
     self.presentViewController(settingsVC, animated: true, completion: nil)
   }
   
+  func onAddClientType(){
+    let addClientVC = AMRAddClientViewController()
+    addClientVC.setVcData(self.stylist, client: nil)
+    self.presentViewController(addClientVC, animated: true, completion: nil)
+  }
+
   func loadClients(){
     let query : PFQuery = PFUser.query()!
     query.findObjectsInBackgroundWithBlock { (arrayOfUsers, error) -> Void in
