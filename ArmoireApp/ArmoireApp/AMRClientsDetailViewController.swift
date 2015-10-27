@@ -25,6 +25,14 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
   }
     
 
+  @IBAction func onTapCalendar(sender: UITapGestureRecognizer) {
+  }
+  @IBAction func onTapProfile(sender: UITapGestureRecognizer) {
+  }
+  @IBAction func onTapNote(sender: UITapGestureRecognizer) {
+  }
+  @IBAction func onTapMessaging(sender: UITapGestureRecognizer) {
+  }
   @IBAction func onTapDismiss(sender: AnyObject) {
     self.dismissViewControllerAnimated(true, completion: nil)
   }

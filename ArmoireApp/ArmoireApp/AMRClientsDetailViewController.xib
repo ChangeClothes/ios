@@ -46,6 +46,9 @@
                                     <exclude reference="CPX-9p-JDW"/>
                                 </mask>
                             </variation>
+                            <connections>
+                                <outletCollection property="gestureRecognizers" destination="DP6-Jh-56E" appends="YES" id="PBn-FK-Vna"/>
+                            </connections>
                         </imageView>
                         <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="bJ4-DR-wUm">
                             <rect key="frame" x="345" y="10" width="50" height="49"/>
@@ -59,6 +62,9 @@
                                     <exclude reference="nH9-Ck-l1g"/>
                                 </mask>
                             </variation>
+                            <connections>
+                                <outletCollection property="gestureRecognizers" destination="aWb-4m-tez" appends="YES" id="lGd-pc-3hC"/>
+                            </connections>
                         </imageView>
                         <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="calendar" translatesAutoresizingMaskIntoConstraints="NO" id="cXd-jA-0iE">
                             <rect key="frame" x="415" y="10" width="50" height="49"/>
@@ -72,6 +78,9 @@
                                     <exclude reference="VnM-4E-5BU"/>
                                 </mask>
                             </variation>
+                            <connections>
+                                <outletCollection property="gestureRecognizers" destination="6Vw-sN-zA8" appends="YES" id="kp5-zc-CNJ"/>
+                            </connections>
                         </imageView>
                         <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="messaging" translatesAutoresizingMaskIntoConstraints="NO" id="aFt-Wc-jm1">
                             <rect key="frame" x="136" y="10" width="50" height="49"/>
@@ -85,6 +94,9 @@
                                     <exclude reference="Nnc-dN-cD9"/>
                                 </mask>
                             </variation>
+                            <connections>
+                                <outletCollection property="gestureRecognizers" destination="zla-xn-IKn" appends="YES" id="3s5-6b-FsK"/>
+                            </connections>
                         </imageView>
                     </subviews>
                     <color key="backgroundColor" red="0.2274509804" green="0.58039215690000001" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
@@ -139,6 +151,26 @@
                 </mask>
             </variation>
         </view>
+        <tapGestureRecognizer id="zla-xn-IKn">
+            <connections>
+                <action selector="onTapMessaging:" destination="-1" id="yTH-Cx-Ihe"/>
+            </connections>
+        </tapGestureRecognizer>
+        <tapGestureRecognizer id="DP6-Jh-56E">
+            <connections>
+                <action selector="onTapNote:" destination="-1" id="cot-wx-1P6"/>
+            </connections>
+        </tapGestureRecognizer>
+        <tapGestureRecognizer id="aWb-4m-tez">
+            <connections>
+                <action selector="onTapProfile:" destination="-1" id="xxO-eH-v7P"/>
+            </connections>
+        </tapGestureRecognizer>
+        <tapGestureRecognizer id="6Vw-sN-zA8">
+            <connections>
+                <action selector="onTapCalendar:" destination="-1" id="dmt-pn-4V1"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
     <resources>
         <image name="calendar" width="256" height="256"/>
