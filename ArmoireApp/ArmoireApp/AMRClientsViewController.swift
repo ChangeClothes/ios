@@ -88,6 +88,7 @@ class AMRClientsViewController: UIViewController, UITableViewDataSource, UITable
     let cell = tableView.cellForRowAtIndexPath(indexPath) as? AMRClientTableViewCell
     let clientDetailVC = AMRClientsDetailViewController()
     clientDetailVC.client = cell!.client
+    clientDetailVC.stylist = self.stylist
     self.presentViewController(clientDetailVC, animated: true, completion: nil)
   }
 
