@@ -10,15 +10,17 @@ import UIKit
 
 class AMRClientTableViewCell: UITableViewCell {
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
+  var client: AMRUser?
 
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+  override func awakeFromNib() {
+      super.awakeFromNib()
+      // Initialization code
+  }
 
-        // Configure the view for the selected state
-    }
-    
+  override func setSelected(selected: Bool, animated: Bool) {
+      super.setSelected(selected, animated: animated)
+
+      // Configure the view for the selected state
+  }
+
 }

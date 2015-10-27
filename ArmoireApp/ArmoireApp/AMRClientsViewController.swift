@@ -77,14 +77,17 @@ class AMRClientsViewController: UIViewController, UITableViewDataSource, UITable
   }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = clientTable.dequeueReusableCellWithIdentifier(cellConstant, forIndexPath: indexPath)
-    cell.textLabel!.text = clients![indexPath.row]["firstName"] as? String
-    return cell
+    let cell = clientTable.dequeueReusableCellWithIdentifier(cellConstant, forIndexPath: indexPath) as? AMRClientTableViewCell
+    cell!.textLabel!.text = clients![indexPath.row]["firstName"] as? String
+    cell!.client = clients![indexPath.row] as? AMRUser
+    return cell!
   }
 
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    let cell = tableView.cellForRowAtIndexPath(indexPath) as? AMRClientTableViewCell
     let clientDetailVC = AMRClientsDetailViewController()
+    clientDetailVC.client = cell!.client
     self.presentViewController(clientDetailVC, animated: true, completion: nil)
   }
 
