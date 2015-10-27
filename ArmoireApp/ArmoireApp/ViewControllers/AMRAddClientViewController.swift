@@ -20,11 +20,18 @@ class AMRAddClientViewController: UIViewController, AMRViewControllerProtocol, M
 
   @IBOutlet weak var inviteClientButton: UIButton!
   override func viewDidLoad() {
-      super.viewDidLoad()
-
-      // Do any additional setup after loading the view.
+    super.viewDidLoad()
+    let gestureRecognizer = UITapGestureRecognizer(target: self, action: "onTap:")
+    self.view.addGestureRecognizer(gestureRecognizer)
+    
+    // Do any additional setup after loading the view.
   }
-
+  func onTap (sender: UITapGestureRecognizer){
+    //firstNameTextField.resignFirstResponder()
+    //lastNameTextField.resignFirstResponder()
+    
+    self.view.endEditing(true)
+  }
   override func didReceiveMemoryWarning() {
       super.didReceiveMemoryWarning()
       // Dispose of any resources that can be recreated.
@@ -69,13 +76,16 @@ class AMRAddClientViewController: UIViewController, AMRViewControllerProtocol, M
   }
 
   private func createUser(){
-    var user = PFUser()
+
     if (allFieldsFilledOut()) {
-      user.setObject(clientEmailTextField.text!, forKey: "email")
-      user.setObject(firstNameTextField.text!, forKey: "firstName")
-      user.setObject(lastNameTextField.text!, forKey: "lastName")
-      user.setObject(firstNameTextField.text! + "_" + lastNameTextField.text!, forKey: "username")
-      user.setObject("testpassword", forKey: "password")
+      let user = AMRUser()
+      user.username = firstNameTextField.text! + "_" + lastNameTextField.text!
+      user.password = "testpassword"
+      user.email = clientEmailTextField.text
+      user.firstName = firstNameTextField.text!
+      user.lastName = lastNameTextField.text!
+      user.isStylist = false
+      user.stylist = AMRUser.currentUser()!
       user.signUpInBackgroundWithBlock { (success, error) -> Void in
         if success {
           NSLog("User created")
