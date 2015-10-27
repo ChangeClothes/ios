@@ -20,6 +20,15 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
   
   override func viewDidLoad() {
     super.viewDidLoad()
+
+    let exitModalButton: UIButton = UIButton()
+    exitModalButton.setImage(UIImage(named: "cancel"), forState: .Normal)
+    exitModalButton.frame = CGRectMake(0, 0, 30, 30)
+    exitModalButton.addTarget(self, action: Selector("exitModal"), forControlEvents: .TouchUpInside)
+
+    let rightNavBarButton = UIBarButtonItem(customView: exitModalButton)
+    self.navigationItem.rightBarButtonItem = rightNavBarButton
+
     self.title = (client?.firstName)! + " " + (client?.lastName)!
     setVcData(self.stylist, client: self.client)
     selectViewController(vcArray[4])
@@ -29,6 +38,10 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
+  }
+
+  func exitModal(){
+    self.dismissViewControllerAnimated(true, completion: nil)
   }
 
   internal func setVcData(stylist: AMRUser?, client: AMRUser?) {
@@ -47,9 +60,6 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
   }
   @IBAction func onTapMessaging(sender: UITapGestureRecognizer) {
 
-  }
-  @IBAction func onTapDismiss(sender: AnyObject) {
-    self.dismissViewControllerAnimated(true, completion: nil)
   }
   
   private func setVcArray(){

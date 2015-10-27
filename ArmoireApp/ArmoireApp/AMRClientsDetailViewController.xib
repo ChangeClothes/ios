@@ -20,14 +20,6 @@
                     <rect key="frame" x="0.0" y="0.0" width="600" height="531"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h0r-oz-VMO">
-                    <rect key="frame" x="560" y="60" width="30" height="54"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="35"/>
-                    <state key="normal" title="⨯"/>
-                    <connections>
-                        <action selector="onTapDismiss:" destination="-1" eventType="touchUpInside" id="eDV-oi-kyl"/>
-                    </connections>
-                </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B1Z-vV-zZ6">
                     <rect key="frame" x="0.0" y="531" width="600" height="69"/>
                     <subviews>
@@ -134,23 +126,13 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="B1Z-vV-zZ6" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="3LW-rt-1V4"/>
-                <constraint firstAttribute="trailing" secondItem="h0r-oz-VMO" secondAttribute="trailing" constant="10" id="AwJ-Ki-EXi"/>
                 <constraint firstItem="B1Z-vV-zZ6" firstAttribute="top" secondItem="mnm-6d-jB8" secondAttribute="bottom" id="Gh1-Q5-BDa"/>
-                <constraint firstAttribute="bottom" secondItem="h0r-oz-VMO" secondAttribute="bottom" constant="50" id="LPf-a3-N9t"/>
-                <constraint firstItem="h0r-oz-VMO" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="MLE-y6-aX6"/>
                 <constraint firstItem="mnm-6d-jB8" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Mk6-dd-o7c"/>
                 <constraint firstItem="mnm-6d-jB8" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Yln-xn-4CY"/>
                 <constraint firstAttribute="trailing" secondItem="B1Z-vV-zZ6" secondAttribute="trailing" id="kIr-w9-epv"/>
-                <constraint firstItem="h0r-oz-VMO" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="60" id="pSs-5T-Jyh"/>
                 <constraint firstAttribute="bottom" secondItem="B1Z-vV-zZ6" secondAttribute="bottom" id="ph2-Iu-Zub"/>
                 <constraint firstAttribute="trailing" secondItem="mnm-6d-jB8" secondAttribute="trailing" id="qp0-Jv-mfv"/>
             </constraints>
-            <variation key="default">
-                <mask key="constraints">
-                    <exclude reference="LPf-a3-N9t"/>
-                    <exclude reference="MLE-y6-aX6"/>
-                </mask>
-            </variation>
         </view>
         <tapGestureRecognizer id="zla-xn-IKn">
             <connections>
