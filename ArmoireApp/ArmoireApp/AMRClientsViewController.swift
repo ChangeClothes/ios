@@ -77,19 +77,18 @@ class AMRClientsViewController: UIViewController, UITableViewDataSource, UITable
   }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = clientTable.dequeueReusableCellWithIdentifier(cellConstant, forIndexPath: indexPath) as? AMRClientTableViewCell
-    cell!.textLabel!.text = clients![indexPath.row]["firstName"] as? String
-    cell!.client = clients![indexPath.row] as? AMRUser
-    return cell!
+    let cell = clientTable.dequeueReusableCellWithIdentifier(cellConstant, forIndexPath: indexPath) as! AMRClientTableViewCell
+    cell.client = clients![indexPath.row] as? AMRUser
+    cell.textLabel!.text = clients![indexPath.row]["firstName"] as? String
+    return cell
   }
 
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     tableView.deselectRowAtIndexPath(indexPath, animated: true)
-    let cell = tableView.cellForRowAtIndexPath(indexPath) as? AMRClientTableViewCell
+    let cell = clientTable.cellForRowAtIndexPath(indexPath) as! AMRClientTableViewCell
     let clientDetailVC = AMRClientsDetailViewController()
-    clientDetailVC.client = cell!.client
     clientDetailVC.stylist = self.stylist
-//    clientDetailVC.layerClient = setToLayerClass
+    clientDetailVC.client = cell.client
     let nav = UINavigationController(rootViewController: clientDetailVC)
     self.presentViewController(nav, animated: true, completion: nil)
   }
