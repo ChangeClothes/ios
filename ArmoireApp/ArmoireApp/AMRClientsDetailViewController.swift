@@ -20,14 +20,7 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
   
   override func viewDidLoad() {
     super.viewDidLoad()
-
-    let exitModalButton: UIButton = UIButton()
-    exitModalButton.setImage(UIImage(named: "cancel"), forState: .Normal)
-    exitModalButton.frame = CGRectMake(0, 0, 30, 30)
-    exitModalButton.addTarget(self, action: Selector("exitModal"), forControlEvents: .TouchUpInside)
-    
-    let rightNavBarButton = UIBarButtonItem(customView: exitModalButton)
-    self.navigationItem.rightBarButtonItem = rightNavBarButton
+    setUpNavBar()
     self.title = (client?.firstName)! + " " + (client?.lastName)!
     setVcData(self.stylist, client: self.client)
     selectViewController(vcArray[4])
@@ -48,6 +41,31 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
     self.client = client
     setVcArray()
     setVcDataForTabs()
+  }
+
+  internal func setUpNavBar(){
+    if (self.stylist != nil){
+      let exitModalButton: UIButton = UIButton()
+      exitModalButton.setImage(UIImage(named: "cancel"), forState: .Normal)
+      exitModalButton.frame = CGRectMake(0, 0, 30, 30)
+      exitModalButton.addTarget(self, action: Selector("exitModal"), forControlEvents: .TouchUpInside)
+
+      let rightNavBarButton = UIBarButtonItem(customView: exitModalButton)
+      self.navigationItem.rightBarButtonItem = rightNavBarButton
+    } else {
+      let settings: UIButton = UIButton()
+      settings.setImage(UIImage(named: "settings"), forState: .Normal)
+      settings.frame = CGRectMake(0, 0, 30, 30)
+      settings.addTarget(self, action: Selector("onSettingsTap"), forControlEvents: .TouchUpInside)
+
+      let leftNavBarButton = UIBarButtonItem(customView: settings)
+      self.navigationItem.leftBarButtonItem = leftNavBarButton
+    }
+  }
+
+  internal func onSettingsTap(){
+    let settingsVC = AMRSettingsViewController()
+    self.presentViewController(settingsVC, animated: true, completion: nil)
   }
 
   @IBAction func onTapCalendar(sender: UITapGestureRecognizer) {
