@@ -21,7 +21,7 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
   override func viewDidLoad() {
     super.viewDidLoad()
     self.title = (client?.firstName)! + " " + (client?.lastName)!
-    self.setVcArray()
+    setVcData(self.stylist, client: self.client)
     selectViewController(vcArray[4])
     // Do any additional setup after loading the view.
   }
@@ -30,7 +30,11 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
   }
-    
+
+  internal func setVcData(stylist: AMRUser?, client: AMRUser?) {
+    setVcArray()
+    setVcDataForTabs()
+  }
 
   @IBAction func onTapCalendar(sender: UITapGestureRecognizer) {
     selectViewController(vcArray[2])
@@ -59,6 +63,15 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
     ]
   }
 
+  private func setVcDataForTabs(){
+    for (index, value) in vcArray.enumerate() {
+      if (index != 0) {
+        let vc = value.viewControllers.first as? AMRViewControllerProtocol
+        vc?.setVcData(self.stylist, client: self.client)
+      }
+    }
+  }
+
   func selectViewController(viewController: UIViewController){
     if let oldViewController = selectedViewController{
       oldViewController.willMoveToParentViewController(nil)
@@ -74,10 +87,6 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
     selectedViewController = viewController
   }
 
-  internal func setVcData(stylist: AMRUser?, client: AMRUser?) {
-    self.stylist = stylist
-    self.client = client
-  }
     /*
     // MARK: - Navigation
 
