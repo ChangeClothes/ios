@@ -98,6 +98,8 @@ class AMRClientProfileViewController: UIViewController, UINavigationControllerDe
       storedImage.client = self.client
       storedImage.setImage(image!)
       
+      self.myImage.setAMRImage(storedImage)
+      
       //dismiss view controller
       self.photoVC?.dismissViewControllerAnimated(true, completion: { () -> Void in
         self.photoVC = nil
