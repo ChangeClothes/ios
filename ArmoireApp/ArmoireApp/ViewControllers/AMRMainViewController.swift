@@ -45,7 +45,11 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
     setVcData(nil, client: nil)
     if (self.client != nil) {
       //client workflow
-      selectViewController(vcArray[6])
+      let nc  = vcArray[6]
+      let vc = nc.viewControllers.first as? AMRViewControllerProtocol
+      vc?.setVcData(self.stylist, client: self.client)
+      UIApplication.sharedApplication().windows[0].rootViewController = nc
+      UIApplication.sharedApplication().windows[0].makeKeyAndVisible()
     } else {
       //stylist workflow
       selectViewController(vcArray[1])
@@ -97,10 +101,6 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
   }
   
   private func setVcDataForTabs(){
-    print("setting vc data for tab")
-    print(self.client)
-    print("s")
-    print(self.stylist)
     for (index, value) in vcArray.enumerate() {
       if (index != 0) {
         let vc = value.viewControllers.first as? AMRViewControllerProtocol

@@ -28,7 +28,6 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
     
     let rightNavBarButton = UIBarButtonItem(customView: exitModalButton)
     self.navigationItem.rightBarButtonItem = rightNavBarButton
-    print(client)
     self.title = (client?.firstName)! + " " + (client?.lastName)!
     setVcData(self.stylist, client: self.client)
     selectViewController(vcArray[4])
@@ -45,6 +44,8 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
   }
 
   internal func setVcData(stylist: AMRUser?, client: AMRUser?) {
+    self.stylist = stylist
+    self.client = client
     setVcArray()
     setVcDataForTabs()
   }
