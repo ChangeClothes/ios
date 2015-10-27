@@ -25,10 +25,9 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
     exitModalButton.setImage(UIImage(named: "cancel"), forState: .Normal)
     exitModalButton.frame = CGRectMake(0, 0, 30, 30)
     exitModalButton.addTarget(self, action: Selector("exitModal"), forControlEvents: .TouchUpInside)
-
+    
     let rightNavBarButton = UIBarButtonItem(customView: exitModalButton)
     self.navigationItem.rightBarButtonItem = rightNavBarButton
-
     self.title = (client?.firstName)! + " " + (client?.lastName)!
     setVcData(self.stylist, client: self.client)
     selectViewController(vcArray[4])
@@ -45,6 +44,8 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
   }
 
   internal func setVcData(stylist: AMRUser?, client: AMRUser?) {
+    self.stylist = stylist
+    self.client = client
     setVcArray()
     setVcDataForTabs()
   }
@@ -59,7 +60,6 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
     selectViewController(vcArray[1])
   }
   @IBAction func onTapMessaging(sender: UITapGestureRecognizer) {
-
   }
   
   private func setVcArray(){
