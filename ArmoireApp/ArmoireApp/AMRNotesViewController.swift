@@ -78,15 +78,19 @@ class AMRNotesViewController: UIViewController, AMRViewControllerProtocol{
   }
   
   func setVCData(stylist: AMRUser?, client: AMRUser?) {
-//    loadNote()
-//    self.stylist = stylist
-//    self.client = client
+    self.stylist = stylist
+    self.client = client
+    loadNote()
   }
   
   private func createNote(){
     var note = PFObject(className: "Note")
-    note.setObject(self.client!, forKey: "client")
-    note.setObject(self.stylist!, forKey: "stylist")
+    if let client = self.client {
+      note.setObject(client, forKey: "client")
+    }
+    if let stylist = self.stylist {
+      note.setObject(stylist, forKey: "stylist")
+    }
     note.saveInBackgroundWithBlock { (success, error) -> Void in
       if success {
         NSLog("Note created")
