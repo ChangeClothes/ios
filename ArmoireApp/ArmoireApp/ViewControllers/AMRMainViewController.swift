@@ -53,6 +53,8 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
   }
   
   func onUserLogout(notification: NSNotification){
+    self.client = nil
+    self.stylist = nil
     flushVcArray()
     self.dismissViewControllerAnimated(true, completion: nil)
   }

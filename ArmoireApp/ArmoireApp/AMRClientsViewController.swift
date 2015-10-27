@@ -89,7 +89,8 @@ class AMRClientsViewController: UIViewController, UITableViewDataSource, UITable
     let clientDetailVC = AMRClientsDetailViewController()
     clientDetailVC.stylist = self.stylist
     clientDetailVC.client = cell.client
-    self.presentViewController(clientDetailVC, animated: true, completion: nil)
+    let nav = UINavigationController(rootViewController: clientDetailVC)
+    self.presentViewController(nav, animated: true, completion: nil)
   }
 
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
