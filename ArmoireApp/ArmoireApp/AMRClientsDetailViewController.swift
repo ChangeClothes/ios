@@ -16,7 +16,6 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
   override func viewDidLoad() {
     super.viewDidLoad()
     self.title = "Client Details"
-
     // Do any additional setup after loading the view.
   }
 

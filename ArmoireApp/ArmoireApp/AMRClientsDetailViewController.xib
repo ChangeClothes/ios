@@ -15,19 +15,136 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h0r-oz-VMO">
-                    <rect key="frame" x="273" y="520" width="54" height="30"/>
-                    <state key="normal" title="Dismiss"/>
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h0r-oz-VMO">
+                    <rect key="frame" x="560" y="10" width="30" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                    <state key="normal" title="⨯"/>
                     <connections>
                         <action selector="onTapDismiss:" destination="-1" eventType="touchUpInside" id="eDV-oi-kyl"/>
                     </connections>
                 </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B1Z-vV-zZ6">
+                    <rect key="frame" x="0.0" y="531" width="600" height="69"/>
+                    <subviews>
+                        <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="woman" translatesAutoresizingMaskIntoConstraints="NO" id="zXb-Ak-W0x">
+                            <rect key="frame" x="275" y="10" width="50" height="49"/>
+                            <color key="backgroundColor" red="0.2274509804" green="0.58039215690000001" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
+                            <gestureRecognizers/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="50" id="IrL-4i-kbW"/>
+                            </constraints>
+                        </imageView>
+                        <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="note" translatesAutoresizingMaskIntoConstraints="NO" id="0CR-iH-GNA">
+                            <rect key="frame" x="205" y="10" width="50" height="49"/>
+                            <gestureRecognizers/>
+                            <constraints>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="CPX-9p-JDW"/>
+                                <constraint firstAttribute="width" constant="50" id="Pqi-Uw-pT9"/>
+                            </constraints>
+                            <variation key="default">
+                                <mask key="constraints">
+                                    <exclude reference="CPX-9p-JDW"/>
+                                </mask>
+                            </variation>
+                        </imageView>
+                        <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="bJ4-DR-wUm">
+                            <rect key="frame" x="345" y="10" width="50" height="49"/>
+                            <gestureRecognizers/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="50" id="KBX-jJ-1bS"/>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="nH9-Ck-l1g"/>
+                            </constraints>
+                            <variation key="default">
+                                <mask key="constraints">
+                                    <exclude reference="nH9-Ck-l1g"/>
+                                </mask>
+                            </variation>
+                        </imageView>
+                        <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="calendar" translatesAutoresizingMaskIntoConstraints="NO" id="cXd-jA-0iE">
+                            <rect key="frame" x="415" y="10" width="50" height="49"/>
+                            <gestureRecognizers/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="50" id="6Ez-1A-Uh6"/>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="VnM-4E-5BU"/>
+                            </constraints>
+                            <variation key="default">
+                                <mask key="constraints">
+                                    <exclude reference="VnM-4E-5BU"/>
+                                </mask>
+                            </variation>
+                        </imageView>
+                        <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="messaging" translatesAutoresizingMaskIntoConstraints="NO" id="aFt-Wc-jm1">
+                            <rect key="frame" x="136" y="10" width="50" height="49"/>
+                            <gestureRecognizers/>
+                            <constraints>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="Nnc-dN-cD9"/>
+                                <constraint firstAttribute="width" constant="50" id="edW-6K-i3h"/>
+                            </constraints>
+                            <variation key="default">
+                                <mask key="constraints">
+                                    <exclude reference="Nnc-dN-cD9"/>
+                                </mask>
+                            </variation>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" red="0.2274509804" green="0.58039215690000001" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstItem="zXb-Ak-W0x" firstAttribute="centerY" secondItem="B1Z-vV-zZ6" secondAttribute="centerY" id="0HU-BW-sKk"/>
+                        <constraint firstAttribute="bottom" secondItem="cXd-jA-0iE" secondAttribute="bottom" constant="10" id="1dJ-ay-3M1"/>
+                        <constraint firstItem="zXb-Ak-W0x" firstAttribute="centerX" secondItem="B1Z-vV-zZ6" secondAttribute="centerX" id="3DR-RM-Eze"/>
+                        <constraint firstAttribute="bottom" secondItem="aFt-Wc-jm1" secondAttribute="bottom" constant="10" id="71X-iK-wl1"/>
+                        <constraint firstAttribute="bottom" secondItem="bJ4-DR-wUm" secondAttribute="bottom" constant="10" id="8Ma-CP-c3Y"/>
+                        <constraint firstItem="zXb-Ak-W0x" firstAttribute="top" secondItem="B1Z-vV-zZ6" secondAttribute="top" constant="10" id="Azz-f1-3N4"/>
+                        <constraint firstItem="0CR-iH-GNA" firstAttribute="leading" secondItem="aFt-Wc-jm1" secondAttribute="trailing" constant="19" id="D6P-ht-6p5"/>
+                        <constraint firstAttribute="height" constant="69" id="F3X-Hg-Gyp"/>
+                        <constraint firstItem="aFt-Wc-jm1" firstAttribute="top" secondItem="B1Z-vV-zZ6" secondAttribute="top" constant="10" id="HoR-pC-FwE"/>
+                        <constraint firstAttribute="bottom" secondItem="zXb-Ak-W0x" secondAttribute="bottom" constant="10" id="JRp-mI-V9g"/>
+                        <constraint firstItem="0CR-iH-GNA" firstAttribute="top" secondItem="B1Z-vV-zZ6" secondAttribute="top" constant="10" id="XaI-pM-1DY"/>
+                        <constraint firstItem="cXd-jA-0iE" firstAttribute="top" secondItem="B1Z-vV-zZ6" secondAttribute="top" constant="10" id="ZzT-Tf-AX2"/>
+                        <constraint firstItem="zXb-Ak-W0x" firstAttribute="leading" secondItem="0CR-iH-GNA" secondAttribute="trailing" constant="20" id="fzp-pu-EeZ"/>
+                        <constraint firstItem="bJ4-DR-wUm" firstAttribute="top" secondItem="B1Z-vV-zZ6" secondAttribute="top" constant="10" id="iRA-sY-xZE"/>
+                        <constraint firstItem="cXd-jA-0iE" firstAttribute="leading" secondItem="bJ4-DR-wUm" secondAttribute="trailing" constant="20" id="keU-GC-ps9"/>
+                        <constraint firstItem="bJ4-DR-wUm" firstAttribute="leading" secondItem="zXb-Ak-W0x" secondAttribute="trailing" constant="20" id="mLE-88-upo"/>
+                        <constraint firstAttribute="bottom" secondItem="0CR-iH-GNA" secondAttribute="bottom" constant="10" id="uDB-qK-cr5"/>
+                    </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="Azz-f1-3N4"/>
+                        </mask>
+                    </variation>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mnm-6d-jB8">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="531"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="B1Z-vV-zZ6" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="3LW-rt-1V4"/>
+                <constraint firstAttribute="trailing" secondItem="h0r-oz-VMO" secondAttribute="trailing" constant="10" id="AwJ-Ki-EXi"/>
+                <constraint firstItem="B1Z-vV-zZ6" firstAttribute="top" secondItem="mnm-6d-jB8" secondAttribute="bottom" id="Gh1-Q5-BDa"/>
                 <constraint firstAttribute="bottom" secondItem="h0r-oz-VMO" secondAttribute="bottom" constant="50" id="LPf-a3-N9t"/>
                 <constraint firstItem="h0r-oz-VMO" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="MLE-y6-aX6"/>
+                <constraint firstItem="mnm-6d-jB8" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Mk6-dd-o7c"/>
+                <constraint firstItem="mnm-6d-jB8" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Yln-xn-4CY"/>
+                <constraint firstAttribute="trailing" secondItem="B1Z-vV-zZ6" secondAttribute="trailing" id="kIr-w9-epv"/>
+                <constraint firstItem="h0r-oz-VMO" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="10" id="pSs-5T-Jyh"/>
+                <constraint firstAttribute="bottom" secondItem="B1Z-vV-zZ6" secondAttribute="bottom" id="ph2-Iu-Zub"/>
+                <constraint firstAttribute="trailing" secondItem="mnm-6d-jB8" secondAttribute="trailing" id="qp0-Jv-mfv"/>
             </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="LPf-a3-N9t"/>
+                    <exclude reference="MLE-y6-aX6"/>
+                </mask>
+            </variation>
         </view>
     </objects>
+    <resources>
+        <image name="calendar" width="256" height="256"/>
+        <image name="messaging" width="256" height="256"/>
+        <image name="note" width="256" height="256"/>
+        <image name="profile" width="256" height="256"/>
+        <image name="woman" width="128" height="128"/>
+    </resources>
 </document>
