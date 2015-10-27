@@ -14,13 +14,16 @@ class AMRNote: PFObject {
   @NSManaged var stylist: AMRUser
   
   class func noteForUser(stylist: AMRUser?, client: AMRUser?, completion: (objects: [AMRNote]?, error: NSError?) -> Void)  {
-    
     let query = self.query()
     if let stylist = stylist {
       query?.whereKey("stylist", equalTo: stylist)
+    } else {
+      query?.whereKeyDoesNotExist("stylist")
     }
     if let client = client {
       query?.whereKey("client", equalTo: client)
+    } else {
+      query?.whereKeyDoesNotExist("client")
     }
     query?.findObjectsInBackgroundWithBlock({ (objects: [PFObject]?, error: NSError?) -> Void in
       completion(objects: objects as? [AMRNote], error: error)
