@@ -21,6 +21,7 @@ class AMRClientsViewController: UIViewController, UITableViewDataSource, UITable
     setUpClientTable()
     loadClients()
     self.title = "Clients"
+
     let settings: UIButton = UIButton()
     settings.setImage(UIImage(named: "settings"), forState: .Normal)
     settings.frame = CGRectMake(0, 0, 30, 30)
@@ -29,6 +30,13 @@ class AMRClientsViewController: UIViewController, UITableViewDataSource, UITable
     let leftNavBarButton = UIBarButtonItem(customView: settings)
     self.navigationItem.leftBarButtonItem = leftNavBarButton
     
+    let addClient: UIButton = UIButton()
+    addClient.setImage(UIImage(named: "plus"), forState: .Normal)
+    addClient.frame = CGRectMake(0, 0, 30, 30)
+    addClient.addTarget(self, action: Selector("onAddClientType"), forControlEvents: .TouchUpInside)
+
+    let rightNavBarButton = UIBarButtonItem(customView: addClient)
+    self.navigationItem.rightBarButtonItem = rightNavBarButton
 
   // Do any additional setup after loading the view.
   }
@@ -43,6 +51,12 @@ class AMRClientsViewController: UIViewController, UITableViewDataSource, UITable
     self.presentViewController(settingsVC, animated: true, completion: nil)
   }
   
+  func onAddClientType(){
+    let addClientVC = AMRAddClientViewController()
+    addClientVC.setVcData(self.stylist, client: nil)
+    self.presentViewController(addClientVC, animated: true, completion: nil)
+  }
+
   func loadClients(){
     let query : PFQuery = PFUser.query()!
     query.findObjectsInBackgroundWithBlock { (arrayOfUsers, error) -> Void in
@@ -63,15 +77,20 @@ class AMRClientsViewController: UIViewController, UITableViewDataSource, UITable
   }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = clientTable.dequeueReusableCellWithIdentifier(cellConstant, forIndexPath: indexPath)
+    let cell = clientTable.dequeueReusableCellWithIdentifier(cellConstant, forIndexPath: indexPath) as! AMRClientTableViewCell
+    cell.client = clients![indexPath.row] as? AMRUser
     cell.textLabel!.text = clients![indexPath.row]["firstName"] as? String
     return cell
   }
 
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    let cell = clientTable.cellForRowAtIndexPath(indexPath) as! AMRClientTableViewCell
     let clientDetailVC = AMRClientsDetailViewController()
-    self.presentViewController(clientDetailVC, animated: true, completion: nil)
+    clientDetailVC.stylist = self.stylist
+    clientDetailVC.client = cell.client
+    let nav = UINavigationController(rootViewController: clientDetailVC)
+    self.presentViewController(nav, animated: true, completion: nil)
   }
 
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

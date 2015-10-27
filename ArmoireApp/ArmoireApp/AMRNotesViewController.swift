@@ -52,7 +52,7 @@ class AMRNotesViewController: UIViewController, AMRViewControllerProtocol{
   }
   
   func loadNote(){
-    AMRNote.noteForUser(AMRUser.currentUser(), client: AMRUser.currentUser()) { (objects, error) -> Void in
+    AMRNote.noteForUser(self.stylist, client: self.client) { (objects, error) -> Void in
       if let error = error {
         print(error.localizedDescription)
       } else if (objects!.isEmpty) {
@@ -85,8 +85,8 @@ class AMRNotesViewController: UIViewController, AMRViewControllerProtocol{
   
   private func createNote(){
     var note = PFObject(className: "Note")
-    note.setObject(AMRUser.currentUser()!, forKey: "client")
-    note.setObject(AMRUser.currentUser()!, forKey: "stylist")
+    note.setObject(self.client!, forKey: "client")
+    note.setObject(self.stylist!, forKey: "stylist")
     note.saveInBackgroundWithBlock { (success, error) -> Void in
       if success {
         NSLog("Note created")

@@ -7,18 +7,20 @@
 //
 
 import UIKit
+//import LayerKit
 
 class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtocol {
   
   var stylist: AMRUser?
   var client: AMRUser?
+  var vcArray: [UINavigationController]!
   var selectedViewController: UIViewController?
 //  var layerClient: LYRClient!
-  var vcArray: [UINavigationController]!
+  @IBOutlet weak var containerView: UIView!
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
+
     let exitModalButton: UIButton = UIButton()
     exitModalButton.setImage(UIImage(named: "cancel"), forState: .Normal)
     exitModalButton.frame = CGRectMake(0, 0, 30, 30)
@@ -37,11 +39,11 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
   }
-  
+
   func exitModal(){
     self.dismissViewControllerAnimated(true, completion: nil)
   }
-  
+
   internal func setVcData(stylist: AMRUser?, client: AMRUser?) {
     setVcArray()
     setVcDataForTabs()
@@ -57,7 +59,6 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
     selectViewController(vcArray[1])
   }
   @IBAction func onTapMessaging(sender: UITapGestureRecognizer) {
-    
   }
   
   private func setVcArray(){
@@ -70,7 +71,7 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
 //      UINavigationController(rootViewController: AMRMessagesViewController(layerClient: layerClient) )
     ]
   }
-  
+
   private func setVcDataForTabs(){
     for (index, value) in vcArray.enumerate() {
       if (index != 0) {
@@ -79,7 +80,7 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
       }
     }
   }
-  
+
   func selectViewController(viewController: UIViewController){
     if let oldViewController = selectedViewController{
       oldViewController.willMoveToParentViewController(nil)
@@ -94,6 +95,7 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
     viewController.didMoveToParentViewController(self)
     selectedViewController = viewController
   }
+
     /*
     // MARK: - Navigation
 

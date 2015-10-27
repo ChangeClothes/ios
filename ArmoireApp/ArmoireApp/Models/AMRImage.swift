@@ -1,0 +1,55 @@
+//
+//  AMRImage.swift
+//  ArmoireApp
+//
+//  Created by Mathew Kellogg on 10/25/15.
+//  Copyright © 2015 Armoire. All rights reserved.
+//
+
+import Foundation
+
+class AMRImage: PFObject {
+    
+    @NSManaged var defaultImageName: String?
+    @NSManaged private var file: PFFile?
+    @NSManaged var client: AMRUser?
+    @NSManaged var stylist: AMRUser?
+    
+    class func imagesForUser(stylist: AMRUser?, client: AMRUser?, completion: (objects: [AMRImage]?, error: NSError?) -> Void)  {
+        
+        let query = self.query()
+        if let stylist = stylist {
+            query?.whereKey("stylist", equalTo: stylist)
+        }
+        if let client = client {
+            query?.whereKey("client", equalTo: client)
+        }
+        query?.findObjectsInBackgroundWithBlock({ (objects: [PFObject]?, error: NSError?) -> Void in
+            completion(objects: objects as? [AMRImage], error: error)
+        })
+    }
+    
+}
+
+extension AMRImage: PFSubclassing {
+    static func parseClassName() -> String {
+        return "Image"
+    }
+}
+
+extension UIImageView {
+    func setAMRImage(image: AMRImage) {
+        if (image.defaultImageName != nil){
+            self.image = UIImage(named: image.defaultImageName!)
+        }
+        if (image.file != nil) {
+            image.file!.getDataInBackgroundWithBlock { (data: NSData?, error: NSError?) -> Void in
+                if error == nil {
+                    self.image = UIImage(data: data!)
+                } else {
+                    print("error loading image from file")
+                }
+            }
+        }
+    }
+}
