@@ -97,6 +97,10 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
   }
   
   private func setVcDataForTabs(){
+    print("setting vc data for tab")
+    print(self.client)
+    print("s")
+    print(self.stylist)
     for (index, value) in vcArray.enumerate() {
       if (index != 0) {
         let vc = value.viewControllers.first as? AMRViewControllerProtocol
