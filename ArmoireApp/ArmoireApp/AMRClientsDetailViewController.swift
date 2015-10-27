@@ -7,15 +7,22 @@
 //
 
 import UIKit
+//import LayerKit
 
 class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtocol {
   
   var stylist: AMRUser?
   var client: AMRUser?
+  var vcArray: [UINavigationController]!
+  var selectedViewController: UIViewController?
+//  var layerClient: LYRClient!
+  @IBOutlet weak var containerView: UIView!
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.title = "Client Details"
+    self.title = (client?.firstName)! + " " + (client?.lastName)!
+    self.setVcArray()
+    selectViewController(vcArray[4])
     // Do any additional setup after loading the view.
   }
 
@@ -26,17 +33,47 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
     
 
   @IBAction func onTapCalendar(sender: UITapGestureRecognizer) {
+    selectViewController(vcArray[2])
   }
   @IBAction func onTapProfile(sender: UITapGestureRecognizer) {
+    selectViewController(vcArray[4])
   }
   @IBAction func onTapNote(sender: UITapGestureRecognizer) {
+    selectViewController(vcArray[1])
   }
   @IBAction func onTapMessaging(sender: UITapGestureRecognizer) {
+
   }
   @IBAction func onTapDismiss(sender: AnyObject) {
     self.dismissViewControllerAnimated(true, completion: nil)
   }
   
+  private func setVcArray(){
+    vcArray = [
+      UINavigationController(rootViewController: AMRLoginViewController()),
+      UINavigationController(rootViewController: AMRNotesViewController()),
+      UINavigationController(rootViewController: AMRUpcomingMeetingsViewController()),
+      UINavigationController (rootViewController: AMRSettingsViewController()),
+      UINavigationController(rootViewController: AMRClientProfileViewController())
+//      UINavigationController(rootViewController: AMRMessagesViewController(layerClient: layerClient) )
+    ]
+  }
+
+  func selectViewController(viewController: UIViewController){
+    if let oldViewController = selectedViewController{
+      oldViewController.willMoveToParentViewController(nil)
+      oldViewController.view.removeFromSuperview()
+      oldViewController.removeFromParentViewController()
+    }
+
+    self.addChildViewController(viewController)
+    viewController.view.frame = self.containerView.bounds
+    viewController.view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+    self.containerView.addSubview(viewController.view)
+    viewController.didMoveToParentViewController(self)
+    selectedViewController = viewController
+  }
+
   internal func setVcData(stylist: AMRUser?, client: AMRUser?) {
     self.stylist = stylist
     self.client = client
