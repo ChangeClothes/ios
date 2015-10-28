@@ -337,18 +337,19 @@ extension AMRUpcomingMeetingsViewController: UITableViewDelegate, UITableViewDat
   }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier(meetingTableViewCellReuseIdentifier)!
+    let cell = tableView.dequeueReusableCellWithIdentifier(meetingTableViewCellReuseIdentifier)! as! AMRUpcomingMeetingsTableViewCell
     
     let dateRepresentingThisDay = sortedDays[indexPath.section]
     let eventsOnThisDay = sections[dateRepresentingThisDay]
     let event = eventsOnThisDay![indexPath.row]
     
-    cell.textLabel?.text = event.title
-    if event.allDay {
-      cell.detailTextLabel!.text = "all day"
-    } else {
-      cell.detailTextLabel?.text = DateFormatters.cellDateFormatter.stringFromDate(event.startDate)
-    }
+    cell.event = event
+//    cell.textLabel?.text = event.title
+//    if event.allDay {
+//      cell.detailTextLabel!.text = "all day"
+//    } else {
+//      cell.detailTextLabel?.text = DateFormatters.cellDateFormatter.stringFromDate(event.startDate)
+//    }
     
     return cell
   }
@@ -371,7 +372,6 @@ extension AMRUpcomingMeetingsViewController: UITableViewDelegate, UITableViewDat
   
   struct DateFormatters {
     static let sectionDateFormatter = DateFormatters.sharedSectionDateFormatter()
-    static let cellDateFormatter = DateFormatters.sharedCellDateFormatter()
     
     private static func sharedSectionDateFormatter() -> NSDateFormatter {
       let dateFormatter = NSDateFormatter()
@@ -380,12 +380,6 @@ extension AMRUpcomingMeetingsViewController: UITableViewDelegate, UITableViewDat
       return dateFormatter
     }
     
-    private static func sharedCellDateFormatter() -> NSDateFormatter {
-      let dateFormatter = NSDateFormatter()
-      dateFormatter.dateStyle = .NoStyle
-      dateFormatter.timeStyle = .MediumStyle
-      return dateFormatter
-    }
   }
 }
 
