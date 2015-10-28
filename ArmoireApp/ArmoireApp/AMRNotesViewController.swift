@@ -20,12 +20,7 @@ class AMRNotesViewController: UIViewController, AMRViewControllerProtocol{
   override func viewWillAppear(animated: Bool) {
     loadNote()
     self.title = "Notes"
-    var settings: UIButton = UIButton()
-    settings.setImage(UIImage(named: "settings"), forState: .Normal)
-    settings.frame = CGRectMake(0, 0, 30, 30)
-    settings.addTarget(self, action: Selector("onSettingsTap"), forControlEvents: .TouchUpInside)
-    var leftNavBarButton = UIBarButtonItem(customView: settings)
-    self.navigationItem.leftBarButtonItem = leftNavBarButton
+    setUpNavBar()
   }
   
   override func viewDidLoad() {
@@ -46,6 +41,30 @@ class AMRNotesViewController: UIViewController, AMRViewControllerProtocol{
     // Dispose of any resources that can be recreated.
   }
   
+  internal func setUpNavBar(){
+    if (stylist != nil && client != nil){
+      let exitModalButton: UIButton = UIButton()
+      exitModalButton.setImage(UIImage(named: "undo"), forState: .Normal)
+      exitModalButton.frame = CGRectMake(0, 0, 30, 30)
+      exitModalButton.addTarget(self, action: Selector("exitModal"), forControlEvents: .TouchUpInside)
+
+      let leftNavBarButton = UIBarButtonItem(customView: exitModalButton)
+      self.navigationItem.leftBarButtonItem = leftNavBarButton
+    } else {
+      let settings: UIButton = UIButton()
+      settings.setImage(UIImage(named: "settings"), forState: .Normal)
+      settings.frame = CGRectMake(0, 0, 30, 30)
+      settings.addTarget(self, action: Selector("onSettingsTap"), forControlEvents: .TouchUpInside)
+
+      let leftNavBarButton = UIBarButtonItem(customView: settings)
+      self.navigationItem.leftBarButtonItem = leftNavBarButton
+    }
+  }
+
+  func exitModal(){
+    self.dismissViewControllerAnimated(true, completion: nil)
+  }
+
   func onSettingsTap(){
     let settingsVC = AMRSettingsViewController()
     self.presentViewController(settingsVC, animated: true, completion: nil)

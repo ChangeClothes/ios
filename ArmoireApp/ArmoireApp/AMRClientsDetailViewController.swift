@@ -25,8 +25,7 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    setUpNavBar()
-    self.title = (client?.firstName)! + " " + (client?.lastName)!
+    self.navigationController?.navigationBarHidden = true
     setVcData(self.stylist, client: self.client)
     selectViewController(vcArray[4])
     // Do any additional setup after loading the view.
@@ -37,35 +36,11 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
     // Dispose of any resources that can be recreated.
   }
 
-  func exitModal(){
-    self.dismissViewControllerAnimated(true, completion: nil)
-  }
-
   internal func setVcData(stylist: AMRUser?, client: AMRUser?) {
     self.stylist = stylist
     self.client = client
     setVcArray()
     setVcDataForTabs()
-  }
-
-  internal func setUpNavBar(){
-    if (self.stylist != nil){
-      let exitModalButton: UIButton = UIButton()
-      exitModalButton.setImage(UIImage(named: "undo"), forState: .Normal)
-      exitModalButton.frame = CGRectMake(0, 0, 30, 30)
-      exitModalButton.addTarget(self, action: Selector("exitModal"), forControlEvents: .TouchUpInside)
-
-      let leftNavBarButton = UIBarButtonItem(customView: exitModalButton)
-      self.navigationItem.leftBarButtonItem = leftNavBarButton
-    } else {
-      let settings: UIButton = UIButton()
-      settings.setImage(UIImage(named: "settings"), forState: .Normal)
-      settings.frame = CGRectMake(0, 0, 30, 30)
-      settings.addTarget(self, action: Selector("onSettingsTap"), forControlEvents: .TouchUpInside)
-
-      let leftNavBarButton = UIBarButtonItem(customView: settings)
-      self.navigationItem.leftBarButtonItem = leftNavBarButton
-    }
   }
 
   internal func onSettingsTap(){

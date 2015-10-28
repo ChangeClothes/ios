@@ -46,15 +46,7 @@ class AMRUpcomingMeetingsViewController: UIViewController, AMRViewControllerProt
     
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDidLogin:", name: kUserDidLoginNotification, object: nil)
     
-    let settings: UIButton = UIButton()
-    settings.setImage(UIImage(named: "settings"), forState: .Normal)
-    settings.frame = CGRectMake(0, 0, 30, 30)
-    settings.addTarget(self, action: Selector("onSettingsTap"), forControlEvents: .TouchUpInside)
-    
-    let leftNavBarButton = UIBarButtonItem(customView: settings)
-    self.navigationItem.leftBarButtonItem = leftNavBarButton
-    
-    setupNavigationBar()
+    setUpNavBar()
     setupTableView(meetingsTableView)
     defineFilter()
     if isAuthorized == true {
@@ -67,6 +59,10 @@ class AMRUpcomingMeetingsViewController: UIViewController, AMRViewControllerProt
     checkCalendarAuthorizationStatus()
   }
   
+  func exitModal(){
+    self.dismissViewControllerAnimated(true, completion: nil)
+  }
+
   func onSettingsTap(){
     let settingsVC = AMRSettingsViewController()
     self.presentViewController(settingsVC, animated: true, completion: nil)
@@ -81,14 +77,6 @@ class AMRUpcomingMeetingsViewController: UIViewController, AMRViewControllerProt
     }
   }
   
-  private func setupNavigationBar(){
-    title = "Upcoming Meetings"
-    if let _ = client{
-      let newEventButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "createNewEvent:")
-      navigationItem.rightBarButtonItem = newEventButton
-    }
-    
-  }
   
   private func setupTableView(tableView: UITableView){
     tableView.delegate = self
@@ -102,7 +90,30 @@ class AMRUpcomingMeetingsViewController: UIViewController, AMRViewControllerProt
     self.client = client
   }
 
+  internal func setUpNavBar(){
+    title = "Upcoming Meetings"
+    if let _ = client{
+      let newEventButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "createNewEvent:")
+      navigationItem.rightBarButtonItem = newEventButton
+    }
+    if (stylist != nil && client != nil){
+      let exitModalButton: UIButton = UIButton()
+      exitModalButton.setImage(UIImage(named: "undo"), forState: .Normal)
+      exitModalButton.frame = CGRectMake(0, 0, 30, 30)
+      exitModalButton.addTarget(self, action: Selector("exitModal"), forControlEvents: .TouchUpInside)
 
+      let leftNavBarButton = UIBarButtonItem(customView: exitModalButton)
+      self.navigationItem.leftBarButtonItem = leftNavBarButton
+    } else {
+      let settings: UIButton = UIButton()
+      settings.setImage(UIImage(named: "settings"), forState: .Normal)
+      settings.frame = CGRectMake(0, 0, 30, 30)
+      settings.addTarget(self, action: Selector("onSettingsTap"), forControlEvents: .TouchUpInside)
+
+      let leftNavBarButton = UIBarButtonItem(customView: settings)
+      self.navigationItem.leftBarButtonItem = leftNavBarButton
+    }
+  }
   // MARK: - Behavior
   func createNewEvent(sender: UIBarButtonItem){
     let newEventVC = EKEventEditViewController()
