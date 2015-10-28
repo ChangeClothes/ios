@@ -63,7 +63,6 @@ class AMRUpcomingMeetingsViewController: UIViewController, AMRViewControllerProt
     if isAuthorized == true {
       loadEvents()
     }
-    
   }
   
   override func viewWillAppear(animated: Bool) {
@@ -103,6 +102,28 @@ class AMRUpcomingMeetingsViewController: UIViewController, AMRViewControllerProt
   internal func setVcData(stylist: AMRUser?, client: AMRUser?) {
     self.stylist = stylist
     self.client = client
+  }
+  
+  private func scrollToLatestDate(){
+    if sortedDays.count > 0 {
+      var currentClosestInterval = fabs(sortedDays[0].timeIntervalSinceNow)
+      var currentMinIndex = 0
+      
+      for date in sortedDays {
+        print(fabs(date.timeIntervalSinceNow))
+        if fabs(date.timeIntervalSinceNow) <= currentClosestInterval   {
+          currentClosestInterval = fabs(date.timeIntervalSinceNow)
+          currentMinIndex = sortedDays.indexOf(date)!
+        }
+      }
+      let cellRect = meetingsTableView.rectForSection(currentMinIndex)
+      
+      // Hack because navigationController is not present sometimes
+      let navBarHeight = navigationController?.navigationBar.frame.height ?? 44
+      let heightOffset = cellRect.origin.y - navBarHeight - meetingsTableView.sectionHeaderHeight
+      meetingsTableView.setContentOffset(CGPointMake(0, heightOffset), animated: true)
+    }
+
   }
   
   // MARK: - Behavior
@@ -195,6 +216,7 @@ class AMRUpcomingMeetingsViewController: UIViewController, AMRViewControllerProt
         self.sortedDays = self.sortedDaysForUnsortedDates(Array(self.sections.keys))
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
           self.refreshTableView()
+          self.scrollToLatestDate()
         })
       }
     })
@@ -344,13 +366,6 @@ extension AMRUpcomingMeetingsViewController: UITableViewDelegate, UITableViewDat
     let event = eventsOnThisDay![indexPath.row]
     
     cell.event = event
-//    cell.textLabel?.text = event.title
-//    if event.allDay {
-//      cell.detailTextLabel!.text = "all day"
-//    } else {
-//      cell.detailTextLabel?.text = DateFormatters.cellDateFormatter.stringFromDate(event.startDate)
-//    }
-    
     return cell
   }
   
