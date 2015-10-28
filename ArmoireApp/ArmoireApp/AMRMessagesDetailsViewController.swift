@@ -64,7 +64,7 @@ class AMRMessagesDetailsViewController: ATLConversationViewController {
   }
   
   override func addressBarViewController(addressBarViewController: ATLAddressBarViewController, searchForParticipantsMatchingText searchText: String, completion: (([AnyObject]) -> Void)?) {
-    AMRUserManager.sharedManager.queryForUserWithName(searchText) { (participants: NSArray?, error: NSError?) in
+    AMRUserManager.sharedManager.queryForStylistWithName(searchText) { (participants: NSArray?, error: NSError?) in
       if (error == nil) {
         if let callback = completion {
           callback(participants! as [AnyObject])

@@ -16,6 +16,24 @@ class AMRUserManager {
   func queryForUserWithName(searchText: String, completion: ((NSArray?, NSError?) -> Void)) {
     let query: PFQuery! = AMRUser.query()
     query.whereKey("objectId", notEqualTo: AMRUser.currentUser()!.objectId!)
+
+    query.findObjectsInBackgroundWithBlock { objects, error in
+      var contacts = [AMRUser]()
+      if (error == nil) {
+        for user: AMRUser in (objects as! [AMRUser]) {
+          if user.fullName.rangeOfString(searchText, options: NSStringCompareOptions.CaseInsensitiveSearch) != nil {
+            contacts.append(user)
+          }
+        }
+      }
+      completion(contacts, error)
+    }
+  }
+
+  func queryForStylistWithName(searchText: String, completion: ((NSArray?, NSError?) -> Void)) {
+    let query: PFQuery! = AMRUser.query()
+    query.whereKey("objectId", notEqualTo: AMRUser.currentUser()!.objectId!)
+    query.whereKey("stylist", equalTo: AMRUser.currentUser()!)
     
     query.findObjectsInBackgroundWithBlock { objects, error in
       var contacts = [AMRUser]()

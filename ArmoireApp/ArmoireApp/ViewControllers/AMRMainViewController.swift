@@ -46,8 +46,9 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
     if (self.client != nil) {
       //client workflow
       let nc  = vcArray[6]
-      let vc = nc.viewControllers.first as? AMRViewControllerProtocol
+      let vc = nc.viewControllers.first as? AMRClientsDetailViewController
       vc?.setVcData(self.stylist, client: self.client)
+      vc?.layerClient = layerClient
       UIApplication.sharedApplication().windows[0].rootViewController = nc
       UIApplication.sharedApplication().windows[0].makeKeyAndVisible()
     } else {
@@ -91,12 +92,12 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
   private func setVcArray(){
     vcArray = [
       UINavigationController(rootViewController: AMRLoginViewController()),
-      UINavigationController(rootViewController: AMRClientsViewController()),
+      UINavigationController(rootViewController: AMRClientsViewController(layerClient: layerClient)),
       UINavigationController(rootViewController: AMRMessagesViewController(layerClient: layerClient) ),
       UINavigationController(rootViewController: AMRNotesViewController()),
       UINavigationController(rootViewController: AMRUpcomingMeetingsViewController()),
       UINavigationController (rootViewController: AMRSettingsViewController()),
-      UINavigationController (rootViewController: AMRClientsDetailViewController())
+      UINavigationController (rootViewController: AMRClientsDetailViewController(layerClient: layerClient))
     ]
   }
   
