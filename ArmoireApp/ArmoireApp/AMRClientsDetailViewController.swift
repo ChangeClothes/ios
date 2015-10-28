@@ -46,12 +46,12 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
   internal func setUpNavBar(){
     if (self.stylist != nil){
       let exitModalButton: UIButton = UIButton()
-      exitModalButton.setImage(UIImage(named: "cancel"), forState: .Normal)
+      exitModalButton.setImage(UIImage(named: "undo"), forState: .Normal)
       exitModalButton.frame = CGRectMake(0, 0, 30, 30)
       exitModalButton.addTarget(self, action: Selector("exitModal"), forControlEvents: .TouchUpInside)
 
-      let rightNavBarButton = UIBarButtonItem(customView: exitModalButton)
-      self.navigationItem.rightBarButtonItem = rightNavBarButton
+      let leftNavBarButton = UIBarButtonItem(customView: exitModalButton)
+      self.navigationItem.leftBarButtonItem = leftNavBarButton
     } else {
       let settings: UIButton = UIButton()
       settings.setImage(UIImage(named: "settings"), forState: .Normal)
