@@ -45,11 +45,9 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
     setVcData(nil, client: nil)
     if (self.client != nil) {
       //client workflow
-      let nc  = vcArray[6]
-      let vc = nc.viewControllers.first as? AMRClientsDetailViewController
-      vc?.setVcData(self.stylist, client: self.client)
-      vc?.layerClient = layerClient
-      UIApplication.sharedApplication().windows[0].rootViewController = nc
+      let vc = AMRClientsDetailViewController(layerClient: layerClient)
+      vc.setVcData(self.stylist, client: self.client)
+      UIApplication.sharedApplication().windows[0].rootViewController = vc
       UIApplication.sharedApplication().windows[0].makeKeyAndVisible()
     } else {
       //stylist workflow

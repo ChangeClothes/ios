@@ -22,7 +22,41 @@ class AMRClientProfileViewController: UIViewController, UINavigationControllerDe
   func setVcData(stylist: AMRUser?, client: AMRUser?) {
     self.stylist = stylist
     self.client = client
+    if (client != nil){
+      self.title = (client?.firstName)! + " " + (client?.lastName)!
+    }
     loadProfile()
+    setUpNavBar()
+
+  }
+
+  func onSettingsTap(){
+    let settingsVC = AMRSettingsViewController()
+    self.presentViewController(settingsVC, animated: true, completion: nil)
+  }
+
+  internal func setUpNavBar(){
+    if (stylist != nil && client != nil){
+      let exitModalButton: UIButton = UIButton()
+      exitModalButton.setImage(UIImage(named: "undo"), forState: .Normal)
+      exitModalButton.frame = CGRectMake(0, 0, 30, 30)
+      exitModalButton.addTarget(self, action: Selector("exitModal"), forControlEvents: .TouchUpInside)
+
+      let leftNavBarButton = UIBarButtonItem(customView: exitModalButton)
+      self.navigationItem.leftBarButtonItem = leftNavBarButton
+    } else {
+      let settings: UIButton = UIButton()
+      settings.setImage(UIImage(named: "settings"), forState: .Normal)
+      settings.frame = CGRectMake(0, 0, 30, 30)
+      settings.addTarget(self, action: Selector("onSettingsTap"), forControlEvents: .TouchUpInside)
+
+      let leftNavBarButton = UIBarButtonItem(customView: settings)
+      self.navigationItem.leftBarButtonItem = leftNavBarButton
+    }
+  }
+
+  func exitModal(){
+    self.dismissViewControllerAnimated(true, completion: nil)
   }
   
   /******************
@@ -119,7 +153,6 @@ class AMRClientProfileViewController: UIViewController, UINavigationControllerDe
   
   override func viewDidLoad() {
     super.viewDidLoad()
-
     // Do any additional setup after loading the view.
       
 
