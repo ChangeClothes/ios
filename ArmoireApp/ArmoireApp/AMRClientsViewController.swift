@@ -15,6 +15,12 @@ class AMRClientsViewController: UIViewController, UITableViewDataSource, UITable
   var client: AMRUser?
   var clients: [PFUser]?
   let cellConstant = "clientTableViewCellReuseIdentifier"
+  var layerClient: LYRClient!
+
+  convenience init(layerClient: LYRClient){
+    self.init()
+    self.layerClient = layerClient
+  }
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -86,7 +92,7 @@ class AMRClientsViewController: UIViewController, UITableViewDataSource, UITable
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     tableView.deselectRowAtIndexPath(indexPath, animated: true)
     let cell = clientTable.cellForRowAtIndexPath(indexPath) as! AMRClientTableViewCell
-    let clientDetailVC = AMRClientsDetailViewController()
+    let clientDetailVC = AMRClientsDetailViewController(layerClient: layerClient)
     clientDetailVC.stylist = self.stylist
     clientDetailVC.client = cell.client
     let nav = UINavigationController(rootViewController: clientDetailVC)

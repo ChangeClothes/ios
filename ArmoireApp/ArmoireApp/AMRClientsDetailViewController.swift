@@ -7,7 +7,7 @@
 //
 
 import UIKit
-//import LayerKit
+import LayerKit
 
 class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtocol {
   
@@ -15,9 +15,14 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
   var client: AMRUser?
   var vcArray: [UINavigationController]!
   var selectedViewController: UIViewController?
-//  var layerClient: LYRClient!
+  var layerClient: LYRClient!
   @IBOutlet weak var containerView: UIView!
   
+  convenience init(layerClient: LYRClient) {
+    self.init()
+    self.layerClient = layerClient
+  }
+
   override func viewDidLoad() {
     super.viewDidLoad()
     setUpNavBar()
@@ -78,6 +83,7 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
     selectViewController(vcArray[1])
   }
   @IBAction func onTapMessaging(sender: UITapGestureRecognizer) {
+    selectViewController(vcArray[5])
   }
   
   private func setVcArray(){
@@ -86,8 +92,8 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
       UINavigationController(rootViewController: AMRNotesViewController()),
       UINavigationController(rootViewController: AMRUpcomingMeetingsViewController()),
       UINavigationController (rootViewController: AMRSettingsViewController()),
-      UINavigationController(rootViewController: AMRClientProfileViewController())
-//      UINavigationController(rootViewController: AMRMessagesViewController(layerClient: layerClient) )
+      UINavigationController(rootViewController: AMRClientProfileViewController()),
+      UINavigationController(rootViewController: AMRMessagesViewController(layerClient: layerClient) )
     ]
   }
 
