@@ -110,7 +110,6 @@ class AMRUpcomingMeetingsViewController: UIViewController, AMRViewControllerProt
       var currentMinIndex = 0
       
       for date in sortedDays {
-        print(fabs(date.timeIntervalSinceNow))
         if fabs(date.timeIntervalSinceNow) <= currentClosestInterval   {
           currentClosestInterval = fabs(date.timeIntervalSinceNow)
           currentMinIndex = sortedDays.indexOf(date)!
@@ -121,7 +120,7 @@ class AMRUpcomingMeetingsViewController: UIViewController, AMRViewControllerProt
       // Hack because navigationController is not present sometimes
       let navBarHeight = navigationController?.navigationBar.frame.height ?? 44
       let heightOffset = cellRect.origin.y - navBarHeight - meetingsTableView.sectionHeaderHeight
-      meetingsTableView.setContentOffset(CGPointMake(0, heightOffset), animated: true)
+      meetingsTableView.setContentOffset(CGPointMake(0, heightOffset), animated: false)
     }
 
   }
@@ -216,7 +215,6 @@ class AMRUpcomingMeetingsViewController: UIViewController, AMRViewControllerProt
         self.sortedDays = self.sortedDaysForUnsortedDates(Array(self.sections.keys))
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
           self.refreshTableView()
-          self.scrollToLatestDate()
         })
       }
     })
@@ -242,7 +240,7 @@ class AMRUpcomingMeetingsViewController: UIViewController, AMRViewControllerProt
   }
   
   private func sortedDaysForUnsortedDates(unsortedDates: [NSDate]) -> [NSDate] {
-    return unsortedDates.sort { $0.compare($1) == NSComparisonResult.OrderedDescending }
+    return unsortedDates.sort { $0.compare($1) == NSComparisonResult.OrderedAscending }
   }
   
   private func createEventsForUnmatchedMeetings(unmatchedMeetings: [AMRMeeting]) {
@@ -299,6 +297,7 @@ class AMRUpcomingMeetingsViewController: UIViewController, AMRViewControllerProt
   
   private func refreshTableView() {
     meetingsTableView.reloadData()
+    scrollToLatestDate()
   }
   
   @IBAction func goToSettingsButtonTapped(sender: UIButton) {
