@@ -16,6 +16,7 @@ class AMRUserManager {
   func queryForUserWithName(searchText: String, completion: ((NSArray?, NSError?) -> Void)) {
     let query: PFQuery! = AMRUser.query()
     query.whereKey("objectId", notEqualTo: AMRUser.currentUser()!.objectId!)
+    query.whereKey("stylist", equalTo: AMRUser.currentUser()!)
     
     query.findObjectsInBackgroundWithBlock { objects, error in
       var contacts = [AMRUser]()
