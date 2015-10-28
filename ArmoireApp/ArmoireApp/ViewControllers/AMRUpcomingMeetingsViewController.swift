@@ -130,6 +130,7 @@ class AMRUpcomingMeetingsViewController: UIViewController, AMRViewControllerProt
     let newEventVC = EKEventEditViewController()
     newEventVC.eventStore = EventStore.defaultEventStore
     newEventVC.editViewDelegate = self
+    newEventVC.event?.title = "Armoire: " + (stylist?.firstName)! + "-" + (client?.firstName)!
     presentViewController(newEventVC, animated: true, completion: nil)
   }
   
