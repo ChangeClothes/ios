@@ -14,6 +14,8 @@ class AMRUser: PFUser {
   @NSManaged var firstName: String
   @NSManaged var lastName: String
   @NSManaged var stylist: AMRUser
+  @NSManaged var measurements: [[String:String]]
+  @NSManaged var profilePhoto: AMRImage
 
   var fullName: String {
     get{
