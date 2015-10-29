@@ -47,6 +47,7 @@
 		6FDD83981BD0833500028E3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6FDD83971BD0833500028E3D /* LaunchScreen.storyboard */; };
 		6FE7AB691BD84E9A00FAFAC0 /* AMRUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE7AB681BD84E9A00FAFAC0 /* AMRUser.swift */; };
 		6FF7BA181BDC3A9D00A7C54A /* AMRParticipantTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF7BA171BDC3A9D00A7C54A /* AMRParticipantTableViewController.swift */; };
+		C50363E51BE1D12F008030E1 /* AMRMeasurements.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50363E41BE1D12F008030E1 /* AMRMeasurements.swift */; };
 		C51751E71BDD7F17000F7A82 /* AMRImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51751E61BDD7F17000F7A82 /* AMRImage.swift */; };
 		C5B75A881BE0A19D0009296C /* AMRMeasurementCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B75A861BE0A19D0009296C /* AMRMeasurementCell.swift */; };
 		C5B75A891BE0A19D0009296C /* AMRMeasurementCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5B75A871BE0A19D0009296C /* AMRMeasurementCell.xib */; };
@@ -117,6 +118,7 @@
 		6FDD83971BD0833500028E3D /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Application/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6FE7AB681BD84E9A00FAFAC0 /* AMRUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRUser.swift; path = Models/AMRUser.swift; sourceTree = "<group>"; };
 		6FF7BA171BDC3A9D00A7C54A /* AMRParticipantTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRParticipantTableViewController.swift; path = ViewControllers/AMRParticipantTableViewController.swift; sourceTree = "<group>"; };
+		C50363E41BE1D12F008030E1 /* AMRMeasurements.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRMeasurements.swift; path = Models/AMRMeasurements.swift; sourceTree = "<group>"; };
 		C51751E61BDD7F17000F7A82 /* AMRImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRImage.swift; path = Models/AMRImage.swift; sourceTree = "<group>"; };
 		C5B75A861BE0A19D0009296C /* AMRMeasurementCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRMeasurementCell.swift; path = Views/AMRMeasurementCell.swift; sourceTree = "<group>"; };
 		C5B75A871BE0A19D0009296C /* AMRMeasurementCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AMRMeasurementCell.xib; path = Views/AMRMeasurementCell.xib; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 				6F6AEAD01BDB209B009B8F74 /* AMRUserManager.swift */,
 				0FD5476A1BDB3350005587F2 /* AMRNote.swift */,
 				C51751E61BDD7F17000F7A82 /* AMRImage.swift */,
+				C50363E41BE1D12F008030E1 /* AMRMeasurements.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -438,6 +441,7 @@
 				6FA013121BD75C190019E0D6 /* AMRLoginViewController.swift in Sources */,
 				0F4590BC1BD4B57300C839F9 /* AMRClientsDetailViewController.swift in Sources */,
 				C5B75A881BE0A19D0009296C /* AMRMeasurementCell.swift in Sources */,
+				C50363E51BE1D12F008030E1 /* AMRMeasurements.swift in Sources */,
 				6FF7BA181BDC3A9D00A7C54A /* AMRParticipantTableViewController.swift in Sources */,
 				0FD0BABE1BD6037000D91504 /* AMRUpcomingMeetingsViewController.swift in Sources */,
 				0F4590A01BD49AC200C839F9 /* AMRMessagesViewController.swift in Sources */,
