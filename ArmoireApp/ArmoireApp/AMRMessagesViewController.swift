@@ -9,7 +9,7 @@
 import UIKit
 import LayerKit
 
-class AMRMessagesViewController: ATLConversationListViewController, AMRViewControllerProtocol {
+class AMRMessagesViewController: ATLConversationListViewController, AMRViewControllerProtocol{
 
   var messages: NSDictionary?
   var stylist: AMRUser?
@@ -17,6 +17,7 @@ class AMRMessagesViewController: ATLConversationListViewController, AMRViewContr
   @IBOutlet weak var messagesTable: UITableView!
 
   // MARK: - Lifecycle
+
   override func viewDidLoad() {
     
     super.viewDidLoad()
@@ -40,12 +41,13 @@ class AMRMessagesViewController: ATLConversationListViewController, AMRViewContr
   }
   
   // MARK: - Initial setup
+
   private func setupNavigationBar(){
     let composeItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Compose, target: self, action: Selector("composeButtonTapped:"))
     self.navigationItem.setRightBarButtonItem(composeItem, animated: false)
   }
   
-  internal func setUpNavBar(){
+  private func setUpNavBar(){
     if (stylist != nil && client != nil){
       let exitModalButton: UIButton = UIButton()
       exitModalButton.setImage(UIImage(named: "undo"), forState: .Normal)

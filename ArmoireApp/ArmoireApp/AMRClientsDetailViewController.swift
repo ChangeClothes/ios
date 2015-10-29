@@ -9,13 +9,14 @@
 import UIKit
 import LayerKit
 
-class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtocol {
+class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtocol,  LYRQueryControllerDelegate  {
   
   var stylist: AMRUser?
   var client: AMRUser?
   var vcArray: [UINavigationController]!
   var selectedViewController: UIViewController?
   var layerClient: LYRClient!
+  private var queryController: LYRQueryController!
   @IBOutlet weak var containerView: UIView!
   
   convenience init(layerClient: LYRClient) {
@@ -58,9 +59,11 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
     selectViewController(vcArray[1])
   }
   @IBAction func onTapMessaging(sender: UITapGestureRecognizer) {
-    selectViewController(vcArray[5])
+    filterByClient()
   }
   
+  // MARK: - Set Up
+
   private func setVcArray(){
     vcArray = [
       UINavigationController(rootViewController: AMRLoginViewController()),
@@ -68,7 +71,8 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
       UINavigationController(rootViewController: AMRUpcomingMeetingsViewController()),
       UINavigationController (rootViewController: AMRSettingsViewController()),
       UINavigationController(rootViewController: AMRClientProfileViewController()),
-      UINavigationController(rootViewController: AMRMessagesViewController(layerClient: layerClient) )
+      UINavigationController(rootViewController: AMRMessagesViewController(layerClient: layerClient) ),
+      UINavigationController(rootViewController: AMRMessagesDetailsViewController(layerClient: layerClient))
     ]
   }
 
@@ -80,6 +84,32 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
       }
     }
   }
+
+  private func filterByClient(){
+    var participants = [layerClient.authenticatedUserID, client!.objectId, client!.stylist.objectId]
+    let query = LYRQuery(queryableClass: LYRConversation.self)
+    query.predicate = LYRPredicate(property: "participants", predicateOperator: LYRPredicateOperator.IsEqualTo, value: participants)
+    var error: NSErrorPointer? = nil
+    layerClient.executeQuery(query) { (conversations, error) -> Void in
+      if let error = error {
+        NSLog("Query failed with error %@", error)
+      } else if conversations.count == 0 {
+        NSLog("%tu conversations with participants %@", conversations.count, participants)
+      } else if conversations.count < 1 {
+        NSLog("%tu conversations with participants %@", conversations.count, participants)
+      } else {
+        let nc = self.vcArray[6]
+        var vc = nc.viewControllers.first as! AMRMessagesDetailsViewController
+        let conversation = conversations[0] as! LYRConversation
+        let shouldShowAddressBar: Bool  = conversation.participants.count > 2 || conversation.participants.count == 0
+        vc.displaysAddressBar = shouldShowAddressBar
+        vc.conversation = conversation
+        self.selectViewController(nc)
+      }
+    }
+  }
+
+  // MARK - Functionality
 
   func selectViewController(viewController: UIViewController){
     if let oldViewController = selectedViewController{
