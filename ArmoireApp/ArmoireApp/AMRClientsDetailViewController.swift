@@ -93,11 +93,7 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
     layerClient.executeQuery(query) { (conversations, error) -> Void in
       if let error = error {
         NSLog("Query failed with error %@", error)
-      } else if conversations.count == 0 {
-        NSLog("%tu conversations with participants %@", conversations.count, participants)
-      } else if conversations.count < 1 {
-        NSLog("%tu conversations with participants %@", conversations.count, participants)
-      } else {
+      } else if conversations.count == 1 {
         let nc = self.vcArray[6]
         var vc = nc.viewControllers.first as! AMRMessagesDetailsViewController
         let conversation = conversations[0] as! LYRConversation
@@ -105,6 +101,8 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
         vc.displaysAddressBar = shouldShowAddressBar
         vc.conversation = conversation
         self.selectViewController(nc)
+      } else {
+        NSLog("%tu conversations with participants %@", conversations.count, participants)
       }
     }
   }
