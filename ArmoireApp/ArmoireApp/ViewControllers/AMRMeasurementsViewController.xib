@@ -3,11 +3,12 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AMRClientsViewController" customModule="ArmoireApp" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AMRMeasurementsViewController" customModule="ArmoireApp" customModuleProvider="target">
             <connections>
-                <outlet property="clientTable" destination="q1C-8R-yBn" id="aBz-yE-bT5"/>
+                <outlet property="myTableView" destination="rp6-a9-Ugr" id="qIf-5G-WR1"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -16,20 +17,19 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="q1C-8R-yBn">
-                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                    <animations/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="rp6-a9-Ugr">
+                    <rect key="frame" x="8" y="8" width="584" height="584"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </tableView>
             </subviews>
-            <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="q1C-8R-yBn" secondAttribute="trailing" id="37L-u5-ad1"/>
-                <constraint firstItem="q1C-8R-yBn" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="CMt-SC-1Zm"/>
-                <constraint firstAttribute="bottom" secondItem="q1C-8R-yBn" secondAttribute="bottom" id="Q5Q-1c-hVq"/>
-                <constraint firstItem="q1C-8R-yBn" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="dex-8D-xVA"/>
+                <constraint firstAttribute="trailingMargin" secondItem="rp6-a9-Ugr" secondAttribute="trailing" id="6u6-MT-RpV"/>
+                <constraint firstAttribute="bottomMargin" secondItem="rp6-a9-Ugr" secondAttribute="bottom" id="9ls-8o-f4g"/>
+                <constraint firstItem="rp6-a9-Ugr" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="topMargin" id="YXd-Gv-6Fg"/>
+                <constraint firstItem="rp6-a9-Ugr" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leadingMargin" id="iSM-iB-ah1"/>
             </constraints>
+            <point key="canvasLocation" x="413" y="537"/>
         </view>
     </objects>
 </document>
