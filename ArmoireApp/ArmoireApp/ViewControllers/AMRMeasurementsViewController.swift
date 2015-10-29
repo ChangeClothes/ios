@@ -25,11 +25,9 @@ class AMRMeasurementsViewController: UIViewController, UITableViewDelegate, UITa
       cell.value = ""
       cell.isLast = true
     } else {
-      print("here")
       let measurement = measurements!.measurements[indexPath.row]
       cell.key = measurement.keys.first!
       cell.value = measurement.values.first!
-      print(measurement)
     }
     cell.delegate = self
 
@@ -69,7 +67,6 @@ class AMRMeasurementsViewController: UIViewController, UITableViewDelegate, UITa
   func updateCell(cell: AMRMeasurementCell) {
     let indexPath = myTableView.indexPathForCell(cell)!
     self.measurements?.measurements[indexPath.row] = [cell.key:cell.value]
-    print("\(cell.key), \(cell.value)")
     self.measurements!.saveInBackground()
     
   }
