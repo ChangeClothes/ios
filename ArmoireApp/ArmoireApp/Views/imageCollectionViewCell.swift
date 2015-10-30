@@ -10,6 +10,8 @@ import UIKit
 
 class imageCollectionViewCell: UICollectionViewCell {
   
+  var imageView: UIImageView!
+  
   override func awakeFromNib() {
     super.awakeFromNib()
     // Initialization code
@@ -19,5 +21,12 @@ class imageCollectionViewCell: UICollectionViewCell {
     super.init(coder: aDecoder)
   }
 
+  override init(frame: CGRect) {
+    super.init(frame: frame)
+    
+    imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height))
+    imageView.contentMode = UIViewContentMode.ScaleAspectFit
+    contentView.addSubview(imageView)
+  }
 
 }

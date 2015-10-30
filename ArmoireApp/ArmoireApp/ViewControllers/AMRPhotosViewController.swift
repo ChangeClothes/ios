@@ -24,11 +24,10 @@ class AMRPhotosViewController: UIViewController, UICollectionViewDelegateFlowLay
   
   func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
     
-    let cell = collectionView.dequeueReusableCellWithReuseIdentifier(imageCellReuseIdentifier, forIndexPath: indexPath) as UICollectionViewCell
+    let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! imageCollectionViewCell
+
     let image = photos[indexPath.row]
-    let imageView = UIImageView()
-    imageView.setAMRImage(image)
-    cell.backgroundView = imageView
+    cell.imageView.setAMRImage(image)
     return cell
   }
   
@@ -50,7 +49,7 @@ class AMRPhotosViewController: UIViewController, UICollectionViewDelegateFlowLay
     
     collectionView.dataSource = self
     collectionView.delegate = self
-    collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
+    collectionView.registerClass(imageCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
     collectionView.backgroundColor = UIColor.whiteColor()
     self.view.addSubview(collectionView)
     
