@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     setupParse()
     setupLayer()
-//    registerApplicationForPushNotifications(application)
+    registerApplicationForPushNotifications(application)
     
     window = UIWindow(frame: UIScreen.mainScreen().bounds)
     mainVC = AMRMainViewController()
@@ -117,10 +117,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // For more information about Push, check out:
     // https://developer.layer.com/docs/guides/ios#push-notification
     
-    
-    let notificationSettings: UIUserNotificationSettings = UIUserNotificationSettings(forTypes: [UIUserNotificationType.Alert, UIUserNotificationType.Badge, UIUserNotificationType.Sound], categories: nil)
-    application.registerUserNotificationSettings(notificationSettings)
-    application.registerForRemoteNotifications()
+    if #available(iOS 8.0, *) {
+      let notificationSettings: UIUserNotificationSettings = UIUserNotificationSettings(forTypes: [UIUserNotificationType.Alert, UIUserNotificationType.Badge, UIUserNotificationType.Sound], categories: nil)
+      application.registerUserNotificationSettings(notificationSettings)
+      application.registerForRemoteNotifications()
+    } else {
+      application.registerForRemoteNotificationTypes([UIRemoteNotificationType.Alert, UIRemoteNotificationType.Sound, UIRemoteNotificationType.Badge])
+    }
     
   }
   
@@ -143,34 +146,81 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   }
   
   func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
-    if userInfo["layer"] == nil {
-      PFPush.handlePush(userInfo)
-      completionHandler(UIBackgroundFetchResult.NewData)
-      return
-    }
+    switch application.applicationState {
+      case UIApplicationState.Inactive:
+
+        if userInfo["layer"] == nil {
+          PFPush.handlePush(userInfo)
+          completionHandler(UIBackgroundFetchResult.NewData)
+          return
+        }
+
+        var conversation: LYRConversation? = nil
+        if conversation != nil {
+          conversation = self.conversationFromRemoteNotification(userInfo)
+          if conversation != nil {
+            self.navigateToViewForConversation(conversation!)
+          }
+        }
+
+        let success: Bool = self.layerClient.synchronizeWithRemoteNotification(userInfo, completion: { (changes, error) in
+          completionHandler(self.getBackgroundFetchResult(changes, error: error))
+          if changes?.count > 0 {
+            print("changes.count > 0: Fetch result")
+            completionHandler(UIBackgroundFetchResult.NewData)
+          } else {
+            print("changes.count <= 0: failed or no data")
+            completionHandler(error != nil ? UIBackgroundFetchResult.Failed : UIBackgroundFetchResult.NoData)
+          }
+
+          // Try navigating once the synchronization completed
+          if conversation == nil {
+            print("conversation == nil: navigateToViewForConversation")
+            conversation = self.conversationFromRemoteNotification(userInfo)
+            self.navigateToViewForConversation(conversation!)
+          }
+        })
+
+        if !success {
+          // This should not happen?
+          completionHandler(UIBackgroundFetchResult.NoData)
+        }
     
-    let userTappedRemoteNotification: Bool = application.applicationState == UIApplicationState.Inactive
-    var conversation: LYRConversation? = nil
-    if userTappedRemoteNotification {
-      //      SVProgressHUD.show()
-      conversation = self.conversationFromRemoteNotification(userInfo)
-      if conversation != nil {
-        self.navigateToViewForConversation(conversation!)
+
+
+    case UIApplicationState.Background:
+      print("Background state")
+      let success: Bool = self.layerClient.synchronizeWithRemoteNotification(userInfo, completion: { (changes, error) in
+        if changes?.count > 0 {
+          print("changes.count > 0: Fetch result")
+          completionHandler(UIBackgroundFetchResult.NewData)
+        } else {
+          print("changes.count <= 0: failed or no data")
+          completionHandler(error != nil ? UIBackgroundFetchResult.Failed : UIBackgroundFetchResult.NoData)
+        }
+      })
+
+      if !success {
+        print("!success: no data")
+        completionHandler(UIBackgroundFetchResult.NoData)
       }
-    }
-    
-    let success: Bool = self.layerClient.synchronizeWithRemoteNotification(userInfo, completion: { (changes, error) in
-      completionHandler(self.getBackgroundFetchResult(changes, error: error))
       
-      if userTappedRemoteNotification && conversation == nil {
-        // Try navigating once the synchronization completed
-        self.navigateToViewForConversation(self.conversationFromRemoteNotification(userInfo))
+    case UIApplicationState.Active:
+      print("Active state")
+      let success: Bool = self.layerClient.synchronizeWithRemoteNotification(userInfo, completion: { (changes, error) in
+        if changes?.count > 0 {
+          print("changes.count > 0: Fetch result")
+          completionHandler(UIBackgroundFetchResult.NewData)
+        } else {
+          print("changes.count <= 0: failed or no data")
+          completionHandler(error != nil ? UIBackgroundFetchResult.Failed : UIBackgroundFetchResult.NoData)
+        }
+      })
+
+      if !success {
+        print("!success: no data")
+        completionHandler(UIBackgroundFetchResult.NoData)
       }
-    })
-    
-    if !success {
-      // This should not happen?
-      completionHandler(UIBackgroundFetchResult.NoData)
     }
   }
   
@@ -191,13 +241,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func navigateToViewForConversation(conversation: LYRConversation) {
 //    if self.controller.conversationListViewController != nil {
 //      dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(2 * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), {
-////        SVProgressHUD.dismiss()
 //        if (self.controller.navigationController!.topViewController as? ConversationViewController)?.conversation != conversation {
 //          self.controller.conversationListViewController.presentConversation(conversation)
 //        }
 //      });
 //    } else {
-////      SVProgressHUD.dismiss()
+//      print("error with navigateToViewForConversation")
 //    }
   }
 

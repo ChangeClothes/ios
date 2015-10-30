@@ -51,7 +51,7 @@ class AMRMeasurementsViewController: UIViewController, UITableViewDelegate, UITa
         self.measurements = measurements
       } else {
         self.measurements = AMRMeasurements()
-        self.measurements?.stylist = self.stylist!
+        self.measurements?.stylist = self.client!.stylist
         self.measurements?.client = self.client!
       }
       self.myTableView.reloadData()
