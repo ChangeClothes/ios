@@ -215,3 +215,43 @@ Layout: Facebook group for contextual layout
   - says it's been added to calendar
 
 - show client workflow quickly
+
+
+
+### Demo To Do Items
+
+- Randy (overall Designer)
+  - Messaging
+    - [ ] notificiatons
+  - Tab Bar
+    - [ ] indicate wich view is selected on nav bar
+  - Notes
+    - [ ] background image with lines
+  - Client Modal
+    - [ ] should not be full screen
+    - [ ] Rounded corners
+  - [ ] Splash Page
+  - [ ] Icon
+
+- Matt
+  - Profile
+    - [ ] picture collection view
+  - Client List
+    - [ ] letters on right side
+  - Settings
+    - [ ] change to alert action
+  - Tab Bar
+    - [ ] Avatar for stylist + client in middle of nav bar
+    - [ ] change avatar by clicking photo
+  - [ ] Responsiveness / Screen size
+
+- Morgan
+  - [ ] Notification with Layer
+  - Messaging
+    - [ ] Get rid of placeholder text
+    - [ ] Fix tab bar shown behind message text
+  - Settings
+    - [ ] search bar
+  - Notes
+    - [ ] change height of view releative to keyboard
+    - [ ] Done button
