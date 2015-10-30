@@ -10,11 +10,21 @@ import Foundation
 
 extension UIColor {
   
-  class func AMRBackgroundColor() -> UIColor {
+  class func AMRPrimaryBackgroundColor() -> UIColor {
+    return ColorHelper.sharedInstance.colorFromHexString("#7f8c8d")
+  }
+  
+  class func AMRSecondaryBackgroundColor() -> UIColor {
     return ColorHelper.sharedInstance.colorFromHexString("#7f8c8d")
   }
  
+  class func AMRBrightButtonBackgroundColor() -> UIColor {
+    return ColorHelper.sharedInstance.colorFromHexString("#ecf0f1")
+  }
   
+  class func AMRBrightButtonTintColor() -> UIColor {
+    return ColorHelper.sharedInstance.colorFromHexString("#2c3e50")
+  }
 }
 
 private struct ColorHelper {

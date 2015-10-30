@@ -24,7 +24,7 @@ class AMRLoginViewController: PFLogInViewController {
     logoImageView.contentMode = .ScaleAspectFill
     logInView?.logo = logoImageView
     
-    logInView?.backgroundColor = UIColor.AMRBackgroundColor()
+    logInView?.backgroundColor = UIColor.AMRPrimaryBackgroundColor()
     
     logInView
   }
@@ -35,6 +35,8 @@ class AMRLoginViewController: PFLogInViewController {
   }
   
   func signUpButtonTapped(sender: UIButton) {
+    customSignUpViewController?.modalPresentationStyle = .OverCurrentContext
+    
     presentViewController(customSignUpViewController!, animated: true, completion: nil)
   }
   
