@@ -111,7 +111,6 @@ class AMRClientsViewController: UIViewController, UITableViewDataSource, UITable
   func setUpSections(clients:[AMRUser]) {
     for client in clients {
       let firstLetter = String(client.firstName[client.firstName.startIndex])
-      print(firstLetter)
       if let _ = clientSections[firstLetter] {
         clientSections[firstLetter]!.append(client)
       } else {
