@@ -20,37 +20,36 @@ The above is the bare minimum that needs to be provided to ensure value is added
   - [ ] Choose font
 - (Personal Shopper's View) Client Management
   - Sign Up Page
-    - [ ] Designer or Client can sign up
+    - [x] Designer can sign up
+    - [x] Client can log in
     - [ ] If the client was invited they will have a text sent with code and url to download
       OR
     - [ ] the link to download auto-sets the email field
   - Clients Page
-    - [ ] list of clients which show their names
-    - [ ] click cell leads to individual profile page
+    - [x] list of clients which show their names
+    - [x] click cell leads to individual profile page
   - Client Profile Page
-    - [ ] include pic, phone, email, and other basic data (next time seen, money spent, began working with, etc)
-    - [ ] include measurements that can be modified by user (name, measurement, price range)
-    - [ ] can access and edit personal notes 
+    - [] include pic, phone, email, and other basic data (next time seen, money spent, began working with, etc)
+    - [x] include measurements that can be modified by user (name, measurement, price range)
+    - [x] can access and edit personal notes
   - Scheduler
-    - [ ] should see upcoming appointments and past appointment with time, location, and customer
-    - [ ] should be added to their phone calendar
-    - [ ] remind of upcoming appointments
+    - [x] should see upcoming appointments and past appointment with time, location, and customer
+    - [x] should be added to their phone calendar
+    - [x] remind of upcoming appointments
   - Messaging
-    - [ ] message capacity in realtime between client and designer
-    - [ ] history of messaging history
+    - [x] message capacity in realtime between client and designer
+    - [x] history of messaging history
   - Add Client
-    - [ ] Add a client which sends email to client with link to download the Armoire App
+    - [x] Add a client which sends email to client with link to download the Armoire App
     - [ ] First check if client already exists, in which case notify them and allow process to associate them with the designer attempting to claim them
-    - [ ] If no client exists, create client and text them with a code that will confirm their identity and association to designer
+    - [x] If no client exists, create client and text them with a code that will confirm their identity and association to designer
   - Photo
     - [ ] Take Photo and associate it with a client
     - [ ] Icon on photo to indicate stylist took it
 
 
 - (Client's View) Fashion Notes/History - Kind of like a medical record for clothes, but with ability to interact with personal shopper.
-  - [ ] same as above except limited to their specific profile page with specific components (like amount spent and personal stylist notes not available, though they should be able to create their own notes)
-  - [ ] Schedule Now button for top left for client view
-  - [ ] Navbar has photo on left
+  - [x] same as above except limited to their specific profile page with specific components (like amount spent and personal stylist notes not available, though they should be able to create their own notes)
 
 ###Stretch Goals
 
@@ -187,3 +186,72 @@ Layout: Facebook group for contextual layout
   - Matt
 - Create view controllers needed for early functionality.
   - Morgan
+
+### Demo Workflow
+
+- present some of the slides; high level
+  - reference market size, problem, and solution space
+- present Anne, one stylist who exists in the space we just outlined
+- she wakes up in the morning and prepares for the day with Armoire; the first thing she does is check her work schedule
+- as an independent personal stylist, her work revolves around both in-person appointments and direct communication with her clients
+- she opens Armoire, which has kept her logged in through the night
+- finds her first appointment is with Tim Face
+- jumps onto messaging to confirm appointment; search for Tim
+- he wants to go earlier
+- she updates the calendar
+- she wants to refresh her memory on Tim and goes to his profile
+  - notes say he is looking for new job
+  - goes on messaging from client workflow -> did you see the new dress shirts I uploaded last week?
+    - yes they look perfect, he responds, so we can look for shoes today too? I'm 11 1/2 W.
+    - sound great
+  - adds to measurements
+
+- sees a new message icon
+  - hey can we meet up?
+  - checks for meetings, sees only BR
+  - checks notes to figure out WTF
+  - gets confirmation for time and location for BR
+  - creates meeting at BR at the time agreed
+  - says it's been added to calendar
+
+- show client workflow quickly
+
+
+
+### Demo To Do Items
+
+- Randy (overall Designer)
+  - Messaging
+    - [ ] notificiatons
+  - Tab Bar
+    - [ ] indicate wich view is selected on nav bar
+  - Notes
+    - [ ] background image with lines
+  - Client Modal
+    - [ ] should not be full screen
+    - [ ] Rounded corners
+  - [ ] Splash Page
+  - [ ] Icon
+
+- Matt
+  - Profile
+    - [ ] picture collection view
+  - Client List
+    - [ ] letters on right side
+  - Settings
+    - [ ] change to alert action
+  - Tab Bar
+    - [ ] Avatar for stylist + client in middle of nav bar
+    - [ ] change avatar by clicking photo
+  - [ ] Responsiveness / Screen size
+
+- Morgan
+  - [ ] Notification with Layer
+  - Messaging
+    - [ ] Get rid of placeholder text
+    - [ ] Fix tab bar shown behind message text
+  - Settings
+    - [ ] search bar
+  - Notes
+    - [ ] change height of view releative to keyboard
+    - [ ] Done button
