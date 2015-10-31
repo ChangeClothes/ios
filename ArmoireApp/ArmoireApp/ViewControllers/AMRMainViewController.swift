@@ -9,7 +9,7 @@
 import UIKit
 import LayerKit
 
-class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
+class AMRMainViewController: UIViewController, AMRViewControllerProtocol, AMRContainerViewControllerProtocol {
   
   @IBOutlet weak var menuView: UIView!
   @IBOutlet weak var messagesImageView: UIImageView!
@@ -27,6 +27,7 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "onToggleMenuView:", name: AMRToggleMenuView, object: nil)
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "onUserLogin:", name: kUserDidLoginNotification, object: nil)
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "onUserLogout:", name: kUserDidLogoutNotification, object: nil)
   }
@@ -36,6 +37,10 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
     // Dispose of any resources that can be recreated.
   }
   
+  func onToggleMenuView(notification: NSNotification){
+    menuView.hidden = !menuView.hidden
+  }
+
   func onTapSettings(notification: NSNotification){
     //let settingsVC = AMRSettingsViewController()
     let settingsVC = UIAlertController.AMRSettingsController { (AMRSettingsControllerSetting) -> () in}
@@ -160,4 +165,8 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
 
 protocol AMRViewControllerProtocol {
   func setVcData(stylist: AMRUser?, client: AMRUser?)
+}
+
+protocol AMRContainerViewControllerProtocol {
+  func onToggleMenuView(notification: NSNotification)
 }

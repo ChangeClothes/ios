@@ -12,12 +12,15 @@ import LayerKit
 class AMRMessagesDetailsViewController: ATLConversationViewController {
   var dateFormatter: NSDateFormatter = NSDateFormatter()
   var usersArray: NSArray!
+  var stylist: AMRUser?
+  var client: AMRUser?
   
   // MARK: - Lifecycle
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.title = "Message Detail"
+    NSNotificationCenter.defaultCenter().postNotificationName(AMRToggleMenuView, object: self)
     
+    self.title = "Message Detail"
     self.dataSource = self
     self.delegate = self
     print("addressBarController: \(self.addressBarController)")
@@ -29,11 +32,16 @@ class AMRMessagesDetailsViewController: ATLConversationViewController {
     // Setup the dateformatter used by the dataSource.
     self.dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
     self.dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
-    
+    self.setUpNavBar()
     self.configureUI()
     
   }
   
+  override func viewWillDisappear(animated: Bool) {
+    super.viewWillDisappear(false)
+    NSNotificationCenter.defaultCenter().postNotificationName(AMRToggleMenuView, object: self)
+  }
+
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
@@ -41,10 +49,28 @@ class AMRMessagesDetailsViewController: ATLConversationViewController {
   
   // MARK - UI Configuration methods
   
+  private func setUpNavBar(){
+      if (client != nil){
+        let exitModalButton: UIButton = UIButton()
+        exitModalButton.setImage(UIImage(named: "undo"), forState: .Normal)
+        exitModalButton.frame = CGRectMake(0, 0, 30, 30)
+        exitModalButton.addTarget(self, action: Selector("exitModal"), forControlEvents: .TouchUpInside)
+
+        let leftNavBarButton = UIBarButtonItem(customView: exitModalButton)
+        self.navigationItem.leftBarButtonItem = leftNavBarButton
+      }
+  }
+
   func configureUI() {
     ATLOutgoingMessageCollectionViewCell.appearance().messageTextColor = UIColor.whiteColor()
   }
   
+  // MARK - Transition Methods
+
+  func exitModal(){
+    self.dismissViewControllerAnimated(true, completion: nil)
+  }
+
   // MARK - ATLAddressBarViewController Delegate methods methods
   
   override func addressBarViewController(addressBarViewController: ATLAddressBarViewController, didTapAddContactsButton addContactsButton: UIButton) {
