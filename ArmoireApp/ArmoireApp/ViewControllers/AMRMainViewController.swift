@@ -18,19 +18,25 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
   @IBOutlet weak var profileIconImageView: UIImageView!
   @IBOutlet weak var profileImageView: UIImageView!
   @IBOutlet weak var containerView: UIView!
+  @IBOutlet weak var selectedIconView: UIView!
+  
+  @IBOutlet weak var selectedIconViewXPositionConstraint: NSLayoutConstraint!
   
   var selectedViewController: UIViewController?
   var layerClient: LYRClient!
   var stylist: AMRUser?
   var client: AMRUser?
   var vcArray: [UINavigationController]!
+  var selectedIconImageView: UIImageView?
   
   override func viewDidLoad() {
     super.viewDidLoad()
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "onUserLogin:", name: kUserDidLoginNotification, object: nil)
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "onUserLogout:", name: kUserDidLogoutNotification, object: nil)
     
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "deviceDidRotate", name: UIDeviceOrientationDidChangeNotification, object: nil)
    setupTabBarAppearance()
+  
   }
   
   // MARK: - Appearance Methods
@@ -41,6 +47,9 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
     profileIconImageView.image = profileImageView.image?.imageWithRenderingMode(.AlwaysTemplate)
     
     resetIconColors()
+    
+    selectedIconView.layer.cornerRadius = 3.0
+    selectedIconView.backgroundColor = UIColor.AMRSecondaryBackgroundColor()
     
     menuView.backgroundColor = UIColor.AMRPrimaryBackgroundColor()
     profileImageView.setAMRImage(stylist?.profilePhoto, withPlaceholder: "camera")
@@ -55,7 +64,21 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
   
   private func setSelectedAppearanceColorForImageView(imageView: UIImageView) {
     resetIconColors()
-    imageView.tintColor = UIColor.AMRSelectedTabBarButtonTintColor()
+    selectedIconImageView = imageView
+    
+    UIView.animateWithDuration(1.0) { () -> Void in
+          self.selectedIconViewXPositionConstraint.constant = imageView.center.x - self.selectedIconView.frame.width/2
+      self.view.layoutIfNeeded()
+      imageView.tintColor = UIColor.AMRSelectedTabBarButtonTintColor()
+    }
+    
+    
+  }
+  
+  func deviceDidRotate() {
+    if let selectedIconImageView = selectedIconImageView {
+      selectedIconViewXPositionConstraint.constant = selectedIconImageView.center.x - selectedIconView.frame.width/2
+    }
   }
   
   // MARK: - Settings Icon
