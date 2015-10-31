@@ -58,7 +58,7 @@
                                 <outletCollection property="gestureRecognizers" destination="B6v-09-7Jn" appends="YES" id="eEm-o4-Kj4"/>
                             </connections>
                         </imageView>
-                        <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="A7i-DM-NRi">
+                        <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clients" translatesAutoresizingMaskIntoConstraints="NO" id="A7i-DM-NRi">
                             <rect key="frame" x="443" y="12" width="25" height="25"/>
                             <animations/>
                             <gestureRecognizers/>
@@ -189,10 +189,10 @@
         </tapGestureRecognizer>
     </objects>
     <resources>
-        <image name="calendar" width="256" height="256"/>
+        <image name="calendar" width="25" height="25"/>
+        <image name="clients" width="25" height="25"/>
         <image name="messaging" width="25" height="25"/>
-        <image name="note" width="256" height="256"/>
-        <image name="profile" width="256" height="256"/>
+        <image name="note" width="25" height="25"/>
         <image name="woman" width="128" height="128"/>
     </resources>
 </document>

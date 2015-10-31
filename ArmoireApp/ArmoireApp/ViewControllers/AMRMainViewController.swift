@@ -44,7 +44,7 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
     messagesImageView.image = messagesImageView.image?.imageWithRenderingMode(.AlwaysTemplate)
     notesImageView.image = notesImageView.image?.imageWithRenderingMode(.AlwaysTemplate)
     calendarImageView.image = calendarImageView.image?.imageWithRenderingMode(.AlwaysTemplate)
-    profileIconImageView.image = profileImageView.image?.imageWithRenderingMode(.AlwaysTemplate)
+    profileIconImageView.image = profileIconImageView.image?.imageWithRenderingMode(.AlwaysTemplate)
     
     resetIconColors()
     
