@@ -86,21 +86,34 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
   }
 
   private func filterByClient(){
-    var participants = [layerClient.authenticatedUserID, client!.objectId, client!.stylist.objectId]
+    let participants = [layerClient.authenticatedUserID, client!.objectId, client!.stylist.objectId]
     let query = LYRQuery(queryableClass: LYRConversation.self)
     query.predicate = LYRPredicate(property: "participants", predicateOperator: LYRPredicateOperator.IsEqualTo, value: participants)
-    var error: NSErrorPointer? = nil
+    var conversation: LYRConversation?
     layerClient.executeQuery(query) { (conversations, error) -> Void in
       if let error = error {
         NSLog("Query failed with error %@", error)
-      } else if conversations.count == 1 {
+      } else if conversations.count <= 1 {
         let nc = self.vcArray[6]
-        var vc = nc.viewControllers.first as! AMRMessagesDetailsViewController
-        let conversation = conversations[0] as! LYRConversation
-        let shouldShowAddressBar: Bool  = conversation.participants.count > 2 || conversation.participants.count == 0
-        vc.displaysAddressBar = shouldShowAddressBar
-        vc.conversation = conversation
-        self.selectViewController(nc)
+        let vc = nc.viewControllers.first as! AMRMessagesDetailsViewController
+        if conversations.count == 1 {
+          conversation = conversations[0] as? LYRConversation
+        } else if conversations.count == 0{
+          do {
+            conversation = try self.layerClient.newConversationWithParticipants(NSSet(array: participants) as Set<NSObject>, options: nil)
+            print("new conversation created since none existed")
+          } catch let error {
+            print("no conversations; conversation not created. error: \(error)")
+          }
+        }
+        if let conversation = conversation {
+          let shouldShowAddressBar: Bool  = conversation.participants.count > 2 || conversation.participants.count == 0
+          vc.displaysAddressBar = shouldShowAddressBar
+          vc.conversation = conversation
+          self.selectViewController(nc)
+        } else {
+          print("error occurred in transitioning to conversation detail, conversation nil")
+        }
       } else {
         NSLog("%tu conversations with participants %@", conversations.count, participants)
       }
