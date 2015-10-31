@@ -9,7 +9,7 @@
 import UIKit
 import LayerKit
 
-class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtocol,  LYRQueryControllerDelegate, AMRContainerViewControllerProtocol  {
+class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtocol,  LYRQueryControllerDelegate  {
   
   var stylist: AMRUser?
   var client: AMRUser?
