@@ -51,7 +51,7 @@ class AMRClientProfileViewController: UIViewController, UIAlertViewDelegate, AMR
   }
 
   func onSettingsTap(){
-    let settingsVC = AMRSettingsViewController()
+    let settingsVC = UIAlertController.AMRSettingsController { (AMRSettingsControllerSetting) -> () in}
     self.presentViewController(settingsVC, animated: true, completion: nil)
   }
 

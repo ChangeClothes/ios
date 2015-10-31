@@ -99,7 +99,7 @@ class AMRMessagesViewController: ATLConversationListViewController, AMRViewContr
   
   // TODO: Remove this when settings button in refactored
   func onSettingsTap(){
-    let settingsVC = AMRSettingsViewController()
+    let settingsVC = UIAlertController.AMRSettingsController { (AMRSettingsControllerSetting) -> () in}
     self.presentViewController(settingsVC, animated: true, completion: nil)
   }
   
