@@ -27,7 +27,6 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: "onToggleMenuView:", name: AMRToggleMenuView, object: nil)
     self.navigationController?.navigationBarHidden = true
     setVcData(self.stylist, client: self.client)
     selectViewController(vcArray[4])
@@ -39,8 +38,14 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
     // Dispose of any resources that can be recreated.
   }
 
-  func onToggleMenuView(notification: NSNotification) {
-    menuView.hidden = !menuView.hidden
+  func onShowMenuView(notification: NSNotification) {
+    print("clientshow")
+    menuView.hidden = false
+  }
+
+  func onHideMenuView(notification: NSNotification) {
+    print("clienthide")
+    menuView.hidden = true
   }
 
   func setVcData(stylist: AMRUser?, client: AMRUser?) {
