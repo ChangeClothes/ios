@@ -9,7 +9,7 @@
 import UIKit
 import LayerKit
 
-class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtocol,  LYRQueryControllerDelegate  {
+class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtocol,  LYRQueryControllerDelegate, AMRContainerViewControllerProtocol  {
   
   var stylist: AMRUser?
   var client: AMRUser?
@@ -18,6 +18,7 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
   var layerClient: LYRClient!
   private var queryController: LYRQueryController!
   @IBOutlet weak var containerView: UIView!
+  @IBOutlet weak var menuView: UIView!
   
   convenience init(layerClient: LYRClient) {
     self.init()
@@ -26,6 +27,7 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "onToggleMenuView:", name: AMRToggleMenuView, object: nil)
     self.navigationController?.navigationBarHidden = true
     setVcData(self.stylist, client: self.client)
     selectViewController(vcArray[4])
@@ -37,14 +39,18 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
     // Dispose of any resources that can be recreated.
   }
 
-  internal func setVcData(stylist: AMRUser?, client: AMRUser?) {
+  func onToggleMenuView(notification: NSNotification) {
+    menuView.hidden = !menuView.hidden
+  }
+
+  func setVcData(stylist: AMRUser?, client: AMRUser?) {
     self.stylist = stylist
     self.client = client
     setVcArray()
     setVcDataForTabs()
   }
 
-  internal func onSettingsTap(){
+  private func onSettingsTap(){
     let settingsVC = AMRSettingsViewController()
     self.presentViewController(settingsVC, animated: true, completion: nil)
   }
@@ -96,6 +102,8 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
       } else if conversations.count <= 1 {
         let nc = self.vcArray[6]
         let vc = nc.viewControllers.first as! AMRMessagesDetailsViewController
+        vc.stylist = self.stylist
+        vc.client = self.client
         if conversations.count == 1 {
           conversation = conversations[0] as? LYRConversation
         } else if conversations.count == 0{
@@ -110,7 +118,7 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
           let shouldShowAddressBar: Bool  = conversation.participants.count > 2 || conversation.participants.count == 0
           vc.displaysAddressBar = shouldShowAddressBar
           vc.conversation = conversation
-          self.selectViewController(nc)
+          self.presentViewController(nc, animated: true, completion: nil)
         } else {
           print("error occurred in transitioning to conversation detail, conversation nil")
         }
