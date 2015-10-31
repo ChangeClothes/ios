@@ -162,8 +162,3 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
 protocol AMRViewControllerProtocol {
   func setVcData(stylist: AMRUser?, client: AMRUser?)
 }
-
-protocol AMRContainerViewControllerProtocol {
-  func onShowMenuView(notification: NSNotification)
-  func onHideMenuView(notification: NSNotification)
-}
