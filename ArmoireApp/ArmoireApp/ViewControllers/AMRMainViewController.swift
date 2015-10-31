@@ -31,6 +31,8 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "onShowMenuView:", name: AMRMainShowMenuView, object: nil)
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "onHideMenuView:", name: AMRMainHideMenuView, object: nil)
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "onUserLogin:", name: kUserDidLoginNotification, object: nil)
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "onUserLogout:", name: kUserDidLogoutNotification, object: nil)
     
@@ -80,7 +82,15 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
       selectedIconViewXPositionConstraint.constant = selectedIconImageView.center.x - selectedIconView.frame.width/2
     }
   }
-  
+
+  func onShowMenuView(notification: NSNotification) {
+    menuView.hidden = false
+  }
+
+  func onHideMenuView(notification: NSNotification) {
+    menuView.hidden = true
+  }
+
   // MARK: - Settings Icon
   func onTapSettings(notification: NSNotification){
     let settingsVC = AMRSettingsViewController()
@@ -163,15 +173,6 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
         self.stylist = user
       } else {
         self.client = user
-//        code to load stylist below if we decide we want to
-//        let client_stylist = user["stylist"] as? AMRUser
-//        client_stylist?.fetchInBackgroundWithBlock({ (loaded_client_stylist, error) -> Void in
-//          if let error = error {
-//            print(error.localizedDescription)
-//          } else {
-//            self.stylist = loaded_client_stylist as? AMRUser
-//          }
-//        })
       }
     }
   }
