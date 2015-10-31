@@ -9,7 +9,7 @@
 import UIKit
 import LayerKit
 
-class AMRMainViewController: UIViewController, AMRViewControllerProtocol, AMRContainerViewControllerProtocol {
+class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
   
   @IBOutlet weak var menuView: UIView!
   @IBOutlet weak var messagesImageView: UIImageView!
