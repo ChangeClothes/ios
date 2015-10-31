@@ -221,15 +221,11 @@ Layout: Facebook group for contextual layout
 ### Demo To Do Items
 
 - Randy (overall Designer)
+  - [ ] Notification with Layer
   - Messaging
     - [ ] notificiatons
   - Tab Bar
     - [ ] indicate wich view is selected on nav bar
-  - Notes
-    - [ ] background image with lines
-  - Client Modal
-    - [ ] should not be full screen
-    - [ ] Rounded corners
   - [ ] Splash Page
   - [ ] Icon
 
@@ -246,7 +242,6 @@ Layout: Facebook group for contextual layout
   - [ ] Responsiveness / Screen size
 
 - Morgan
-  - [ ] Notification with Layer
   - Messaging
     - [ ] Get rid of placeholder text
     - [ ] Fix tab bar shown behind message text
@@ -255,3 +250,7 @@ Layout: Facebook group for contextual layout
   - Notes
     - [ ] change height of view releative to keyboard
     - [ ] Done button
+    - [ ] background image with lines
+  - Client Modal
+    - [ ] should not be full screen
+    - [ ] Rounded corners
