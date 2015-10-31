@@ -15,7 +15,7 @@ extension UIColor {
   }
   
   class func AMRSecondaryBackgroundColor() -> UIColor {
-    return ColorHelper.sharedInstance.colorFromHexString("#7f8c8d")
+    return ColorHelper.sharedInstance.colorFromHexString("#34495e")
   }
  
   class func AMRBrightButtonBackgroundColor() -> UIColor {

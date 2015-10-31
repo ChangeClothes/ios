@@ -42,8 +42,7 @@ class AMRSignUpViewController: UIViewController {
   }
   
   private func setupAppearance() {
-    view.backgroundColor = UIColor.blackColor()
-    view.backgroun
+    view.backgroundColor = UIColor.AMRSecondaryBackgroundColor()
     
     signUpButton.layer.cornerRadius = 3.0
     signUpButton.backgroundColor = UIColor.AMRBrightButtonBackgroundColor()
