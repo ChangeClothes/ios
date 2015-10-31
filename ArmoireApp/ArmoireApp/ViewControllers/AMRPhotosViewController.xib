@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AMRPhotosViewController" customModule="ArmoireApp" customModuleProvider="target">
             <connections>
+                <outlet property="collectionView" destination="IQF-fx-vya" id="xHL-IQ-FD3"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -15,17 +16,22 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Photos" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CjD-SF-lI3">
-                    <rect key="frame" x="267" y="289" width="54" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="IQF-fx-vya">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="vUz-98-tNI">
+                        <size key="itemSize" width="50" height="50"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="CjD-SF-lI3" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="0Ae-wP-5jC"/>
-                <constraint firstItem="CjD-SF-lI3" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="8j7-1g-VfB"/>
+                <constraint firstAttribute="trailing" secondItem="IQF-fx-vya" secondAttribute="trailing" id="3yp-IS-a9j"/>
+                <constraint firstItem="IQF-fx-vya" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Afc-k9-Cum"/>
+                <constraint firstAttribute="bottom" secondItem="IQF-fx-vya" secondAttribute="bottom" id="MGD-Xh-qOC"/>
+                <constraint firstItem="IQF-fx-vya" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="qIX-CA-lxh"/>
             </constraints>
         </view>
     </objects>
