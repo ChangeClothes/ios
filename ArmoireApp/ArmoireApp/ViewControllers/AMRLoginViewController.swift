@@ -16,8 +16,17 @@ class AMRLoginViewController: PFLogInViewController {
     super.viewDidLoad()
     logInView?.signUpButton?.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)
     logInView?.signUpButton?.addTarget(self, action: "signUpButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-    
     logInView?.logInButton?.addTarget(self, action: "loginButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+    
+    logInView?.dismissButton?.hidden = true
+    
+    let logoImageView = UIImageView(image: UIImage(named: "Armoire-logo"))
+    logoImageView.contentMode = .ScaleAspectFill
+    logInView?.logo = logoImageView
+    
+    logInView?.backgroundColor = UIColor.AMRPrimaryBackgroundColor()
+    
+    logInView
   }
   
   func loginButtonTapped(sender: UIButton) {
@@ -26,6 +35,8 @@ class AMRLoginViewController: PFLogInViewController {
   }
   
   func signUpButtonTapped(sender: UIButton) {
+    customSignUpViewController?.modalPresentationStyle = .OverCurrentContext
+    
     presentViewController(customSignUpViewController!, animated: true, completion: nil)
   }
   
