@@ -27,7 +27,8 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol, AMRCon
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: "onToggleMenuView:", name: AMRToggleMenuView, object: nil)
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "onShowMenuView:", name: AMRMainShowMenuView, object: nil)
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "onHideMenuView:", name: AMRMainHideMenuView, object: nil)
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "onUserLogin:", name: kUserDidLoginNotification, object: nil)
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "onUserLogout:", name: kUserDidLogoutNotification, object: nil)
   }
@@ -37,8 +38,12 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol, AMRCon
     // Dispose of any resources that can be recreated.
   }
   
-  func onToggleMenuView(notification: NSNotification){
-    menuView.hidden = !menuView.hidden
+  func onShowMenuView(notification: NSNotification) {
+    menuView.hidden = false
+  }
+
+  func onHideMenuView(notification: NSNotification) {
+    menuView.hidden = true
   }
 
   func onTapSettings(notification: NSNotification){
@@ -159,5 +164,6 @@ protocol AMRViewControllerProtocol {
 }
 
 protocol AMRContainerViewControllerProtocol {
-  func onToggleMenuView(notification: NSNotification)
+  func onShowMenuView(notification: NSNotification)
+  func onHideMenuView(notification: NSNotification)
 }

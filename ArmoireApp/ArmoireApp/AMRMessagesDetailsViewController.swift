@@ -16,14 +16,22 @@ class AMRMessagesDetailsViewController: ATLConversationViewController {
   var client: AMRUser?
   
   // MARK: - Lifecycle
+
+  override func viewWillAppear(animated: Bool) {
+    super.viewWillAppear(false)
+    self.messageInputToolbar = ATLMessageInputToolbar()
+    self.view.addSubview(self.messageInputToolbar)
+  }
+
   override func viewDidLoad() {
     super.viewDidLoad()
-    NSNotificationCenter.defaultCenter().postNotificationName(AMRToggleMenuView, object: self)
+    if (self.client == nil) {
+      NSNotificationCenter.defaultCenter().postNotificationName(AMRMainHideMenuView, object: self)
+    }
     
     self.title = "Message Detail"
     self.dataSource = self
     self.delegate = self
-    print("addressBarController: \(self.addressBarController)")
     self.addressBarController?.delegate = self
     
     // Uncomment the following line if you want to show avatars in 1:1 conversations
@@ -34,12 +42,13 @@ class AMRMessagesDetailsViewController: ATLConversationViewController {
     self.dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
     self.setUpNavBar()
     self.configureUI()
-    
   }
   
   override func viewWillDisappear(animated: Bool) {
-    super.viewWillDisappear(false)
-    NSNotificationCenter.defaultCenter().postNotificationName(AMRToggleMenuView, object: self)
+    if (self.client == nil){
+      NSNotificationCenter.defaultCenter().postNotificationName(AMRMainShowMenuView, object: self)
+    }
+
   }
 
   override func didReceiveMemoryWarning() {

@@ -12,7 +12,8 @@ import LayerKit
 let kCurrentUserKey = "com.ArmoireApp.currentUserKey"
 let kUserDidLogoutNotification = "com.ArmoireApp.userDidLogoutNotification"
 let kUserDidLoginNotification = "com.ArmoireApp.userDidLoginNotification"
-let AMRToggleMenuView = "com.ArmoireApp.toggleMenuView"
+let AMRMainShowMenuView = "com.ArmoireApp.mainShowMenuView"
+let AMRMainHideMenuView = "com.ArmoireApp.mainHideMenuView"
 let AMRErrorDomain = "com.ArmoireApp.errorDomain"
 
 @UIApplicationMain
