@@ -95,7 +95,6 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
     let participants = [layerClient.authenticatedUserID, client!.objectId, client!.stylist.objectId]
     let query = LYRQuery(queryableClass: LYRConversation.self)
     query.predicate = LYRPredicate(property: "participants", predicateOperator: LYRPredicateOperator.IsEqualTo, value: participants)
-    var conversation: LYRConversation?
     layerClient.executeQuery(query) { (conversations, error) -> Void in
       if let error = error {
         NSLog("Query failed with error %@", error)
@@ -104,16 +103,7 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
         let vc = nc.viewControllers.first as! AMRMessagesDetailsViewController
         vc.stylist = self.stylist
         vc.client = self.client
-        if conversations.count == 1 {
-          conversation = conversations[0] as? LYRConversation
-        } else if conversations.count == 0{
-          do {
-            conversation = try self.layerClient.newConversationWithParticipants(NSSet(array: participants) as Set<NSObject>, options: nil)
-            print("new conversation created since none existed")
-          } catch let error {
-            print("no conversations; conversation not created. error: \(error)")
-          }
-        }
+        let conversation = self.retrieveConversation(conversations, participants: participants)
         if let conversation = conversation {
           let shouldShowAddressBar: Bool  = conversation.participants.count > 2 || conversation.participants.count == 0
           vc.displaysAddressBar = shouldShowAddressBar
@@ -126,6 +116,21 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
         NSLog("%tu conversations with participants %@", conversations.count, participants)
       }
     }
+  }
+
+  private func retrieveConversation(conversations: NSOrderedSet, participants: [AnyObject]) -> LYRConversation? {
+    var conversation: LYRConversation?
+    if conversations.count == 1 {
+      conversation = conversations[0] as? LYRConversation
+    } else if conversations.count == 0{
+      do {
+        conversation = try self.layerClient.newConversationWithParticipants(NSSet(array: participants) as Set<NSObject>, options: nil)
+        print("new conversation created since none existed")
+      } catch let error {
+        print("no conversations; conversation not created. error: \(error)")
+      }
+    }
+    return conversation
   }
 
   // MARK - Functionality
