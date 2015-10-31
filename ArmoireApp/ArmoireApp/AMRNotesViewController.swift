@@ -47,7 +47,7 @@ class AMRNotesViewController: UIViewController, AMRViewControllerProtocol{
   // MARK: - Setup
 
   private func setUpUI(){
-
+    self.noteTextView.backgroundColor = UIColor(patternImage: UIImage(named: "note-background")!)
   }
 
   private func setUpNavBar(){
