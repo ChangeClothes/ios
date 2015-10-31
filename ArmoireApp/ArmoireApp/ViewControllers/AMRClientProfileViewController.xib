@@ -11,6 +11,7 @@
                 <outlet property="cameraImageView" destination="mB9-bW-cUI" id="YmQ-RO-YhJ"/>
                 <outlet property="containerView" destination="2tL-dj-vv2" id="Aqp-RG-jTe"/>
                 <outlet property="measurementImageView" destination="m40-Yn-NKV" id="W8P-He-IzX"/>
+                <outlet property="nameLabel" destination="2iB-vp-gpc" id="eAj-Lh-BiH"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -19,14 +20,14 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2tL-dj-vv2">
-                    <rect key="frame" x="8" y="124" width="584" height="468"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2tL-dj-vv2">
+                    <rect key="frame" x="8" y="96" width="584" height="496"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
-                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Tz-ax-4SM">
-                    <rect key="frame" x="226" y="44" width="148" height="72"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Tz-ax-4SM">
+                    <rect key="frame" x="436" y="16" width="148" height="72"/>
                     <subviews>
-                        <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="camera" translatesAutoresizingMaskIntoConstraints="NO" id="mB9-bW-cUI">
+                        <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="camera" translatesAutoresizingMaskIntoConstraints="NO" id="mB9-bW-cUI">
                             <rect key="frame" x="80" y="8" width="64" height="64"/>
                             <gestureRecognizers/>
                             <constraints>
@@ -37,7 +38,7 @@
                                 <outletCollection property="gestureRecognizers" destination="4iy-IW-bhZ" appends="YES" id="RP1-2z-uMM"/>
                             </connections>
                         </imageView>
-                        <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="measure" translatesAutoresizingMaskIntoConstraints="NO" id="m40-Yn-NKV">
+                        <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="measure" translatesAutoresizingMaskIntoConstraints="NO" id="m40-Yn-NKV">
                             <rect key="frame" x="8" y="8" width="64" height="64"/>
                             <gestureRecognizers/>
                             <constraints>
@@ -69,14 +70,30 @@
                         </mask>
                     </variation>
                 </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2iB-vp-gpc">
+                    <rect key="frame" x="8" y="8" width="86" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="2tL-dj-vv2" firstAttribute="top" secondItem="1Tz-ax-4SM" secondAttribute="bottom" constant="8" id="J8o-l7-VQv"/>
                 <constraint firstItem="1Tz-ax-4SM" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="LvR-oc-bda"/>
                 <constraint firstItem="2tL-dj-vv2" firstAttribute="bottom" secondItem="i5M-Pr-FkT" secondAttribute="bottomMargin" id="PyV-0O-dcG"/>
+                <constraint firstItem="2iB-vp-gpc" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="topMargin" id="S40-e3-HFY"/>
                 <constraint firstItem="2tL-dj-vv2" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailingMargin" id="U7f-2b-diu"/>
+                <constraint firstAttribute="trailingMargin" secondItem="1Tz-ax-4SM" secondAttribute="trailing" constant="8" id="Wic-mL-3HL"/>
+                <constraint firstItem="2iB-vp-gpc" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leadingMargin" id="hrg-44-KPD"/>
                 <constraint firstItem="2tL-dj-vv2" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leadingMargin" id="khh-Rb-tZJ"/>
+                <constraint firstItem="1Tz-ax-4SM" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="topMargin" constant="8" id="siA-l7-dty"/>
             </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="LvR-oc-bda"/>
+                </mask>
+            </variation>
             <point key="canvasLocation" x="551" y="546"/>
         </view>
         <tapGestureRecognizer id="c3J-Gb-AKH">

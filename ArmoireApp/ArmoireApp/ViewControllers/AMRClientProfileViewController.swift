@@ -10,6 +10,7 @@ import UIKit
 
 class AMRClientProfileViewController: UIViewController, UIAlertViewDelegate, AMRViewControllerProtocol{
 
+  @IBOutlet weak var nameLabel: UILabel!
   @IBOutlet weak var containerView: UIView!
   @IBOutlet weak var measurementImageView: UIImageView!
   @IBOutlet weak var cameraImageView: UIImageView!
@@ -45,7 +46,6 @@ class AMRClientProfileViewController: UIViewController, UIAlertViewDelegate, AMR
     if (client != nil){
       self.title = (client?.firstName)! + " " + (client?.lastName)!
     }
-    loadProfile()
     setUpNavBar()
 
   }
@@ -108,7 +108,7 @@ class AMRClientProfileViewController: UIViewController, UIAlertViewDelegate, AMR
   }
   
   func loadProfile(){
-    
+    nameLabel.text = client?.fullName ?? ""
   }
   
   override func didReceiveMemoryWarning() {
