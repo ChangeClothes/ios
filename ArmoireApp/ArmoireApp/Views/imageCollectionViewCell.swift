@@ -25,7 +25,8 @@ class imageCollectionViewCell: UICollectionViewCell {
     super.init(frame: frame)
     
     imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height))
-    imageView.contentMode = UIViewContentMode.ScaleAspectFit
+    imageView.contentMode = UIViewContentMode.ScaleAspectFill
+    imageView.clipsToBounds = true
     contentView.addSubview(imageView)
   }
 
