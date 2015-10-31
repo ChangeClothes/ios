@@ -29,18 +29,42 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
     super.viewDidLoad()
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "onUserLogin:", name: kUserDidLoginNotification, object: nil)
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "onUserLogout:", name: kUserDidLogoutNotification, object: nil)
+    
+   setupTabBarAppearance()
   }
   
-  override func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
+  // MARK: - Appearance Methods
+  private func setupTabBarAppearance() {
+    messagesImageView.image = messagesImageView.image?.imageWithRenderingMode(.AlwaysTemplate)
+    notesImageView.image = notesImageView.image?.imageWithRenderingMode(.AlwaysTemplate)
+    calendarImageView.image = calendarImageView.image?.imageWithRenderingMode(.AlwaysTemplate)
+    profileIconImageView.image = profileImageView.image?.imageWithRenderingMode(.AlwaysTemplate)
+    
+    resetIconColors()
+    
+    menuView.backgroundColor = UIColor.AMRPrimaryBackgroundColor()
+    profileImageView.setAMRImage(stylist?.profilePhoto, withPlaceholder: "camera")
   }
   
+  private func resetIconColors() {
+    messagesImageView.tintColor = UIColor.AMRUnselectedTabBarButtonTintColor()
+    notesImageView.tintColor = UIColor.AMRUnselectedTabBarButtonTintColor()
+    calendarImageView.tintColor = UIColor.AMRUnselectedTabBarButtonTintColor()
+    profileIconImageView.tintColor = UIColor.AMRUnselectedTabBarButtonTintColor()
+  }
+  
+  private func setSelectedAppearanceColorForImageView(imageView: UIImageView) {
+    resetIconColors()
+    imageView.tintColor = UIColor.AMRSelectedTabBarButtonTintColor()
+  }
+  
+  // MARK: - Settings Icon
   func onTapSettings(notification: NSNotification){
     let settingsVC = AMRSettingsViewController()
     self.presentViewController(settingsVC, animated: true, completion: nil)
   }
   
+  // MARK: - Notifiation Observers
   func onUserLogin(notification: NSNotification){
     setVcData(nil, client: nil)
     if (self.client != nil) {
@@ -52,6 +76,7 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
     } else {
       //stylist workflow
       selectViewController(vcArray[1])
+      setSelectedAppearanceColorForImageView(profileIconImageView)
     }
   }
   
@@ -62,6 +87,7 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
     self.dismissViewControllerAnimated(true, completion: nil)
   }
   
+  // MARK: - View Controller Selection
   func selectViewController(viewController: UIViewController){
     if let oldViewController = selectedViewController{
       oldViewController.willMoveToParentViewController(nil)
@@ -127,33 +153,30 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
     }
   }
   
+  // MARK: - Tap Icon Actions
+  
   @IBAction func onTapMessages(sender: UITapGestureRecognizer) {
     selectViewController(vcArray[2])
+    setSelectedAppearanceColorForImageView(sender.view as! UIImageView)
   }
   
-  @IBAction func onTapNotes(sender: AnyObject) {
+  @IBAction func onTapNotes(sender: UITapGestureRecognizer) {
     selectViewController(vcArray[3])
+    setSelectedAppearanceColorForImageView(sender.view as! UIImageView)
   }
   
-  @IBAction func onTapProfile(sender: AnyObject) {
+  @IBAction func onTapProfile(sender: UITapGestureRecognizer) {
   }
   
-  @IBAction func onTapProfileIcon(sender: AnyObject) {
+  @IBAction func onTapProfileIcon(sender: UITapGestureRecognizer) {
     selectViewController(vcArray[1])
+    setSelectedAppearanceColorForImageView(sender.view as! UIImageView)
   }
   
-  @IBAction func onTapCalendar(sender: AnyObject) {
+  @IBAction func onTapCalendar(sender: UITapGestureRecognizer) {
     selectViewController(vcArray[4])
+    setSelectedAppearanceColorForImageView(sender.view as! UIImageView)
   }
-  /*
-  // MARK: - Navigation
-  
-  // In a storyboard-based application, you will often want to do a little preparation before navigation
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-  // Get the new view controller using segue.destinationViewController.
-  // Pass the selected object to the new view controller.
-  }
-  */
   
 }
 
