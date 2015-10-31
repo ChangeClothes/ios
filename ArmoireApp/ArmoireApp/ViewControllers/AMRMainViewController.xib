@@ -33,6 +33,11 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="484-uT-3HW">
                     <rect key="frame" x="0.0" y="551" width="600" height="49"/>
                     <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xtb-k1-upp">
+                            <rect key="frame" x="15" y="12" width="25" height="25"/>
+                            <animations/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
                         <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="woman" translatesAutoresizingMaskIntoConstraints="NO" id="esp-ki-vJa">
                             <rect key="frame" x="250" y="-51" width="100" height="100"/>
                             <animations/>
@@ -45,11 +50,6 @@
                                 <outletCollection property="gestureRecognizers" destination="jIJ-d4-FCb" appends="YES" id="gly-vy-D2Q"/>
                             </connections>
                         </imageView>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xtb-k1-upp">
-                            <rect key="frame" x="15" y="12" width="25" height="25"/>
-                            <animations/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </view>
                         <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="note" translatesAutoresizingMaskIntoConstraints="NO" id="cZq-Wf-5iE">
                             <rect key="frame" x="133" y="12" width="25" height="25"/>
                             <animations/>

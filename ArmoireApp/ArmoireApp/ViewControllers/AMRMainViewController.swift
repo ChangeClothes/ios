@@ -69,17 +69,18 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
     selectedIconImageView = imageView
     
     UIView.animateWithDuration(1.0) { () -> Void in
-          self.selectedIconViewXPositionConstraint.constant = imageView.center.x - self.selectedIconView.frame.width/2
+      self.selectedIconViewXPositionConstraint.constant = imageView.center.x - self.selectedIconView.frame.width/2
       self.view.layoutIfNeeded()
       imageView.tintColor = UIColor.AMRSelectedTabBarButtonTintColor()
     }
-    
     
   }
   
   func deviceDidRotate() {
     if let selectedIconImageView = selectedIconImageView {
-      selectedIconViewXPositionConstraint.constant = selectedIconImageView.center.x - selectedIconView.frame.width/2
+      dispatch_async(dispatch_get_main_queue(), { () -> Void in
+        self.selectedIconViewXPositionConstraint.constant = selectedIconImageView.center.x - self.selectedIconView.frame.width/2
+      })
     }
   }
 
