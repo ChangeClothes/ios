@@ -17,10 +17,13 @@ class AMRNotesViewController: UIViewController, AMRViewControllerProtocol{
   
   var startingText: String?
   
+  // MARK: - Lifecycle
+
   override func viewWillAppear(animated: Bool) {
     loadNote()
     self.title = "Notes"
     setUpNavBar()
+    setUpUI()
   }
   
   override func viewDidLoad() {
@@ -41,7 +44,13 @@ class AMRNotesViewController: UIViewController, AMRViewControllerProtocol{
     // Dispose of any resources that can be recreated.
   }
   
-  internal func setUpNavBar(){
+  // MARK: - Setup
+
+  private func setUpUI(){
+
+  }
+
+  private func setUpNavBar(){
     if (stylist != nil && client != nil){
       let exitModalButton: UIButton = UIButton()
       exitModalButton.setImage(UIImage(named: "undo"), forState: .Normal)
@@ -60,17 +69,8 @@ class AMRNotesViewController: UIViewController, AMRViewControllerProtocol{
       self.navigationItem.leftBarButtonItem = leftNavBarButton
     }
   }
-
-  func exitModal(){
-    self.dismissViewControllerAnimated(true, completion: nil)
-  }
-
-  func onSettingsTap(){
-    let settingsVC = AMRSettingsViewController()
-    self.presentViewController(settingsVC, animated: true, completion: nil)
-  }
   
-  func loadNote(){
+  private func loadNote(){
     AMRNote.noteForUser(self.stylist, client: self.client) { (objects, error) -> Void in
       if let error = error {
         print(error.localizedDescription)
@@ -89,6 +89,19 @@ class AMRNotesViewController: UIViewController, AMRViewControllerProtocol{
       }
     }
   }
+
+  // MARK: - On Tap Actions
+
+  private func exitModal(){
+    self.dismissViewControllerAnimated(true, completion: nil)
+  }
+
+  private func onSettingsTap(){
+    let settingsVC = AMRSettingsViewController()
+    self.presentViewController(settingsVC, animated: true, completion: nil)
+  }
+
+  // MARK: - AMRViewController Protocol Compliance
   
   func flushVCData() {
     note = nil
@@ -102,6 +115,14 @@ class AMRNotesViewController: UIViewController, AMRViewControllerProtocol{
     loadNote()
   }
   
+  func setVcData(stylist: AMRUser?, client: AMRUser?) {
+    self.stylist = stylist
+    self.client = client
+  }
+
+
+  // MARK: - Background Actions
+
   private func createNote(){
     var note = PFObject(className: "Note")
     if let client = self.client {
@@ -120,10 +141,6 @@ class AMRNotesViewController: UIViewController, AMRViewControllerProtocol{
     }
   }
 
-  internal func setVcData(stylist: AMRUser?, client: AMRUser?) {
-    self.stylist = stylist
-    self.client = client
-  }
 
     /*
     // MARK: - Navigation
