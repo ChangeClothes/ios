@@ -18,6 +18,7 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
   var layerClient: LYRClient!
   private var queryController: LYRQueryController!
   @IBOutlet weak var containerView: UIView!
+  @IBOutlet weak var menuView: UIView!
   
   convenience init(layerClient: LYRClient) {
     self.init()
@@ -37,14 +38,24 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
     // Dispose of any resources that can be recreated.
   }
 
-  internal func setVcData(stylist: AMRUser?, client: AMRUser?) {
+  func onShowMenuView(notification: NSNotification) {
+    print("clientshow")
+    menuView.hidden = false
+  }
+
+  func onHideMenuView(notification: NSNotification) {
+    print("clienthide")
+    menuView.hidden = true
+  }
+
+  func setVcData(stylist: AMRUser?, client: AMRUser?) {
     self.stylist = stylist
     self.client = client
     setVcArray()
     setVcDataForTabs()
   }
 
-  internal func onSettingsTap(){
+  private func onSettingsTap(){
     let settingsVC = AMRSettingsViewController()
     self.presentViewController(settingsVC, animated: true, completion: nil)
   }
@@ -86,25 +97,45 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
   }
 
   private func filterByClient(){
-    var participants = [layerClient.authenticatedUserID, client!.objectId, client!.stylist.objectId]
+    let participants = [layerClient.authenticatedUserID, client!.objectId, client!.stylist.objectId]
     let query = LYRQuery(queryableClass: LYRConversation.self)
     query.predicate = LYRPredicate(property: "participants", predicateOperator: LYRPredicateOperator.IsEqualTo, value: participants)
-    var error: NSErrorPointer? = nil
     layerClient.executeQuery(query) { (conversations, error) -> Void in
       if let error = error {
         NSLog("Query failed with error %@", error)
-      } else if conversations.count == 1 {
+      } else if conversations.count <= 1 {
         let nc = self.vcArray[6]
-        var vc = nc.viewControllers.first as! AMRMessagesDetailsViewController
-        let conversation = conversations[0] as! LYRConversation
-        let shouldShowAddressBar: Bool  = conversation.participants.count > 2 || conversation.participants.count == 0
-        vc.displaysAddressBar = shouldShowAddressBar
-        vc.conversation = conversation
-        self.selectViewController(nc)
+        let vc = nc.viewControllers.first as! AMRMessagesDetailsViewController
+        vc.stylist = self.stylist
+        vc.client = self.client
+        let conversation = self.retrieveConversation(conversations, participants: participants)
+        if let conversation = conversation {
+          let shouldShowAddressBar: Bool  = conversation.participants.count > 2 || conversation.participants.count == 0
+          vc.displaysAddressBar = shouldShowAddressBar
+          vc.conversation = conversation
+          self.presentViewController(nc, animated: true, completion: nil)
+        } else {
+          print("error occurred in transitioning to conversation detail, conversation nil")
+        }
       } else {
         NSLog("%tu conversations with participants %@", conversations.count, participants)
       }
     }
+  }
+
+  private func retrieveConversation(conversations: NSOrderedSet, participants: [AnyObject]) -> LYRConversation? {
+    var conversation: LYRConversation?
+    if conversations.count == 1 {
+      conversation = conversations[0] as? LYRConversation
+    } else if conversations.count == 0{
+      do {
+        conversation = try self.layerClient.newConversationWithParticipants(NSSet(array: participants) as Set<NSObject>, options: nil)
+        print("new conversation created since none existed")
+      } catch let error {
+        print("no conversations; conversation not created. error: \(error)")
+      }
+    }
+    return conversation
   }
 
   // MARK - Functionality
