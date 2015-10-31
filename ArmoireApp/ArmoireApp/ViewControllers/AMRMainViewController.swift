@@ -37,7 +37,8 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
   }
   
   func onTapSettings(notification: NSNotification){
-    let settingsVC = AMRSettingsViewController()
+    //let settingsVC = AMRSettingsViewController()
+    let settingsVC = UIAlertController.AMRSettingsController { (AMRSettingsControllerSetting) -> () in}
     self.presentViewController(settingsVC, animated: true, completion: nil)
   }
   
