@@ -64,7 +64,7 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
     selectViewController(vcArray[2])
   }
   @IBAction func onTapProfile(sender: UITapGestureRecognizer) {
-    selectViewController(vcArray[4])
+    selectViewController(vcArray[3])
   }
   @IBAction func onTapNote(sender: UITapGestureRecognizer) {
     selectViewController(vcArray[1])
@@ -80,7 +80,6 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
       UINavigationController(rootViewController: AMRLoginViewController()),
       UINavigationController(rootViewController: AMRNotesViewController()),
       UINavigationController(rootViewController: AMRUpcomingMeetingsViewController()),
-      UINavigationController (rootViewController: AMRSettingsViewController()),
       UINavigationController(rootViewController: AMRClientProfileViewController()),
       UINavigationController(rootViewController: AMRMessagesViewController(layerClient: layerClient) ),
       UINavigationController(rootViewController: AMRMessagesDetailsViewController(layerClient: layerClient))
@@ -104,7 +103,7 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
       if let error = error {
         NSLog("Query failed with error %@", error)
       } else if conversations.count <= 1 {
-        let nc = self.vcArray[6]
+        let nc = self.vcArray[5]
         let vc = nc.viewControllers.first as! AMRMessagesDetailsViewController
         vc.stylist = self.stylist
         vc.client = self.client
