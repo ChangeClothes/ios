@@ -13,9 +13,10 @@ class AMRClientsViewController: UIViewController, UITableViewDataSource, UITable
   @IBOutlet weak var clientTable: UITableView!
   var stylist: AMRUser?
   var client: AMRUser?
-  var clients: [PFUser]?
   let cellConstant = "clientTableViewCellReuseIdentifier"
   var layerClient: LYRClient!
+  var sections = [String]()
+  var clientSections = [String:[AMRUser]]()
 
   convenience init(layerClient: LYRClient){
     self.init()
@@ -27,7 +28,7 @@ class AMRClientsViewController: UIViewController, UITableViewDataSource, UITable
     setUpClientTable()
     loadClients()
     self.title = "Clients"
-
+    
     let settings: UIButton = UIButton()
     settings.setImage(UIImage(named: "settings"), forState: .Normal)
     settings.frame = CGRectMake(0, 0, 30, 30)
@@ -69,7 +70,7 @@ class AMRClientsViewController: UIViewController, UITableViewDataSource, UITable
       if let error = error {
         print(error.localizedDescription)
       } else {
-        self.clients = arrayOfUsers as? [PFUser]
+        self.setUpSections(arrayOfUsers as! [AMRUser])
         self.clientTable.reloadData()
       }
     }
@@ -84,8 +85,8 @@ class AMRClientsViewController: UIViewController, UITableViewDataSource, UITable
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = clientTable.dequeueReusableCellWithIdentifier(cellConstant, forIndexPath: indexPath) as! AMRClientTableViewCell
-    cell.client = clients![indexPath.row] as? AMRUser
-    cell.textLabel!.text = clients![indexPath.row]["firstName"] as? String
+    cell.client = clientSections[sections[indexPath.section]]![indexPath.row]
+    cell.textLabel!.text = cell.client?.firstName
     return cell
   }
 
@@ -100,12 +101,42 @@ class AMRClientsViewController: UIViewController, UITableViewDataSource, UITable
   }
 
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    if let clientList = self.clients {
-      return clientList.count
-    } else {
+    if sections.count == 0 {
       return 0
+    } else {
+      return clientSections[sections[section]]!.count
     }
   }
+  
+  func setUpSections(clients:[AMRUser]) {
+    for client in clients {
+      let firstLetter = String(client.firstName[client.firstName.startIndex])
+      if let _ = clientSections[firstLetter] {
+        clientSections[firstLetter]!.append(client)
+      } else {
+        clientSections[firstLetter] = [client]
+      }
+    }
+    sections = clientSections.keys.sort()
+  }
+  
+  
+  func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    return sections.count
+  }
+  
+  func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    return sections[section]
+  }
+  
+  func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]? {
+    return sections
+  }
+  
+  func tableView(tableView: UITableView, sectionForSectionIndexTitle title: String, atIndex index: Int) -> Int {
+    return index
+  }
+  
 
   internal func setVcData(stylist: AMRUser?, client: AMRUser?) {
     self.stylist = stylist

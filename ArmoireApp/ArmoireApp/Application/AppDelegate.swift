@@ -75,6 +75,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     AMRMeeting.registerSubclass()
     AMRNote.registerSubclass()
     AMRImage.registerSubclass()
+    AMRMeasurements.registerSubclass()
 
     // set credentials
     let credentials = Credentials.defaultCredentials
