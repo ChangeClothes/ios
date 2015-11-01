@@ -27,6 +27,8 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "onShowMenuView:", name: AMRMainShowMenuView, object: nil)
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "onHideMenuView:", name: AMRMainHideMenuView, object: nil)
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "onUserLogin:", name: kUserDidLoginNotification, object: nil)
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "onUserLogout:", name: kUserDidLogoutNotification, object: nil)
   }
@@ -36,8 +38,17 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
     // Dispose of any resources that can be recreated.
   }
   
+  func onShowMenuView(notification: NSNotification) {
+    menuView.hidden = false
+  }
+
+  func onHideMenuView(notification: NSNotification) {
+    menuView.hidden = true
+  }
+
   func onTapSettings(notification: NSNotification){
-    let settingsVC = AMRSettingsViewController()
+    //let settingsVC = AMRSettingsViewController()
+    let settingsVC = UIAlertController.AMRSettingsController { (AMRSettingsControllerSetting) -> () in}
     self.presentViewController(settingsVC, animated: true, completion: nil)
   }
   
@@ -94,7 +105,6 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
       UINavigationController(rootViewController: AMRMessagesViewController(layerClient: layerClient) ),
       UINavigationController(rootViewController: AMRNotesViewController()),
       UINavigationController(rootViewController: AMRUpcomingMeetingsViewController()),
-      UINavigationController (rootViewController: AMRSettingsViewController()),
       UINavigationController (rootViewController: AMRClientsDetailViewController(layerClient: layerClient))
     ]
   }
@@ -114,15 +124,6 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
         self.stylist = user
       } else {
         self.client = user
-//        code to load stylist below if we decide we want to
-//        let client_stylist = user["stylist"] as? AMRUser
-//        client_stylist?.fetchInBackgroundWithBlock({ (loaded_client_stylist, error) -> Void in
-//          if let error = error {
-//            print(error.localizedDescription)
-//          } else {
-//            self.stylist = loaded_client_stylist as? AMRUser
-//          }
-//        })
       }
     }
   }

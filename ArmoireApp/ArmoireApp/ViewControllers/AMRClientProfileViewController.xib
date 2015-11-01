@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
@@ -11,7 +11,7 @@
                 <outlet property="cameraImageView" destination="mB9-bW-cUI" id="YmQ-RO-YhJ"/>
                 <outlet property="containerView" destination="2tL-dj-vv2" id="Aqp-RG-jTe"/>
                 <outlet property="measurementImageView" destination="m40-Yn-NKV" id="W8P-He-IzX"/>
-                <outlet property="profieImage" destination="xbg-eT-Hz8" id="rDS-uR-2E2"/>
+                <outlet property="nameLabel" destination="2iB-vp-gpc" id="eAj-Lh-BiH"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -20,30 +20,12 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="image-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="xbg-eT-Hz8">
-                    <rect key="frame" x="8" y="16" width="100" height="100"/>
-                    <gestureRecognizers/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="100" id="g31-BI-S8I"/>
-                        <constraint firstAttribute="height" constant="100" id="lhK-Tp-aft"/>
-                    </constraints>
-                    <connections>
-                        <outletCollection property="gestureRecognizers" destination="gDY-Dx-ROE" appends="YES" id="mx3-bM-ghZ"/>
-                    </connections>
-                </imageView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sy7-oP-ano">
-                    <rect key="frame" x="512" y="8" width="80" height="30"/>
-                    <state key="normal" title="Add Picture"/>
-                    <connections>
-                        <action selector="onTap:" destination="-1" eventType="touchUpInside" id="fAp-Re-R5c"/>
-                    </connections>
-                </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2tL-dj-vv2">
-                    <rect key="frame" x="8" y="124" width="584" height="468"/>
+                    <rect key="frame" x="8" y="96" width="584" height="496"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Tz-ax-4SM">
-                    <rect key="frame" x="226" y="44" width="148" height="72"/>
+                    <rect key="frame" x="436" y="16" width="148" height="72"/>
                     <subviews>
                         <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="camera" translatesAutoresizingMaskIntoConstraints="NO" id="mB9-bW-cUI">
                             <rect key="frame" x="80" y="8" width="64" height="64"/>
@@ -88,20 +70,30 @@
                         </mask>
                     </variation>
                 </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2iB-vp-gpc">
+                    <rect key="frame" x="8" y="8" width="86" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="Sy7-oP-ano" secondAttribute="trailing" constant="8" id="Exc-FY-WqR"/>
-                <constraint firstItem="Sy7-oP-ano" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="8" id="HFS-jj-zlR"/>
-                <constraint firstItem="1Tz-ax-4SM" firstAttribute="bottom" secondItem="xbg-eT-Hz8" secondAttribute="bottom" id="KN6-wd-inI"/>
+                <constraint firstItem="2tL-dj-vv2" firstAttribute="top" secondItem="1Tz-ax-4SM" secondAttribute="bottom" constant="8" id="J8o-l7-VQv"/>
                 <constraint firstItem="1Tz-ax-4SM" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="LvR-oc-bda"/>
-                <constraint firstItem="2tL-dj-vv2" firstAttribute="top" secondItem="xbg-eT-Hz8" secondAttribute="bottom" constant="8" id="MGe-fJ-EH9"/>
                 <constraint firstItem="2tL-dj-vv2" firstAttribute="bottom" secondItem="i5M-Pr-FkT" secondAttribute="bottomMargin" id="PyV-0O-dcG"/>
+                <constraint firstItem="2iB-vp-gpc" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="topMargin" id="S40-e3-HFY"/>
                 <constraint firstItem="2tL-dj-vv2" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailingMargin" id="U7f-2b-diu"/>
+                <constraint firstAttribute="trailingMargin" secondItem="1Tz-ax-4SM" secondAttribute="trailing" constant="8" id="Wic-mL-3HL"/>
+                <constraint firstItem="2iB-vp-gpc" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leadingMargin" id="hrg-44-KPD"/>
                 <constraint firstItem="2tL-dj-vv2" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leadingMargin" id="khh-Rb-tZJ"/>
-                <constraint firstItem="xbg-eT-Hz8" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="topMargin" constant="8" id="pGD-MY-x3d"/>
-                <constraint firstItem="xbg-eT-Hz8" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leadingMargin" id="wrg-KB-uRJ"/>
+                <constraint firstItem="1Tz-ax-4SM" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="topMargin" constant="8" id="siA-l7-dty"/>
             </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="LvR-oc-bda"/>
+                </mask>
+            </variation>
             <point key="canvasLocation" x="551" y="546"/>
         </view>
         <tapGestureRecognizer id="c3J-Gb-AKH">
@@ -122,7 +114,6 @@
     </objects>
     <resources>
         <image name="camera" width="256" height="256"/>
-        <image name="image-placeholder" width="256" height="256"/>
         <image name="measure" width="256" height="256"/>
     </resources>
 </document>

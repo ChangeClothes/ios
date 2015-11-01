@@ -24,16 +24,33 @@ class AMRSignUpViewController: UIViewController {
   @IBOutlet weak var emailAddressTextField: UITextField!
   @IBOutlet weak var firstNameTextField: UITextField!
   @IBOutlet weak var lastNameTextField: UITextField!
-  @IBOutlet weak var stylistOrClientSegmentedControl: UISegmentedControl!
+  @IBOutlet weak var signUpButton: UIButton!
   
   weak var delegate: AMRSignUpViewControllerDelegate?
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    let dismissKBGestRecognizer = UITapGestureRecognizer(target: self, action: "didTapView:")
+    view.addGestureRecognizer(dismissKBGestRecognizer)
+
+    setupAppearance()
   }
   
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
+  }
+  
+  private func setupAppearance() {
+    view.backgroundColor = UIColor.AMRSecondaryBackgroundColor()
+    
+    signUpButton.layer.cornerRadius = 3.0
+    signUpButton.backgroundColor = UIColor.AMRBrightButtonBackgroundColor()
+    signUpButton.tintColor = UIColor.AMRBrightButtonTintColor()
+  }
+  
+  func didTapView(sender: UITapGestureRecognizer) {
+    view.endEditing(true)
   }
   
   @IBAction func signUpButtonTapped(sender: UIButton) {
@@ -43,11 +60,7 @@ class AMRSignUpViewController: UIViewController {
     user.email = emailAddressTextField.text
     user.firstName = firstNameTextField.text!
     user.lastName = lastNameTextField.text!
-    if stylistOrClientSegmentedControl.selectedSegmentIndex == 0 {
-      user.isStylist = true
-    } else {
-      user.isStylist = false
-    }
+    user.isStylist = true
     
     let info: NSDictionary =
     [

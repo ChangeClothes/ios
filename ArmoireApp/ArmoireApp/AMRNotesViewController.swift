@@ -97,7 +97,7 @@ class AMRNotesViewController: UIViewController, AMRViewControllerProtocol{
   }
 
   private func onSettingsTap(){
-    let settingsVC = AMRSettingsViewController()
+    let settingsVC = UIAlertController.AMRSettingsController { (AMRSettingsControllerSetting) -> () in}
     self.presentViewController(settingsVC, animated: true, completion: nil)
   }
 
