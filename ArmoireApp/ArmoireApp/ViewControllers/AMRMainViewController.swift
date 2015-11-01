@@ -9,7 +9,23 @@
 import UIKit
 import LayerKit
 
-class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
+class AMRViewController: UIViewController {
+  var stylist: AMRUser?
+  var client: AMRUser?
+ 
+  func showSettings () {
+    let settingsVC = UIAlertController.AMRSettingsController { (setting: AMRSettingsControllerSetting) -> () in
+      if setting == AMRSettingsControllerSetting.ProfilePicture {
+        PhotoPicker.sharedInstance.selectPhoto(self.stylist, client: self.client, viewDelegate: self, completion: { (AMRImage) -> () in })
+      }
+    }
+    self.presentViewController(settingsVC, animated: true, completion: nil)
+  
+  
+  }
+}
+
+class AMRMainViewController: AMRViewController, AMRViewControllerProtocol {
   
   @IBOutlet weak var newMessageImageView: UIImageView!
   @IBOutlet weak var newMessageImageViewXConstraint: NSLayoutConstraint!
@@ -27,8 +43,10 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
   var selectedViewController: UIViewController?
   var layerClient: LYRClient!
   var layerQueryController: LYRQueryController!
-  var stylist: AMRUser?
-  var client: AMRUser?
+
+  //var stylist: AMRUser?
+  //var client: AMRUser?
+
   var vcArray: [UINavigationController]!
   var selectedIconImageView: UIImageView?
   var newMessageTapGestureStartPoint: CGFloat!
@@ -209,9 +227,8 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
   // MARK: - Settings Icon
   func onTapSettings(notification: NSNotification){
     //let settingsVC = AMRSettingsViewController()
-    let settingsVC = UIAlertController.AMRSettingsController { (AMRSettingsControllerSetting) -> () in}
-    self.presentViewController(settingsVC, animated: true, completion: nil)
-  }
+    self.showSettings()
+ }
   
   // MARK: - Notifiation Observers
   func onUserLogin(notification: NSNotification){
@@ -327,20 +344,23 @@ protocol AMRViewControllerProtocol {
 
 extension AMRMainViewController: LYRQueryControllerDelegate {
   func queryController(controller: LYRQueryController!, didChangeObject object: AnyObject!, atIndexPath indexPath: NSIndexPath!, forChangeType type: LYRQueryControllerChangeType, newIndexPath: NSIndexPath!) {
-    let conversation = object as! LYRConversation
-    newConversationIdentifier = conversation.identifier
-    let senderObjectID = conversation.participants.first as! String
     
-    AMRUserManager.sharedManager.queryForUserWithObjectID(senderObjectID) { (users: NSArray?, error: NSError?) -> Void in
-      if let error = error {
-        print(error.localizedDescription)
-      } else {
-        self.newMessageImageView.setAMRImage((users!.firstObject! as! AMRUser).profilePhoto, withPlaceholder: "messaging")
-        self.showNewMessageImageView()
-      }
+    if type == LYRQueryControllerChangeType.Insert {
+      let conversation = object as! LYRConversation
+      newConversationIdentifier = conversation.identifier
+      let senderObjectID = conversation.participants.first as! String
       
+      AMRUserManager.sharedManager.queryForUserWithObjectID(senderObjectID) { (users: NSArray?, error: NSError?) -> Void in
+        if let error = error {
+          print(error.localizedDescription)
+        } else {
+          self.newMessageImageView.setAMRImage((users!.firstObject! as! AMRUser).profilePhoto, withPlaceholder: "messaging")
+          self.showNewMessageImageView()
+        }
+        
+      }
     }
-    
+
   }
 }
 
