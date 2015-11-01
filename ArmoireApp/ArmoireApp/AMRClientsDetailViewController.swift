@@ -9,10 +9,8 @@
 import UIKit
 import LayerKit
 
-class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtocol,  LYRQueryControllerDelegate  {
+class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtocol,  LYRQueryControllerDelegate  {
   
-  var stylist: AMRUser?
-  var client: AMRUser?
   var vcArray: [UINavigationController]!
   var selectedViewController: UIViewController?
   var layerClient: LYRClient!
@@ -46,8 +44,7 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
   }
 
   private func onSettingsTap(){
-    let settingsVC = UIAlertController.AMRSettingsController { (AMRSettingsControllerSetting) -> () in}
-    self.presentViewController(settingsVC, animated: true, completion: nil)
+    showSettings()
   }
 
   @IBAction func onTapCalendar(sender: UITapGestureRecognizer) {

@@ -9,13 +9,13 @@
 import Foundation
 
 enum AMRSettingsControllerSetting: String {
-  case Logout = "Logout", Cancel = "Cancel"
+  case Logout = "Logout", ProfilePicture = "Change Profile Picture", Cancel = "Cancel"
 }
 
 extension UIAlertController {
   
   class func AMRSettingsController(completion:(AMRSettingsControllerSetting) -> ()) -> UIAlertController {
-    return UIAlertController.AMRSettingsController([AMRSettingsControllerSetting.Logout], completion: completion)
+    return UIAlertController.AMRSettingsController([AMRSettingsControllerSetting.ProfilePicture, AMRSettingsControllerSetting.Logout], completion: completion)
   }
   
   class func AMRSettingsController(settings:[AMRSettingsControllerSetting], completion:(AMRSettingsControllerSetting) -> ()) -> UIAlertController {
@@ -24,7 +24,9 @@ extension UIAlertController {
     let handler: (UIAlertAction) -> () = {
       action in
       let setting = AMRSettingsControllerSetting(rawValue: action.title!)!
-      if setting == AMRSettingsControllerSetting.Logout {
+      switch (setting) {
+        
+      case AMRSettingsControllerSetting.Logout:
         PFUser.logOutInBackgroundWithBlock { (error: NSError?) -> Void in
           if let error = error {
             print(error.localizedDescription)
@@ -32,14 +34,27 @@ extension UIAlertController {
             NSNotificationCenter.defaultCenter().postNotificationName(kUserDidLogoutNotification, object: self)
           }
         }
+      default:
+        break
+        
       }
       completion(setting)
     }
     
-    for setting in settings {
-      controller.addAction(UIAlertAction(title: setting.rawValue, style: UIAlertActionStyle.Default, handler: handler))
+    for setting in settings + [AMRSettingsControllerSetting.Cancel] {
+      switch setting {
+      case AMRSettingsControllerSetting.Cancel:
+        let alertAction = UIAlertAction(title: setting.rawValue, style: UIAlertActionStyle.Cancel, handler: handler)
+        controller.addAction(alertAction)
+      case AMRSettingsControllerSetting.ProfilePicture:
+        let alertAction = UIAlertAction(title: setting.rawValue, style: UIAlertActionStyle.Default, handler: handler)
+        let image = RBSquareImageTo(UIImage(named: "camera")!, size: CGSize(width: 50, height: 50))
+        alertAction.setValue(image, forKey: "image")
+        controller.addAction(alertAction)
+      default:
+        controller.addAction(UIAlertAction(title: setting.rawValue, style: UIAlertActionStyle.Default, handler: handler))
+      }
     }
-    controller.addAction(UIAlertAction(title: AMRSettingsControllerSetting.Cancel.rawValue, style: UIAlertActionStyle.Cancel, handler: handler))
     
     return controller
   }
