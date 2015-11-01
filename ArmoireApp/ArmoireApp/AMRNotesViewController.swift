@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AMRNotesViewController: UIViewController, AMRViewControllerProtocol{
+class AMRNotesViewController: UIViewController, AMRViewControllerProtocol, UITextViewDelegate{
 
   @IBOutlet weak var noteTextView: UITextView!
   var stylist: AMRUser?
@@ -22,6 +22,7 @@ class AMRNotesViewController: UIViewController, AMRViewControllerProtocol{
   override func viewWillAppear(animated: Bool) {
     loadNote()
     self.title = "Notes"
+    noteTextView.delegate = self
     setUpNavBar()
     setUpUI()
   }
@@ -31,12 +32,9 @@ class AMRNotesViewController: UIViewController, AMRViewControllerProtocol{
     // Do any additional setup after loading the view.
   }
   
-  override func viewDidDisappear(animated: Bool) {
-    if (startingText != noteTextView.text){
-      //update Parse object
-      note?.setObject(noteTextView.text, forKey: "content")
-      note?.saveInBackground()
-    }
+  override func viewWillDisappear(animated: Bool){
+    super.viewWillDisappear(false)
+    saveNote()
   }
 
   override func didReceiveMemoryWarning() {
@@ -47,7 +45,13 @@ class AMRNotesViewController: UIViewController, AMRViewControllerProtocol{
   // MARK: - Setup
 
   private func setUpUI(){
-    self.noteTextView.backgroundColor = UIColor(patternImage: UIImage(named: "note-background")!)
+    let backgroundImage = UIImage(named: "note-background-2")!
+    UIGraphicsBeginImageContextWithOptions(self.view.frame.size, false, 0.0)
+    backgroundImage.drawInRect(CGRectMake(0.0, 0.0, self.view.frame.size.width, self.view.frame.size.height))
+    let resultImage = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+    self.noteTextView.backgroundColor = UIColor(patternImage: resultImage)
+    self.noteTextView.font = UIFont.systemFontOfSize(12.0)
   }
 
   private func setUpNavBar(){
@@ -101,6 +105,10 @@ class AMRNotesViewController: UIViewController, AMRViewControllerProtocol{
     self.presentViewController(settingsVC, animated: true, completion: nil)
   }
 
+  func onDoneEditingTap(){
+    textViewDidEndEditing(noteTextView)
+  }
+
   // MARK: - AMRViewController Protocol Compliance
   
   func flushVCData() {
@@ -123,6 +131,16 @@ class AMRNotesViewController: UIViewController, AMRViewControllerProtocol{
 
   // MARK: - Background Actions
 
+  func textViewDidBeginEditing(textView: UITextView) {
+    createDoneEditingButton()
+  }
+
+  func textViewDidEndEditing(textView: UITextView) {
+    noteTextView.resignFirstResponder()
+    self.navigationItem.rightBarButtonItem = nil
+    saveNote()
+  }
+
   private func createNote(){
     var note = PFObject(className: "Note")
     if let client = self.client {
@@ -138,6 +156,24 @@ class AMRNotesViewController: UIViewController, AMRViewControllerProtocol{
       } else {
         NSLog("%@", error!)
       }
+    }
+  }
+
+  private func createDoneEditingButton(){
+    let doneButton: UIButton = UIButton()
+    doneButton.setImage(UIImage(named: "check"), forState: .Normal)
+
+    doneButton.frame = CGRectMake(0, 0, 30, 30)
+    doneButton.addTarget(self, action: Selector("onDoneEditingTap"), forControlEvents: .TouchUpInside)
+
+    let rightNavBarButton = UIBarButtonItem(customView: doneButton)
+    self.navigationItem.rightBarButtonItem = rightNavBarButton
+  }
+
+  private func saveNote(){
+    if (startingText != noteTextView.text){
+      note?.setObject(noteTextView.text, forKey: "content")
+      note?.saveInBackground()
     }
   }
 
