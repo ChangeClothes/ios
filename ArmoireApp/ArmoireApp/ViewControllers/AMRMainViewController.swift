@@ -88,7 +88,6 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
   }
   
   func onMessageIconTap(sender: UITapGestureRecognizer) {
-    hideNewMessageImageView()
     presentConversationWithIdentifier(newConversationIdentifier)
   }
   
@@ -110,7 +109,9 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
   }
   
   func dismissModal(sender: UIBarButtonItem) {
-    dismissViewControllerAnimated(true, completion: nil)
+    dismissViewControllerAnimated(true) { () -> Void in
+      self.hideNewMessageImageView()
+    }
   }
   
   func onMessageIconPan(sender: UIPanGestureRecognizer) {
