@@ -12,6 +12,8 @@ import LayerKit
 let kCurrentUserKey = "com.ArmoireApp.currentUserKey"
 let kUserDidLogoutNotification = "com.ArmoireApp.userDidLogoutNotification"
 let kUserDidLoginNotification = "com.ArmoireApp.userDidLoginNotification"
+let kNewMessageIconShown = "com.ArmoireApp.newMessageIconShown"
+let kNewMessageIconHidden = "com.ArmoireApp.newMessageIconHidden"
 let AMRMainShowMenuView = "com.ArmoireApp.mainShowMenuView"
 let AMRMainHideMenuView = "com.ArmoireApp.mainHideMenuView"
 let AMRErrorDomain = "com.ArmoireApp.errorDomain"
