@@ -29,23 +29,13 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
     super.viewDidLoad()
     self.navigationController?.navigationBarHidden = true
     setVcData(self.stylist, client: self.client)
-    selectViewController(vcArray[4])
+    selectViewController(vcArray[3])
     // Do any additional setup after loading the view.
   }
 
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
-  }
-
-  func onShowMenuView(notification: NSNotification) {
-    print("clientshow")
-    menuView.hidden = false
-  }
-
-  func onHideMenuView(notification: NSNotification) {
-    print("clienthide")
-    menuView.hidden = true
   }
 
   func setVcData(stylist: AMRUser?, client: AMRUser?) {
@@ -64,7 +54,7 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
     selectViewController(vcArray[2])
   }
   @IBAction func onTapProfile(sender: UITapGestureRecognizer) {
-    selectViewController(vcArray[4])
+    selectViewController(vcArray[3])
   }
   @IBAction func onTapNote(sender: UITapGestureRecognizer) {
     selectViewController(vcArray[1])
@@ -103,7 +93,7 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
       if let error = error {
         NSLog("Query failed with error %@", error)
       } else if conversations.count <= 1 {
-        let nc = self.vcArray[5]
+        let nc = UINavigationController(rootViewController: AMRMessagesDetailsViewController(layerClient: self.layerClient))
         let vc = nc.viewControllers.first as! AMRMessagesDetailsViewController
         vc.stylist = self.stylist
         vc.client = self.client
