@@ -75,6 +75,8 @@ class AMRMessagesViewController: ATLConversationListViewController, AMRViewContr
   func composeButtonTapped(sender: AnyObject) {
     let controller = AMRMessagesDetailsViewController(layerClient: self.layerClient)
     controller.displaysAddressBar = true
+    controller.stylist = self.stylist
+    controller.client = self.client
     self.navigationController!.pushViewController(controller, animated: true)
   }
   
@@ -86,6 +88,8 @@ class AMRMessagesViewController: ATLConversationListViewController, AMRViewContr
     let conversationViewController: AMRMessagesDetailsViewController = AMRMessagesDetailsViewController(layerClient: self.layerClient)
     conversationViewController.displaysAddressBar = shouldShowAddressBar
     conversationViewController.conversation = conversation
+    conversationViewController.stylist = self.stylist
+    conversationViewController.client = self.client
     
     if self.navigationController!.topViewController == self {
       self.navigationController!.pushViewController(conversationViewController, animated: true)
@@ -99,7 +103,7 @@ class AMRMessagesViewController: ATLConversationListViewController, AMRViewContr
   
   // TODO: Remove this when settings button in refactored
   func onSettingsTap(){
-    let settingsVC = AMRSettingsViewController()
+    let settingsVC = UIAlertController.AMRSettingsController { (AMRSettingsControllerSetting) -> () in}
     self.presentViewController(settingsVC, animated: true, completion: nil)
   }
   
