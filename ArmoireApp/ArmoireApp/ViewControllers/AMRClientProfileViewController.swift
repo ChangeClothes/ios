@@ -58,7 +58,7 @@ class AMRClientProfileViewController: UIViewController, UIAlertViewDelegate, AMR
   internal func setUpNavBar(){
     if (stylist != nil && client != nil){
       let exitModalButton: UIButton = UIButton()
-      exitModalButton.setImage(UIImage(named: "undo"), forState: .Normal)
+      exitModalButton.setImage(UIImage(named: "cancel"), forState: .Normal)
       exitModalButton.frame = CGRectMake(0, 0, 30, 30)
       exitModalButton.addTarget(self, action: Selector("exitModal"), forControlEvents: .TouchUpInside)
 
