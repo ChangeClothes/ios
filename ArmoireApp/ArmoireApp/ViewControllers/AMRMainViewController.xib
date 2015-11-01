@@ -10,8 +10,9 @@
                 <outlet property="calendarImageView" destination="oHp-Rt-Q73" id="P1R-ad-A5P"/>
                 <outlet property="containerView" destination="45x-mO-ZQ3" id="gKn-ck-2sl"/>
                 <outlet property="menuView" destination="484-uT-3HW" id="srU-hC-RiP"/>
-                <outlet property="messageNotificationView" destination="ofV-3d-qTA" id="hhg-rL-yqq"/>
                 <outlet property="messagesImageView" destination="kb7-yt-aZj" id="ils-iS-I3s"/>
+                <outlet property="newMessageImageView" destination="Wd5-B4-IUQ" id="99f-et-vOT"/>
+                <outlet property="newMessageImageViewXConstraint" destination="ouE-YM-Gyr" id="swP-Tj-HWx"/>
                 <outlet property="notesImageView" destination="cZq-Wf-5iE" id="bRi-Cu-WGU"/>
                 <outlet property="profileIconImageView" destination="A7i-DM-NRi" id="Grz-IE-bMu"/>
                 <outlet property="selectedIconView" destination="Xtb-k1-upp" id="cia-7c-qHF"/>
@@ -27,14 +28,21 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="45x-mO-ZQ3">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
                     <subviews>
-                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ofV-3d-qTA">
-                            <rect key="frame" x="70" y="53" width="88" height="73"/>
+                        <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Wd5-B4-IUQ">
+                            <rect key="frame" x="540" y="491" width="50" height="50"/>
                             <animations/>
-                            <color key="backgroundColor" red="1" green="0.06224636264252803" blue="0.032078578005887648" alpha="1" colorSpace="calibratedRGB"/>
-                        </view>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="50" id="QzD-rN-8iD"/>
+                                <constraint firstAttribute="height" constant="50" id="UNb-jk-EFp"/>
+                            </constraints>
+                        </imageView>
                     </subviews>
                     <animations/>
                     <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="Wd5-B4-IUQ" secondAttribute="bottom" constant="10" id="8m9-5z-IRg"/>
+                        <constraint firstAttribute="trailing" secondItem="Wd5-B4-IUQ" secondAttribute="trailing" constant="10" id="ouE-YM-Gyr"/>
+                    </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="484-uT-3HW">
                     <rect key="frame" x="0.0" y="551" width="600" height="49"/>

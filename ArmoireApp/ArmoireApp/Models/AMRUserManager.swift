@@ -135,5 +135,15 @@ class AMRUserManager {
     }
     return NSArray(array: array)
   }
+  
+  func queryForUserWithObjectID(objectID: String, withCompletion completion: ((NSArray?, NSError?) -> Void)?) {
+    let query: PFQuery! = AMRUser.query()
+    query.whereKey("objectId", equalTo: objectID)
+    query.findObjectsInBackgroundWithBlock { objects, error in
+      if let callback = completion {
+        callback(objects, error)
+      }
+    }
+  }
 
 }
