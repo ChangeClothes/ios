@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		0F18931E1BD623C8007126D2 /* AMRClientTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F18931C1BD623C8007126D2 /* AMRClientTableViewCell.swift */; };
 		0F18931F1BD623C8007126D2 /* AMRClientTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F18931D1BD623C8007126D2 /* AMRClientTableViewCell.xib */; };
-		0F1893221BD62A50007126D2 /* AMRSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1893201BD62A50007126D2 /* AMRSettingsViewController.swift */; };
-		0F1893231BD62A50007126D2 /* AMRSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F1893211BD62A50007126D2 /* AMRSettingsViewController.xib */; };
 		0F4590911BD4867800C839F9 /* Credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0F4590901BD4867800C839F9 /* Credentials.plist */; };
 		0F45909C1BD48D3300C839F9 /* AMRClientsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F45909A1BD48D3300C839F9 /* AMRClientsViewController.swift */; };
 		0F45909D1BD48D3300C839F9 /* AMRClientsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F45909B1BD48D3300C839F9 /* AMRClientsViewController.xib */; };
@@ -52,6 +50,7 @@
 		C51751E71BDD7F17000F7A82 /* AMRImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51751E61BDD7F17000F7A82 /* AMRImage.swift */; };
 		C53F001D1BE1F50600070118 /* imageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53F001B1BE1F50600070118 /* imageCollectionViewCell.swift */; };
 		C53F001E1BE1F50600070118 /* imageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C53F001C1BE1F50600070118 /* imageCollectionViewCell.xib */; };
+		C584019C1BE574CC00D90117 /* UIAlertController+AMRSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C584019B1BE574CC00D90117 /* UIAlertController+AMRSettingsController.swift */; };
 		C5B75A881BE0A19D0009296C /* AMRMeasurementCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B75A861BE0A19D0009296C /* AMRMeasurementCell.swift */; };
 		C5B75A891BE0A19D0009296C /* AMRMeasurementCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5B75A871BE0A19D0009296C /* AMRMeasurementCell.xib */; };
 		C5D535FF1BE086750046A288 /* AMRPhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D535FD1BE086750046A288 /* AMRPhotosViewController.swift */; };
@@ -77,8 +76,6 @@
 /* Begin PBXFileReference section */
 		0F18931C1BD623C8007126D2 /* AMRClientTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRClientTableViewCell.swift; path = Views/AMRClientTableViewCell.swift; sourceTree = "<group>"; };
 		0F18931D1BD623C8007126D2 /* AMRClientTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AMRClientTableViewCell.xib; path = Views/AMRClientTableViewCell.xib; sourceTree = "<group>"; };
-		0F1893201BD62A50007126D2 /* AMRSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRSettingsViewController.swift; path = ViewControllers/AMRSettingsViewController.swift; sourceTree = "<group>"; };
-		0F1893211BD62A50007126D2 /* AMRSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AMRSettingsViewController.xib; path = ViewControllers/AMRSettingsViewController.xib; sourceTree = "<group>"; };
 		0F4590901BD4867800C839F9 /* Credentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Credentials.plist; sourceTree = "<group>"; };
 		0F45909A1BD48D3300C839F9 /* AMRClientsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AMRClientsViewController.swift; sourceTree = "<group>"; };
 		0F45909B1BD48D3300C839F9 /* AMRClientsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AMRClientsViewController.xib; sourceTree = "<group>"; };
@@ -126,6 +123,7 @@
 		C51751E61BDD7F17000F7A82 /* AMRImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRImage.swift; path = Models/AMRImage.swift; sourceTree = "<group>"; };
 		C53F001B1BE1F50600070118 /* imageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = imageCollectionViewCell.swift; path = Views/imageCollectionViewCell.swift; sourceTree = "<group>"; };
 		C53F001C1BE1F50600070118 /* imageCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = imageCollectionViewCell.xib; path = Views/imageCollectionViewCell.xib; sourceTree = "<group>"; };
+		C584019B1BE574CC00D90117 /* UIAlertController+AMRSettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIAlertController+AMRSettingsController.swift"; path = "Extensions/UIAlertController+AMRSettingsController.swift"; sourceTree = "<group>"; };
 		C5B75A861BE0A19D0009296C /* AMRMeasurementCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRMeasurementCell.swift; path = Views/AMRMeasurementCell.swift; sourceTree = "<group>"; };
 		C5B75A871BE0A19D0009296C /* AMRMeasurementCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AMRMeasurementCell.xib; path = Views/AMRMeasurementCell.xib; sourceTree = "<group>"; };
 		C5D535FD1BE086750046A288 /* AMRPhotosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRPhotosViewController.swift; path = ViewControllers/AMRPhotosViewController.swift; sourceTree = "<group>"; };
@@ -206,6 +204,7 @@
 			children = (
 				6F6AEACE1BDB1F3A009B8F74 /* AMRUser+ATLParticipant.swift */,
 				6F2828911BE1D874002B7B85 /* UIColor+AMRColor.swift */,
+				C584019B1BE574CC00D90117 /* UIAlertController+AMRSettingsController.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -256,8 +255,6 @@
 				0F4590BA1BD4B57300C839F9 /* AMRClientsDetailViewController.swift */,
 				0F4590BB1BD4B57300C839F9 /* AMRClientsDetailViewController.xib */,
 				6FF7BA171BDC3A9D00A7C54A /* AMRParticipantTableViewController.swift */,
-				0F1893201BD62A50007126D2 /* AMRSettingsViewController.swift */,
-				0F1893211BD62A50007126D2 /* AMRSettingsViewController.xib */,
 				6FA0130D1BD752460019E0D6 /* AMRSignUpViewController.swift */,
 				6FA0130E1BD752460019E0D6 /* AMRSignUpViewController.xib */,
 				6FA013111BD75C190019E0D6 /* AMRLoginViewController.swift */,
@@ -382,7 +379,6 @@
 				0F4590B91BD4A5D500C839F9 /* AMRAppointmentTableViewCell.xib in Resources */,
 				0F45909D1BD48D3300C839F9 /* AMRClientsViewController.xib in Resources */,
 				6F41E2011BCE0FF900729AC5 /* Assets.xcassets in Resources */,
-				0F1893231BD62A50007126D2 /* AMRSettingsViewController.xib in Resources */,
 				0FD0BAC71BD6064600D91504 /* AMRUpcomingMeetingsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -442,13 +438,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C584019C1BE574CC00D90117 /* UIAlertController+AMRSettingsController.swift in Sources */,
 				0F4590B81BD4A5D500C839F9 /* AMRAppointmentTableViewCell.swift in Sources */,
 				0FD0BAC21BD6038C00D91504 /* AMRUpcomingMeetingsTableViewCell.swift in Sources */,
 				6F55790E1BD2335C0033A7C8 /* AMRMainViewController.swift in Sources */,
 				0F18931E1BD623C8007126D2 /* AMRClientTableViewCell.swift in Sources */,
 				C53F001D1BE1F50600070118 /* imageCollectionViewCell.swift in Sources */,
 				0FD547721BDDA4A9005587F2 /* AMRAddClientViewController.swift in Sources */,
-				0F1893221BD62A50007126D2 /* AMRSettingsViewController.swift in Sources */,
 				6FA013121BD75C190019E0D6 /* AMRLoginViewController.swift in Sources */,
 				0F4590BC1BD4B57300C839F9 /* AMRClientsDetailViewController.swift in Sources */,
 				C5B75A881BE0A19D0009296C /* AMRMeasurementCell.swift in Sources */,

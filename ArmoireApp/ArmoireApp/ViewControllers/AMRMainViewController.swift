@@ -47,7 +47,8 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
   }
 
   func onTapSettings(notification: NSNotification){
-    let settingsVC = AMRSettingsViewController()
+    //let settingsVC = AMRSettingsViewController()
+    let settingsVC = UIAlertController.AMRSettingsController { (AMRSettingsControllerSetting) -> () in}
     self.presentViewController(settingsVC, animated: true, completion: nil)
   }
   
@@ -104,7 +105,6 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
       UINavigationController(rootViewController: AMRMessagesViewController(layerClient: layerClient) ),
       UINavigationController(rootViewController: AMRNotesViewController()),
       UINavigationController(rootViewController: AMRUpcomingMeetingsViewController()),
-      UINavigationController (rootViewController: AMRSettingsViewController()),
       UINavigationController (rootViewController: AMRClientsDetailViewController(layerClient: layerClient))
     ]
   }
