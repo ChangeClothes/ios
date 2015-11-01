@@ -10,6 +10,7 @@
                 <outlet property="calendarImageView" destination="oHp-Rt-Q73" id="P1R-ad-A5P"/>
                 <outlet property="containerView" destination="45x-mO-ZQ3" id="gKn-ck-2sl"/>
                 <outlet property="menuView" destination="484-uT-3HW" id="srU-hC-RiP"/>
+                <outlet property="messageNotificationView" destination="ofV-3d-qTA" id="hhg-rL-yqq"/>
                 <outlet property="messagesImageView" destination="kb7-yt-aZj" id="ils-iS-I3s"/>
                 <outlet property="notesImageView" destination="cZq-Wf-5iE" id="bRi-Cu-WGU"/>
                 <outlet property="profileIconImageView" destination="A7i-DM-NRi" id="Grz-IE-bMu"/>
@@ -25,6 +26,13 @@
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="45x-mO-ZQ3">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ofV-3d-qTA">
+                            <rect key="frame" x="70" y="53" width="88" height="73"/>
+                            <animations/>
+                            <color key="backgroundColor" red="1" green="0.06224636264252803" blue="0.032078578005887648" alpha="1" colorSpace="calibratedRGB"/>
+                        </view>
+                    </subviews>
                     <animations/>
                     <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                 </view>

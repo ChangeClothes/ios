@@ -11,6 +11,8 @@ import LayerKit
 
 class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
   
+  @IBOutlet weak var messageNotificationView: UIView!
+  
   @IBOutlet weak var menuView: UIView!
   @IBOutlet weak var messagesImageView: UIImageView!
   @IBOutlet weak var notesImageView: UIImageView!
@@ -23,6 +25,7 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
   
   var selectedViewController: UIViewController?
   var layerClient: LYRClient!
+  var layerQueryController: LYRQueryController!
   var stylist: AMRUser?
   var client: AMRUser?
   var vcArray: [UINavigationController]!
@@ -37,7 +40,24 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
     
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "deviceDidRotate", name: UIDeviceOrientationDidChangeNotification, object: nil)
    setupTabBarAppearance()
+    setupLayerQueryController()
+    
+  }
   
+  // MARK: - Initial setup
+  private func setupLayerQueryController() {
+    let query = LYRQuery(queryableClass: LYRConversation.self)
+    query.predicate = LYRPredicate(property: "isUnread", predicateOperator: LYRPredicateOperator.IsEqualTo, value: true)
+    layerQueryController = try? layerClient.queryControllerWithQuery(query, error: ())
+    layerQueryController.delegate = self
+    layerQueryController.executeWithCompletion { (success: Bool, error: NSError!) -> Void in
+      if let error = error {
+        print(error.localizedDescription)
+      } else {
+        print("Query fetched \(self.layerQueryController.numberOfObjectsInSection(0)) message objects")
+      }
+    }
+    
   }
   
   // MARK: - Appearance Methods
@@ -46,7 +66,7 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
     notesImageView.image = notesImageView.image?.imageWithRenderingMode(.AlwaysTemplate)
     calendarImageView.image = calendarImageView.image?.imageWithRenderingMode(.AlwaysTemplate)
     profileIconImageView.image = profileIconImageView.image?.imageWithRenderingMode(.AlwaysTemplate)
-    
+        
     resetIconColors()
     
     selectedIconView.layer.cornerRadius = 3.0
@@ -207,4 +227,12 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
 
 protocol AMRViewControllerProtocol {
   func setVcData(stylist: AMRUser?, client: AMRUser?)
+}
+
+// MARK: - LYRQueryController Delegate
+
+extension AMRMainViewController: LYRQueryControllerDelegate {
+  func queryControllerDidChangeContent(queryController: LYRQueryController!) {
+    print("new conversation")
+  }
 }
