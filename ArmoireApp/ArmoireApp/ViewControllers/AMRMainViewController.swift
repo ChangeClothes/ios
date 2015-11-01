@@ -51,8 +51,7 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
     
     selectedIconView.layer.cornerRadius = 3.0
     selectedIconView.backgroundColor = UIColor.AMRSecondaryBackgroundColor()
-    print(profileIconImageView.center.x)
-    
+
     selectedIconViewXPositionConstraint.constant = 1000
     view.layoutIfNeeded()
     
