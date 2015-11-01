@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AMRClientProfileViewController: UIViewController, UIAlertViewDelegate, AMRViewControllerProtocol{
+class AMRClientProfileViewController: AMRViewController, UIAlertViewDelegate, AMRViewControllerProtocol{
 
   @IBOutlet weak var nameLabel: UILabel!
   @IBOutlet weak var containerView: UIView!
@@ -18,8 +18,6 @@ class AMRClientProfileViewController: UIViewController, UIAlertViewDelegate, AMR
   /*******************************
    *** AMRViewController LOGIC ***
    ******************************/
-  var stylist: AMRUser?
-  var client: AMRUser?
   var selectedViewController: UIViewController?
   var vcArray: [UINavigationController]!
 
@@ -51,8 +49,7 @@ class AMRClientProfileViewController: UIViewController, UIAlertViewDelegate, AMR
   }
 
   func onSettingsTap(){
-    let settingsVC = UIAlertController.AMRSettingsController { (AMRSettingsControllerSetting) -> () in}
-    self.presentViewController(settingsVC, animated: true, completion: nil)
+    showSettings()
   }
 
   internal func setUpNavBar(){
