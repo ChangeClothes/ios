@@ -12,7 +12,7 @@ import LayerKit
 class AMRViewController: UIViewController {
   var stylist: AMRUser?
   var client: AMRUser?
- 
+  
   func showSettings () {
     let settingsVC = UIAlertController.AMRSettingsController { (setting: AMRSettingsControllerSetting) -> () in
       if setting == AMRSettingsControllerSetting.ProfilePicture {
@@ -20,8 +20,8 @@ class AMRViewController: UIViewController {
       }
     }
     self.presentViewController(settingsVC, animated: true, completion: nil)
-  
-  
+    
+    
   }
 }
 
@@ -43,10 +43,10 @@ class AMRMainViewController: AMRViewController, AMRViewControllerProtocol {
   var selectedViewController: UIViewController?
   var layerClient: LYRClient!
   var layerQueryController: LYRQueryController!
-
+  
   //var stylist: AMRUser?
   //var client: AMRUser?
-
+  
   var vcArray: [UINavigationController]!
   var selectedIconImageView: UIImageView?
   var newMessageTapGestureStartPoint: CGFloat!
@@ -56,7 +56,6 @@ class AMRMainViewController: AMRViewController, AMRViewControllerProtocol {
     super.viewDidLoad()
     subscribeToNotifications()
     setupTabBarAppearance()
-    setupLayerQueryController()
     setupNewMessageImageView()
     
   }
@@ -156,10 +155,6 @@ class AMRMainViewController: AMRViewController, AMRViewControllerProtocol {
   
   //MARK: - Utility
   func hideNewMessageImageView() {
-    UIView.animateWithDuration(1.0) { () -> Void in
-      
-    }
-    
     UIView.animateWithDuration(1.0, animations: { () -> Void in
       self.newMessageImageView.alpha = 0.0
       }) { (success: Bool) -> Void in
@@ -228,7 +223,7 @@ class AMRMainViewController: AMRViewController, AMRViewControllerProtocol {
   func onTapSettings(notification: NSNotification){
     //let settingsVC = AMRSettingsViewController()
     self.showSettings()
- }
+  }
   
   // MARK: - Notifiation Observers
   func onUserLogin(notification: NSNotification){
@@ -243,6 +238,8 @@ class AMRMainViewController: AMRViewController, AMRViewControllerProtocol {
       //stylist workflow
       selectViewController(vcArray[1])
       setSelectedAppearanceColorForImageView(profileIconImageView)
+      setupLayerQueryController()
+      newMessageImageView.alpha = 0
     }
   }
   
@@ -314,24 +311,33 @@ class AMRMainViewController: AMRViewController, AMRViewControllerProtocol {
   @IBAction func onTapMessages(sender: UITapGestureRecognizer) {
     selectViewController(vcArray[2])
     setSelectedAppearanceColorForImageView(sender.view as! UIImageView)
+    if newMessageImageView.alpha == 1.0 {
+      showNewMessageImageView()
+    }
   }
   
   @IBAction func onTapNotes(sender: UITapGestureRecognizer) {
     selectViewController(vcArray[3])
     setSelectedAppearanceColorForImageView(sender.view as! UIImageView)
-  }
-  
-  @IBAction func onTapProfile(sender: UITapGestureRecognizer) {
+    if newMessageImageView.alpha == 1.0 {
+      showNewMessageImageView()
+    }
   }
   
   @IBAction func onTapProfileIcon(sender: UITapGestureRecognizer) {
     selectViewController(vcArray[1])
     setSelectedAppearanceColorForImageView(sender.view as! UIImageView)
+    if newMessageImageView.alpha == 1.0 {
+      showNewMessageImageView()
+    }
   }
   
   @IBAction func onTapCalendar(sender: UITapGestureRecognizer) {
     selectViewController(vcArray[4])
     setSelectedAppearanceColorForImageView(sender.view as! UIImageView)
+    if newMessageImageView.alpha == 1.0 {
+      showNewMessageImageView()
+    }
   }
   
 }
@@ -345,7 +351,7 @@ protocol AMRViewControllerProtocol {
 extension AMRMainViewController: LYRQueryControllerDelegate {
   func queryController(controller: LYRQueryController!, didChangeObject object: AnyObject!, atIndexPath indexPath: NSIndexPath!, forChangeType type: LYRQueryControllerChangeType, newIndexPath: NSIndexPath!) {
     
-    if type == LYRQueryControllerChangeType.Insert {
+    if type != LYRQueryControllerChangeType.Delete && controller.numberOfObjectsInSection(0) > 0{
       let conversation = object as! LYRConversation
       newConversationIdentifier = conversation.identifier
       let senderObjectID = conversation.participants.first as! String
@@ -360,7 +366,6 @@ extension AMRMainViewController: LYRQueryControllerDelegate {
         
       }
     }
-
   }
 }
 
