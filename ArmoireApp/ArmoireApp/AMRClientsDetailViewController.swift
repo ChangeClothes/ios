@@ -30,6 +30,8 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
   @IBOutlet weak var selectedIconView: UIView!
   @IBOutlet weak var selectedIconViewXPositionConstraint: NSLayoutConstraint!
   
+  @IBOutlet weak var clientProfileImageView: UIImageView!
+  
   convenience init(layerClient: LYRClient) {
     self.init()
     self.layerClient = layerClient
@@ -44,12 +46,13 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
     
     setupTabBarAppearance()
     selectViewController(vcArray[3])
+    selectedIconImageView = profileIconImageView
     
   }
   
   override func viewDidAppear(animated: Bool) {
     super.viewDidAppear(animated)
-    setSelectedAppearanceColorForImageView(profileIconImageView)
+    setSelectedAppearanceColorForImageView(selectedIconImageView)
   }
   
   // MARK: - Appearance Methods
@@ -66,6 +69,13 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
     selectedIconView.backgroundColor = UIColor.AMRPrimaryBackgroundColor()
     
     menuView.backgroundColor = UIColor.AMRSecondaryBackgroundColor()
+    
+    clientProfileImageView.setAMRImage(client?.profilePhoto, withPlaceholder: "profile-image-placeholder")
+    clientProfileImageView.image = clientProfileImageView.image?.imageWithRenderingMode(.AlwaysTemplate)
+    clientProfileImageView.backgroundColor = UIColor.AMRPrimaryBackgroundColor()
+    clientProfileImageView.tintColor = UIColor.lightGrayColor()
+    clientProfileImageView.clipsToBounds = true
+    clientProfileImageView.layer.cornerRadius = clientProfileImageView.frame.width/2
   }
   
   private func resetIconColors() {

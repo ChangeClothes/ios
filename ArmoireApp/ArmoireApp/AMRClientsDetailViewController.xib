@@ -8,6 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AMRClientsDetailViewController" customModule="ArmoireApp" customModuleProvider="target">
             <connections>
                 <outlet property="calendarIconImageView" destination="gGz-aX-xAe" id="WLK-26-XIx"/>
+                <outlet property="clientProfileImageView" destination="RdM-bh-dIA" id="Avx-D1-Ae6"/>
                 <outlet property="containerView" destination="mnm-6d-jB8" id="gM0-XR-FMu"/>
                 <outlet property="menuView" destination="wVd-Rb-1D5" id="4px-sh-9Xz"/>
                 <outlet property="messagesIconImageView" destination="HC5-7x-Ua3" id="fzN-vO-lh1"/>
@@ -37,7 +38,7 @@
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
                         <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="note" translatesAutoresizingMaskIntoConstraints="NO" id="gs0-Bc-OGw">
-                            <rect key="frame" x="197" y="12" width="25" height="25"/>
+                            <rect key="frame" x="250" y="12" width="25" height="25"/>
                             <animations/>
                             <gestureRecognizers/>
                             <connections>
@@ -45,7 +46,7 @@
                             </connections>
                         </imageView>
                         <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="4dW-fm-G3h">
-                            <rect key="frame" x="378" y="12" width="25" height="25"/>
+                            <rect key="frame" x="405" y="12" width="25" height="25"/>
                             <animations/>
                             <gestureRecognizers/>
                             <connections>
@@ -61,7 +62,7 @@
                             </connections>
                         </imageView>
                         <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="messaging" translatesAutoresizingMaskIntoConstraints="NO" id="HC5-7x-Ua3">
-                            <rect key="frame" x="15" y="12" width="25" height="25"/>
+                            <rect key="frame" x="95" y="12" width="25" height="25"/>
                             <animations/>
                             <gestureRecognizers/>
                             <constraints>
@@ -73,22 +74,31 @@
                             </connections>
                         </imageView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kd8-kT-6qq">
-                            <rect key="frame" x="40" y="12" width="157" height="25"/>
+                            <rect key="frame" x="120" y="12" width="130" height="25"/>
                             <animations/>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jJX-VL-8h5">
-                            <rect key="frame" x="403" y="12" width="157" height="25"/>
+                            <rect key="frame" x="430" y="12" width="130" height="25"/>
                             <animations/>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uJI-kq-ivD">
-                            <rect key="frame" x="222" y="12" width="156" height="25"/>
+                            <rect key="frame" x="275" y="12" width="130" height="25"/>
                             <animations/>
                         </view>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile-image-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="RdM-bh-dIA">
+                            <rect key="frame" x="5" y="-31" width="75" height="75"/>
+                            <animations/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="75" id="CLu-bb-3ra"/>
+                                <constraint firstAttribute="height" constant="75" id="LDo-68-PgQ"/>
+                            </constraints>
+                        </imageView>
                     </subviews>
                     <animations/>
                     <color key="backgroundColor" red="0.24704212850000001" green="0.4015940657" blue="0.239423096" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstItem="uJI-kq-ivD" firstAttribute="centerY" secondItem="wVd-Rb-1D5" secondAttribute="centerY" id="0Hi-ZL-5sU"/>
+                        <constraint firstAttribute="bottom" secondItem="RdM-bh-dIA" secondAttribute="bottom" constant="5" id="1S7-xZ-xrh"/>
                         <constraint firstItem="eEh-FI-Q51" firstAttribute="leading" secondItem="wVd-Rb-1D5" secondAttribute="leading" constant="15" id="2q0-Mh-V20"/>
                         <constraint firstItem="gs0-Bc-OGw" firstAttribute="centerY" secondItem="HC5-7x-Ua3" secondAttribute="centerY" id="3OY-12-AOK"/>
                         <constraint firstItem="4dW-fm-G3h" firstAttribute="centerY" secondItem="HC5-7x-Ua3" secondAttribute="centerY" id="8OB-At-qOn"/>
@@ -101,7 +111,6 @@
                         <constraint firstItem="jJX-VL-8h5" firstAttribute="width" secondItem="Kd8-kT-6qq" secondAttribute="width" id="Jr8-wT-enX"/>
                         <constraint firstItem="eEh-FI-Q51" firstAttribute="height" secondItem="HC5-7x-Ua3" secondAttribute="height" id="Jy8-Xl-vQe"/>
                         <constraint firstItem="gGz-aX-xAe" firstAttribute="centerY" secondItem="HC5-7x-Ua3" secondAttribute="centerY" id="K6w-A1-ph1"/>
-                        <constraint firstItem="HC5-7x-Ua3" firstAttribute="leading" secondItem="wVd-Rb-1D5" secondAttribute="leading" priority="750" constant="15" id="LLl-3i-OON"/>
                         <constraint firstItem="gs0-Bc-OGw" firstAttribute="height" secondItem="HC5-7x-Ua3" secondAttribute="height" id="NUA-iG-Ibz"/>
                         <constraint firstItem="jJX-VL-8h5" firstAttribute="height" secondItem="HC5-7x-Ua3" secondAttribute="height" id="QhM-Dc-jWu"/>
                         <constraint firstItem="HC5-7x-Ua3" firstAttribute="centerY" secondItem="eEh-FI-Q51" secondAttribute="centerY" id="R7W-zt-sJ6"/>
@@ -114,12 +123,13 @@
                         <constraint firstItem="gs0-Bc-OGw" firstAttribute="leading" secondItem="Kd8-kT-6qq" secondAttribute="trailing" id="WEb-ae-PgK"/>
                         <constraint firstItem="eEh-FI-Q51" firstAttribute="width" secondItem="HC5-7x-Ua3" secondAttribute="width" id="XOr-Wa-UPy"/>
                         <constraint firstItem="4dW-fm-G3h" firstAttribute="leading" secondItem="uJI-kq-ivD" secondAttribute="trailing" id="bpL-Ne-Fte"/>
+                        <constraint firstItem="RdM-bh-dIA" firstAttribute="leading" secondItem="wVd-Rb-1D5" secondAttribute="leading" constant="5" id="byk-Qc-ESo"/>
                         <constraint firstItem="Kd8-kT-6qq" firstAttribute="height" secondItem="HC5-7x-Ua3" secondAttribute="height" id="cri-BB-C3n"/>
                         <constraint firstItem="HC5-7x-Ua3" firstAttribute="top" secondItem="wVd-Rb-1D5" secondAttribute="top" constant="12" id="elY-Ox-oaK"/>
                         <constraint firstItem="uJI-kq-ivD" firstAttribute="width" secondItem="Kd8-kT-6qq" secondAttribute="width" id="fmk-DC-ghq"/>
+                        <constraint firstItem="HC5-7x-Ua3" firstAttribute="leading" secondItem="RdM-bh-dIA" secondAttribute="trailing" constant="15" id="grg-Hf-Tdt"/>
                         <constraint firstItem="HC5-7x-Ua3" firstAttribute="centerY" secondItem="wVd-Rb-1D5" secondAttribute="centerY" id="pPA-E3-aax"/>
                         <constraint firstItem="Kd8-kT-6qq" firstAttribute="centerY" secondItem="HC5-7x-Ua3" secondAttribute="centerY" id="rgS-hy-RZW"/>
-                        <constraint firstItem="HC5-7x-Ua3" firstAttribute="leading" secondItem="wVd-Rb-1D5" secondAttribute="leading" constant="15" id="sWR-Lm-DlM"/>
                         <constraint firstItem="gGz-aX-xAe" firstAttribute="width" secondItem="HC5-7x-Ua3" secondAttribute="width" id="sn4-fb-2MS"/>
                         <constraint firstItem="uJI-kq-ivD" firstAttribute="leading" secondItem="gs0-Bc-OGw" secondAttribute="trailing" id="yN6-zd-iSo"/>
                     </constraints>
@@ -163,5 +173,6 @@
         <image name="messaging" width="25" height="25"/>
         <image name="note" width="25" height="25"/>
         <image name="profile" width="25" height="25"/>
+        <image name="profile-image-placeholder" width="75" height="75"/>
     </resources>
 </document>
