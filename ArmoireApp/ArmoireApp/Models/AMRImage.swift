@@ -7,7 +7,7 @@
 //
 
 class AMRImage: PFObject {
-    
+  
   @NSManaged var defaultImageName: String?
   @NSManaged private var file: PFFile?
   @NSManaged var client: AMRUser?
@@ -43,19 +43,34 @@ extension AMRImage: PFSubclassing {
 }
 
 extension UIImageView {
-  func setAMRImage(image: AMRImage) {
-    if (image.defaultImageName != nil){
-      self.image = UIImage(named: image.defaultImageName!)
-    } else {
-      self.image = UIImage(named: "placeholder-image")
-    }
-    if (image.file != nil) {
-      image.file!.getDataInBackgroundWithBlock { (data: NSData?, error: NSError?) -> Void in
-        if error == nil {
-          self.image = UIImage(data: data!)
-        } else {
-          print("error loading image from file")
+  func setAMRImage(image: AMRImage?) {
+    setAMRImage(image, withPlaceholder: nil)
+    
+  }
+  
+  func setAMRImage(image: AMRImage?, withPlaceholder placeholder: String?) {
+    if let image = image {
+      if placeholder != nil {
+        self.image = UIImage(named: placeholder!)
+      } else if (image.defaultImageName != nil){
+        self.image = UIImage(named: image.defaultImageName!)
+      } else {
+        self.image = UIImage(named: "image-placeholder")
+      }
+      if (image.file != nil) {
+        image.file!.getDataInBackgroundWithBlock { (data: NSData?, error: NSError?) -> Void in
+          if error == nil {
+            self.image = UIImage(data: data!)
+          } else {
+            print("error loading image from file")
+          }
         }
+      }
+    } else {
+      if (placeholder != nil){
+        self.image = UIImage(named: placeholder!)
+      } else {
+        self.image = UIImage(named: "image-placeholder")
       }
     }
   }
