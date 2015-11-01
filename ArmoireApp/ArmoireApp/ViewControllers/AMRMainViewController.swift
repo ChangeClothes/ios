@@ -16,7 +16,6 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
   @IBOutlet weak var notesImageView: UIImageView!
   @IBOutlet weak var calendarImageView: UIImageView!
   @IBOutlet weak var profileIconImageView: UIImageView!
-  @IBOutlet weak var profileImageView: UIImageView!
   @IBOutlet weak var containerView: UIView!
   @IBOutlet weak var selectedIconView: UIView!
   
@@ -52,9 +51,12 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
     
     selectedIconView.layer.cornerRadius = 3.0
     selectedIconView.backgroundColor = UIColor.AMRSecondaryBackgroundColor()
+    print(profileIconImageView.center.x)
     
-    menuView.backgroundColor = UIColor.AMRPrimaryBackgroundColor()
-    profileImageView.setAMRImage(stylist?.profilePhoto, withPlaceholder: "camera")
+    selectedIconViewXPositionConstraint.constant = 1000
+    view.layoutIfNeeded()
+    
+    menuView.backgroundColor = UIColor.AMRPrimaryBackgroundColor() 
   }
   
   private func resetIconColors() {
@@ -65,15 +67,14 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
   }
   
   private func setSelectedAppearanceColorForImageView(imageView: UIImageView) {
-    resetIconColors()
     selectedIconImageView = imageView
     
-    UIView.animateWithDuration(1.0) { () -> Void in
+    UIView.animateWithDuration(0.5) { () -> Void in
+      self.resetIconColors()
       self.selectedIconViewXPositionConstraint.constant = imageView.center.x - self.selectedIconView.frame.width/2
       self.view.layoutIfNeeded()
       imageView.tintColor = UIColor.AMRSelectedTabBarButtonTintColor()
     }
-    
   }
   
   func deviceDidRotate() {

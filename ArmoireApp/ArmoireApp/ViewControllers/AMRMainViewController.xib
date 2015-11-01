@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AMRMainViewController" customModule="ArmoireApp" customModuleProvider="target">
@@ -14,7 +13,6 @@
                 <outlet property="messagesImageView" destination="kb7-yt-aZj" id="ils-iS-I3s"/>
                 <outlet property="notesImageView" destination="cZq-Wf-5iE" id="bRi-Cu-WGU"/>
                 <outlet property="profileIconImageView" destination="A7i-DM-NRi" id="Grz-IE-bMu"/>
-                <outlet property="profileImageView" destination="esp-ki-vJa" id="exT-4Z-HGK"/>
                 <outlet property="selectedIconView" destination="Xtb-k1-upp" id="cia-7c-qHF"/>
                 <outlet property="selectedIconViewXPositionConstraint" destination="LRY-k3-61U" id="J7l-dm-jqL"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -38,20 +36,8 @@
                             <animations/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
-                        <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="woman" translatesAutoresizingMaskIntoConstraints="NO" id="esp-ki-vJa">
-                            <rect key="frame" x="250" y="-51" width="100" height="100"/>
-                            <animations/>
-                            <gestureRecognizers/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="100" id="rid-SV-K28"/>
-                                <constraint firstAttribute="width" secondItem="esp-ki-vJa" secondAttribute="height" multiplier="1:1" id="vGQ-PJ-P1E"/>
-                            </constraints>
-                            <connections>
-                                <outletCollection property="gestureRecognizers" destination="jIJ-d4-FCb" appends="YES" id="gly-vy-D2Q"/>
-                            </connections>
-                        </imageView>
                         <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="note" translatesAutoresizingMaskIntoConstraints="NO" id="cZq-Wf-5iE">
-                            <rect key="frame" x="133" y="12" width="25" height="25"/>
+                            <rect key="frame" x="197" y="12" width="25" height="25"/>
                             <animations/>
                             <gestureRecognizers/>
                             <connections>
@@ -59,7 +45,7 @@
                             </connections>
                         </imageView>
                         <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clients" translatesAutoresizingMaskIntoConstraints="NO" id="A7i-DM-NRi">
-                            <rect key="frame" x="443" y="12" width="25" height="25"/>
+                            <rect key="frame" x="378" y="12" width="25" height="25"/>
                             <animations/>
                             <gestureRecognizers/>
                             <connections>
@@ -87,35 +73,27 @@
                             </connections>
                         </imageView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1TT-cC-PW2">
-                            <rect key="frame" x="40" y="12" width="93" height="25"/>
+                            <rect key="frame" x="40" y="12" width="157" height="25"/>
                             <animations/>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gyx-hT-6D9">
-                            <rect key="frame" x="468" y="12" width="92" height="25"/>
+                            <rect key="frame" x="403" y="12" width="157" height="25"/>
                             <animations/>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qPn-aJ-0VD">
-                            <rect key="frame" x="158" y="12" width="92" height="25"/>
-                            <animations/>
-                        </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZL3-iE-tMH">
-                            <rect key="frame" x="350" y="12" width="93" height="25"/>
+                            <rect key="frame" x="222" y="12" width="156" height="25"/>
                             <animations/>
                         </view>
                     </subviews>
                     <animations/>
                     <color key="backgroundColor" red="0.24704212850000001" green="0.4015940657" blue="0.239423096" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstItem="ZL3-iE-tMH" firstAttribute="height" secondItem="1TT-cC-PW2" secondAttribute="height" id="0Qu-11-vcx"/>
-                        <constraint firstItem="ZL3-iE-tMH" firstAttribute="width" secondItem="1TT-cC-PW2" secondAttribute="width" id="1QB-NJ-k0z"/>
-                        <constraint firstItem="ZL3-iE-tMH" firstAttribute="centerY" secondItem="484-uT-3HW" secondAttribute="centerY" id="8Kl-v1-YpM"/>
                         <constraint firstItem="oHp-Rt-Q73" firstAttribute="centerY" secondItem="kb7-yt-aZj" secondAttribute="centerY" id="9ye-5F-S7f"/>
                         <constraint firstItem="kb7-yt-aZj" firstAttribute="top" secondItem="484-uT-3HW" secondAttribute="top" constant="12" id="BZv-Cf-7h0"/>
                         <constraint firstItem="Xtb-k1-upp" firstAttribute="width" secondItem="kb7-yt-aZj" secondAttribute="width" id="Beb-Pm-IX5"/>
                         <constraint firstItem="gyx-hT-6D9" firstAttribute="width" secondItem="1TT-cC-PW2" secondAttribute="width" id="DcG-iS-k2m"/>
                         <constraint firstItem="oHp-Rt-Q73" firstAttribute="width" secondItem="kb7-yt-aZj" secondAttribute="width" id="EDq-gY-pIU"/>
                         <constraint firstItem="qPn-aJ-0VD" firstAttribute="height" secondItem="1TT-cC-PW2" secondAttribute="height" id="EbO-4g-mbN"/>
-                        <constraint firstItem="A7i-DM-NRi" firstAttribute="leading" secondItem="ZL3-iE-tMH" secondAttribute="trailing" id="EbQ-Kg-Avx"/>
                         <constraint firstItem="cZq-Wf-5iE" firstAttribute="centerY" secondItem="kb7-yt-aZj" secondAttribute="centerY" id="Fkw-Gc-GQb"/>
                         <constraint firstItem="cZq-Wf-5iE" firstAttribute="height" secondItem="kb7-yt-aZj" secondAttribute="height" id="GVy-mZ-0Ma"/>
                         <constraint firstItem="oHp-Rt-Q73" firstAttribute="height" secondItem="kb7-yt-aZj" secondAttribute="height" id="IlB-fe-zbs"/>
@@ -128,18 +106,15 @@
                         <constraint firstItem="gyx-hT-6D9" firstAttribute="centerY" secondItem="kb7-yt-aZj" secondAttribute="centerY" id="T4d-iJ-VUM"/>
                         <constraint firstItem="kb7-yt-aZj" firstAttribute="centerY" secondItem="484-uT-3HW" secondAttribute="centerY" id="Ulp-4L-d97"/>
                         <constraint firstItem="1TT-cC-PW2" firstAttribute="height" secondItem="kb7-yt-aZj" secondAttribute="height" id="WD8-wL-LZ4"/>
-                        <constraint firstItem="esp-ki-vJa" firstAttribute="centerX" secondItem="484-uT-3HW" secondAttribute="centerX" id="WEF-d8-xcm"/>
                         <constraint firstItem="Xtb-k1-upp" firstAttribute="height" secondItem="kb7-yt-aZj" secondAttribute="height" id="WKa-eI-YXL"/>
                         <constraint firstItem="A7i-DM-NRi" firstAttribute="width" secondItem="kb7-yt-aZj" secondAttribute="width" id="Wbw-OB-Gpf"/>
                         <constraint firstAttribute="trailing" secondItem="oHp-Rt-Q73" secondAttribute="trailing" constant="15" id="Z8C-Ic-qdy"/>
-                        <constraint firstAttribute="bottom" secondItem="esp-ki-vJa" secondAttribute="bottom" id="gFy-43-UU5"/>
+                        <constraint firstItem="A7i-DM-NRi" firstAttribute="leading" secondItem="qPn-aJ-0VD" secondAttribute="trailing" id="g4X-DU-ddF"/>
                         <constraint firstItem="qPn-aJ-0VD" firstAttribute="width" secondItem="1TT-cC-PW2" secondAttribute="width" id="hjN-3V-ceL"/>
                         <constraint firstItem="1TT-cC-PW2" firstAttribute="centerY" secondItem="484-uT-3HW" secondAttribute="centerY" id="mLh-wf-U34"/>
                         <constraint firstItem="oHp-Rt-Q73" firstAttribute="leading" secondItem="gyx-hT-6D9" secondAttribute="trailing" id="mwB-iI-z2x"/>
-                        <constraint firstItem="ZL3-iE-tMH" firstAttribute="leading" secondItem="esp-ki-vJa" secondAttribute="trailing" id="nO9-3a-fbh"/>
                         <constraint firstItem="qPn-aJ-0VD" firstAttribute="centerY" secondItem="484-uT-3HW" secondAttribute="centerY" id="o20-0d-1ZA"/>
                         <constraint firstItem="gyx-hT-6D9" firstAttribute="height" secondItem="kb7-yt-aZj" secondAttribute="height" id="rHt-3q-7aK"/>
-                        <constraint firstItem="esp-ki-vJa" firstAttribute="leading" secondItem="qPn-aJ-0VD" secondAttribute="trailing" id="rMz-BM-9gP"/>
                         <constraint firstItem="gyx-hT-6D9" firstAttribute="leading" secondItem="A7i-DM-NRi" secondAttribute="trailing" id="ucL-7V-qwE"/>
                         <constraint firstItem="cZq-Wf-5iE" firstAttribute="leading" secondItem="1TT-cC-PW2" secondAttribute="trailing" id="vWs-Es-bcz"/>
                         <constraint firstItem="qPn-aJ-0VD" firstAttribute="leading" secondItem="cZq-Wf-5iE" secondAttribute="trailing" id="wC7-3V-yDP"/>
@@ -193,6 +168,5 @@
         <image name="clients" width="25" height="25"/>
         <image name="messaging" width="25" height="25"/>
         <image name="note" width="25" height="25"/>
-        <image name="woman" width="128" height="128"/>
     </resources>
 </document>
