@@ -70,7 +70,12 @@ class AMRClientsDetailViewController: UIViewController, AMRViewControllerProtoco
     
     menuView.backgroundColor = UIColor.AMRSecondaryBackgroundColor()
     
-    clientProfileImageView.setAMRImage(client?.profilePhoto, withPlaceholder: "profile-image-placeholder")
+    if let _ = stylist {
+      clientProfileImageView.setAMRImage(client?.profilePhoto, withPlaceholder: "profile-image-placeholder")
+    } else {
+      clientProfileImageView.setAMRImage(stylist?.profilePhoto, withPlaceholder: "profile-image-placeholder")
+    }
+    
     clientProfileImageView.image = clientProfileImageView.image?.imageWithRenderingMode(.AlwaysTemplate)
     clientProfileImageView.backgroundColor = UIColor.AMRPrimaryBackgroundColor()
     clientProfileImageView.tintColor = UIColor.lightGrayColor()
