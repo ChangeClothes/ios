@@ -8,19 +8,25 @@
 
 import UIKit
 
-class AMRNotesViewController: UIViewController, AMRViewControllerProtocol{
+class AMRNotesViewController: UIViewController, AMRViewControllerProtocol, UITextViewDelegate{
 
   @IBOutlet weak var noteTextView: UITextView!
   var stylist: AMRUser?
   var client: AMRUser?
   var note: AMRNote?
   
+  @IBOutlet weak var constraintTextViewToBottom: NSLayoutConstraint!
   var startingText: String?
   
+  // MARK: - Lifecycle
+
   override func viewWillAppear(animated: Bool) {
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillChangeFrameNotification, object: nil)
     loadNote()
     self.title = "Notes"
+    noteTextView.delegate = self
     setUpNavBar()
+    setUpUI()
   }
   
   override func viewDidLoad() {
@@ -28,12 +34,9 @@ class AMRNotesViewController: UIViewController, AMRViewControllerProtocol{
     // Do any additional setup after loading the view.
   }
   
-  override func viewDidDisappear(animated: Bool) {
-    if (startingText != noteTextView.text){
-      //update Parse object
-      note?.setObject(noteTextView.text, forKey: "content")
-      note?.saveInBackground()
-    }
+  override func viewWillDisappear(animated: Bool){
+    super.viewWillDisappear(false)
+    saveNote()
   }
 
   override func didReceiveMemoryWarning() {
@@ -41,36 +44,23 @@ class AMRNotesViewController: UIViewController, AMRViewControllerProtocol{
     // Dispose of any resources that can be recreated.
   }
   
-  internal func setUpNavBar(){
-    if (stylist != nil && client != nil){
-      let exitModalButton: UIButton = UIButton()
-      exitModalButton.setImage(UIImage(named: "undo"), forState: .Normal)
-      exitModalButton.frame = CGRectMake(0, 0, 30, 30)
-      exitModalButton.addTarget(self, action: Selector("exitModal"), forControlEvents: .TouchUpInside)
+  // MARK: - Setup
 
-      let leftNavBarButton = UIBarButtonItem(customView: exitModalButton)
-      self.navigationItem.leftBarButtonItem = leftNavBarButton
-    } else {
-      let settings: UIButton = UIButton()
-      settings.setImage(UIImage(named: "settings"), forState: .Normal)
-      settings.frame = CGRectMake(0, 0, 30, 30)
-      settings.addTarget(self, action: Selector("onSettingsTap"), forControlEvents: .TouchUpInside)
-
-      let leftNavBarButton = UIBarButtonItem(customView: settings)
-      self.navigationItem.leftBarButtonItem = leftNavBarButton
-    }
+  private func setUpUI(){
+    let backgroundImage = UIImage(named: "note-background-5")!
+    UIGraphicsBeginImageContextWithOptions(self.noteTextView.frame.size, false, 0.0)
+    backgroundImage.drawInRect(CGRectMake(0.0, 0.0, self.noteTextView.frame.size.width, self.noteTextView.frame.size.height))
+    let resultImage = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+    self.noteTextView.backgroundColor = UIColor(patternImage: resultImage)
+    self.view.backgroundColor = UIColor(patternImage: resultImage)
   }
 
-  func exitModal(){
-    self.dismissViewControllerAnimated(true, completion: nil)
-  }
-
-  func onSettingsTap(){
-    let settingsVC = UIAlertController.AMRSettingsController { (AMRSettingsControllerSetting) -> () in}
-    self.presentViewController(settingsVC, animated: true, completion: nil)
+  private func setUpNavBar(){
+    createNavBarButtonItems()
   }
   
-  func loadNote(){
+  private func loadNote(){
     AMRNote.noteForUser(self.stylist, client: self.client) { (objects, error) -> Void in
       if let error = error {
         print(error.localizedDescription)
@@ -79,7 +69,7 @@ class AMRNotesViewController: UIViewController, AMRViewControllerProtocol{
         self.createNote()
       } else if let notes = objects {
         if (notes.count > 1 ){
-          // problem because there is more than one note associated with this user
+          print("more than one note associated in this context")
         } else {
           // no problems, here be your note
           self.note = notes[0]
@@ -89,6 +79,23 @@ class AMRNotesViewController: UIViewController, AMRViewControllerProtocol{
       }
     }
   }
+
+  // MARK: - On Tap Actions
+
+  func exitModal(){
+    self.dismissViewControllerAnimated(true, completion: nil)
+  }
+
+  func onSettingsTap(){
+    let settingsVC = UIAlertController.AMRSettingsController { (AMRSettingsControllerSetting) -> () in}
+    self.presentViewController(settingsVC, animated: true, completion: nil)
+  }
+
+  func onDoneEditingTap(){
+    textViewDidEndEditing(noteTextView)
+  }
+
+  // MARK: - AMRViewController Protocol Compliance
   
   func flushVCData() {
     note = nil
@@ -102,8 +109,29 @@ class AMRNotesViewController: UIViewController, AMRViewControllerProtocol{
     loadNote()
   }
   
+  func setVcData(stylist: AMRUser?, client: AMRUser?) {
+    self.stylist = stylist
+    self.client = client
+  }
+
+
+  // MARK: - Background Actions
+
+  func textViewDidBeginEditing(textView: UITextView) {
+    createDoneEditingButton()
+    self.navigationItem.leftBarButtonItem = nil
+  }
+
+  func textViewDidEndEditing(textView: UITextView) {
+    noteTextView.resignFirstResponder()
+    moveNoteDown()
+    self.navigationItem.rightBarButtonItem = nil
+    createNavBarButtonItems()
+    saveNote()
+  }
+
   private func createNote(){
-    var note = PFObject(className: "Note")
+    let note = PFObject(className: "Note")
     if let client = self.client {
       note.setObject(client, forKey: "client")
     }
@@ -120,9 +148,72 @@ class AMRNotesViewController: UIViewController, AMRViewControllerProtocol{
     }
   }
 
-  internal func setVcData(stylist: AMRUser?, client: AMRUser?) {
-    self.stylist = stylist
-    self.client = client
+  private func saveNote(){
+    if (startingText != noteTextView.text){
+      note?.setObject(noteTextView.text, forKey: "content")
+      note?.saveInBackground()
+    }
+  }
+
+  private func moveNoteUp(keyboardHeight: CGFloat?){
+    self.constraintTextViewToBottom.constant = keyboardHeight! - (self.navigationController?.navigationBar.frame.height)! - UIApplication.sharedApplication().statusBarFrame.size.height - 5.0
+    self.view.layoutIfNeeded()
+  }
+
+  private func moveNoteDown(){
+    self.constraintTextViewToBottom.constant = 0
+    self.view.layoutIfNeeded()
+  }
+
+  // MARK: - Create Nav Bar Button Items
+
+  private func createNavBarButtonItems(){
+    if (stylist != nil && client != nil){
+      createExitModalButton()
+    } else {
+      createSettingsButton()
+    }
+  }
+
+  private func createDoneEditingButton(){
+    let doneButton: UIButton = UIButton()
+    doneButton.setImage(UIImage(named: "check"), forState: .Normal)
+
+    doneButton.frame = CGRectMake(0, 0, 30, 30)
+    doneButton.addTarget(self, action: Selector("onDoneEditingTap"), forControlEvents: .TouchUpInside)
+
+    let rightNavBarButton = UIBarButtonItem(customView: doneButton)
+    self.navigationItem.rightBarButtonItem = rightNavBarButton
+  }
+
+  private func createExitModalButton(){
+    let exitModalButton: UIButton = UIButton()
+    exitModalButton.setImage(UIImage(named: "undo"), forState: .Normal)
+    exitModalButton.frame = CGRectMake(0, 0, 30, 30)
+    exitModalButton.addTarget(self, action: Selector("exitModal"), forControlEvents: .TouchUpInside)
+
+    let leftNavBarButton = UIBarButtonItem(customView: exitModalButton)
+    self.navigationItem.leftBarButtonItem = leftNavBarButton
+  }
+
+  private func createSettingsButton(){
+    let settings: UIButton = UIButton()
+    settings.setImage(UIImage(named: "settings"), forState: .Normal)
+    settings.frame = CGRectMake(0, 0, 30, 30)
+    settings.addTarget(self, action: Selector("onSettingsTap"), forControlEvents: .TouchUpInside)
+
+    let leftNavBarButton = UIBarButtonItem(customView: settings)
+    self.navigationItem.leftBarButtonItem = leftNavBarButton
+  }
+
+  // MARK - Observor Actions
+
+  func keyboardWillShow(notification: NSNotification){
+    let userInfo = notification.userInfo as? NSDictionary
+    let endLocationOfKeyboard = userInfo?[UIKeyboardFrameEndUserInfoKey]?.CGRectValue
+    let size = endLocationOfKeyboard?.size
+    let keyboardHeight = size?.height
+    moveNoteUp(keyboardHeight)
   }
 
     /*
