@@ -48,9 +48,11 @@ extension UIAlertController {
         controller.addAction(alertAction)
       case AMRSettingsControllerSetting.ProfilePicture:
         let alertAction = UIAlertAction(title: setting.rawValue, style: UIAlertActionStyle.Default, handler: handler)
-        let image = RBSquareImageTo(UIImage(named: "camera")!, size: CGSize(width: 50, height: 50))
-        alertAction.setValue(image, forKey: "image")
+        //let image = UIImage(data: (currentUser.user?.profilePhoto.getData())!)
+        //let resizedImage = RBSquareImageTo(image!, size: CGSize(width: 75, height: 75))
+        //alertAction.setValue(resizedImage, forKey: "image")
         controller.addAction(alertAction)
+          
       default:
         controller.addAction(UIAlertAction(title: setting.rawValue, style: UIAlertActionStyle.Default, handler: handler))
       }

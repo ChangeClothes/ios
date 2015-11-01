@@ -13,11 +13,31 @@ class AMRImage: PFObject {
   @NSManaged var client: AMRUser?
   @NSManaged var stylist: AMRUser?
   
+  func getData() -> NSData?{
+    do {
+      return try file?.getData()
+    } catch {
+      return NSData()
+    }
+  }
+  
   func setImage(image:UIImage){
     let imageData = UIImagePNGRepresentation(image)
     let imageFile = PFFile(data: imageData!)
     self.file = imageFile
     self.saveInBackground()
+  }
+  
+  func getImage(completion: (UIImage)-> ()){
+    self.file?.getDataInBackgroundWithBlock({ (data, error) -> Void in
+      if error == nil {
+        completion(UIImage(data: data!)!)
+      } else {
+        print("error loading image from file")
+      }
+    })
+   
+    print("here3")
   }
   
   class func imagesForUser(stylist: AMRUser?, client: AMRUser?, completion: (objects: [AMRImage]?, error: NSError?) -> Void)  {
@@ -83,7 +103,6 @@ class PhotoPicker: NSObject, UINavigationControllerDelegate, UIImagePickerContro
   
   func selectPhoto(stylist: AMRUser?, client: AMRUser?, viewDelegate:UIViewController?, completion: ((AMRImage) -> ())? ){
     
-    print("here")
     self.stylist = stylist
     self.client = client
     self.viewDelegate = viewDelegate

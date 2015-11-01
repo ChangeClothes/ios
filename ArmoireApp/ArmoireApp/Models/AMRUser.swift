@@ -27,3 +27,9 @@ class AMRUser: PFUser {
   }
   
 }
+
+class currentUser{
+  static let user = AMRUser.currentUser()
+
+}
+

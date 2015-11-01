@@ -10,18 +10,28 @@ import UIKit
 import LayerKit
 
 class AMRViewController: UIViewController {
+  
   var stylist: AMRUser?
   var client: AMRUser?
  
+  override func viewDidLoad(){
+    super.viewDidLoad()
+    currentUser.user?.fetchIfNeededInBackgroundWithBlock({ (obj, err) -> Void in
+      currentUser.user?.profilePhoto.fetchIfNeededInBackground()
+    })
+  }
   func showSettings () {
     let settingsVC = UIAlertController.AMRSettingsController { (setting: AMRSettingsControllerSetting) -> () in
       if setting == AMRSettingsControllerSetting.ProfilePicture {
-        PhotoPicker.sharedInstance.selectPhoto(self.stylist, client: self.client, viewDelegate: self, completion: { (AMRImage) -> () in })
+        PhotoPicker.sharedInstance.selectPhoto(self.stylist, client: self.client, viewDelegate: self, completion: {
+          (image: AMRImage) -> () in
+          let user = AMRUser.currentUser()
+          user?.profilePhoto = image
+          user?.saveInBackground()
+        })
       }
     }
     self.presentViewController(settingsVC, animated: true, completion: nil)
-  
-  
   }
 }
 
@@ -46,6 +56,7 @@ class AMRMainViewController: AMRViewController, AMRViewControllerProtocol {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "onShowMenuView:", name: AMRMainShowMenuView, object: nil)
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "onHideMenuView:", name: AMRMainHideMenuView, object: nil)
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "onUserLogin:", name: kUserDidLoginNotification, object: nil)
