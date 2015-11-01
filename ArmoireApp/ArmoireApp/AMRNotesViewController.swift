@@ -8,12 +8,11 @@
 
 import UIKit
 
-class AMRNotesViewController: UIViewController, AMRViewControllerProtocol, UITextViewDelegate{
+class AMRNotesViewController: AMRViewController, AMRViewControllerProtocol, UITextViewDelegate{
 
   @IBOutlet weak var noteTextView: UITextView!
-  var stylist: AMRUser?
-  var client: AMRUser?
   var note: AMRNote?
+  var photoPicker: PhotoPicker?
   
   @IBOutlet weak var constraintTextViewToBottom: NSLayoutConstraint!
   var startingText: String?
@@ -55,11 +54,11 @@ class AMRNotesViewController: UIViewController, AMRViewControllerProtocol, UITex
     self.noteTextView.backgroundColor = UIColor(patternImage: resultImage)
     self.view.backgroundColor = UIColor(patternImage: resultImage)
   }
-
+  
   private func setUpNavBar(){
     createNavBarButtonItems()
   }
-  
+
   private func loadNote(){
     AMRNote.noteForUser(self.stylist, client: self.client) { (objects, error) -> Void in
       if let error = error {
@@ -87,8 +86,7 @@ class AMRNotesViewController: UIViewController, AMRViewControllerProtocol, UITex
   }
 
   func onSettingsTap(){
-    let settingsVC = UIAlertController.AMRSettingsController { (AMRSettingsControllerSetting) -> () in}
-    self.presentViewController(settingsVC, animated: true, completion: nil)
+    showSettings()
   }
 
   func onDoneEditingTap(){

@@ -30,9 +30,14 @@ extension UIColor {
     return ColorHelper.sharedInstance.colorFromHexString("#34495e")
   }
   
+  class func AMRClientUnselectedTabBarButtonTintColor() -> UIColor {
+    return ColorHelper.sharedInstance.colorFromHexString("#bdc3c7")
+  }
+  
   class func AMRSelectedTabBarButtonTintColor() -> UIColor {
     return ColorHelper.sharedInstance.colorFromHexString("#ecf0f1")
   }
+  
 }
 
 private struct ColorHelper {

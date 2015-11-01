@@ -10,7 +10,7 @@ import UIKit
 import EventKit
 import EventKitUI
 
-class AMRUpcomingMeetingsViewController: UIViewController, AMRViewControllerProtocol {
+class AMRUpcomingMeetingsViewController: AMRViewController, AMRViewControllerProtocol {
   
   // MARK: - Constants
   private let meetingTableViewCellReuseIdentifier = "com.armoireapp.meetingTableViewCellReuseIdentifier"
@@ -19,8 +19,6 @@ class AMRUpcomingMeetingsViewController: UIViewController, AMRViewControllerProt
   // MARK: - Properties
   var events: [EKEvent]!
   var calendarIdentifier: String?
-  var stylist: AMRUser?
-  var client: AMRUser?
   private var isAuthorized: Bool! {
     get {
       let status = EKEventStore.authorizationStatusForEntityType(EKEntityType.Event)
@@ -66,8 +64,7 @@ class AMRUpcomingMeetingsViewController: UIViewController, AMRViewControllerProt
   }
   
   func onSettingsTap(){
-    let settingsVC = UIAlertController.AMRSettingsController { (AMRSettingsControllerSetting) -> () in}
-    self.presentViewController(settingsVC, animated: true, completion: nil)
+    self.showSettings()
   }
   
   // MARK: - Initial Setup
