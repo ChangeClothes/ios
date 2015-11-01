@@ -11,12 +11,19 @@ import LayerKit
 
 class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtocol,  LYRQueryControllerDelegate  {
   
+  @IBOutlet weak var newMessageImageView: UIImageView!
+  @IBOutlet weak var newMessageImageViewXConstraint: NSLayoutConstraint!
+  
   var vcArray: [UINavigationController]!
   var selectedViewController: UIViewController?
   var layerClient: LYRClient!
   var selectedIconImageView: UIImageView!
+  var newMessageTapGestureStartPoint: CGFloat!
+  var newConversationIdentifier: NSURL!
   
   private var queryController: LYRQueryController!
+  var layerQueryController: LYRQueryController!
+  
   @IBOutlet weak var containerView: UIView!
   @IBOutlet weak var menuView: UIView!
   
@@ -46,11 +53,109 @@ class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtoc
     selectViewController(vcArray[3])
     selectedIconImageView = profileIconImageView
     
+    setupLayerQueryController()
+    setupNewMessageImageView()
   }
   
   override func viewDidAppear(animated: Bool) {
     super.viewDidAppear(animated)
     setSelectedAppearanceColorForImageView(selectedIconImageView)
+  }
+  
+  private func setupLayerQueryController() {
+    let query = LYRQuery(queryableClass: LYRConversation.self)
+    query.predicate = LYRPredicate(property: "hasUnreadMessages", predicateOperator: LYRPredicateOperator.IsEqualTo, value: true)
+    layerQueryController = try? layerClient.queryControllerWithQuery(query, error: ())
+    layerQueryController.delegate = self
+    layerQueryController.executeWithCompletion { (success: Bool, error: NSError!) -> Void in
+      if let error = error {
+        print(error.localizedDescription)
+      } else {
+        print("Query fetched \(self.layerQueryController.numberOfObjectsInSection(0)) message objects")
+      }
+    }
+  }
+  
+  private func setupNewMessageImageView() {
+    newMessageImageView.image = newMessageImageView.image?.imageWithRenderingMode(.AlwaysTemplate)
+    newMessageImageView.clipsToBounds = true
+    newMessageImageView.layer.cornerRadius = newMessageImageView.frame.width/2
+    newMessageImageView.backgroundColor = UIColor.AMRBrightButtonBackgroundColor()
+    
+    let newMessagePanGR = UIPanGestureRecognizer(target: self, action: "onMessageIconPan:")
+    newMessagePanGR.delegate = self
+    newMessageImageView.addGestureRecognizer(newMessagePanGR)
+    
+    let newMessageTapGR = UITapGestureRecognizer(target: self, action: "onMessageIconTap:")
+    newMessageImageView.addGestureRecognizer(newMessageTapGR)
+    newMessageTapGestureStartPoint = newMessageImageViewXConstraint.constant
+    
+    hideNewMessageImageView()
+  }
+  
+  func onMessageIconTap(sender: UITapGestureRecognizer) {
+    presentConversationWithIdentifier(newConversationIdentifier)
+  }
+  
+  private func presentConversationWithIdentifier(identifier: NSURL) {
+    let query = LYRQuery(queryableClass: LYRConversation.self)
+    query.predicate = LYRPredicate(property: "identifier", predicateOperator: LYRPredicateOperator.IsEqualTo, value: identifier)
+    layerClient.executeQuery(query) { (conversations, error) -> Void in
+      if let error = error {
+        print(error.localizedDescription)
+      } else {
+        let nc = UINavigationController(rootViewController: AMRMessagesDetailsViewController(layerClient: self.layerClient))
+        let vc = nc.viewControllers.first as! AMRMessagesDetailsViewController
+        vc.conversation = conversations.firstObject as! LYRConversation
+        let dismissButton = UIBarButtonItem(title: "Dismiss", style: .Plain , target: self, action: "dismissModal:")
+        vc.navigationItem.leftBarButtonItem = dismissButton
+        self.presentViewController(nc, animated: true, completion: nil)
+      }
+    }
+  }
+  
+  func dismissModal(sender: UIBarButtonItem) {
+    dismissViewControllerAnimated(true) { () -> Void in
+      self.hideNewMessageImageView()
+    }
+  }
+  
+  func onMessageIconPan(sender: UIPanGestureRecognizer) {
+    let state = sender.state
+    let translation = sender.translationInView(view)
+    
+    switch (state) {
+    case .Began:
+      newMessageTapGestureStartPoint = newMessageImageViewXConstraint.constant
+    case .Cancelled:
+      break
+    case .Changed:
+      newMessageImageViewXConstraint.constant = newMessageTapGestureStartPoint - translation.x
+    case .Ended:
+      if Double(sqrt((translation.x * translation.x) + (translation.y * translation.y) )) > 10.0 {
+        hideNewMessageImageView()
+      }
+    case .Failed:
+      break
+    case .Possible:
+      break
+    }
+  }
+  
+  //MARK: - Utility
+  func hideNewMessageImageView() {
+    UIView.animateWithDuration(1.0, animations: { () -> Void in
+      self.newMessageImageView.alpha = 0.0
+      }) { (success: Bool) -> Void in
+        self.newMessageImageViewXConstraint.constant = self.newMessageTapGestureStartPoint
+    }
+    NSNotificationCenter.defaultCenter().postNotificationName(kNewMessageIconHidden, object: self)
+  }
+  
+  func showNewMessageImageView() {
+    newMessageImageView.alpha = 1.0
+    containerView.bringSubviewToFront(newMessageImageView)
+    NSNotificationCenter.defaultCenter().postNotificationName(kNewMessageIconShown, object: self)
   }
   
   // MARK: - Appearance Methods
@@ -138,14 +243,23 @@ class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtoc
   @IBAction func onTapCalendar(sender: UITapGestureRecognizer) {
     selectViewController(vcArray[2])
     setSelectedAppearanceColorForImageView(sender.view as! UIImageView)
+    if newMessageImageView.alpha == 1.0 {
+      showNewMessageImageView()
+    }
   }
   @IBAction func onTapProfile(sender: UITapGestureRecognizer) {
     selectViewController(vcArray[3])
     setSelectedAppearanceColorForImageView(sender.view as! UIImageView)
+    if newMessageImageView.alpha == 1.0 {
+      showNewMessageImageView()
+    }
   }
   @IBAction func onTapNote(sender: UITapGestureRecognizer) {
     selectViewController(vcArray[1])
     setSelectedAppearanceColorForImageView(sender.view as! UIImageView)
+    if newMessageImageView.alpha == 1.0 {
+      showNewMessageImageView()
+    }
   }
   @IBAction func onTapMessaging(sender: UITapGestureRecognizer) {
     filterByClient()
@@ -236,4 +350,36 @@ class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtoc
     NSNotificationCenter.defaultCenter().removeObserver(self)
   }
   
+}
+
+// MARK: - LYRQueryController Delegate
+
+extension AMRClientsDetailViewController {
+  func queryController(controller: LYRQueryController!, didChangeObject object: AnyObject!, atIndexPath indexPath: NSIndexPath!, forChangeType type: LYRQueryControllerChangeType, newIndexPath: NSIndexPath!) {
+
+    if type != LYRQueryControllerChangeType.Delete && controller.numberOfObjectsInSection(0) > 0 {
+      let conversation = object as! LYRConversation
+      newConversationIdentifier = conversation.identifier
+      let senderObjectID = conversation.participants.first as! String
+      
+      AMRUserManager.sharedManager.queryForUserWithObjectID(senderObjectID) { (users: NSArray?, error: NSError?) -> Void in
+        if let error = error {
+          print(error.localizedDescription)
+        } else {
+          self.newMessageImageView.setAMRImage((users!.firstObject! as! AMRUser).profilePhoto, withPlaceholder: "messaging")
+          self.showNewMessageImageView()
+        }
+        
+      }
+    }
+    
+  }
+}
+
+// MARK: - UIGestureRecognizer Delegate
+
+extension AMRClientsDetailViewController: UIGestureRecognizerDelegate {
+  func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    return true
+  }
 }

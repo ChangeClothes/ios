@@ -12,6 +12,8 @@
                 <outlet property="containerView" destination="mnm-6d-jB8" id="gM0-XR-FMu"/>
                 <outlet property="menuView" destination="wVd-Rb-1D5" id="4px-sh-9Xz"/>
                 <outlet property="messagesIconImageView" destination="HC5-7x-Ua3" id="fzN-vO-lh1"/>
+                <outlet property="newMessageImageView" destination="XMV-RK-gGZ" id="mHr-LG-4mN"/>
+                <outlet property="newMessageImageViewXConstraint" destination="kAo-P2-mMz" id="p3U-bd-Ppa"/>
                 <outlet property="notesIconImageView" destination="gs0-Bc-OGw" id="FfF-qt-bQD"/>
                 <outlet property="profileIconImageView" destination="4dW-fm-G3h" id="F4g-6d-umW"/>
                 <outlet property="selectedIconView" destination="eEh-FI-Q51" id="AX9-bM-grg"/>
@@ -26,8 +28,22 @@
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mnm-6d-jB8">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
+                    <subviews>
+                        <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XMV-RK-gGZ">
+                            <rect key="frame" x="540" y="491" width="50" height="50"/>
+                            <animations/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="50" id="HvL-Nh-XCK"/>
+                                <constraint firstAttribute="width" constant="50" id="e6L-DM-i6q"/>
+                            </constraints>
+                        </imageView>
+                    </subviews>
                     <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="XMV-RK-gGZ" secondAttribute="bottom" constant="10" id="g93-FG-ADa"/>
+                        <constraint firstAttribute="trailing" secondItem="XMV-RK-gGZ" secondAttribute="trailing" constant="10" id="kAo-P2-mMz"/>
+                    </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wVd-Rb-1D5">
                     <rect key="frame" x="0.0" y="551" width="600" height="49"/>
