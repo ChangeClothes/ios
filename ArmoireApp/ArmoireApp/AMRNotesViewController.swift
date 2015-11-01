@@ -53,6 +53,7 @@ class AMRNotesViewController: UIViewController, AMRViewControllerProtocol, UITex
     let resultImage = UIGraphicsGetImageFromCurrentImageContext()
     UIGraphicsEndImageContext()
     self.noteTextView.backgroundColor = UIColor(patternImage: resultImage)
+    self.view.backgroundColor = UIColor(patternImage: resultImage)
   }
 
   private func setUpNavBar(){
