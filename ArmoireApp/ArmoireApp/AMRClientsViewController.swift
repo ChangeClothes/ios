@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AMRClientsViewController: AMRViewController, UITableViewDataSource, UITableViewDelegate, AMRViewControllerProtocol, UISearchBarDelegate {
+class AMRClientsViewController: AMRViewController, UITableViewDataSource, UITableViewDelegate, AMRViewControllerProtocol, UISearchBarDelegate, UIGestureRecognizerDelegate {
 
   // MARK: - Outlets
   
@@ -20,12 +20,14 @@ class AMRClientsViewController: AMRViewController, UITableViewDataSource, UITabl
 
   // MARK: - Properties
 
+  var tap: UITapGestureRecognizer!
   var searchbar = UISearchBar(frame: CGRect(x: 0.0, y: 0.0, width: 280.0, height: 44.0))
   var layerClient: LYRClient!
   var sections = [String]()
   var clientSections = [String:[AMRUser]]()
   var filteredClients: [AMRUser]?
   var clients: [AMRUser]?
+  var searchActive = false
 
   // MARK: - Lifecycle
 
@@ -40,6 +42,10 @@ class AMRClientsViewController: AMRViewController, UITableViewDataSource, UITabl
     loadClients()
     self.title = "Clients"
     
+    self.tap = UITapGestureRecognizer(target: self, action: "viewTapped:")
+    self.tap.delegate = self
+    self.view.addGestureRecognizer(self.tap)
+
     let settings: UIButton = UIButton()
     settings.setImage(UIImage(named: "settings"), forState: .Normal)
     settings.frame = CGRectMake(0, 0, 30, 30)
@@ -65,6 +71,11 @@ class AMRClientsViewController: AMRViewController, UITableViewDataSource, UITabl
   }
   
   // MARK: - On Taps Functions
+
+  func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
+    searchbar.resignFirstResponder()
+    return false
+  }
 
   func onSettingsTap(){
     showSettings()
