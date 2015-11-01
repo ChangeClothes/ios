@@ -45,33 +45,16 @@ class AMRNotesViewController: UIViewController, AMRViewControllerProtocol, UITex
   // MARK: - Setup
 
   private func setUpUI(){
-    let backgroundImage = UIImage(named: "note-background-2")!
+    let backgroundImage = UIImage(named: "note-background-5")!
     UIGraphicsBeginImageContextWithOptions(self.view.frame.size, false, 0.0)
     backgroundImage.drawInRect(CGRectMake(0.0, 0.0, self.view.frame.size.width, self.view.frame.size.height))
     let resultImage = UIGraphicsGetImageFromCurrentImageContext()
     UIGraphicsEndImageContext()
     self.noteTextView.backgroundColor = UIColor(patternImage: resultImage)
-    self.noteTextView.font = UIFont.systemFontOfSize(12.0)
   }
 
   private func setUpNavBar(){
-    if (stylist != nil && client != nil){
-      let exitModalButton: UIButton = UIButton()
-      exitModalButton.setImage(UIImage(named: "undo"), forState: .Normal)
-      exitModalButton.frame = CGRectMake(0, 0, 30, 30)
-      exitModalButton.addTarget(self, action: Selector("exitModal"), forControlEvents: .TouchUpInside)
-
-      let leftNavBarButton = UIBarButtonItem(customView: exitModalButton)
-      self.navigationItem.leftBarButtonItem = leftNavBarButton
-    } else {
-      let settings: UIButton = UIButton()
-      settings.setImage(UIImage(named: "settings"), forState: .Normal)
-      settings.frame = CGRectMake(0, 0, 30, 30)
-      settings.addTarget(self, action: Selector("onSettingsTap"), forControlEvents: .TouchUpInside)
-
-      let leftNavBarButton = UIBarButtonItem(customView: settings)
-      self.navigationItem.leftBarButtonItem = leftNavBarButton
-    }
+    createNavBarButtonItems()
   }
   
   private func loadNote(){
@@ -83,7 +66,7 @@ class AMRNotesViewController: UIViewController, AMRViewControllerProtocol, UITex
         self.createNote()
       } else if let notes = objects {
         if (notes.count > 1 ){
-          // problem because there is more than one note associated with this user
+          print("more than one note associated in this context")
         } else {
           // no problems, here be your note
           self.note = notes[0]
@@ -96,11 +79,11 @@ class AMRNotesViewController: UIViewController, AMRViewControllerProtocol, UITex
 
   // MARK: - On Tap Actions
 
-  private func exitModal(){
+  func exitModal(){
     self.dismissViewControllerAnimated(true, completion: nil)
   }
 
-  private func onSettingsTap(){
+  func onSettingsTap(){
     let settingsVC = UIAlertController.AMRSettingsController { (AMRSettingsControllerSetting) -> () in}
     self.presentViewController(settingsVC, animated: true, completion: nil)
   }
@@ -133,11 +116,13 @@ class AMRNotesViewController: UIViewController, AMRViewControllerProtocol, UITex
 
   func textViewDidBeginEditing(textView: UITextView) {
     createDoneEditingButton()
+    self.navigationItem.leftBarButtonItem = nil
   }
 
   func textViewDidEndEditing(textView: UITextView) {
     noteTextView.resignFirstResponder()
     self.navigationItem.rightBarButtonItem = nil
+    createNavBarButtonItems()
     saveNote()
   }
 
@@ -159,6 +144,23 @@ class AMRNotesViewController: UIViewController, AMRViewControllerProtocol, UITex
     }
   }
 
+  private func saveNote(){
+    if (startingText != noteTextView.text){
+      note?.setObject(noteTextView.text, forKey: "content")
+      note?.saveInBackground()
+    }
+  }
+
+  // MARK: - Create Nav Bar Button Items
+
+  private func createNavBarButtonItems(){
+    if (stylist != nil && client != nil){
+      createExitModalButton()
+    } else {
+      createSettingsButton()
+    }
+  }
+
   private func createDoneEditingButton(){
     let doneButton: UIButton = UIButton()
     doneButton.setImage(UIImage(named: "check"), forState: .Normal)
@@ -170,14 +172,25 @@ class AMRNotesViewController: UIViewController, AMRViewControllerProtocol, UITex
     self.navigationItem.rightBarButtonItem = rightNavBarButton
   }
 
-  private func saveNote(){
-    if (startingText != noteTextView.text){
-      note?.setObject(noteTextView.text, forKey: "content")
-      note?.saveInBackground()
-    }
+  private func createExitModalButton(){
+    let exitModalButton: UIButton = UIButton()
+    exitModalButton.setImage(UIImage(named: "undo"), forState: .Normal)
+    exitModalButton.frame = CGRectMake(0, 0, 30, 30)
+    exitModalButton.addTarget(self, action: Selector("exitModal"), forControlEvents: .TouchUpInside)
+
+    let leftNavBarButton = UIBarButtonItem(customView: exitModalButton)
+    self.navigationItem.leftBarButtonItem = leftNavBarButton
   }
 
+  private func createSettingsButton(){
+    let settings: UIButton = UIButton()
+    settings.setImage(UIImage(named: "settings"), forState: .Normal)
+    settings.frame = CGRectMake(0, 0, 30, 30)
+    settings.addTarget(self, action: Selector("onSettingsTap"), forControlEvents: .TouchUpInside)
 
+    let leftNavBarButton = UIBarButtonItem(customView: settings)
+    self.navigationItem.leftBarButtonItem = leftNavBarButton
+  }
     /*
     // MARK: - Navigation
 
