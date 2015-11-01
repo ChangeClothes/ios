@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AMRNotesViewController" customModule="ArmoireApp" customModuleProvider="target">
             <connections>
+                <outlet property="constraintTextViewToBottom" destination="OZP-eG-bF3" id="dq5-sE-uf6"/>
                 <outlet property="noteTextView" destination="TFh-Bg-2Ov" id="x5C-FO-lFl"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>

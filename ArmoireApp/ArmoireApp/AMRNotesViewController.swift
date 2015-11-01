@@ -15,11 +15,13 @@ class AMRNotesViewController: UIViewController, AMRViewControllerProtocol, UITex
   var client: AMRUser?
   var note: AMRNote?
   
+  @IBOutlet weak var constraintTextViewToBottom: NSLayoutConstraint!
   var startingText: String?
   
   // MARK: - Lifecycle
 
   override func viewWillAppear(animated: Bool) {
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillChangeFrameNotification, object: nil)
     loadNote()
     self.title = "Notes"
     noteTextView.delegate = self
@@ -46,8 +48,8 @@ class AMRNotesViewController: UIViewController, AMRViewControllerProtocol, UITex
 
   private func setUpUI(){
     let backgroundImage = UIImage(named: "note-background-5")!
-    UIGraphicsBeginImageContextWithOptions(self.view.frame.size, false, 0.0)
-    backgroundImage.drawInRect(CGRectMake(0.0, 0.0, self.view.frame.size.width, self.view.frame.size.height))
+    UIGraphicsBeginImageContextWithOptions(self.noteTextView.frame.size, false, 0.0)
+    backgroundImage.drawInRect(CGRectMake(0.0, 0.0, self.noteTextView.frame.size.width, self.noteTextView.frame.size.height))
     let resultImage = UIGraphicsGetImageFromCurrentImageContext()
     UIGraphicsEndImageContext()
     self.noteTextView.backgroundColor = UIColor(patternImage: resultImage)
@@ -121,13 +123,14 @@ class AMRNotesViewController: UIViewController, AMRViewControllerProtocol, UITex
 
   func textViewDidEndEditing(textView: UITextView) {
     noteTextView.resignFirstResponder()
+    moveNoteDown()
     self.navigationItem.rightBarButtonItem = nil
     createNavBarButtonItems()
     saveNote()
   }
 
   private func createNote(){
-    var note = PFObject(className: "Note")
+    let note = PFObject(className: "Note")
     if let client = self.client {
       note.setObject(client, forKey: "client")
     }
@@ -149,6 +152,16 @@ class AMRNotesViewController: UIViewController, AMRViewControllerProtocol, UITex
       note?.setObject(noteTextView.text, forKey: "content")
       note?.saveInBackground()
     }
+  }
+
+  private func moveNoteUp(keyboardHeight: CGFloat?){
+    self.constraintTextViewToBottom.constant = keyboardHeight! - (self.navigationController?.navigationBar.frame.height)! - UIApplication.sharedApplication().statusBarFrame.size.height - 5.0
+    self.view.layoutIfNeeded()
+  }
+
+  private func moveNoteDown(){
+    self.constraintTextViewToBottom.constant = 0
+    self.view.layoutIfNeeded()
   }
 
   // MARK: - Create Nav Bar Button Items
@@ -191,6 +204,17 @@ class AMRNotesViewController: UIViewController, AMRViewControllerProtocol, UITex
     let leftNavBarButton = UIBarButtonItem(customView: settings)
     self.navigationItem.leftBarButtonItem = leftNavBarButton
   }
+
+  // MARK - Observor Actions
+
+  func keyboardWillShow(notification: NSNotification){
+    let userInfo = notification.userInfo as? NSDictionary
+    let endLocationOfKeyboard = userInfo?[UIKeyboardFrameEndUserInfoKey]?.CGRectValue
+    let size = endLocationOfKeyboard?.size
+    let keyboardHeight = size?.height
+    moveNoteUp(keyboardHeight)
+  }
+
     /*
     // MARK: - Navigation
 
