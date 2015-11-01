@@ -130,7 +130,11 @@ class AMRClientsViewController: AMRViewController, UITableViewDataSource, UITabl
     clientDetailVC.stylist = self.stylist
     clientDetailVC.client = cell.client
     let nav = UINavigationController(rootViewController: clientDetailVC)
-    self.presentViewController(nav, animated: true, completion: nil)
+    let formSheetController = MZFormSheetPresentationViewController(contentViewController: nav)
+    let viewHeight = self.view.frame.height - 40
+    let viewWidth = self.view.frame.width - 25
+    formSheetController.presentationController?.contentViewSize = CGSizeMake(viewWidth, viewHeight)
+    self.presentViewController(formSheetController, animated: true, completion: nil)
   }
 
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
