@@ -19,8 +19,6 @@ class AMRMessagesDetailsViewController: ATLConversationViewController {
 
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(false)
-    self.messageInputToolbar = ATLMessageInputToolbar()
-    self.view.addSubview(self.messageInputToolbar)
   }
 
   override func viewDidLoad() {
