@@ -14,54 +14,128 @@ class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtoc
   var vcArray: [UINavigationController]!
   var selectedViewController: UIViewController?
   var layerClient: LYRClient!
+  var selectedIconImageView: UIImageView!
+  
   private var queryController: LYRQueryController!
   @IBOutlet weak var containerView: UIView!
   @IBOutlet weak var menuView: UIView!
+  
+  @IBOutlet weak var notesIconImageView: UIImageView!
+  @IBOutlet weak var profileIconImageView: UIImageView!
+  @IBOutlet weak var calendarIconImageView: UIImageView!
+  @IBOutlet weak var messagesIconImageView: UIImageView!
+  
+  @IBOutlet weak var selectedIconView: UIView!
+  @IBOutlet weak var selectedIconViewXPositionConstraint: NSLayoutConstraint!
+  
+  @IBOutlet weak var clientProfileImageView: UIImageView!
   
   convenience init(layerClient: LYRClient) {
     self.init()
     self.layerClient = layerClient
   }
-
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     self.navigationController?.navigationBarHidden = true
     setVcData(self.stylist, client: self.client)
+    
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "deviceDidRotate", name: UIDeviceOrientationDidChangeNotification, object: nil)
+    
+    setupTabBarAppearance()
     selectViewController(vcArray[3])
-    // Do any additional setup after loading the view.
+    selectedIconImageView = profileIconImageView
+    
   }
-
-  override func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
+  
+  override func viewDidAppear(animated: Bool) {
+    super.viewDidAppear(animated)
+    setSelectedAppearanceColorForImageView(selectedIconImageView)
   }
-
+  
+  // MARK: - Appearance Methods
+  private func setupTabBarAppearance() {
+    messagesIconImageView.image = messagesIconImageView.image?.imageWithRenderingMode(.AlwaysTemplate)
+    notesIconImageView.image = notesIconImageView.image?.imageWithRenderingMode(.AlwaysTemplate)
+    calendarIconImageView.image = calendarIconImageView.image?.imageWithRenderingMode(.AlwaysTemplate)
+    profileIconImageView.image = profileIconImageView.image?.imageWithRenderingMode(.AlwaysTemplate)
+    
+    resetIconColors()
+    
+    selectedIconViewXPositionConstraint.constant = -100
+    selectedIconView.layer.cornerRadius = 3.0
+    selectedIconView.backgroundColor = UIColor.AMRPrimaryBackgroundColor()
+    
+    menuView.backgroundColor = UIColor.AMRSecondaryBackgroundColor()
+    
+    if let _ = stylist {
+      clientProfileImageView.setAMRImage(client?.profilePhoto, withPlaceholder: "profile-image-placeholder")
+    } else {
+      clientProfileImageView.setAMRImage(stylist?.profilePhoto, withPlaceholder: "profile-image-placeholder")
+    }
+    
+    clientProfileImageView.image = clientProfileImageView.image?.imageWithRenderingMode(.AlwaysTemplate)
+    clientProfileImageView.backgroundColor = UIColor.AMRPrimaryBackgroundColor()
+    clientProfileImageView.tintColor = UIColor.lightGrayColor()
+    clientProfileImageView.clipsToBounds = true
+    clientProfileImageView.layer.cornerRadius = clientProfileImageView.frame.width/2
+  }
+  
+  private func resetIconColors() {
+    messagesIconImageView.tintColor = UIColor.AMRClientUnselectedTabBarButtonTintColor()
+    notesIconImageView.tintColor = UIColor.AMRClientUnselectedTabBarButtonTintColor()
+    calendarIconImageView.tintColor = UIColor.AMRClientUnselectedTabBarButtonTintColor()
+    profileIconImageView.tintColor = UIColor.AMRClientUnselectedTabBarButtonTintColor()
+  }
+  
+  private func setSelectedAppearanceColorForImageView(imageView: UIImageView) {
+    selectedIconImageView = imageView
+    UIView.animateWithDuration(0.5) { () -> Void in
+      self.resetIconColors()
+      self.selectedIconViewXPositionConstraint.constant = imageView.center.x - self.selectedIconImageView.frame.width/2
+      self.view.layoutIfNeeded()
+      imageView.tintColor = UIColor.AMRSelectedTabBarButtonTintColor()
+    }
+  }
+  
+  func deviceDidRotate() {
+    if let selectedIconImageView = selectedIconImageView {
+      dispatch_async(dispatch_get_main_queue(), { () -> Void in
+        self.selectedIconViewXPositionConstraint.constant = selectedIconImageView.center.x - self.selectedIconView.frame.width/2
+      })
+    }
+  }
+  
+  // MARK: - View Controller Selection
   func setVcData(stylist: AMRUser?, client: AMRUser?) {
     self.stylist = stylist
     self.client = client
     setVcArray()
     setVcDataForTabs()
   }
-
+  
   private func onSettingsTap(){
     showSettings()
   }
-
+  
   @IBAction func onTapCalendar(sender: UITapGestureRecognizer) {
     selectViewController(vcArray[2])
+    setSelectedAppearanceColorForImageView(sender.view as! UIImageView)
   }
   @IBAction func onTapProfile(sender: UITapGestureRecognizer) {
     selectViewController(vcArray[3])
+    setSelectedAppearanceColorForImageView(sender.view as! UIImageView)
   }
   @IBAction func onTapNote(sender: UITapGestureRecognizer) {
     selectViewController(vcArray[1])
+    setSelectedAppearanceColorForImageView(sender.view as! UIImageView)
   }
   @IBAction func onTapMessaging(sender: UITapGestureRecognizer) {
     filterByClient()
   }
   
   // MARK: - Set Up
-
+  
   private func setVcArray(){
     vcArray = [
       UINavigationController(rootViewController: AMRLoginViewController()),
@@ -72,7 +146,7 @@ class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtoc
       UINavigationController(rootViewController: AMRMessagesDetailsViewController(layerClient: layerClient))
     ]
   }
-
+  
   private func setVcDataForTabs(){
     for (index, value) in vcArray.enumerate() {
       if (index != 0) {
@@ -81,7 +155,7 @@ class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtoc
       }
     }
   }
-
+  
   private func filterByClient(){
     let participants = [layerClient.authenticatedUserID, client!.objectId, client!.stylist.objectId]
     let query = LYRQuery(queryableClass: LYRConversation.self)
@@ -108,7 +182,7 @@ class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtoc
       }
     }
   }
-
+  
   private func retrieveConversation(conversations: NSOrderedSet, participants: [AnyObject]) -> LYRConversation? {
     var conversation: LYRConversation?
     if conversations.count == 1 {
@@ -123,16 +197,16 @@ class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtoc
     }
     return conversation
   }
-
+  
   // MARK - Functionality
-
+  
   func selectViewController(viewController: UIViewController){
     if let oldViewController = selectedViewController{
       oldViewController.willMoveToParentViewController(nil)
       oldViewController.view.removeFromSuperview()
       oldViewController.removeFromParentViewController()
     }
-
+    
     self.addChildViewController(viewController)
     viewController.view.frame = self.containerView.bounds
     viewController.view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
@@ -140,15 +214,9 @@ class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtoc
     viewController.didMoveToParentViewController(self)
     selectedViewController = viewController
   }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+  
+  deinit {
+    NSNotificationCenter.defaultCenter().removeObserver(self)
+  }
+  
 }
