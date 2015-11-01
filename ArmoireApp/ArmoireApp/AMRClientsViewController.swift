@@ -8,11 +8,9 @@
 
 import UIKit
 
-class AMRClientsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AMRViewControllerProtocol {
+class AMRClientsViewController: AMRViewController, UITableViewDataSource, UITableViewDelegate, AMRViewControllerProtocol {
   
   @IBOutlet weak var clientTable: UITableView!
-  var stylist: AMRUser?
-  var client: AMRUser?
   let cellConstant = "clientTableViewCellReuseIdentifier"
   var layerClient: LYRClient!
   var sections = [String]()
@@ -54,8 +52,7 @@ class AMRClientsViewController: UIViewController, UITableViewDataSource, UITable
   }
   
   func onSettingsTap(){
-    let settingsVC = UIAlertController.AMRSettingsController { (AMRSettingsControllerSetting) -> () in}
-    self.presentViewController(settingsVC, animated: true, completion: nil)
+    showSettings()
   }
   
   func onAddClientType(){

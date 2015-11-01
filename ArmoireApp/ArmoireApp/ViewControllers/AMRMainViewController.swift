@@ -9,7 +9,23 @@
 import UIKit
 import LayerKit
 
-class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
+class AMRViewController: UIViewController {
+  var stylist: AMRUser?
+  var client: AMRUser?
+ 
+  func showSettings () {
+    let settingsVC = UIAlertController.AMRSettingsController { (setting: AMRSettingsControllerSetting) -> () in
+      if setting == AMRSettingsControllerSetting.ProfilePicture {
+        PhotoPicker.sharedInstance.selectPhoto(self.stylist, client: self.client, viewDelegate: self, completion: { (AMRImage) -> () in })
+      }
+    }
+    self.presentViewController(settingsVC, animated: true, completion: nil)
+  
+  
+  }
+}
+
+class AMRMainViewController: AMRViewController, AMRViewControllerProtocol {
   
   @IBOutlet weak var menuView: UIView!
   @IBOutlet weak var messagesImageView: UIImageView!
@@ -21,8 +37,8 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
   
   var selectedViewController: UIViewController?
   var layerClient: LYRClient!
-  var stylist: AMRUser?
-  var client: AMRUser?
+  //var stylist: AMRUser?
+  //var client: AMRUser?
   var vcArray: [UINavigationController]!
   
   override func viewDidLoad() {
@@ -48,9 +64,8 @@ class AMRMainViewController: UIViewController, AMRViewControllerProtocol {
 
   func onTapSettings(notification: NSNotification){
     //let settingsVC = AMRSettingsViewController()
-    let settingsVC = UIAlertController.AMRSettingsController { (AMRSettingsControllerSetting) -> () in}
-    self.presentViewController(settingsVC, animated: true, completion: nil)
-  }
+    self.showSettings()
+ }
   
   func onUserLogin(notification: NSNotification){
     setVcData(nil, client: nil)

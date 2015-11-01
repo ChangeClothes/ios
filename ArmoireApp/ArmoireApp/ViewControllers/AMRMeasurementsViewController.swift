@@ -10,12 +10,10 @@ import UIKit
 
 let measurementCellReuseIdentifier = "com.armoire.AMRMeasurementCell"
 
-class AMRMeasurementsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, AMRViewControllerProtocol, AMRMeasurementCellDelegate {
+class AMRMeasurementsViewController: AMRViewController, UITableViewDelegate, UITableViewDataSource, AMRViewControllerProtocol, AMRMeasurementCellDelegate {
 
   @IBOutlet weak var myTableView: UITableView!
   var measurements: AMRMeasurements?
-  var stylist: AMRUser?
-  var client: AMRUser?
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     

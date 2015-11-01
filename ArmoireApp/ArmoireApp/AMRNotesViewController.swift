@@ -8,12 +8,11 @@
 
 import UIKit
 
-class AMRNotesViewController: UIViewController, AMRViewControllerProtocol{
+class AMRNotesViewController: AMRViewController, AMRViewControllerProtocol{
 
   @IBOutlet weak var noteTextView: UITextView!
-  var stylist: AMRUser?
-  var client: AMRUser?
   var note: AMRNote?
+  var photoPicker: PhotoPicker?
   
   var startingText: String?
   
@@ -66,8 +65,7 @@ class AMRNotesViewController: UIViewController, AMRViewControllerProtocol{
   }
 
   func onSettingsTap(){
-    let settingsVC = UIAlertController.AMRSettingsController { (AMRSettingsControllerSetting) -> () in}
-    self.presentViewController(settingsVC, animated: true, completion: nil)
+    showSettings()
   }
   
   func loadNote(){
