@@ -9,7 +9,7 @@
 class AMRImage: PFObject {
   
   @NSManaged var defaultImageName: String?
-  @NSManaged private var file: PFFile?
+  @NSManaged var file: PFFile?
   @NSManaged var client: AMRUser?
   @NSManaged var stylist: AMRUser?
   
@@ -54,6 +54,15 @@ class AMRImage: PFObject {
     })
   }
   
+  class func queryForObjectWithObjectID(objectID: String, withCompletion completion: ((NSArray?, NSError?) -> Void)?) {
+    let query: PFQuery! = AMRImage.query()
+    query.whereKey("objectId", equalTo: objectID)
+    query.findObjectsInBackgroundWithBlock { objects, error in
+      if let callback = completion {
+        callback(objects, error)
+      }
+    }
+  }
 }
 
 extension AMRImage: PFSubclassing {
@@ -68,31 +77,34 @@ extension UIImageView {
     
   }
   
-  func setAMRImage(image: AMRImage?, withPlaceholder placeholder: String?) {
-    if let image = image {
+  func setAMRImage(imageParam: AMRImage?, withPlaceholder placeholder: String?) {
+    print("0")
+    if let myImage = imageParam {
+      print("1")
       if placeholder != nil {
         self.image = UIImage(named: placeholder!)
-      } else if (image.defaultImageName != nil){
-        self.image = UIImage(named: image.defaultImageName!)
+      } else if (myImage.defaultImageName != nil){
+        self.image = UIImage(named: myImage.defaultImageName!)
       } else {
         self.image = UIImage(named: "image-placeholder")
       }
-      if (image.file != nil) {
-        image.file!.getDataInBackgroundWithBlock { (data: NSData?, error: NSError?) -> Void in
-          if error == nil {
-            self.image = UIImage(data: data!)
-          } else {
-            print("error loading image from file")
-          }
+      myImage.file?.getDataInBackgroundWithBlock { (data: NSData?, error: NSError?) -> Void in
+        if error == nil {
+          self.image = UIImage(data: data!)
+        } else {
+          print("error loading image from file")
         }
       }
+      print("4.5")
     } else {
+      print("5")
       if (placeholder != nil){
         self.image = UIImage(named: placeholder!)
       } else {
         self.image = UIImage(named: "image-placeholder")
       }
     }
+    print("6")
   }
 }
 
@@ -186,12 +198,26 @@ class PhotoPicker: NSObject, UINavigationControllerDelegate, UIImagePickerContro
 }
 
 
-//TODO - put this code somewhere else...
-func RBSquareImageTo(image: UIImage, size: CGSize) -> UIImage {
-  return RBResizeImage(RBSquareImage(image), targetSize: size)
+extension UIImage{
+  
+  class func roundedRectImageFromImage(image:UIImage,imageSize:CGSize,cornerRadius:CGFloat)->UIImage{
+    UIGraphicsBeginImageContextWithOptions(imageSize,false,0.0)
+    let bounds=CGRect(origin: CGPointZero, size: imageSize)
+    UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).addClip()
+    image.drawInRect(bounds)
+    let finalImage=UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+    return finalImage
+  }
+  
 }
 
-func RBSquareImage(image: UIImage) -> UIImage {
+//TODO - put this code somewhere else...
+func AMRSquareImageTo(image: UIImage, size: CGSize) -> UIImage {
+  return AMRResizeImage(AMRSquareImage(image), targetSize: size)
+}
+
+func AMRSquareImage(image: UIImage) -> UIImage {
   let originalWidth  = image.size.width
   let originalHeight = image.size.height
   
@@ -211,7 +237,7 @@ func RBSquareImage(image: UIImage) -> UIImage {
   return UIImage(CGImage: imageRef!, scale: UIScreen.mainScreen().scale, orientation: image.imageOrientation)
 }
 
-func RBResizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
+func AMRResizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
   let size = image.size
   
   let widthRatio  = targetSize.width  / image.size.width

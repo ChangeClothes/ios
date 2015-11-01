@@ -16,9 +16,7 @@ class AMRViewController: UIViewController {
  
   override func viewDidLoad(){
     super.viewDidLoad()
-    currentUser.user?.fetchIfNeededInBackgroundWithBlock({ (obj, err) -> Void in
-      currentUser.user?.profilePhoto.fetchIfNeededInBackground()
-    })
+
   }
   func showSettings () {
     let settingsVC = UIAlertController.AMRSettingsController { (setting: AMRSettingsControllerSetting) -> () in
@@ -55,6 +53,7 @@ class AMRMainViewController: AMRViewController, AMRViewControllerProtocol {
   var selectedIconImageView: UIImageView?
   
   override func viewDidLoad() {
+
     super.viewDidLoad()
     
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "onShowMenuView:", name: AMRMainShowMenuView, object: nil)

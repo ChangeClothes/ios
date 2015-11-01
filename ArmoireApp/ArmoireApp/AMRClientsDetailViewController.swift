@@ -68,10 +68,27 @@ class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtoc
     
     menuView.backgroundColor = UIColor.AMRSecondaryBackgroundColor()
     
+    
     if let _ = stylist {
-      clientProfileImageView.setAMRImage(client?.profilePhoto, withPlaceholder: "profile-image-placeholder")
+      print(client?.objectId!)
+      client?.fetchIfNeededInBackgroundWithBlock({ (user, error) -> Void in
+        let clientObject = user as! AMRUser
+        print(clientObject.firstName)
+        AMRImage.queryForObjectWithObjectID(clientObject.profilePhoto.objectId!, withCompletion: { (photos: NSArray?, error: NSError?) -> Void in
+          self.clientProfileImageView.setAMRImage(photos![0] as! AMRImage, withPlaceholder: "profile-image-placeholder")
+        })
+      })
+      //clientProfileImageView.setAMRImage(client?.profilePhoto, withPlaceholder: "profile-image-placeholder")
     } else {
-      clientProfileImageView.setAMRImage(stylist?.profilePhoto, withPlaceholder: "profile-image-placeholder")
+      print("stylist")
+      print(client!.stylist.objectId)
+      AMRUserManager.sharedManager.queryForUserWithObjectID((client?.stylist.objectId)!, withCompletion: { (users, error) -> Void in
+        let stylistObject = users![0] as! AMRUser
+        AMRImage.queryForObjectWithObjectID(stylistObject.profilePhoto.objectId!, withCompletion: { (photos: NSArray?, error: NSError?) -> Void in
+                  self.clientProfileImageView.setAMRImage(photos![0] as! AMRImage, withPlaceholder: "profile-image-placeholder")
+        })
+
+      })
     }
     
     clientProfileImageView.image = clientProfileImageView.image?.imageWithRenderingMode(.AlwaysTemplate)

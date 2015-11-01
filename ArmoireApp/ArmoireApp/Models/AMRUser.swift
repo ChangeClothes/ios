@@ -28,8 +28,30 @@ class AMRUser: PFUser {
   
 }
 
-class currentUser{
-  static let user = AMRUser.currentUser()
-
+class CurrentUser{
+  
+  static var sharedInstance = CurrentUser()
+  var user: AMRUser?
+  
+  init() {
+    NSNotificationCenter.defaultCenter().addObserver(self, selector:
+      "didLogout:", name: kUserDidLogoutNotification, object: nil)
+    NSNotificationCenter.defaultCenter().addObserver(self, selector:
+      "didLogin:", name: kUserDidLoginNotification, object: nil)
+  }
+  
+  deinit {
+    NSNotificationCenter.defaultCenter().removeObserver(self)
+  }
+  
+  @objc func didLogout(sender: NSNotification) {
+    user = nil
+  }
+  
+  @objc func didLogin(sender: NSNotification) {
+    user = AMRUser.currentUser()!
+    CurrentUser.sharedInstance.user?.fetchIfNeededInBackgroundWithBlock({ (obj, err) -> Void in
+      CurrentUser.sharedInstance.user?.profilePhoto.fetchIfNeededInBackground()
+    })
+  }
 }
-
