@@ -46,7 +46,7 @@ class AMRNotesViewController: AMRViewController, AMRViewControllerProtocol, UITe
   // MARK: - Setup
 
   private func setUpUI(){
-    let backgroundImage = UIImage(named: "note-background-5")!
+    let backgroundImage = UIImage(named: "note-background")!
     UIGraphicsBeginImageContextWithOptions(self.noteTextView.frame.size, false, 0.0)
     backgroundImage.drawInRect(CGRectMake(0.0, 0.0, self.noteTextView.frame.size.width, self.noteTextView.frame.size.height))
     let resultImage = UIGraphicsGetImageFromCurrentImageContext()
