@@ -8,13 +8,26 @@
 
 import UIKit
 
-class AMRClientsViewController: AMRViewController, UITableViewDataSource, UITableViewDelegate, AMRViewControllerProtocol {
+class AMRClientsViewController: AMRViewController, UITableViewDataSource, UITableViewDelegate, AMRViewControllerProtocol, UISearchBarDelegate {
+
+  // MARK: - Outlets
   
   @IBOutlet weak var clientTable: UITableView!
+
+  // MARK: - Constants
+
   let cellConstant = "clientTableViewCellReuseIdentifier"
+
+  // MARK: - Properties
+
+  var searchbar = UISearchBar(frame: CGRect(x: 0.0, y: 0.0, width: 280.0, height: 44.0))
   var layerClient: LYRClient!
   var sections = [String]()
   var clientSections = [String:[AMRUser]]()
+  var filteredClients: [AMRUser]?
+  var clients: [AMRUser]?
+
+  // MARK: - Lifecycle
 
   convenience init(layerClient: LYRClient){
     self.init()
@@ -51,6 +64,8 @@ class AMRClientsViewController: AMRViewController, UITableViewDataSource, UITabl
     // Dispose of any resources that can be recreated.
   }
   
+  // MARK: - On Taps Functions
+
   func onSettingsTap(){
     showSettings()
   }
@@ -61,21 +76,42 @@ class AMRClientsViewController: AMRViewController, UITableViewDataSource, UITabl
     self.presentViewController(addClientVC, animated: true, completion: nil)
   }
 
+  // MARK: - Table Set Up
+
+  func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+    if searchText != "" {
+      filteredClients = clients!.filter({
+        let currentClient = $0
+        return currentClient.fullName.lowercaseString.rangeOfString(searchText.lowercaseString) != nil
+      })
+      setUpSections(filteredClients!)
+    } else {
+      setUpSections(self.clients!)
+      filteredClients = []
+    }
+    self.clientTable.reloadData()
+  }
+
   func loadClients(){
     let userManager = AMRUserManager()
     userManager.queryForAllClientsOfStylist(self.stylist!) { (arrayOfUsers, error) -> Void in
       if let error = error {
         print(error.localizedDescription)
       } else {
-        self.setUpSections(arrayOfUsers as! [AMRUser])
+        self.clients = arrayOfUsers as? [AMRUser]
+        self.setUpSections(self.clients!)
         self.clientTable.reloadData()
       }
     }
   }
-  
+
   func setUpClientTable(){
     clientTable.delegate = self
     clientTable.dataSource = self
+    searchbar.delegate = self
+    searchbar.searchBarStyle = UISearchBarStyle.Minimal
+    self.view.addSubview(searchbar)
+    clientTable.tableHeaderView = searchbar;
     let celNib = UINib(nibName: "AMRClientTableViewCell", bundle: nil)
     clientTable.registerNib(celNib, forCellReuseIdentifier: cellConstant)
   }
@@ -83,7 +119,7 @@ class AMRClientsViewController: AMRViewController, UITableViewDataSource, UITabl
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = clientTable.dequeueReusableCellWithIdentifier(cellConstant, forIndexPath: indexPath) as! AMRClientTableViewCell
     cell.client = clientSections[sections[indexPath.section]]![indexPath.row]
-    cell.textLabel!.text = cell.client?.firstName
+    cell.textLabel!.text = cell.client?.fullName
     return cell
   }
 
@@ -106,6 +142,7 @@ class AMRClientsViewController: AMRViewController, UITableViewDataSource, UITabl
   }
   
   func setUpSections(clients:[AMRUser]) {
+    clientSections = [String:[AMRUser]]()
     for client in clients {
       let firstLetter = String(client.firstName[client.firstName.startIndex])
       if let _ = clientSections[firstLetter] {
@@ -134,6 +171,7 @@ class AMRClientsViewController: AMRViewController, UITableViewDataSource, UITabl
     return index
   }
   
+  // MARK: - AMRViewControllerProtocol Conformity
 
   internal func setVcData(stylist: AMRUser?, client: AMRUser?) {
     self.stylist = stylist

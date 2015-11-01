@@ -26,10 +26,16 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="q1C-8R-yBn" secondAttribute="trailing" id="37L-u5-ad1"/>
-                <constraint firstItem="q1C-8R-yBn" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="CMt-SC-1Zm"/>
+                <constraint firstItem="q1C-8R-yBn" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="50" id="CMt-SC-1Zm"/>
                 <constraint firstAttribute="bottom" secondItem="q1C-8R-yBn" secondAttribute="bottom" id="Q5Q-1c-hVq"/>
                 <constraint firstItem="q1C-8R-yBn" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="dex-8D-xVA"/>
+                <constraint firstItem="q1C-8R-yBn" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="nxF-ed-ZJy"/>
             </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="CMt-SC-1Zm"/>
+                </mask>
+            </variation>
         </view>
     </objects>
 </document>
