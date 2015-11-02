@@ -58,12 +58,7 @@ class AMRMessagesDetailsViewController: ATLConversationViewController {
   
   private func setUpNavBar(){
       if (client != nil){
-        let exitModalButton: UIButton = UIButton()
-        exitModalButton.setImage(UIImage(named: "cancel"), forState: .Normal)
-        exitModalButton.frame = CGRectMake(0, 0, 30, 30)
-        exitModalButton.addTarget(self, action: Selector("exitModal"), forControlEvents: .TouchUpInside)
-
-        let leftNavBarButton = UIBarButtonItem(customView: exitModalButton)
+        let leftNavBarButton = UIBarButtonItem(image: UIImage(named: "cancel"), style: .Plain, target: self, action: "exitModal")
         self.navigationItem.leftBarButtonItem = leftNavBarButton
       }
   }

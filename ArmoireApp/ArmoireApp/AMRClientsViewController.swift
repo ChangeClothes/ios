@@ -45,21 +45,11 @@ class AMRClientsViewController: AMRViewController, UITableViewDataSource, UITabl
     self.tap = UITapGestureRecognizer(target: self, action: "viewTapped:")
     self.tap.delegate = self
     self.view.addGestureRecognizer(self.tap)
-
-    let settings: UIButton = UIButton()
-    settings.setImage(UIImage(named: "settings"), forState: .Normal)
-    settings.frame = CGRectMake(0, 0, 30, 30)
-    settings.addTarget(self, action: Selector("onSettingsTap"), forControlEvents: .TouchUpInside)
     
-    let leftNavBarButton = UIBarButtonItem(customView: settings)
+    let leftNavBarButton = UIBarButtonItem(image: UIImage(named: "settings"), style: .Plain, target: self, action: "onSettingsTap")
     self.navigationItem.leftBarButtonItem = leftNavBarButton
     
-    let addClient: UIButton = UIButton()
-    addClient.setImage(UIImage(named: "plus"), forState: .Normal)
-    addClient.frame = CGRectMake(0, 0, 30, 30)
-    addClient.addTarget(self, action: Selector("onAddClientType"), forControlEvents: .TouchUpInside)
-
-    let rightNavBarButton = UIBarButtonItem(customView: addClient)
+    let rightNavBarButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "onAddClientType")
     self.navigationItem.rightBarButtonItem = rightNavBarButton
 
   // Do any additional setup after loading the view.
