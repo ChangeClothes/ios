@@ -131,8 +131,6 @@ extension AMRClientProfileViewController: UIPageViewControllerDataSource, UIPage
   
   func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
     if previousViewControllers[0].isEqual(vcArray[0]) {
-      print(((vcArray[1] as! UINavigationController).viewControllers.first as! AMRMeasurementsViewController).view.gestureRecognizers?.count)
-      
       if ((vcArray[1] as! UINavigationController).viewControllers.first as! AMRMeasurementsViewController).view.gestureRecognizers == nil {
         let dismissKeyboardGR = UITapGestureRecognizer(target: self, action: "dismissKeyboard:")
         (vcArray[1] as! UINavigationController).viewControllers.first?.view.addGestureRecognizer(dismissKeyboardGR)
