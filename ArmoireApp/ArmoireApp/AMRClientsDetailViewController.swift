@@ -175,18 +175,21 @@ class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtoc
     
     
     if let _ = stylist {
-      print(client?.objectId!)
       client?.fetchIfNeededInBackgroundWithBlock({ (user, error) -> Void in
         let clientObject = user as! AMRUser
-        print(clientObject.firstName)
-        AMRImage.queryForObjectWithObjectID(clientObject.profilePhoto.objectId!, withCompletion: { (photos: NSArray?, error: NSError?) -> Void in
-          self.clientProfileImageView.setAMRImage(photos![0] as! AMRImage, withPlaceholder: "profile-image-placeholder")
-        })
+        let photoId = clientObject.profilePhoto.objectId
+        if photoId != nil {
+          AMRImage.queryForObjectWithObjectID(clientObject.profilePhoto.objectId!, withCompletion: { (photos: NSArray?, error: NSError?) -> Void in
+            if error == nil {
+              self.clientProfileImageView.setAMRImage(photos![0] as! AMRImage, withPlaceholder: "profile-image-placeholder")
+            } else {
+              print("Error: \(error)")
+            }
+          })
+        }
       })
       //clientProfileImageView.setAMRImage(client?.profilePhoto, withPlaceholder: "profile-image-placeholder")
     } else {
-      print("stylist")
-      print(client!.stylist.objectId)
       AMRUserManager.sharedManager.queryForUserWithObjectID((client?.stylist.objectId)!, withCompletion: { (users, error) -> Void in
         let stylistObject = users![0] as! AMRUser
         AMRImage.queryForObjectWithObjectID(stylistObject.profilePhoto.objectId!, withCompletion: { (photos: NSArray?, error: NSError?) -> Void in

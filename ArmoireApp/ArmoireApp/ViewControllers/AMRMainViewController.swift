@@ -19,7 +19,7 @@ class AMRViewController: UIViewController {
       if setting == AMRSettingsControllerSetting.ProfilePicture {
         PhotoPicker.sharedInstance.selectPhoto(self.stylist, client: self.client, viewDelegate: self, completion: {
           (image: AMRImage) -> () in
-          let user = AMRUser.currentUser()
+          let user = CurrentUser.sharedInstance.user
           user?.profilePhoto = image
           user?.saveInBackground()
         })

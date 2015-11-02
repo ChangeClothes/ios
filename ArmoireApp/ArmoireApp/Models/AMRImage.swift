@@ -36,8 +36,6 @@ class AMRImage: PFObject {
         print("error loading image from file")
       }
     })
-   
-    print("here3")
   }
   
   class func imagesForUser(stylist: AMRUser?, client: AMRUser?, completion: (objects: [AMRImage]?, error: NSError?) -> Void)  {
@@ -78,9 +76,7 @@ extension UIImageView {
   }
   
   func setAMRImage(imageParam: AMRImage?, withPlaceholder placeholder: String?) {
-    print("0")
     if let myImage = imageParam {
-      print("1")
       if placeholder != nil {
         self.image = UIImage(named: placeholder!)
       } else if (myImage.defaultImageName != nil){
@@ -92,19 +88,15 @@ extension UIImageView {
         if error == nil {
           self.image = UIImage(data: data!)
         } else {
-          print("error loading image from file")
         }
       }
-      print("4.5")
     } else {
-      print("5")
       if (placeholder != nil){
         self.image = UIImage(named: placeholder!)
       } else {
         self.image = UIImage(named: "image-placeholder")
       }
     }
-    print("6")
   }
 }
 

@@ -48,10 +48,14 @@ class CurrentUser{
     user = nil
   }
   
-  @objc func didLogin(sender: NSNotification) {
+  func setCurrentUser(){
     user = AMRUser.currentUser()!
-    CurrentUser.sharedInstance.user?.fetchIfNeededInBackgroundWithBlock({ (obj, err) -> Void in
-      CurrentUser.sharedInstance.user?.profilePhoto.fetchIfNeededInBackground()
+    self.user?.fetchIfNeededInBackgroundWithBlock({ (obj, err) -> Void in
+      self.user?.profilePhoto.fetchIfNeededInBackground()
     })
+  }
+  
+  @objc func didLogin(sender: NSNotification) {
+      setCurrentUser()
   }
 }

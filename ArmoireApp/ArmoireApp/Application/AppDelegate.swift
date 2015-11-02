@@ -12,6 +12,7 @@ import LayerKit
 let kCurrentUserKey = "com.ArmoireApp.currentUserKey"
 let kUserDidLogoutNotification = "com.ArmoireApp.userDidLogoutNotification"
 let kUserDidLoginNotification = "com.ArmoireApp.userDidLoginNotification"
+let kProfileImageChanged = "com.ArmoireApp.profileImageChanged"
 let kNewMessageIconShown = "com.ArmoireApp.newMessageIconShown"
 let kNewMessageIconHidden = "com.ArmoireApp.newMessageIconHidden"
 let AMRMainShowMenuView = "com.ArmoireApp.mainShowMenuView"
@@ -52,6 +53,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     } else {
       window?.rootViewController = loginVC
     }
+    
+    CurrentUser.sharedInstance.setCurrentUser()
     
     window?.makeKeyAndVisible()
     
