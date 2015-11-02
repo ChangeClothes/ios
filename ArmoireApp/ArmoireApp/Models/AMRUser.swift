@@ -49,7 +49,7 @@ class CurrentUser{
   }
   
   func setCurrentUser(){
-    user = AMRUser.currentUser()!
+    user = AMRUser.currentUser()
     self.user?.fetchIfNeededInBackgroundWithBlock({ (obj, err) -> Void in
       self.user?.profilePhoto.fetchIfNeededInBackground()
     })
