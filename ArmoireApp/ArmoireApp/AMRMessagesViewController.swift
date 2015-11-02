@@ -85,7 +85,18 @@ class AMRMessagesViewController: ATLConversationListViewController, AMRViewContr
   // The following method handles presenting the correct `AMRMessagesViewController`, regardeless of the current state of the navigation stack.
   func presentControllerWithConversation(conversation: LYRConversation) {
     let shouldShowAddressBar: Bool  = conversation.participants.count > 2 || conversation.participants.count == 0
+    var conversationParticipants = conversation.participants
     let conversationViewController: AMRMessagesDetailsViewController = AMRMessagesDetailsViewController(layerClient: self.layerClient)
+    conversationParticipants.remove(AMRUser.currentUser()!.objectId!)
+    if conversationParticipants.count != 1 {
+      print("the participants were more than 1, so identifying missing AMRUser in presentControllerWithConversation did not succeed")
+    } else {
+      AMRUserManager().queryForUserWithObjectID(conversationParticipants.first! as! String, withCompletion: { (users, error) -> Void in
+        if let conversationClient = users![0] as? AMRUser {
+          conversationViewController.title = self.stylist!.firstName + " + " + conversationClient.firstName
+        }
+      })
+    }
     conversationViewController.displaysAddressBar = shouldShowAddressBar
     conversationViewController.conversation = conversation
     conversationViewController.stylist = self.stylist
