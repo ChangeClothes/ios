@@ -12,6 +12,7 @@
                 <outlet property="containerView" destination="2tL-dj-vv2" id="Aqp-RG-jTe"/>
                 <outlet property="measurementImageView" destination="m40-Yn-NKV" id="W8P-He-IzX"/>
                 <outlet property="nameLabel" destination="2iB-vp-gpc" id="eAj-Lh-BiH"/>
+                <outlet property="vcTapGestureRecognizerOutlet" destination="LMa-Cc-TUB" id="TGX-dq-UCN"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -78,6 +79,7 @@
                 </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <gestureRecognizers/>
             <constraints>
                 <constraint firstItem="2tL-dj-vv2" firstAttribute="top" secondItem="1Tz-ax-4SM" secondAttribute="bottom" constant="8" id="J8o-l7-VQv"/>
                 <constraint firstItem="1Tz-ax-4SM" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="LvR-oc-bda"/>
@@ -94,6 +96,9 @@
                     <exclude reference="LvR-oc-bda"/>
                 </mask>
             </variation>
+            <connections>
+                <outletCollection property="gestureRecognizers" destination="LMa-Cc-TUB" appends="YES" id="3i2-wk-Bg4"/>
+            </connections>
             <point key="canvasLocation" x="551" y="546"/>
         </view>
         <tapGestureRecognizer id="c3J-Gb-AKH">
@@ -106,9 +111,9 @@
                 <action selector="cameraTap:" destination="-1" id="fll-8z-6jh"/>
             </connections>
         </tapGestureRecognizer>
-        <tapGestureRecognizer id="gDY-Dx-ROE">
+        <tapGestureRecognizer id="LMa-Cc-TUB">
             <connections>
-                <action selector="profileTap:" destination="-1" id="mwK-Rm-CaK"/>
+                <action selector="vcTapGestureRecognizer:" destination="-1" id="fl7-7O-mYm"/>
             </connections>
         </tapGestureRecognizer>
     </objects>

@@ -10,7 +10,7 @@ import UIKit
 
 let imageCellReuseIdentifier = "cell"
 
-class AMRPhotosViewController: AMRViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UINavigationControllerDelegate, UIImagePickerControllerDelegate, AMRViewControllerProtocol{
+class AMRPhotosViewController: AMRViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UINavigationControllerDelegate, UIImagePickerControllerDelegate, AMRViewControllerProtocol, AMRPhotoDetailViewControllerDelegate {
 
   
   @IBOutlet weak var collectionView: UICollectionView!
@@ -51,7 +51,8 @@ class AMRPhotosViewController: AMRViewController, UICollectionViewDelegateFlowLa
   }
   
   func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-    let picDimension = (self.view.frame.size.width / 3.17)
+    let viewSize = self.view.frame.size
+    let picDimension = viewSize.width/3.5
     return CGSizeMake(picDimension, picDimension)
   }
   
@@ -66,10 +67,25 @@ class AMRPhotosViewController: AMRViewController, UICollectionViewDelegateFlowLa
     if indexPath.row == 0 {
       selectPhoto()
     } else {
-      //TODO show modal view with picture
+      let photo = photos[indexPath.row - 1]
+      showPicture(photo)
     }
   }
-
+  
+  func AMRPhotoDetailVIewController(photoViewDetailController: AMRPhotoDetailViewController, didDismiss: Bool) {
+    self.navigationController?.popViewControllerAnimated(true)
+  }
+  
+  func showPicture(photo: AMRImage) {
+    
+    let popoverContent = AMRPhotoDetailViewController()
+    popoverContent.delegate = self
+    popoverContent.photo = photo
+    
+    navigationController?.pushViewController(popoverContent, animated: true)
+    
+  }
+  
   func selectPhoto(){
     print("selecting phto")
     PhotoPicker.sharedInstance.selectPhoto(self.stylist, client: self.client, viewDelegate: self) { image in

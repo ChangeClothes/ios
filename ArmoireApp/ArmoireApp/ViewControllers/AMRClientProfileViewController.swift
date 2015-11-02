@@ -15,6 +15,7 @@ class AMRClientProfileViewController: AMRViewController, UIAlertViewDelegate, AM
   @IBOutlet weak var measurementImageView: UIImageView!
   @IBOutlet weak var cameraImageView: UIImageView!
   
+  @IBOutlet var vcTapGestureRecognizerOutlet: UITapGestureRecognizer!
   /*******************************
    *** AMRViewController LOGIC ***
    ******************************/
@@ -23,11 +24,18 @@ class AMRClientProfileViewController: AMRViewController, UIAlertViewDelegate, AM
 
   //actions
   @IBAction func cameraTap(sender: UITapGestureRecognizer) {
+    vcTapGestureRecognizerOutlet.enabled = false
     selectViewController(vcArray[1])
+    
   }
   
   @IBAction func measurementTap(sender: UITapGestureRecognizer) {
+    vcTapGestureRecognizerOutlet.enabled = true
     selectViewController(vcArray[0])
+  }
+  
+  @IBAction func vcTapGestureRecognizer(sender: UITapGestureRecognizer) {
+    self.view.endEditing(true)
   }
   
   override func viewDidLoad() {
