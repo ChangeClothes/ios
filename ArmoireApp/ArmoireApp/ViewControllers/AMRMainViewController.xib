@@ -96,7 +96,7 @@
                             <rect key="frame" x="403" y="12" width="157" height="25"/>
                             <animations/>
                         </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qPn-aJ-0VD">
+                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qPn-aJ-0VD">
                             <rect key="frame" x="222" y="12" width="156" height="25"/>
                             <animations/>
                         </view>

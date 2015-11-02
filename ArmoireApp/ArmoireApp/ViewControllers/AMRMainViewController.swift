@@ -10,18 +10,22 @@ import UIKit
 import LayerKit
 
 class AMRViewController: UIViewController {
+  
   var stylist: AMRUser?
   var client: AMRUser?
-  
+ 
   func showSettings () {
     let settingsVC = UIAlertController.AMRSettingsController { (setting: AMRSettingsControllerSetting) -> () in
       if setting == AMRSettingsControllerSetting.ProfilePicture {
-        PhotoPicker.sharedInstance.selectPhoto(self.stylist, client: self.client, viewDelegate: self, completion: { (AMRImage) -> () in })
+        PhotoPicker.sharedInstance.selectPhoto(self.stylist, client: self.client, viewDelegate: self, completion: {
+          (image: AMRImage) -> () in
+          let user = CurrentUser.sharedInstance.user
+          user?.profilePhoto = image
+          user?.saveInBackground()
+        })
       }
     }
     self.presentViewController(settingsVC, animated: true, completion: nil)
-    
-    
   }
 }
 
@@ -53,11 +57,11 @@ class AMRMainViewController: AMRViewController, AMRViewControllerProtocol {
   var newConversationIdentifier: NSURL!
   
   override func viewDidLoad() {
+
     super.viewDidLoad()
     subscribeToNotifications()
     setupTabBarAppearance()
     setupNewMessageImageView()
-    
   }
   
   // MARK: - Initial setup
