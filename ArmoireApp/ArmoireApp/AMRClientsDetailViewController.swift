@@ -218,7 +218,7 @@ class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtoc
     UIView.animateWithDuration(0.5) { () -> Void in
       self.resetIconColors()
       self.selectedIconViewXPositionConstraint.constant = imageView.center.x - self.selectedIconImageView.frame.width/2
-      self.view.layoutIfNeeded()
+      self.menuView.layoutIfNeeded()
       imageView.tintColor = UIColor.AMRSelectedTabBarButtonTintColor()
     }
   }
