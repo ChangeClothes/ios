@@ -25,9 +25,9 @@ class AMRMessagesDetailsViewController: ATLConversationViewController {
     super.viewDidLoad()
     if (self.client == nil) {
       NSNotificationCenter.defaultCenter().postNotificationName(AMRMainHideMenuView, object: self)
+    } else {
+      self.title = (self.stylist?.firstName)! + " + " + (self.client?.firstName)!
     }
-    
-    self.title = "Message Detail"
     self.dataSource = self
     self.delegate = self
     self.addressBarController?.delegate = self
