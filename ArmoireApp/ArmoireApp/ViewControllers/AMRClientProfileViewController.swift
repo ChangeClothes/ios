@@ -35,7 +35,6 @@ class AMRClientProfileViewController: AMRViewController, UIAlertViewDelegate, AM
   }
   
   @IBAction func vcTapGestureRecognizer(sender: UITapGestureRecognizer) {
-      print("tap")
     self.view.endEditing(true)
   }
   
