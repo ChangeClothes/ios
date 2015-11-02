@@ -186,22 +186,12 @@ class AMRNotesViewController: AMRViewController, AMRViewControllerProtocol, UITe
   }
 
   private func createExitModalButton(){
-    let exitModalButton: UIButton = UIButton()
-    exitModalButton.setImage(UIImage(named: "cancel"), forState: .Normal)
-    exitModalButton.frame = CGRectMake(0, 0, 30, 30)
-    exitModalButton.addTarget(self, action: Selector("exitModal"), forControlEvents: .TouchUpInside)
-
-    let leftNavBarButton = UIBarButtonItem(customView: exitModalButton)
+    let leftNavBarButton = UIBarButtonItem(image: UIImage(named: "cancel"), style: .Plain, target: self, action: "exitModal")
     self.navigationItem.leftBarButtonItem = leftNavBarButton
   }
 
   private func createSettingsButton(){
-    let settings: UIButton = UIButton()
-    settings.setImage(UIImage(named: "settings"), forState: .Normal)
-    settings.frame = CGRectMake(0, 0, 30, 30)
-    settings.addTarget(self, action: Selector("onSettingsTap"), forControlEvents: .TouchUpInside)
-
-    let leftNavBarButton = UIBarButtonItem(customView: settings)
+    let leftNavBarButton = UIBarButtonItem(image: UIImage(named: "settings"), style: .Plain, target: self, action: "onSettingsTap")
     self.navigationItem.leftBarButtonItem = leftNavBarButton
   }
 
