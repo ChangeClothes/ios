@@ -30,6 +30,11 @@ class AMRClientProfileViewController: AMRViewController, UIAlertViewDelegate, AM
     selectViewController(vcArray[0])
   }
   
+  @IBAction func vcTapGestureRecognizer(sender: UITapGestureRecognizer) {
+    print("tapped")
+    self.view.endEditing(true)
+  }
+  
   override func viewDidLoad() {
     self.navigationController?.navigationBar.translucent = false
     super.viewDidLoad()
