@@ -12,6 +12,7 @@
                 <outlet property="containerView" destination="2tL-dj-vv2" id="Aqp-RG-jTe"/>
                 <outlet property="measurementImageView" destination="m40-Yn-NKV" id="W8P-He-IzX"/>
                 <outlet property="nameLabel" destination="2iB-vp-gpc" id="eAj-Lh-BiH"/>
+                <outlet property="vcTapGestureRecognizerOutlet" destination="LMa-Cc-TUB" id="TGX-dq-UCN"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

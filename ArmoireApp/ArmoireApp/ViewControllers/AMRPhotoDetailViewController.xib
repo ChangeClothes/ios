@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AMRPhotoDetailViewController" customModule="ArmoireApp" customModuleProvider="target">
+            <connections>
+                <outlet property="containerViewController" destination="RPB-2l-EQw" id="2ZH-b3-umO"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RPB-2l-EQw">
+                    <rect key="frame" x="8" y="8" width="584" height="584"/>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="RPB-2l-EQw" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="topMargin" id="5fP-kc-gNh"/>
+                <constraint firstItem="RPB-2l-EQw" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leadingMargin" id="TPM-k2-QSC"/>
+                <constraint firstAttribute="trailingMargin" secondItem="RPB-2l-EQw" secondAttribute="trailing" id="UJr-ch-M6F"/>
+                <constraint firstAttribute="bottomMargin" secondItem="RPB-2l-EQw" secondAttribute="bottom" id="sJw-gl-WTm"/>
+            </constraints>
+        </view>
+    </objects>
+</document>
