@@ -64,7 +64,6 @@ class AMRPhotosViewController: AMRViewController, UICollectionViewDelegateFlowLa
   func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
     collectionView.deselectItemAtIndexPath(indexPath, animated: true)
     
-    print(indexPath.row)
     if indexPath.row == 0 {
       selectPhoto()
     } else {
