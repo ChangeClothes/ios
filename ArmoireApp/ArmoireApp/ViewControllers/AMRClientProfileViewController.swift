@@ -40,19 +40,10 @@ class AMRClientProfileViewController: AMRViewController, UIAlertViewDelegate, AM
     
     setVcArray()
     setVcDataForTabs()
-    
-    pageController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
-    pageController.dataSource = self
-    pageController.delegate = self
-    pageController.view.frame = containerView.bounds
-    
-    let initialViewControllerArray = [vcArray[0]]
-    pageController.setViewControllers(initialViewControllerArray, direction: .Forward, animated: true, completion: nil)
-    addChildViewController(pageController)
-    containerView.addSubview(pageController.view)
-    pageController.didMoveToParentViewController(self)
-    
+    setupPageController()
+    setupSegmentedControl()
   }
+  
   
   // MARK: - Initial Setup
   func setVcData(stylist: AMRUser?, client: AMRUser?) {
@@ -65,7 +56,7 @@ class AMRClientProfileViewController: AMRViewController, UIAlertViewDelegate, AM
   }
   
   private func setVcDataForTabs(){
-    for (index, value) in vcArray.enumerate() {
+    for (_, value) in vcArray.enumerate() {
       let vc = (value as! UINavigationController).viewControllers.first as? AMRViewControllerProtocol
       vc?.setVcData(self.stylist, client: self.client)
     }
@@ -74,13 +65,24 @@ class AMRClientProfileViewController: AMRViewController, UIAlertViewDelegate, AM
   private func setVcArray(){
     let photoVC = AMRPhotosViewController()
     let measurementsVC = AMRMeasurementsViewController()
-    
-    //    measurement.View.addGestureRecognizer(dismissKeyboardGR)
     vcArray = [UINavigationController(rootViewController: photoVC), UINavigationController(rootViewController: measurementsVC)]
   }
   
   func dismissKeyboard(sender: UITapGestureRecognizer) {
     self.view.endEditing(true)
+  }
+  
+  private func setupPageController() {
+    pageController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
+    pageController.dataSource = self
+    pageController.delegate = self
+    pageController.view.frame = containerView.bounds
+    
+    let initialViewControllerArray = [vcArray[0]]
+    pageController.setViewControllers(initialViewControllerArray, direction: .Forward, animated: true, completion: nil)
+    addChildViewController(pageController)
+    containerView.addSubview(pageController.view)
+    pageController.didMoveToParentViewController(self)
   }
   
   internal func setUpNavBar(){
@@ -91,6 +93,26 @@ class AMRClientProfileViewController: AMRViewController, UIAlertViewDelegate, AM
       let leftNavBarButton = UIBarButtonItem(image: UIImage(named: "settings"), style: .Plain, target: self, action: "onSettingsTap")
       self.navigationItem.leftBarButtonItem = leftNavBarButton
     }
+  }
+  
+  private func setupSegmentedControl(){
+    segmentedControl.setBackgroundImage(imageWithColor(UIColor.clearColor()), forState: .Normal, barMetrics: .Default)
+    segmentedControl.setBackgroundImage(imageWithColor(UIColor.clearColor()), forState: .Selected, barMetrics: .Default)
+    segmentedControl.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.AMRPrimaryBackgroundColor()], forState: UIControlState.Selected)
+    segmentedControl.setDividerImage(imageWithColor(UIColor.clearColor()), forLeftSegmentState: .Normal, rightSegmentState: .Normal, barMetrics: .Default)
+  }
+  
+  // MARK: - Utility
+  // create a 1x1 image with this color
+  private func imageWithColor(color: UIColor) -> UIImage {
+    let rect = CGRectMake(0.0, 0.0, 1.0, 1.0)
+    UIGraphicsBeginImageContext(rect.size)
+    let context = UIGraphicsGetCurrentContext()
+    CGContextSetFillColorWithColor(context, color.CGColor);
+    CGContextFillRect(context, rect);
+    let image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image
   }
   
   // MARK: - Bar Button Actions

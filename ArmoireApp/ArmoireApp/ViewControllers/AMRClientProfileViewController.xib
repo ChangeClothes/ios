@@ -17,11 +17,17 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8PV-JO-pX6">
+                    <rect key="frame" x="10" y="50" width="580" height="540"/>
+                    <animations/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <gestureRecognizers/>
+                </view>
                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="NOs-Uv-Buk">
-                    <rect key="frame" x="0.0" y="0.0" width="600" height="29"/>
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="41"/>
                     <animations/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="28" id="bMZ-yP-fYc"/>
+                        <constraint firstAttribute="height" constant="40" id="bMZ-yP-fYc"/>
                     </constraints>
                     <segments>
                         <segment title="PHOTOS"/>
@@ -31,12 +37,6 @@
                         <action selector="segmentedControlDidChange:" destination="-1" eventType="valueChanged" id="XBq-py-8cH"/>
                     </connections>
                 </segmentedControl>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8PV-JO-pX6">
-                    <rect key="frame" x="10" y="38" width="580" height="552"/>
-                    <animations/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <gestureRecognizers/>
-                </view>
             </subviews>
             <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
