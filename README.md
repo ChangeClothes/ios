@@ -1,7 +1,6 @@
 ###![Video Walkthrough](151020_ArmoireApp_Walkthrough.gif)
 
 ###What Armoire Does
-
 Armoire aims to be a CRM for personal shoppers running their own small businesses, as well as providing a platform for their clients to track their service and communicate with them in one location using the "profile" page and related communication pages provided. 
 
 The core feature set for the stylist's is a list of their clients, profile pages that allow quick access to the most relevant facts about their clients (measurements, price range for different types of clothing, along with basic demographic data), a communication platform that provides an easy to follow history, notes for future reference about what works and doesn't work for the client, a camera that creates photos that are associated with the appropriate client, and the ability to create appointments (including providing a history of past appointments and notifying both client and stylist about upcoming appointments).
@@ -220,37 +219,30 @@ Layout: Facebook group for contextual layout
 
 ### Demo To Do Items
 
-- Randy (overall Designer)
-  - [ ] Notification with Layer
-  - Messaging
-    - [ ] notificiatons
-  - Tab Bar
-    - [ ] indicate wich view is selected on nav bar
-  - [ ] Splash Page
-  - [ ] Icon
+- Randy
+  - [ ] update icons
+  - Profile
+    - [ ] placeholders
+    - [ ] swipe left to go to previous picture, right to go to next picture, and then there needs to be a way to return to the main profile
+    - [ ] remove client name
+    - [ ] make buttons able to be tinted so they're obviously clickable
+    - [ ] general design (not color choices, just layout)
 
 - Matt
-  - Profile
-    - [ ] picture collection view
-  - Client List
-    - [ ] letters on right side
-  - Settings
-    - [ ] change to alert action
-  - Tab Bar
-    - [ ] Avatar for stylist + client in middle of nav bar
-    - [ ] change avatar by clicking photo
-  - [ ] Responsiveness / Screen size
+  - [ ] Profile Picture Upload: Get Off Main Thread
+  - [ ] Splash Page
+  - [ ] Icon
+  - Color Scheme for All Pages + Navbar
+    - [ ] Design
 
 - Morgan
-  - Messaging
-    - [ ] Get rid of placeholder text
-    - [ ] Fix tab bar shown behind message text
-  - Settings
-    - [ ] search bar
-  - Notes
-    - [ ] change height of view releative to keyboard
-    - [ ] Done button
-    - [ ] background image with lines
-  - Client Modal
-    - [ ] should not be full screen
-    - [ ] Rounded corners
+  - Notification
+    - [ ] app starts and notification background exists; hide it
+    - [ ] profile pic appears instead of email icon
+    - [ ] change animation to sliding and then wee bounce
+
+- Grab Bag
+  - while in msging receive a msg, when you exit that msg will still be visible
+  - on first sign in, the focus color box on nav bar comes sliding in from off screen
+  - focus color box on nav bar should be circle or have rounded edges or something: better design
+  - hit boxes are too small
