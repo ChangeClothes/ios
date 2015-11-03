@@ -14,18 +14,18 @@ enum Theme: Int {
   var mainColor: UIColor {
     switch self {
     case .Default:
-      return ColorHelper.sharedInstance.colorFromHexString("#2c3e50")
+      return ColorHelper.sharedInstance.colorFromHexString("#E1DBDA")
     case .Theme1:
-      return ColorHelper.sharedInstance.colorFromHexString("#2c3e50")
+      return ColorHelper.sharedInstance.colorFromHexString("#937250")
     }
   }
   
   var mainColorSecondary: UIColor {
     switch self {
     case .Default:
-      return ColorHelper.sharedInstance.colorFromHexString("#bdc3c7")
+      return ColorHelper.sharedInstance.colorFromHexString("#0172C9")
     case .Theme1:
-      return UIColor(red: 87.0/255.0, green: 188.0/255.0, blue: 95.0/255.0, alpha: 1.0)
+      return ColorHelper.sharedInstance.colorFromHexString("#28B9AD")
     }
   }
   
@@ -42,26 +42,26 @@ enum Theme: Int {
   var backgroundColor: UIColor {
     switch self {
     case .Default:
-      return ColorHelper.sharedInstance.colorFromHexString("#7f8c8d")
+      return ColorHelper.sharedInstance.colorFromHexString("#58C0E1")
     case .Theme1:
-      return UIColor(white: 0.9, alpha: 1.0)
+      return ColorHelper.sharedInstance.colorFromHexString("#FFFFFF")
     }
   }
   var backgroundColorSecondary: UIColor {
     switch self {
     case .Default:
-      return ColorHelper.sharedInstance.colorFromHexString("#34495e")
+      return ColorHelper.sharedInstance.colorFromHexString("#0172C9")
     case .Theme1:
-      return UIColor(white: 0.6, alpha: 1.0)
+      return ColorHelper.sharedInstance.colorFromHexString("#F7F1F1")
     }
   }
   
   var highlightColor: UIColor {
     switch self {
     case .Default:
-      return ColorHelper.sharedInstance.colorFromHexString("#ecf0f1")
+      return ColorHelper.sharedInstance.colorFromHexString("#FFB276")
     case .Theme1:
-      return UIColor(red: 242.0/255.0, green: 101.0/255.0, blue: 34.0/255.0, alpha: 1.0)
+      return ColorHelper.sharedInstance.colorFromHexString("#FA5B52")
     }
   }
 }
@@ -72,6 +72,7 @@ struct ThemeManager {
   
   static func currentTheme() -> Theme {
     
+    return .Theme1
     if let storedTheme = NSUserDefaults.standardUserDefaults().valueForKey(SelectedThemeKey)?.integerValue {
       print("Theme: \(Theme(rawValue: storedTheme)!))")
       return Theme(rawValue: storedTheme)!
@@ -85,15 +86,21 @@ struct ThemeManager {
   static func applyTheme(theme: Theme) {
     NSUserDefaults.standardUserDefaults().setValue(theme.rawValue, forKey: SelectedThemeKey)
     NSUserDefaults.standardUserDefaults().synchronize()
-    
+   
     let sharedApplication = UIApplication.sharedApplication()
     sharedApplication.delegate?.window??.tintColor = theme.mainColor
     
     UINavigationBar.appearance().barStyle = theme.barStyle
+    UINavigationBar.appearance().tintColor = theme.mainColorSecondary
+    UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName:theme.mainColorSecondary]
+    //UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName:theme.mainColorSecondary, UIControlState:.Highlighted]
+    UINavigationBar.appearance().barTintColor = theme.backgroundColor
     UINavigationBar.appearance().backgroundColor = theme.backgroundColor
     
     UITabBar.appearance().barStyle = theme.barStyle
     UINavigationBar.appearance().backgroundColor = theme.backgroundColorSecondary
+
+    
     
     
   }

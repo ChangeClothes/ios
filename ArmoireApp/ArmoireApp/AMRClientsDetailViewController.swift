@@ -49,6 +49,8 @@ class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtoc
     
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "deviceDidRotate", name: UIDeviceOrientationDidChangeNotification, object: nil)
     
+
+    
     setupTabBarAppearance()
     selectViewController(vcArray[3])
     selectedIconImageView = profileIconImageView
@@ -201,7 +203,7 @@ class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtoc
     
     clientProfileImageView.image = clientProfileImageView.image?.imageWithRenderingMode(.AlwaysTemplate)
     clientProfileImageView.backgroundColor = UIColor.AMRPrimaryBackgroundColor()
-    clientProfileImageView.tintColor = UIColor.lightGrayColor()
+    clientProfileImageView.tintColor = UIColor.AMRClientUnselectedTabBarButtonTintColor()
     clientProfileImageView.clipsToBounds = true
     clientProfileImageView.layer.cornerRadius = clientProfileImageView.frame.width/2
   }
@@ -286,6 +288,10 @@ class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtoc
       if (index != 0) {
         let vc = value.viewControllers.first as? AMRViewControllerProtocol
         vc?.setVcData(self.stylist, client: self.client)
+        value.navigationBar.tintColor = UIColor.AMRBrightButtonTintColor()
+        value.navigationBar.barTintColor = UIColor.AMRUnselectedTabBarButtonTintColor()
+        value.navigationBar.backgroundColor = UIColor.AMRUnselectedTabBarButtonTintColor()
+        value.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.AMRBrightButtonTintColor()]
       }
     }
   }

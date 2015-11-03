@@ -20,11 +20,11 @@ class AMRLoginViewController: PFLogInViewController {
     
     logInView?.dismissButton?.hidden = true
     
-    let logoImageView = UIImageView(image: UIImage(named: "Armoire-logo"))
-    logoImageView.contentMode = .ScaleAspectFill
+    let logoImageView = UIImageView(image: UIImage(named: "Armoire"))
+    logoImageView.contentMode = .ScaleAspectFit
     logInView?.logo = logoImageView
     
-    logInView?.backgroundColor = UIColor.AMRPrimaryBackgroundColor()
+    logInView?.backgroundColor = UIColor.AMRBrightButtonTintColor()
     
     logInView
   }

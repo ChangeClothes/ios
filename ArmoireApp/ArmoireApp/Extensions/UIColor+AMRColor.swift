@@ -30,7 +30,7 @@ extension UIColor {
   }
   
   class func AMRUnselectedTabBarButtonTintColor() -> UIColor {
-    return ThemeManager.currentTheme().backgroundColorSecondary
+    return ThemeManager.currentTheme().mainColorSecondary
   }
   
   class func AMRClientUnselectedTabBarButtonTintColor() -> UIColor {

@@ -58,7 +58,7 @@ class AMRNotesViewController: AMRViewController, AMRViewControllerProtocol, UITe
   
   private func setUpNavBar(){
     createNavBarButtonItems()
-  }
+ }
 
   private func loadNote(){
     AMRNote.noteForUser(self.stylist, client: self.client) { (objects, error) -> Void in
