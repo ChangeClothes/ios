@@ -102,7 +102,7 @@
                             <rect key="frame" x="291" y="0.0" width="98" height="49"/>
                             <animations/>
                         </view>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile-image-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="RdM-bh-dIA">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" image="profile-image-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="RdM-bh-dIA">
                             <rect key="frame" x="5" y="-31" width="75" height="75"/>
                             <animations/>
                             <constraints>
@@ -143,7 +143,7 @@
                         <constraint firstItem="RdM-bh-dIA" firstAttribute="leading" secondItem="wVd-Rb-1D5" secondAttribute="leading" constant="5" id="byk-Qc-ESo"/>
                         <constraint firstItem="Kd8-kT-6qq" firstAttribute="height" secondItem="HC5-7x-Ua3" secondAttribute="height" id="cri-BB-C3n"/>
                         <constraint firstItem="uJI-kq-ivD" firstAttribute="width" secondItem="Kd8-kT-6qq" secondAttribute="width" id="fmk-DC-ghq"/>
-                        <constraint firstItem="HC5-7x-Ua3" firstAttribute="leading" secondItem="RdM-bh-dIA" secondAttribute="trailing" constant="15" id="grg-Hf-Tdt"/>
+                        <constraint firstItem="HC5-7x-Ua3" firstAttribute="leading" secondItem="RdM-bh-dIA" secondAttribute="trailing" priority="750" constant="15" id="grg-Hf-Tdt"/>
                         <constraint firstItem="HC5-7x-Ua3" firstAttribute="centerY" secondItem="wVd-Rb-1D5" secondAttribute="centerY" id="pPA-E3-aax"/>
                         <constraint firstItem="Kd8-kT-6qq" firstAttribute="centerY" secondItem="HC5-7x-Ua3" secondAttribute="centerY" id="rgS-hy-RZW"/>
                         <constraint firstItem="gGz-aX-xAe" firstAttribute="width" secondItem="HC5-7x-Ua3" secondAttribute="width" id="sn4-fb-2MS"/>
