@@ -3,11 +3,14 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AMRClientProfileViewController" customModule="ArmoireApp" customModuleProvider="target">
             <connections>
                 <outlet property="containerView" destination="8PV-JO-pX6" id="nxG-cU-rfg"/>
+                <outlet property="pageSelectionIndicatorView" destination="yaS-QU-sUL" id="FAt-QF-uHB"/>
+                <outlet property="pageSelectionIndicatorXConstraint" destination="1OW-bZ-NnO" id="bqg-Ef-mV2"/>
                 <outlet property="segmentedControl" destination="NOs-Uv-Buk" id="i3V-tH-Ikt"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -37,17 +40,39 @@
                         <action selector="segmentedControlDidChange:" destination="-1" eventType="valueChanged" id="XBq-py-8cH"/>
                     </connections>
                 </segmentedControl>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Thb-4D-8nR">
+                    <rect key="frame" x="0.0" y="40" width="600" height="2"/>
+                    <animations/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="2" id="LNl-bq-oz0"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yaS-QU-sUL">
+                    <rect key="frame" x="0.0" y="35" width="300" height="5"/>
+                    <animations/>
+                    <color key="backgroundColor" red="0.33333333329999998" green="0.67450980390000004" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="5" id="RDI-ey-qxW"/>
+                    </constraints>
+                </view>
             </subviews>
             <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <gestureRecognizers/>
             <constraints>
+                <constraint firstItem="yaS-QU-sUL" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="1OW-bZ-NnO"/>
                 <constraint firstAttribute="trailing" secondItem="NOs-Uv-Buk" secondAttribute="trailing" id="FOX-eH-D4b"/>
                 <constraint firstItem="8PV-JO-pX6" firstAttribute="top" secondItem="NOs-Uv-Buk" secondAttribute="bottom" constant="10" id="FRI-hZ-Kdy"/>
                 <constraint firstItem="NOs-Uv-Buk" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Iqq-rg-OMc"/>
                 <constraint firstItem="NOs-Uv-Buk" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="NZk-2A-HfL"/>
+                <constraint firstItem="Thb-4D-8nR" firstAttribute="top" secondItem="yaS-QU-sUL" secondAttribute="bottom" id="PcM-sL-ICV"/>
+                <constraint firstItem="yaS-QU-sUL" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.5" id="Sb2-jX-4CQ"/>
+                <constraint firstAttribute="trailing" secondItem="Thb-4D-8nR" secondAttribute="trailing" id="THS-zW-beA"/>
+                <constraint firstItem="Thb-4D-8nR" firstAttribute="top" secondItem="NOs-Uv-Buk" secondAttribute="bottom" id="Xpc-SS-Fsa"/>
                 <constraint firstAttribute="trailing" secondItem="8PV-JO-pX6" secondAttribute="trailing" constant="10" id="aEI-oP-bff"/>
                 <constraint firstAttribute="bottom" secondItem="8PV-JO-pX6" secondAttribute="bottom" constant="10" id="d8T-Jz-rfm"/>
+                <constraint firstItem="Thb-4D-8nR" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="k7z-yj-9fa"/>
                 <constraint firstItem="8PV-JO-pX6" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="vzO-uY-FIl"/>
             </constraints>
             <point key="canvasLocation" x="551" y="546"/>

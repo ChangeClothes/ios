@@ -13,6 +13,8 @@ class AMRClientProfileViewController: AMRViewController, UIAlertViewDelegate, AM
   // MARK: - IBOutlets
   @IBOutlet weak var containerView: UIView!
   @IBOutlet weak var segmentedControl: UISegmentedControl!
+  @IBOutlet weak var pageSelectionIndicatorXConstraint: NSLayoutConstraint!
+  @IBOutlet weak var pageSelectionIndicatorView: UIView!
   
   // MARK: - Class Properties
   var selectedViewController: UIViewController?
@@ -25,9 +27,11 @@ class AMRClientProfileViewController: AMRViewController, UIAlertViewDelegate, AM
     case 0:
       let initialViewControllerArray = [vcArray[0]]
       pageController.setViewControllers(initialViewControllerArray, direction: .Reverse, animated: true, completion: nil)
+      movePageSelectionIndicatorToIndex(0)
     case 1:
       let initialViewControllerArray = [vcArray[1]]
       pageController.setViewControllers(initialViewControllerArray, direction: .Forward, animated: true, completion: nil)
+      movePageSelectionIndicatorToIndex(1)
     default:
       break
     }
@@ -42,7 +46,9 @@ class AMRClientProfileViewController: AMRViewController, UIAlertViewDelegate, AM
     setVcDataForTabs()
     setupPageController()
     setupSegmentedControl()
+    setupPageSelectionIndicatorView()
   }
+  
   
   
   // MARK: - Initial Setup
@@ -98,8 +104,13 @@ class AMRClientProfileViewController: AMRViewController, UIAlertViewDelegate, AM
   private func setupSegmentedControl(){
     segmentedControl.setBackgroundImage(imageWithColor(UIColor.clearColor()), forState: .Normal, barMetrics: .Default)
     segmentedControl.setBackgroundImage(imageWithColor(UIColor.clearColor()), forState: .Selected, barMetrics: .Default)
-    segmentedControl.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.AMRPrimaryBackgroundColor()], forState: UIControlState.Selected)
+    segmentedControl.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.AMRPrimaryBackgroundColor()], forState: .Normal)
+    segmentedControl.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.AMRSecondaryBackgroundColor()], forState: .Selected)
     segmentedControl.setDividerImage(imageWithColor(UIColor.clearColor()), forLeftSegmentState: .Normal, rightSegmentState: .Normal, barMetrics: .Default)
+  }
+  
+  private func setupPageSelectionIndicatorView() {
+    pageSelectionIndicatorView.backgroundColor = UIColor.AMRSecondaryBackgroundColor()
   }
   
   // MARK: - Utility
@@ -113,6 +124,20 @@ class AMRClientProfileViewController: AMRViewController, UIAlertViewDelegate, AM
     let image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return image
+  }
+  
+  private func movePageSelectionIndicatorToIndex(index: Int) {
+    UIView.animateWithDuration(0.4, animations: { () -> Void in
+      self.pageSelectionIndicatorView.setNeedsLayout()
+      if index == 0 {
+        self.pageSelectionIndicatorXConstraint.constant = 0
+      } else if index == 1 {
+        self.pageSelectionIndicatorXConstraint.constant = self.segmentedControl.frame.width/2
+      }
+      
+      self.pageSelectionIndicatorView.layoutIfNeeded()
+      
+      }, completion: nil)
   }
   
   // MARK: - Bar Button Actions
@@ -146,12 +171,23 @@ extension AMRClientProfileViewController: UIPageViewControllerDataSource, UIPage
   func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [UIViewController]) {
     if pendingViewControllers[0].isEqual(vcArray[0]){
       segmentedControl.selectedSegmentIndex = 0
+      movePageSelectionIndicatorToIndex(0)
     } else {
       segmentedControl.selectedSegmentIndex = 1
+      movePageSelectionIndicatorToIndex(1)
     }
   }
   
   func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+    if !completed {
+      if segmentedControl.selectedSegmentIndex == 0 {
+        segmentedControl.selectedSegmentIndex = 1
+        movePageSelectionIndicatorToIndex(1)
+      } else {
+        segmentedControl.selectedSegmentIndex = 0
+        movePageSelectionIndicatorToIndex(0)
+      }
+    }
     if previousViewControllers[0].isEqual(vcArray[0]) {
       if ((vcArray[1] as! UINavigationController).viewControllers.first as! AMRMeasurementsViewController).view.gestureRecognizers == nil {
         let dismissKeyboardGR = UITapGestureRecognizer(target: self, action: "dismissKeyboard:")
