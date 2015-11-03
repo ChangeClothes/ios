@@ -49,6 +49,8 @@ class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtoc
     
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "deviceDidRotate", name: UIDeviceOrientationDidChangeNotification, object: nil)
     
+
+    
     setupTabBarAppearance()
     selectViewController(vcArray[3])
     selectedIconImageView = profileIconImageView
@@ -181,7 +183,7 @@ class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtoc
         if photoId != nil {
           AMRImage.queryForObjectWithObjectID(clientObject.profilePhoto.objectId!, withCompletion: { (photos: NSArray?, error: NSError?) -> Void in
             if error == nil {
-              self.clientProfileImageView.setAMRImage(photos![0] as! AMRImage, withPlaceholder: "profile-image-placeholder")
+              self.clientProfileImageView.setAMRImage(photos![0] as? AMRImage, withPlaceholder: "profile-image-placeholder")
             } else {
               print("Error: \(error)")
             }
@@ -193,7 +195,7 @@ class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtoc
       AMRUserManager.sharedManager.queryForUserWithObjectID((client?.stylist.objectId)!, withCompletion: { (users, error) -> Void in
         let stylistObject = users![0] as! AMRUser
         AMRImage.queryForObjectWithObjectID(stylistObject.profilePhoto.objectId!, withCompletion: { (photos: NSArray?, error: NSError?) -> Void in
-                  self.clientProfileImageView.setAMRImage(photos![0] as! AMRImage, withPlaceholder: "profile-image-placeholder")
+                  self.clientProfileImageView.setAMRImage(photos![0] as? AMRImage, withPlaceholder: "profile-image-placeholder")
         })
 
       })
@@ -201,7 +203,7 @@ class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtoc
     
     clientProfileImageView.image = clientProfileImageView.image?.imageWithRenderingMode(.AlwaysTemplate)
     clientProfileImageView.backgroundColor = UIColor.AMRPrimaryBackgroundColor()
-    clientProfileImageView.tintColor = UIColor.lightGrayColor()
+    clientProfileImageView.tintColor = UIColor.AMRClientUnselectedTabBarButtonTintColor()
     clientProfileImageView.clipsToBounds = true
     clientProfileImageView.layer.cornerRadius = clientProfileImageView.frame.width/2
   }
@@ -286,6 +288,10 @@ class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtoc
       if (index != 0) {
         let vc = value.viewControllers.first as? AMRViewControllerProtocol
         vc?.setVcData(self.stylist, client: self.client)
+        value.navigationBar.tintColor = UIColor.AMRBrightButtonTintColor()
+        value.navigationBar.barTintColor = UIColor.AMRUnselectedTabBarButtonTintColor()
+        value.navigationBar.backgroundColor = UIColor.AMRUnselectedTabBarButtonTintColor()
+        value.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.AMRBrightButtonTintColor()]
       }
     }
   }
