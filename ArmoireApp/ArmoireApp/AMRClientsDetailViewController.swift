@@ -360,17 +360,20 @@ class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtoc
 
 extension AMRClientsDetailViewController {
   func queryController(controller: LYRQueryController!, didChangeObject object: AnyObject!, atIndexPath indexPath: NSIndexPath!, forChangeType type: LYRQueryControllerChangeType, newIndexPath: NSIndexPath!) {
-
     if type != LYRQueryControllerChangeType.Delete && controller.numberOfObjectsInSection(0) > 0 {
       let conversation = object as! LYRConversation
       newConversationIdentifier = conversation.identifier
       let senderObjectID = conversation.participants.first as! String
-      
       AMRUserManager.sharedManager.queryForUserWithObjectID(senderObjectID) { (users: NSArray?, error: NSError?) -> Void in
         if let error = error {
           print(error.localizedDescription)
         } else {
-          self.newMessageImageView.setAMRImage((users!.firstObject! as! AMRUser).profilePhoto, withPlaceholder: "messaging")
+          let user = users!.firstObject! as! AMRUser
+          if let profileImage = user.profilePhoto {
+            self.newMessageImageView.setAMRImage(profileImage, withPlaceholder: "messaging")
+          } else {
+            self.newMessageImageView.setAMRImage(nil, withPlaceholder: "messaging")
+          }
           self.showNewMessageImageView()
         }
         

@@ -29,7 +29,7 @@ class AMRMessagesDetailsViewController: ATLConversationViewController {
       if let stylist = self.stylist {
         self.title = stylist.firstName + " + " + (self.client?.firstName)!
       } else {
-        AMRUserManager.sharedManager.queryForUserWithObjectID(self.client!.stylist.objectId!) { (users: NSArray?, error: NSError?) -> Void in
+        AMRUserManager.sharedManager.queryForUserWithObjectID((self.client!.stylist?.objectId!)!) { (users: NSArray?, error: NSError?) -> Void in
           if let error = error {
             print(error.localizedDescription)
           } else {
