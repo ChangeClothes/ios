@@ -22,10 +22,20 @@ class AMRImage: PFObject {
   }
   
   func setImage(image:UIImage){
+    setImage(image, withCompletion: nil)
+  }
+  
+  func setImage(image:UIImage, withCompletion completion: ((Bool) -> Void)?) {
     let imageData = UIImagePNGRepresentation(image)
     let imageFile = PFFile(data: imageData!)
     self.file = imageFile
-    self.saveInBackground()
+    self.saveInBackgroundWithBlock { (sucess: Bool, error: NSError?) -> Void in
+      if let error = error {
+        print(error.localizedDescription)
+      } else {
+        completion?(true)
+      }
+    }
   }
   
   func getImage(completion: (UIImage)-> ()){
@@ -92,6 +102,7 @@ extension UIImageView {
         profileImage?.file?.getDataInBackgroundWithBlock { (data: NSData?, error: NSError?) -> Void in
           if error == nil {
             self.image = UIImage(data: data!)
+            completion?(success: true)
           }
         }
       })
@@ -181,9 +192,12 @@ class PhotoPicker: NSObject, UINavigationControllerDelegate, UIImagePickerContro
       let storedImage = AMRImage()
       storedImage.stylist = self.stylist
       storedImage.client = self.client
-      storedImage.setImage(image!)
+//      storedImage.setImage(image!)
       
-      self.complete!(storedImage)
+      storedImage.setImage(image!) { (success: Bool) -> Void in
+        self.complete!(storedImage)
+      }
+      
       
       //dismiss view controller
       self.photoVC?.dismissViewControllerAnimated(true, completion: { () -> Void in
