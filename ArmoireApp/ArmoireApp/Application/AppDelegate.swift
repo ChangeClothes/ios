@@ -36,6 +36,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     setupLayer()
 //    registerApplicationForPushNotifications(application)
     
+    let theme = ThemeManager.currentTheme()
+    ThemeManager.applyTheme(theme)
+    
+    
     window = UIWindow(frame: UIScreen.mainScreen().bounds)
     mainVC = AMRMainViewController()
     mainVC?.layerClient = layerClient

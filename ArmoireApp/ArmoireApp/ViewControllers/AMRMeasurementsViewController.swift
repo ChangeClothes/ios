@@ -77,7 +77,7 @@ class AMRMeasurementsViewController: AMRViewController, UITableViewDelegate, UIT
   }
   
   
-  func tableView(tableView: UITableView!, canEditRowAtIndexPath indexPath: NSIndexPath!) -> Bool {
+  func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
     if indexPath.row >= self.measurements?.measurements.count {
       return false
     } else {
@@ -85,7 +85,7 @@ class AMRMeasurementsViewController: AMRViewController, UITableViewDelegate, UIT
     }
   }
   
-  func tableView(tableView: UITableView!, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath!) {
+  func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
     if (editingStyle == UITableViewCellEditingStyle.Delete) {
       self.measurements?.measurements.removeAtIndex(indexPath.row)
       myTableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)

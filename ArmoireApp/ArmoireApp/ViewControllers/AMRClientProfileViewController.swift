@@ -75,7 +75,7 @@ class AMRClientProfileViewController: AMRViewController, UIAlertViewDelegate, AM
   }
   
   private func setVcDataForTabs(){
-    for (index, value) in vcArray.enumerate() {
+    for (_, value) in vcArray.enumerate() {
       let vc = value.viewControllers.first as? AMRViewControllerProtocol
       vc?.setVcData(self.stylist, client: self.client)
     }

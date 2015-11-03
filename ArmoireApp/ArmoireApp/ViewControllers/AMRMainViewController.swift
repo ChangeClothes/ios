@@ -190,10 +190,10 @@ class AMRMainViewController: AMRViewController, AMRViewControllerProtocol {
   }
   
   private func resetIconColors() {
-    messagesImageView.tintColor = UIColor.AMRUnselectedTabBarButtonTintColor()
-    notesImageView.tintColor = UIColor.AMRUnselectedTabBarButtonTintColor()
-    calendarImageView.tintColor = UIColor.AMRUnselectedTabBarButtonTintColor()
-    profileIconImageView.tintColor = UIColor.AMRUnselectedTabBarButtonTintColor()
+    //messagesImageView.tintColor = UIColor.AMRUnselectedTabBarButtonTintColor()
+    //notesImageView.tintColor = UIColor.AMRUnselectedTabBarButtonTintColor()
+    //calendarImageView.tintColor = UIColor.AMRUnselectedTabBarButtonTintColor()
+    //profileIconImageView.tintColor = UIColor.AMRUnselectedTabBarButtonTintColor()
   }
   
   private func setSelectedAppearanceColorForImageView(imageView: UIImageView) {
@@ -202,7 +202,7 @@ class AMRMainViewController: AMRViewController, AMRViewControllerProtocol {
     UIView.animateWithDuration(0.5) { () -> Void in
       self.resetIconColors()
       self.selectedIconViewXPositionConstraint.constant = imageView.center.x - self.selectedIconView.frame.width/2
-      imageView.tintColor = UIColor.AMRSelectedTabBarButtonTintColor()
+      //imageView.tintColor = UIColor.AMRSelectedTabBarButtonTintColor()
       self.menuView.layoutIfNeeded()
     }
   }
