@@ -74,8 +74,12 @@ extension UIImageView {
     setAMRImage(image, withPlaceholder: nil)
   }
   
-  func setAMRImage(imageParam: AMRImage?, withPlaceholder placeholder: String?) {
-    if let myImage = imageParam {
+  func setAMRImage(image: AMRImage?, withPlaceholder placeholder: String?) {
+    setAMRImage(image, withPlaceholder: placeholder, withCompletion: nil)
+  }
+  
+  func setAMRImage(image: AMRImage?, withPlaceholder placeholder: String?, withCompletion completion: ((success: Bool) -> Void)?) {
+    if let myImage = image {
       if placeholder != nil {
         self.image = UIImage(named: placeholder!)
       } else if (myImage.defaultImageName != nil){
@@ -83,12 +87,11 @@ extension UIImageView {
       } else {
         self.image = UIImage(named: "image-placeholder")
       }
-      AMRImage.queryForObjectWithObjectID(myImage.objectId!, withCompletion: { (response, error) -> Void in
-        if let image = response![0] as? AMRImage {
-          image.file?.getDataInBackgroundWithBlock { (data: NSData?, error: NSError?) -> Void in
-            if error == nil {
-              self.image = UIImage(data: data!)
-            }
+      myImage.fetchIfNeededInBackgroundWithBlock({ (image, error) -> Void in
+        let profileImage = image as? AMRImage
+        profileImage?.file?.getDataInBackgroundWithBlock { (data: NSData?, error: NSError?) -> Void in
+          if error == nil {
+            self.image = UIImage(data: data!)
           }
         }
       })

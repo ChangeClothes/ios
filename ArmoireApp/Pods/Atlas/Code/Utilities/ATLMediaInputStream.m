@@ -141,7 +141,7 @@ static size_t ATLMediaInputStreamPutBytesIntoStreamCallback(void *assetStreamRef
     
     // iOS7 specific
     BOOL success;
-    if (&kCGImageDestinationImageMaxPixelSize == NULL) {
+    if (/* DISABLES CODE */ (&kCGImageDestinationImageMaxPixelSize) == NULL) {
         success = [self setupiOS7SpecificConsumerPrerequisite:&error];
         if (!success) {
             self.mediaStreamStatus = NSStreamStatusError;

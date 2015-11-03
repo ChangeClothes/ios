@@ -55,7 +55,7 @@ class AMRAddClientViewController: UIViewController, AMRViewControllerProtocol, M
     let mailComposerVC = MFMailComposeViewController()
     mailComposerVC.mailComposeDelegate = self
 
-    var client_email = clientEmailTextField.text!
+    let client_email = clientEmailTextField.text!
     mailComposerVC.setToRecipients([client_email])
     mailComposerVC.setSubject("Your Personal Stylist Invites You To Armoire")
     mailComposerVC.setMessageBody("You have been signed up to use Armoire, a tool to keep track of your communications, meetings, and conversations with your personal stylist. Download Armoire from here and use the password 'testpassword' while signing in with the username \(firstNameTextField.text!)_\(lastNameTextField.text!). You'll be prompted to change the password before getting access to your Stylist Created profile for security purposes. Welcome!", isHTML: false)
@@ -70,7 +70,7 @@ class AMRAddClientViewController: UIViewController, AMRViewControllerProtocol, M
 
   // MARK: MFMailComposeViewControllerDelegate
 
-  func mailComposeController(controller: MFMailComposeViewController!, didFinishWithResult result: MFMailComposeResult, error: NSError!) {
+  func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
     controller.dismissViewControllerAnimated(true, completion: nil)
 
   }

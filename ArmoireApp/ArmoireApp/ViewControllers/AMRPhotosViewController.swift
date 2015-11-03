@@ -24,14 +24,24 @@ class AMRPhotosViewController: AMRViewController, UICollectionViewDelegateFlowLa
   func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
     
     let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! imageCollectionViewCell
+    
     if indexPath.row == 0 {
+      cell.activityIndicatorView.stopAnimating()
       var cameraIcon = UIImage(named: "camera")
       cameraIcon = cameraIcon?.imageWithRenderingMode(.AlwaysTemplate)
       cell.imageView.tintColor = UIColor.AMRBrightButtonTintColor()
       cell.imageView.image = cameraIcon
     } else {
+      if cell.imageView.image != nil {
+        
+      }
+      cell.activityIndicatorView.startAnimating()
       let image = photos[indexPath.row - 1]
-      cell.imageView.setAMRImage(image)
+      cell.imageView.backgroundColor = UIColor.grayColor()
+      cell.imageView.setAMRImage(image, withPlaceholder: "download", withCompletion: { (success) -> Void in
+        cell.activityIndicatorView.stopAnimating()
+      })
+      
     }
     return cell
   }
@@ -47,7 +57,9 @@ class AMRPhotosViewController: AMRViewController, UICollectionViewDelegateFlowLa
     
     collectionView.dataSource = self
     collectionView.delegate = self
-    collectionView.registerClass(imageCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
+    let cellNib = UINib(nibName: "imageCollectionViewCell", bundle: nil)
+    collectionView.registerNib(cellNib, forCellWithReuseIdentifier: "Cell")
+//    collectionView.registerClass(imageCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
     collectionView.backgroundColor = UIColor.whiteColor()
     self.view.addSubview(collectionView)
     
