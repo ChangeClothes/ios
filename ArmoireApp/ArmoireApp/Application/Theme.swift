@@ -14,7 +14,7 @@ enum Theme: Int {
   var mainColor: UIColor {
     switch self {
     case .Default:
-      return UIColor(red: 87.0/255.0, green: 188.0/255.0, blue: 95.0/255.0, alpha: 1.0)
+      return ColorHelper.sharedInstance.colorFromHexString("#2c3e50")
     case .Theme1:
       return ColorHelper.sharedInstance.colorFromHexString("#2c3e50")
     }
@@ -23,9 +23,9 @@ enum Theme: Int {
   var mainColorSecondary: UIColor {
     switch self {
     case .Default:
-      return UIColor(red: 87.0/255.0, green: 188.0/255.0, blue: 95.0/255.0, alpha: 1.0)
-    case .Theme1:
       return ColorHelper.sharedInstance.colorFromHexString("#bdc3c7")
+    case .Theme1:
+      return UIColor(red: 87.0/255.0, green: 188.0/255.0, blue: 95.0/255.0, alpha: 1.0)
     }
   }
   
@@ -42,26 +42,26 @@ enum Theme: Int {
   var backgroundColor: UIColor {
     switch self {
     case .Default:
-      return UIColor(white: 0.9, alpha: 1.0)
-    case .Theme1:
       return ColorHelper.sharedInstance.colorFromHexString("#7f8c8d")
+    case .Theme1:
+      return UIColor(white: 0.9, alpha: 1.0)
     }
   }
   var backgroundColorSecondary: UIColor {
     switch self {
     case .Default:
-      return UIColor(white: 0.6, alpha: 1.0)
-    case .Theme1:
       return ColorHelper.sharedInstance.colorFromHexString("#34495e")
+    case .Theme1:
+      return UIColor(white: 0.6, alpha: 1.0)
     }
   }
   
   var highlightColor: UIColor {
     switch self {
     case .Default:
-      return UIColor(red: 242.0/255.0, green: 101.0/255.0, blue: 34.0/255.0, alpha: 1.0)
-    case .Theme1:
       return ColorHelper.sharedInstance.colorFromHexString("#ecf0f1")
+    case .Theme1:
+      return UIColor(red: 242.0/255.0, green: 101.0/255.0, blue: 34.0/255.0, alpha: 1.0)
     }
   }
 }

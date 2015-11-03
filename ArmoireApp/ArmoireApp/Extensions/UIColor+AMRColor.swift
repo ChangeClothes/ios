@@ -34,7 +34,6 @@ extension UIColor {
   }
   
   class func AMRClientUnselectedTabBarButtonTintColor() -> UIColor {
-    //return ColorHelper.sharedInstance.colorFromHexString("#bdc3c7")
     return ThemeManager.currentTheme().mainColor
   }
   
