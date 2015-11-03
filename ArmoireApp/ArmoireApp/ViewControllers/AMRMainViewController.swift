@@ -92,6 +92,7 @@ class AMRMainViewController: AMRViewController, AMRViewControllerProtocol {
   }
   
   private func setupNewMessageImageView() {
+    newMessageImageView.alpha = 0
     newMessageImageView.image = newMessageImageView.image?.imageWithRenderingMode(.AlwaysTemplate)
     newMessageImageView.clipsToBounds = true
     newMessageImageView.layer.cornerRadius = newMessageImageView.frame.width/2
@@ -360,15 +361,22 @@ extension AMRMainViewController: LYRQueryControllerDelegate {
       newConversationIdentifier = conversation.identifier
       let senderObjectID = conversation.participants.first as! String
       
+
       AMRUserManager.sharedManager.queryForUserWithObjectID(senderObjectID) { (users: NSArray?, error: NSError?) -> Void in
         if let error = error {
           print(error.localizedDescription)
         } else {
-          self.newMessageImageView.setAMRImage((users!.firstObject! as! AMRUser).profilePhoto, withPlaceholder: "messaging")
+          let user = users!.firstObject! as! AMRUser
+          if let profileImage = user.profilePhoto {
+            self.newMessageImageView.setAMRImage(profileImage, withPlaceholder: "messaging")
+          } else {
+            self.newMessageImageView.setAMRImage(nil, withPlaceholder: "messaging")
+          }
           self.showNewMessageImageView()
         }
         
       }
+
     }
   }
 }

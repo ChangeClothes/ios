@@ -70,9 +70,8 @@ extension AMRImage: PFSubclassing {
 }
 
 extension UIImageView {
-  func setAMRImage(image: AMRImage?) {
+  func setAMRImage(image: AMRImage?){
     setAMRImage(image, withPlaceholder: nil)
-    
   }
   
   func setAMRImage(image: AMRImage?, withPlaceholder placeholder: String?) {
@@ -88,13 +87,14 @@ extension UIImageView {
       } else {
         self.image = UIImage(named: "image-placeholder")
       }
-      myImage.file?.getDataInBackgroundWithBlock { (data: NSData?, error: NSError?) -> Void in
-        if error == nil {
-          self.image = UIImage(data: data!)
-          completion?(success:true)
-        } else {
+      myImage.fetchIfNeededInBackgroundWithBlock({ (image, error) -> Void in
+        let profileImage = image as? AMRImage
+        profileImage?.file?.getDataInBackgroundWithBlock { (data: NSData?, error: NSError?) -> Void in
+          if error == nil {
+            self.image = UIImage(data: data!)
+          }
         }
-      }
+      })
     } else {
       if (placeholder != nil){
         self.image = UIImage(named: placeholder!)

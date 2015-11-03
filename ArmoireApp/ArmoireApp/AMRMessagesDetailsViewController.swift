@@ -29,7 +29,7 @@ class AMRMessagesDetailsViewController: ATLConversationViewController {
       if let stylist = stylist {
         title = stylist.firstName + " + " + (self.client?.firstName)!
       } else {
-        client?.stylist.fetchInBackgroundWithBlock({ (stylist: PFObject?, error: NSError?) -> Void in
+        client?.stylist!.fetchInBackgroundWithBlock({ (stylist: PFObject?, error: NSError?) -> Void in
           self.title = (stylist as! AMRUser).firstName + " + " + (self.client?.firstName)!
         })
       }

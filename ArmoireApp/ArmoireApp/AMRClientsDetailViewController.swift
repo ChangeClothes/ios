@@ -179,9 +179,9 @@ class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtoc
     if let _ = stylist {
       client?.fetchIfNeededInBackgroundWithBlock({ (user, error) -> Void in
         let clientObject = user as! AMRUser
-        let photoId = clientObject.profilePhoto.objectId
+        let photoId = clientObject.profilePhoto?.objectId
         if photoId != nil {
-          AMRImage.queryForObjectWithObjectID(clientObject.profilePhoto.objectId!, withCompletion: { (photos: NSArray?, error: NSError?) -> Void in
+          AMRImage.queryForObjectWithObjectID(clientObject.profilePhoto!.objectId!, withCompletion: { (photos: NSArray?, error: NSError?) -> Void in
             if error == nil {
               self.clientProfileImageView.setAMRImage(photos![0] as? AMRImage, withPlaceholder: "profile-image-placeholder")
             } else {
@@ -192,13 +192,18 @@ class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtoc
       })
       //clientProfileImageView.setAMRImage(client?.profilePhoto, withPlaceholder: "profile-image-placeholder")
     } else {
-      AMRUserManager.sharedManager.queryForUserWithObjectID((client?.stylist.objectId)!, withCompletion: { (users, error) -> Void in
-        let stylistObject = users![0] as! AMRUser
-        AMRImage.queryForObjectWithObjectID(stylistObject.profilePhoto.objectId!, withCompletion: { (photos: NSArray?, error: NSError?) -> Void in
-                  self.clientProfileImageView.setAMRImage(photos![0] as? AMRImage, withPlaceholder: "profile-image-placeholder")
-        })
-
+      client?.stylist?.fetchIfNeededInBackgroundWithBlock({ (user: PFObject?, error: NSError?) -> Void in
+        self.clientProfileImageView.setAMRImage((user as! AMRUser).profilePhoto, withPlaceholder: "profile-image-placeholder")
       })
+      
+//      AMRUserManager.sharedManager.queryForUserWithObjectID((client?.stylist!.objectId)!, withCompletion: { (users, error) -> Void in
+//        let stylistObject = users![0] as! AMRUser
+//        if let stylistProfilePhotoID = stylistObject.profilePhoto?.objectId {
+//          AMRImage.queryForObjectWithObjectID(stylistProfilePhotoID, withCompletion: { (photos: NSArray?, error: NSError?) -> Void in
+//            self.clientProfileImageView.setAMRImage(photos![0] as! AMRImage, withPlaceholder: "profile-image-placeholder")
+//          })
+//        }
+//      })
     }
     
     clientProfileImageView.image = clientProfileImageView.image?.imageWithRenderingMode(.AlwaysTemplate)
@@ -297,7 +302,7 @@ class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtoc
   }
   
   private func filterByClient(){
-    let participants = [layerClient.authenticatedUserID, client!.objectId, client!.stylist.objectId]
+    let participants = [layerClient.authenticatedUserID, client!.objectId, client!.stylist!.objectId]
     let query = LYRQuery(queryableClass: LYRConversation.self)
     query.predicate = LYRPredicate(property: "participants", predicateOperator: LYRPredicateOperator.IsEqualTo, value: participants)
     layerClient.executeQuery(query) { (conversations, error) -> Void in
@@ -306,8 +311,8 @@ class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtoc
       } else if conversations.count <= 1 {
         let nc = UINavigationController(rootViewController: AMRMessagesDetailsViewController(layerClient: self.layerClient))
         let vc = nc.viewControllers.first as! AMRMessagesDetailsViewController
-        vc.stylist = self.stylist
         vc.client = self.client
+        vc.stylist = self.stylist
         let conversation = self.retrieveConversation(conversations, participants: participants)
         if let conversation = conversation {
           let shouldShowAddressBar: Bool  = conversation.participants.count > 2 || conversation.participants.count == 0
@@ -365,17 +370,20 @@ class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtoc
 
 extension AMRClientsDetailViewController {
   func queryController(controller: LYRQueryController!, didChangeObject object: AnyObject!, atIndexPath indexPath: NSIndexPath!, forChangeType type: LYRQueryControllerChangeType, newIndexPath: NSIndexPath!) {
-
     if type != LYRQueryControllerChangeType.Delete && controller.numberOfObjectsInSection(0) > 0 {
       let conversation = object as! LYRConversation
       newConversationIdentifier = conversation.identifier
       let senderObjectID = conversation.participants.first as! String
-      
       AMRUserManager.sharedManager.queryForUserWithObjectID(senderObjectID) { (users: NSArray?, error: NSError?) -> Void in
         if let error = error {
           print(error.localizedDescription)
         } else {
-          self.newMessageImageView.setAMRImage((users!.firstObject! as! AMRUser).profilePhoto, withPlaceholder: "messaging")
+          let user = users!.firstObject! as! AMRUser
+          if let profileImage = user.profilePhoto {
+            self.newMessageImageView.setAMRImage(profileImage, withPlaceholder: "messaging")
+          } else {
+            self.newMessageImageView.setAMRImage(nil, withPlaceholder: "messaging")
+          }
           self.showNewMessageImageView()
         }
         
