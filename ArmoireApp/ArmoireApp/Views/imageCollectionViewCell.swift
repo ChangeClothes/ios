@@ -10,25 +10,30 @@ import UIKit
 
 class imageCollectionViewCell: UICollectionViewCell {
   
-  var imageView: UIImageView!
+
+  @IBOutlet weak var imageView: UIImageView!
+  var activityIndicatorView: UIActivityIndicatorView!
   
   override func awakeFromNib() {
     super.awakeFromNib()
-    // Initialization code
+    imageView.contentMode = UIViewContentMode.ScaleAspectFill
+    imageView.layer.cornerRadius = 5.0
+    imageView.clipsToBounds = true
   }
   
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
+    initialize()
   }
 
   override init(frame: CGRect) {
     super.init(frame: frame)
-    
-    imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height))
-    imageView.contentMode = UIViewContentMode.ScaleAspectFill
-    imageView.layer.cornerRadius = 5.0
-    imageView.clipsToBounds = true
-    contentView.addSubview(imageView)
+    initialize()
   }
 
+  func initialize (){
+    activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+    activityIndicatorView.startAnimating()
+    addSubview(activityIndicatorView)
+  }
 }
