@@ -26,18 +26,12 @@ class AMRMessagesDetailsViewController: ATLConversationViewController {
     if (self.client == nil) {
       NSNotificationCenter.defaultCenter().postNotificationName(AMRMainHideMenuView, object: self)
     } else {
-      if let stylist = self.stylist {
-        self.title = stylist.firstName + " + " + (self.client?.firstName)!
+      if let stylist = stylist {
+        title = stylist.firstName + " + " + (self.client?.firstName)!
       } else {
-        AMRUserManager.sharedManager.queryForUserWithObjectID((self.client!.stylist?.objectId!)!) { (users: NSArray?, error: NSError?) -> Void in
-          if let error = error {
-            print(error.localizedDescription)
-          } else {
-            let stylist = users!.firstObject! as! AMRUser
-            self.title = stylist.firstName + " + " + (self.client?.firstName)!
-          }
-
-        }
+        client?.stylist.fetchInBackgroundWithBlock({ (stylist: PFObject?, error: NSError?) -> Void in
+          self.title = (stylist as! AMRUser).firstName + " + " + (self.client?.firstName)!
+        })
       }
     }
     self.dataSource = self
