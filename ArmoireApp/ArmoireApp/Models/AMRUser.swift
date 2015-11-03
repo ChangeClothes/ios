@@ -13,8 +13,8 @@ class AMRUser: PFUser {
   @NSManaged var isStylist: Bool
   @NSManaged var firstName: String
   @NSManaged var lastName: String
-  @NSManaged var stylist: AMRUser
-  @NSManaged var profilePhoto: AMRImage
+  @NSManaged var stylist: AMRUser?
+  @NSManaged var profilePhoto: AMRImage?
 
   var fullName: String {
     get{
@@ -51,7 +51,9 @@ class CurrentUser{
   func setCurrentUser(){
     user = AMRUser.currentUser()
     self.user?.fetchIfNeededInBackgroundWithBlock({ (obj, err) -> Void in
-      self.user?.profilePhoto.fetchIfNeededInBackground()
+      if let userPhoto = self.user?.profilePhoto{
+        userPhoto.fetchIfNeededInBackground()
+      }
     })
   }
   

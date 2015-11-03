@@ -177,9 +177,9 @@ class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtoc
     if let _ = stylist {
       client?.fetchIfNeededInBackgroundWithBlock({ (user, error) -> Void in
         let clientObject = user as! AMRUser
-        let photoId = clientObject.profilePhoto.objectId
+        let photoId = clientObject.profilePhoto?.objectId
         if photoId != nil {
-          AMRImage.queryForObjectWithObjectID(clientObject.profilePhoto.objectId!, withCompletion: { (photos: NSArray?, error: NSError?) -> Void in
+          AMRImage.queryForObjectWithObjectID(clientObject.profilePhoto!.objectId!, withCompletion: { (photos: NSArray?, error: NSError?) -> Void in
             if error == nil {
               self.clientProfileImageView.setAMRImage(photos![0] as! AMRImage, withPlaceholder: "profile-image-placeholder")
             } else {
@@ -190,12 +190,13 @@ class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtoc
       })
       //clientProfileImageView.setAMRImage(client?.profilePhoto, withPlaceholder: "profile-image-placeholder")
     } else {
-      AMRUserManager.sharedManager.queryForUserWithObjectID((client?.stylist.objectId)!, withCompletion: { (users, error) -> Void in
+      AMRUserManager.sharedManager.queryForUserWithObjectID((client?.stylist!.objectId)!, withCompletion: { (users, error) -> Void in
         let stylistObject = users![0] as! AMRUser
-        AMRImage.queryForObjectWithObjectID(stylistObject.profilePhoto.objectId!, withCompletion: { (photos: NSArray?, error: NSError?) -> Void in
-                  self.clientProfileImageView.setAMRImage(photos![0] as! AMRImage, withPlaceholder: "profile-image-placeholder")
-        })
-
+        if let stylistProfilePhotoID = stylistObject.profilePhoto?.objectId {
+          AMRImage.queryForObjectWithObjectID(stylistProfilePhotoID, withCompletion: { (photos: NSArray?, error: NSError?) -> Void in
+            self.clientProfileImageView.setAMRImage(photos![0] as! AMRImage, withPlaceholder: "profile-image-placeholder")
+          })
+        }
       })
     }
     
@@ -291,7 +292,7 @@ class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtoc
   }
   
   private func filterByClient(){
-    let participants = [layerClient.authenticatedUserID, client!.objectId, client!.stylist.objectId]
+    let participants = [layerClient.authenticatedUserID, client!.objectId, client!.stylist!.objectId]
     let query = LYRQuery(queryableClass: LYRConversation.self)
     query.predicate = LYRPredicate(property: "participants", predicateOperator: LYRPredicateOperator.IsEqualTo, value: participants)
     layerClient.executeQuery(query) { (conversations, error) -> Void in
