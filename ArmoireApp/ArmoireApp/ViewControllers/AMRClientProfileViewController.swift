@@ -9,43 +9,49 @@
 import UIKit
 
 class AMRClientProfileViewController: AMRViewController, UIAlertViewDelegate, AMRViewControllerProtocol{
-
-  @IBOutlet weak var nameLabel: UILabel!
+  
+  // MARK: - IBOutlets
   @IBOutlet weak var containerView: UIView!
-  @IBOutlet weak var measurementImageView: UIImageView!
-  @IBOutlet weak var cameraImageView: UIImageView!
+  @IBOutlet weak var segmentedControl: UISegmentedControl!
+  @IBOutlet weak var pageSelectionIndicatorXConstraint: NSLayoutConstraint!
+  @IBOutlet weak var pageSelectionIndicatorView: UIView!
   
-  @IBOutlet var vcTapGestureRecognizerOutlet: UITapGestureRecognizer!
-  /*******************************
-   *** AMRViewController LOGIC ***
-   ******************************/
+  // MARK: - Class Properties
   var selectedViewController: UIViewController?
-  var vcArray: [UINavigationController]!
-
-  //actions
-  @IBAction func cameraTap(sender: UITapGestureRecognizer) {
-    vcTapGestureRecognizerOutlet.enabled = false
-    selectViewController(vcArray[1])
-    
+  var vcArray: [UIViewController]!
+  var pageController: UIPageViewController!
+  
+  // MARK: - IBActions
+  @IBAction func segmentedControlDidChange(sender: UISegmentedControl) {
+    switch sender.selectedSegmentIndex {
+    case 0:
+      let initialViewControllerArray = [vcArray[0]]
+      pageController.setViewControllers(initialViewControllerArray, direction: .Reverse, animated: true, completion: nil)
+      movePageSelectionIndicatorToIndex(0)
+    case 1:
+      let initialViewControllerArray = [vcArray[1]]
+      pageController.setViewControllers(initialViewControllerArray, direction: .Forward, animated: true, completion: nil)
+      movePageSelectionIndicatorToIndex(1)
+    default:
+      break
+    }
   }
   
-  @IBAction func measurementTap(sender: UITapGestureRecognizer) {
-    vcTapGestureRecognizerOutlet.enabled = true
-    selectViewController(vcArray[0])
-  }
-  
-  @IBAction func vcTapGestureRecognizer(sender: UITapGestureRecognizer) {
-    self.view.endEditing(true)
-  }
-  
+  // MARK: - Lifecycle
   override func viewDidLoad() {
     self.navigationController?.navigationBar.translucent = false
     super.viewDidLoad()
+    
     setVcArray()
     setVcDataForTabs()
-    selectViewController(vcArray[0])
-    loadProfile()
+    setupPageController()
+    setupSegmentedControl()
+    setupPageSelectionIndicatorView()
   }
+  
+  
+  
+  // MARK: - Initial Setup
   func setVcData(stylist: AMRUser?, client: AMRUser?) {
     self.stylist = stylist
     self.client = client
@@ -53,13 +59,38 @@ class AMRClientProfileViewController: AMRViewController, UIAlertViewDelegate, AM
       self.title = (client?.firstName)! + " " + (client?.lastName)!
     }
     setUpNavBar()
-
   }
-
-  func onSettingsTap(){
-    showSettings()
+  
+  private func setVcDataForTabs(){
+    for (_, value) in vcArray.enumerate() {
+      let vc = (value as! UINavigationController).viewControllers.first as? AMRViewControllerProtocol
+      vc?.setVcData(self.stylist, client: self.client)
+    }
   }
-
+  
+  private func setVcArray(){
+    let photoVC = AMRPhotosViewController()
+    let measurementsVC = AMRMeasurementsViewController()
+    vcArray = [UINavigationController(rootViewController: photoVC), UINavigationController(rootViewController: measurementsVC)]
+  }
+  
+  func dismissKeyboard(sender: UITapGestureRecognizer) {
+    self.view.endEditing(true)
+  }
+  
+  private func setupPageController() {
+    pageController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
+    pageController.dataSource = self
+    pageController.delegate = self
+    pageController.view.frame = containerView.bounds
+    
+    let initialViewControllerArray = [vcArray[0]]
+    pageController.setViewControllers(initialViewControllerArray, direction: .Forward, animated: true, completion: nil)
+    addChildViewController(pageController)
+    containerView.addSubview(pageController.view)
+    pageController.didMoveToParentViewController(self)
+  }
+  
   internal func setUpNavBar(){
     if (stylist != nil && client != nil){
       let leftNavBarButton = UIBarButtonItem(image: UIImage(named: "cancel"), style: .Plain, target: self, action: "exitModal")
@@ -69,46 +100,101 @@ class AMRClientProfileViewController: AMRViewController, UIAlertViewDelegate, AM
       self.navigationItem.leftBarButtonItem = leftNavBarButton
     }
   }
-
+  
+  private func setupSegmentedControl(){
+    segmentedControl.setBackgroundImage(imageWithColor(UIColor.clearColor()), forState: .Normal, barMetrics: .Default)
+    segmentedControl.setBackgroundImage(imageWithColor(UIColor.clearColor()), forState: .Selected, barMetrics: .Default)
+    segmentedControl.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.AMRPrimaryBackgroundColor()], forState: .Normal)
+    segmentedControl.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.AMRSecondaryBackgroundColor()], forState: .Selected)
+    segmentedControl.setDividerImage(imageWithColor(UIColor.clearColor()), forLeftSegmentState: .Normal, rightSegmentState: .Normal, barMetrics: .Default)
+  }
+  
+  private func setupPageSelectionIndicatorView() {
+    pageSelectionIndicatorView.backgroundColor = UIColor.AMRSecondaryBackgroundColor()
+  }
+  
+  // MARK: - Utility
+  // create a 1x1 image with this color
+  private func imageWithColor(color: UIColor) -> UIImage {
+    let rect = CGRectMake(0.0, 0.0, 1.0, 1.0)
+    UIGraphicsBeginImageContext(rect.size)
+    let context = UIGraphicsGetCurrentContext()
+    CGContextSetFillColorWithColor(context, color.CGColor);
+    CGContextFillRect(context, rect);
+    let image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image
+  }
+  
+  private func movePageSelectionIndicatorToIndex(index: Int) {
+    UIView.animateWithDuration(0.4, animations: { () -> Void in
+      self.pageSelectionIndicatorView.setNeedsLayout()
+      if index == 0 {
+        self.pageSelectionIndicatorXConstraint.constant = 0
+      } else if index == 1 {
+        self.pageSelectionIndicatorXConstraint.constant = self.segmentedControl.frame.width/2
+      }
+      
+      self.pageSelectionIndicatorView.layoutIfNeeded()
+      
+      }, completion: nil)
+  }
+  
+  // MARK: - Bar Button Actions
+  func onSettingsTap(){
+    showSettings()
+  }
+  
   func exitModal(){
     self.dismissViewControllerAnimated(true, completion: nil)
   }
   
-  private func setVcDataForTabs(){
-    for (index, value) in vcArray.enumerate() {
-      let vc = value.viewControllers.first as? AMRViewControllerProtocol
-      vc?.setVcData(self.stylist, client: self.client)
-    }
-  }
-  
-  private func setVcArray(){
-    let photoVC = UINavigationController(rootViewController: AMRPhotosViewController())
-    let measurementsVC = UINavigationController(rootViewController: AMRMeasurementsViewController())
-    vcArray = [measurementsVC, photoVC]
-  }
-  
-  func selectViewController(viewController: UIViewController){
-    if let oldViewController = selectedViewController{
-      oldViewController.willMoveToParentViewController(nil)
-      oldViewController.view.removeFromSuperview()
-      oldViewController.removeFromParentViewController()
+}
+
+extension AMRClientProfileViewController: UIPageViewControllerDataSource, UIPageViewControllerDelegate {
+  func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
+    if viewController.isEqual(vcArray[0]) {
+      return nil
     }
     
-    self.addChildViewController(viewController)
-    viewController.view.frame = self.containerView.bounds
-    viewController.view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-    self.containerView.addSubview(viewController.view)
-    viewController.didMoveToParentViewController(self)
-    selectedViewController = viewController
+    return vcArray[0]
   }
   
-  func loadProfile(){
-    nameLabel.text = client?.fullName ?? ""
+  func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
+    if viewController.isEqual(vcArray[1]) {
+      return nil
+    }
+    
+    return vcArray[1]
   }
   
-  override func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
+  func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [UIViewController]) {
+    if pendingViewControllers[0].isEqual(vcArray[0]){
+      segmentedControl.selectedSegmentIndex = 0
+      movePageSelectionIndicatorToIndex(0)
+    } else {
+      segmentedControl.selectedSegmentIndex = 1
+      movePageSelectionIndicatorToIndex(1)
+    }
+  }
+  
+  func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+    if !completed {
+      if segmentedControl.selectedSegmentIndex == 0 {
+        segmentedControl.selectedSegmentIndex = 1
+        movePageSelectionIndicatorToIndex(1)
+      } else {
+        segmentedControl.selectedSegmentIndex = 0
+        movePageSelectionIndicatorToIndex(0)
+      }
+    }
+    if previousViewControllers[0].isEqual(vcArray[0]) {
+      if ((vcArray[1] as! UINavigationController).viewControllers.first as! AMRMeasurementsViewController).view.gestureRecognizers == nil {
+        let dismissKeyboardGR = UITapGestureRecognizer(target: self, action: "dismissKeyboard:")
+        (vcArray[1] as! UINavigationController).viewControllers.first?.view.addGestureRecognizer(dismissKeyboardGR)
+      }
+    }
+    
   }
   
 }

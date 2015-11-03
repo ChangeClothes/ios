@@ -25,7 +25,10 @@ class AMRPhotosViewController: AMRViewController, UICollectionViewDelegateFlowLa
     
     let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! imageCollectionViewCell
     if indexPath.row == 0 {
-      cell.imageView.image = UIImage(named: "add-photo")
+      var cameraIcon = UIImage(named: "camera")
+      cameraIcon = cameraIcon?.imageWithRenderingMode(.AlwaysTemplate)
+      cell.imageView.tintColor = UIColor.AMRBrightButtonTintColor()
+      cell.imageView.image = cameraIcon
     } else {
       let image = photos[indexPath.row - 1]
       cell.imageView.setAMRImage(image)

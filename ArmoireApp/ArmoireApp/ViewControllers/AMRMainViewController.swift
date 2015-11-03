@@ -180,7 +180,7 @@ class AMRMainViewController: AMRViewController, AMRViewControllerProtocol {
     
     resetIconColors()
     
-    selectedIconView.layer.cornerRadius = 3.0
+    selectedIconView.layer.cornerRadius = selectedIconView.frame.width/2
     selectedIconView.backgroundColor = UIColor.AMRSecondaryBackgroundColor()
     
     selectedIconViewXPositionConstraint.constant = 1000

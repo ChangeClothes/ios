@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
@@ -9,29 +9,25 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" restorationIdentifier="AMRMeasurementCell" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="AMRMeasurementCell" customModule="ArmoireApp" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <rect key="frame" x="0.0" y="0.0" width="387" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                <rect key="frame" x="0.0" y="0.0" width="387" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Attribute" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aaO-mT-vl6">
-                        <rect key="frame" x="16" y="7" width="25" height="30"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Meaurement/Clothing Type" textAlignment="right" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="aaO-mT-vl6">
+                        <rect key="frame" x="13" y="12" width="256" height="19"/>
+                        <animations/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                         <textInputTraits key="textInputTraits"/>
                         <connections>
                             <action selector="keyEditingDidBegin:" destination="KGk-i7-Jjw" eventType="editingDidBegin" id="asF-RG-sOx"/>
                             <action selector="keyEditingDidEnd:" destination="KGk-i7-Jjw" eventType="editingDidEnd" id="4xd-1w-xao"/>
                         </connections>
                     </textField>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text=":" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wru-RT-1c5">
-                        <rect key="frame" x="49" y="13" width="5" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Value" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fcE-Nz-OaE">
-                        <rect key="frame" x="62" y="7" width="25" height="30"/>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Size" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="fcE-Nz-OaE">
+                        <rect key="frame" x="284" y="12" width="90" height="19"/>
+                        <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits"/>
                         <connections>
@@ -39,26 +35,32 @@
                             <action selector="valueEditingDidEnd:" destination="KGk-i7-Jjw" eventType="editingDidEnd" id="ZUV-6l-ihF"/>
                         </connections>
                     </textField>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=":" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wru-RT-1c5">
+                        <rect key="frame" x="274" y="11" width="5" height="21"/>
+                        <animations/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
+                <animations/>
                 <constraints>
-                    <constraint firstItem="aaO-mT-vl6" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="8" id="0AH-IT-kYL"/>
-                    <constraint firstItem="aaO-mT-vl6" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="CkN-ta-VFb"/>
-                    <constraint firstItem="wru-RT-1c5" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Pb0-Kn-k5Q"/>
-                    <constraint firstItem="fcE-Nz-OaE" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Wh2-g2-Dq4"/>
-                    <constraint firstItem="aaO-mT-vl6" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="8" id="Xag-DK-tnE"/>
-                    <constraint firstItem="wru-RT-1c5" firstAttribute="leading" secondItem="aaO-mT-vl6" secondAttribute="trailing" constant="8" id="eEz-M4-KWu"/>
-                    <constraint firstItem="fcE-Nz-OaE" firstAttribute="leading" secondItem="wru-RT-1c5" secondAttribute="trailing" constant="8" id="mUO-0M-qpv"/>
+                    <constraint firstItem="aaO-mT-vl6" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="K32-3r-xUS"/>
+                    <constraint firstItem="fcE-Nz-OaE" firstAttribute="centerY" secondItem="aaO-mT-vl6" secondAttribute="centerY" id="LL8-mC-b5F"/>
+                    <constraint firstItem="wru-RT-1c5" firstAttribute="centerY" secondItem="aaO-mT-vl6" secondAttribute="centerY" id="UPB-d0-NAN"/>
+                    <constraint firstItem="aaO-mT-vl6" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="5" id="alE-TV-WZn"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="fcE-Nz-OaE" secondAttribute="trailing" constant="5" id="mvx-jj-1Nc"/>
+                    <constraint firstItem="fcE-Nz-OaE" firstAttribute="leading" secondItem="wru-RT-1c5" secondAttribute="trailing" constant="5" id="ncR-bJ-I4b"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="wru-RT-1c5" secondAttribute="trailing" constant="100" id="pc6-s9-hUx"/>
+                    <constraint firstItem="wru-RT-1c5" firstAttribute="leading" secondItem="aaO-mT-vl6" secondAttribute="trailing" constant="5" id="pcu-1g-GBS"/>
                 </constraints>
-                <variation key="default">
-                    <mask key="constraints">
-                        <exclude reference="0AH-IT-kYL"/>
-                    </mask>
-                </variation>
             </tableViewCellContentView>
+            <animations/>
             <connections>
                 <outlet property="keyField" destination="aaO-mT-vl6" id="ew9-9w-yaN"/>
                 <outlet property="valueField" destination="fcE-Nz-OaE" id="4Sm-Ii-c3h"/>
             </connections>
+            <point key="canvasLocation" x="317.5" y="558"/>
         </tableViewCell>
     </objects>
 </document>

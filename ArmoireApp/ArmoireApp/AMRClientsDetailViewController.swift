@@ -168,7 +168,7 @@ class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtoc
     resetIconColors()
     
     selectedIconViewXPositionConstraint.constant = -100
-    selectedIconView.layer.cornerRadius = 3.0
+    selectedIconView.layer.cornerRadius = selectedIconView.frame.width/2
     selectedIconView.backgroundColor = UIColor.AMRPrimaryBackgroundColor()
     
     menuView.backgroundColor = UIColor.AMRSecondaryBackgroundColor()
@@ -217,7 +217,7 @@ class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtoc
     selectedIconImageView = imageView
     UIView.animateWithDuration(0.5) { () -> Void in
       self.resetIconColors()
-      self.selectedIconViewXPositionConstraint.constant = imageView.center.x - self.selectedIconImageView.frame.width/2
+      self.selectedIconViewXPositionConstraint.constant = self.selectedIconImageView.center.x - self.selectedIconView.frame.width/2
       self.menuView.layoutIfNeeded()
       imageView.tintColor = UIColor.AMRSelectedTabBarButtonTintColor()
     }
