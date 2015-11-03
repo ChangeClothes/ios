@@ -92,6 +92,7 @@ class AMRMainViewController: AMRViewController, AMRViewControllerProtocol {
   }
   
   private func setupNewMessageImageView() {
+    newMessageImageView.alpha = 0
     newMessageImageView.image = newMessageImageView.image?.imageWithRenderingMode(.AlwaysTemplate)
     newMessageImageView.clipsToBounds = true
     newMessageImageView.layer.cornerRadius = newMessageImageView.frame.width/2
