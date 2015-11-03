@@ -300,8 +300,8 @@ class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtoc
       } else if conversations.count <= 1 {
         let nc = UINavigationController(rootViewController: AMRMessagesDetailsViewController(layerClient: self.layerClient))
         let vc = nc.viewControllers.first as! AMRMessagesDetailsViewController
-        vc.stylist = self.stylist
         vc.client = self.client
+        vc.stylist = self.stylist
         let conversation = self.retrieveConversation(conversations, participants: participants)
         if let conversation = conversation {
           let shouldShowAddressBar: Bool  = conversation.participants.count > 2 || conversation.participants.count == 0
