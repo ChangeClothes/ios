@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
@@ -20,6 +20,7 @@
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fya-AP-DRG">
                     <rect key="frame" x="273" y="520" width="54" height="30"/>
+                    <animations/>
                     <state key="normal" title="Dismiss"/>
                     <connections>
                         <action selector="onTapDismiss:" destination="-1" eventType="touchUpInside" id="d3B-gY-kJl"/>
@@ -27,6 +28,7 @@
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2hv-wH-kQl">
                     <rect key="frame" x="222" y="354" width="157" height="30"/>
+                    <animations/>
                     <state key="normal" title="Invite Client to Armoire"/>
                     <connections>
                         <action selector="onInviteClientTap:" destination="-1" eventType="touchUpInside" id="jqA-r6-wYM"/>
@@ -34,6 +36,7 @@
                 </button>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="buy-by-KZ5">
                     <rect key="frame" x="175" y="225" width="250" height="30"/>
+                    <animations/>
                     <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="250" id="Q7a-QI-5t3"/>
@@ -43,6 +46,7 @@
                 </textField>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Client Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dtj-Eu-qoo">
                     <rect key="frame" x="175" y="285" width="250" height="30"/>
+                    <animations/>
                     <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="250" id="hdl-Pn-5gO"/>
@@ -52,6 +56,7 @@
                 </textField>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cHg-ro-WAg">
                     <rect key="frame" x="175" y="169" width="250" height="30"/>
+                    <animations/>
                     <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="250" id="FCv-Hj-cPM"/>
@@ -60,6 +65,7 @@
                     <textInputTraits key="textInputTraits"/>
                 </textField>
             </subviews>
+            <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="Fya-AP-DRG" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="3zC-T8-JLE"/>

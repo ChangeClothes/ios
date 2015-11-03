@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AMRClientsDetailViewController" customModule="ArmoireApp" customModuleProvider="target">
@@ -49,59 +50,59 @@
                     <rect key="frame" x="0.0" y="551" width="600" height="49"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eEh-FI-Q51">
-                            <rect key="frame" x="15" y="12" width="25" height="25"/>
+                            <rect key="frame" x="15" y="5" width="39" height="39"/>
                             <animations/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
-                        <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="note" translatesAutoresizingMaskIntoConstraints="NO" id="gs0-Bc-OGw">
-                            <rect key="frame" x="250" y="12" width="25" height="25"/>
+                        <imageView contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="note" translatesAutoresizingMaskIntoConstraints="NO" id="gs0-Bc-OGw">
+                            <rect key="frame" x="242" y="0.0" width="49" height="49"/>
                             <animations/>
                             <gestureRecognizers/>
                             <connections>
                                 <outletCollection property="gestureRecognizers" destination="DP6-Jh-56E" appends="YES" id="flg-RJ-G4J"/>
                             </connections>
                         </imageView>
-                        <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="4dW-fm-G3h">
-                            <rect key="frame" x="405" y="12" width="25" height="25"/>
+                        <imageView contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="4dW-fm-G3h">
+                            <rect key="frame" x="389" y="0.0" width="49" height="49"/>
                             <animations/>
                             <gestureRecognizers/>
                             <connections>
                                 <outletCollection property="gestureRecognizers" destination="aWb-4m-tez" appends="YES" id="hUt-pN-MeU"/>
                             </connections>
                         </imageView>
-                        <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="calendar" translatesAutoresizingMaskIntoConstraints="NO" id="gGz-aX-xAe">
-                            <rect key="frame" x="560" y="12" width="25" height="25"/>
+                        <imageView contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="calendar" translatesAutoresizingMaskIntoConstraints="NO" id="gGz-aX-xAe">
+                            <rect key="frame" x="536" y="0.0" width="49" height="49"/>
                             <animations/>
                             <gestureRecognizers/>
                             <connections>
                                 <outletCollection property="gestureRecognizers" destination="6Vw-sN-zA8" appends="YES" id="YTz-RH-7x7"/>
                             </connections>
                         </imageView>
-                        <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="messaging" translatesAutoresizingMaskIntoConstraints="NO" id="HC5-7x-Ua3">
-                            <rect key="frame" x="95" y="12" width="25" height="25"/>
+                        <imageView contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="messaging" translatesAutoresizingMaskIntoConstraints="NO" id="HC5-7x-Ua3">
+                            <rect key="frame" x="95" y="0.0" width="49" height="49"/>
                             <animations/>
                             <gestureRecognizers/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="25" id="Dzy-ru-Wu8"/>
-                                <constraint firstAttribute="width" constant="25" id="hJY-fz-T2J"/>
+                                <constraint firstAttribute="height" constant="49" id="Dzy-ru-Wu8"/>
+                                <constraint firstAttribute="width" constant="49" id="hJY-fz-T2J"/>
                             </constraints>
                             <connections>
                                 <outletCollection property="gestureRecognizers" destination="zla-xn-IKn" appends="YES" id="5TS-7c-0J8"/>
                             </connections>
                         </imageView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kd8-kT-6qq">
-                            <rect key="frame" x="120" y="12" width="130" height="25"/>
+                            <rect key="frame" x="144" y="0.0" width="98" height="49"/>
                             <animations/>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jJX-VL-8h5">
-                            <rect key="frame" x="430" y="12" width="130" height="25"/>
+                            <rect key="frame" x="438" y="0.0" width="98" height="49"/>
                             <animations/>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uJI-kq-ivD">
-                            <rect key="frame" x="275" y="12" width="130" height="25"/>
+                            <rect key="frame" x="291" y="0.0" width="98" height="49"/>
                             <animations/>
                         </view>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile-image-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="RdM-bh-dIA">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" image="profile-image-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="RdM-bh-dIA">
                             <rect key="frame" x="5" y="-31" width="75" height="75"/>
                             <animations/>
                             <constraints>
@@ -125,7 +126,7 @@
                         <constraint firstItem="4dW-fm-G3h" firstAttribute="height" secondItem="HC5-7x-Ua3" secondAttribute="height" id="HeN-zI-sbN"/>
                         <constraint firstAttribute="height" constant="49" id="ISu-9s-Tle"/>
                         <constraint firstItem="jJX-VL-8h5" firstAttribute="width" secondItem="Kd8-kT-6qq" secondAttribute="width" id="Jr8-wT-enX"/>
-                        <constraint firstItem="eEh-FI-Q51" firstAttribute="height" secondItem="HC5-7x-Ua3" secondAttribute="height" id="Jy8-Xl-vQe"/>
+                        <constraint firstItem="eEh-FI-Q51" firstAttribute="height" secondItem="HC5-7x-Ua3" secondAttribute="height" multiplier="0.8" id="Jy8-Xl-vQe"/>
                         <constraint firstItem="gGz-aX-xAe" firstAttribute="centerY" secondItem="HC5-7x-Ua3" secondAttribute="centerY" id="K6w-A1-ph1"/>
                         <constraint firstItem="gs0-Bc-OGw" firstAttribute="height" secondItem="HC5-7x-Ua3" secondAttribute="height" id="NUA-iG-Ibz"/>
                         <constraint firstItem="jJX-VL-8h5" firstAttribute="height" secondItem="HC5-7x-Ua3" secondAttribute="height" id="QhM-Dc-jWu"/>
@@ -137,13 +138,12 @@
                         <constraint firstAttribute="trailing" secondItem="gGz-aX-xAe" secondAttribute="trailing" constant="15" id="Unp-nf-gOu"/>
                         <constraint firstItem="4dW-fm-G3h" firstAttribute="width" secondItem="HC5-7x-Ua3" secondAttribute="width" id="V81-Q4-r9V"/>
                         <constraint firstItem="gs0-Bc-OGw" firstAttribute="leading" secondItem="Kd8-kT-6qq" secondAttribute="trailing" id="WEb-ae-PgK"/>
-                        <constraint firstItem="eEh-FI-Q51" firstAttribute="width" secondItem="HC5-7x-Ua3" secondAttribute="width" id="XOr-Wa-UPy"/>
+                        <constraint firstItem="eEh-FI-Q51" firstAttribute="width" secondItem="HC5-7x-Ua3" secondAttribute="width" multiplier="0.8" id="XOr-Wa-UPy"/>
                         <constraint firstItem="4dW-fm-G3h" firstAttribute="leading" secondItem="uJI-kq-ivD" secondAttribute="trailing" id="bpL-Ne-Fte"/>
                         <constraint firstItem="RdM-bh-dIA" firstAttribute="leading" secondItem="wVd-Rb-1D5" secondAttribute="leading" constant="5" id="byk-Qc-ESo"/>
                         <constraint firstItem="Kd8-kT-6qq" firstAttribute="height" secondItem="HC5-7x-Ua3" secondAttribute="height" id="cri-BB-C3n"/>
-                        <constraint firstItem="HC5-7x-Ua3" firstAttribute="top" secondItem="wVd-Rb-1D5" secondAttribute="top" constant="12" id="elY-Ox-oaK"/>
                         <constraint firstItem="uJI-kq-ivD" firstAttribute="width" secondItem="Kd8-kT-6qq" secondAttribute="width" id="fmk-DC-ghq"/>
-                        <constraint firstItem="HC5-7x-Ua3" firstAttribute="leading" secondItem="RdM-bh-dIA" secondAttribute="trailing" constant="15" id="grg-Hf-Tdt"/>
+                        <constraint firstItem="HC5-7x-Ua3" firstAttribute="leading" secondItem="RdM-bh-dIA" secondAttribute="trailing" priority="750" constant="15" id="grg-Hf-Tdt"/>
                         <constraint firstItem="HC5-7x-Ua3" firstAttribute="centerY" secondItem="wVd-Rb-1D5" secondAttribute="centerY" id="pPA-E3-aax"/>
                         <constraint firstItem="Kd8-kT-6qq" firstAttribute="centerY" secondItem="HC5-7x-Ua3" secondAttribute="centerY" id="rgS-hy-RZW"/>
                         <constraint firstItem="gGz-aX-xAe" firstAttribute="width" secondItem="HC5-7x-Ua3" secondAttribute="width" id="sn4-fb-2MS"/>
