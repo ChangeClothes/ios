@@ -44,7 +44,7 @@ class AMRMeasurementsViewController: AMRViewController, UITableViewDelegate, UIT
   }
   
   override func viewDidLoad() {
-    AMRMeasurements.measurementsForUser(stylist, client: client) { (object, error) -> Void in
+    AMRMeasurements.measurementsForUser(self.client?.stylist, client: client) { (object, error) -> Void in
       if let measurements = object {
         self.measurements = measurements
       } else {
