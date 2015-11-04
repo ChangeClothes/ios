@@ -159,7 +159,7 @@ class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtoc
   func hideNewMessageImageView() {
     UIView.animateWithDuration(1.0, animations: { () -> Void in
       self.newMessageImageView.alpha = 0.0
-      self.newMessageImageViewContainer.alpha = 1.0
+      self.newMessageImageViewContainer.alpha = 0.0
       }) { (success: Bool) -> Void in
         self.newMessageImageViewContainerXConstraint.constant = self.newMessageTapGestureStartPoint
         self.newMessageImageViewContainerYConstraint.constant = 1000.0
@@ -376,7 +376,9 @@ extension AMRClientsDetailViewController {
     if type != LYRQueryControllerChangeType.Delete && controller.numberOfObjectsInSection(0) > 0 {
       let conversation = object as! LYRConversation
       newConversationIdentifier = conversation.identifier
-      let senderObjectID = conversation.participants.first as! String
+      var remainingParticipants = conversation.participants
+      remainingParticipants.remove(AMRUser.currentUser()!.objectId!)
+      let senderObjectID = remainingParticipants.first as! String
       AMRUserManager.sharedManager.queryForUserWithObjectID(senderObjectID) { (users: NSArray?, error: NSError?) -> Void in
         if let error = error {
           print(error.localizedDescription)
