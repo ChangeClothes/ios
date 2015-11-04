@@ -11,8 +11,9 @@ import LayerKit
 
 class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtocol,  LYRQueryControllerDelegate  {
   
+  @IBOutlet weak var newMessageImageViewContainerXConstraint: NSLayoutConstraint!
+  @IBOutlet weak var newMessageImageViewContainer: UIView!
   @IBOutlet weak var newMessageImageView: UIImageView!
-  @IBOutlet weak var newMessageImageViewXConstraint: NSLayoutConstraint!
   
   var vcArray: [UINavigationController]!
   var selectedViewController: UIViewController?
@@ -89,7 +90,7 @@ class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtoc
     
     let newMessageTapGR = UITapGestureRecognizer(target: self, action: "onMessageIconTap:")
     newMessageImageView.addGestureRecognizer(newMessageTapGR)
-    newMessageTapGestureStartPoint = newMessageImageViewXConstraint.constant
+    newMessageTapGestureStartPoint = newMessageImageViewContainerXConstraint.constant
     
     hideNewMessageImageView()
   }
@@ -127,11 +128,11 @@ class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtoc
     
     switch (state) {
     case .Began:
-      newMessageTapGestureStartPoint = newMessageImageViewXConstraint.constant
+      newMessageTapGestureStartPoint = newMessageImageViewContainerXConstraint.constant
     case .Cancelled:
       break
     case .Changed:
-      newMessageImageViewXConstraint.constant = newMessageTapGestureStartPoint - translation.x
+      newMessageImageViewContainerXConstraint.constant = newMessageTapGestureStartPoint - translation.x
       newMessageImageView.alpha = 1.0 - ((translation.x * -0.1) / 8)
     case .Ended:
       if Double(sqrt((translation.x * translation.x) + (translation.y * translation.y) )) > 10.0 {
@@ -149,15 +150,21 @@ class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtoc
     UIView.animateWithDuration(1.0, animations: { () -> Void in
       self.newMessageImageView.alpha = 0.0
       }) { (success: Bool) -> Void in
-        self.newMessageImageViewXConstraint.constant = self.newMessageTapGestureStartPoint
+        self.newMessageImageViewContainerXConstraint.constant = self.newMessageTapGestureStartPoint
     }
     NSNotificationCenter.defaultCenter().postNotificationName(kNewMessageIconHidden, object: self)
   }
   
   func showNewMessageImageView() {
     containerView.layoutIfNeeded()
-    containerView.bringSubviewToFront(newMessageImageView)
-    newMessageImageViewXConstraint.constant = 10
+    containerView.bringSubviewToFront(newMessageImageViewContainer)
+
+//    newMessageImageView.layer.masksToBounds = false;
+//    newMessageImageView.layer.shadowOffset = CGSizeMake(-5, 0);
+//    newMessageImageView.layer.shadowRadius = 5;
+//    newMessageImageView.layer.shadowOpacity = 0.5;
+
+    newMessageImageViewContainerXConstraint.constant = 10
     newMessageImageView.alpha = 1.0
     UIView.animateWithDuration(3.0, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.5, options: UIViewAnimationOptions.AllowUserInteraction, animations: { () -> Void in
       self.containerView.layoutIfNeeded()
