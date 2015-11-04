@@ -98,11 +98,35 @@ The above is the bare minimum that needs to be provided to ensure value is added
     OR
     - [ ] integrate with ship or something similar
 
+
+
 ### Demo Workflow
+- Let's see how a typical Armoire user, Veronica Corningstone, uses the app.  This is a typical morning in Veronica's day.  Veronica is sitting at the local Blue Bottle Coffee, sipping her favorite single origin cappucino with a rosetta pattern on top.
+- She opens up the Armoire app, and checks her schedule for the day.  As an independent personal stylist, her work revolves around both in-person appointments and direct communication with her clients.
+- In order to stay on track, she messages her first client, Zayn, to remind him of his appointment.
+- Veronica: "Hi Zayn! Are we still on for 10am today?"
+- Zayn: "Hi Veronica! Actually, can we do 9 instead?"
+- Veronica jumps back to the calendar feature of the Armoire app to check her availability and change the appointment time, which Zayn sees in his app.
+- Veronica: "Sure, I just updated our appointment time, please check your calendar to make sure the location and time is correct.  See you later!"
+- Zayn: "emoji - thumbs up"
+- Because Veronica hasn't seen Zayn in a while, she refreshes her memory by looking through Zayn's Armoire profile.
+- Veronica looks at her notes on Zayn and notices that he is looking for a new job.
+- Veronica: "Did you see the new pictures of clothes I uploaded last week?"
+- Zayn: "Yes, they look great"
+- Zayn: "Can we look for shoes today too?  I'm a 11.5 W."
+- Veronica: "Of course!"
+- Veronica adds Zayn's shoe size to Zayn's measurements.
+- Beyonce: "Hey can we meet up today?"
+- Veronica looks at Beyonce's previous meetings and notices she only shops at Burberry.  She checks her notes on Beyonce.
+- Veronica: "Sure, I have an opening at 4-5pm.  Burberry on Market again?"
+- Beyonce: "I'll be there."
+- Veronica adds the appointment to her calendar.
+
+- Just to give a peak at what the client sees, we'll sign in as Zayn.
 
 - present some of the slides; high level
   - reference market size, problem, and solution space
-- present Anne, one stylist who exists in the space we just outlined
+- present , one stylist who exists in the space we just outlined
 - she wakes up in the morning and prepares for the day with Armoire; the first thing she does is check her work schedule
 - as an independent personal stylist, her work revolves around both in-person appointments and direct communication with her clients
 - she opens Armoire, which has kept her logged in through the night
