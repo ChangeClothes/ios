@@ -31,8 +31,10 @@ class AMRViewController: UIViewController {
 
 class AMRMainViewController: AMRViewController, AMRViewControllerProtocol {
   
+  @IBOutlet weak var newMessageImageViewContainerXConstraint: NSLayoutConstraint!
+  @IBOutlet weak var newMessageImageViewContainerYConstraint: NSLayoutConstraint!
+  @IBOutlet weak var newMessageImageViewContainer: UIView!
   @IBOutlet weak var newMessageImageView: UIImageView!
-  @IBOutlet weak var newMessageImageViewXConstraint: NSLayoutConstraint!
   
   @IBOutlet weak var menuView: UIView!
   @IBOutlet weak var messagesImageView: UIImageView!
@@ -104,7 +106,16 @@ class AMRMainViewController: AMRViewController, AMRViewControllerProtocol {
     
     let newMessageTapGR = UITapGestureRecognizer(target: self, action: "onMessageIconTap:")
     newMessageImageView.addGestureRecognizer(newMessageTapGR)
-    newMessageTapGestureStartPoint = newMessageImageViewXConstraint.constant
+    newMessageTapGestureStartPoint = newMessageImageViewContainerXConstraint.constant
+
+    containerView.layer.masksToBounds = false
+    newMessageImageViewContainer.alpha = 0
+    newMessageImageViewContainer.layer.masksToBounds = false;
+    newMessageImageViewContainer.layer.cornerRadius = newMessageImageViewContainer.frame.width/2
+    newMessageImageViewContainer.layer.shadowOffset = CGSizeMake(0, 0);
+    newMessageImageViewContainer.layer.shadowRadius = 5;
+    newMessageImageViewContainer.layer.shadowOpacity = 0.7;
+    newMessageImageViewContainer.clipsToBounds = false
     
     hideNewMessageImageView()
   }
@@ -142,11 +153,13 @@ class AMRMainViewController: AMRViewController, AMRViewControllerProtocol {
     
     switch (state) {
     case .Began:
-      newMessageTapGestureStartPoint = newMessageImageViewXConstraint.constant
+      newMessageTapGestureStartPoint = newMessageImageViewContainerXConstraint.constant
     case .Cancelled:
       break
     case .Changed:
-      newMessageImageViewXConstraint.constant = newMessageTapGestureStartPoint - translation.x
+      newMessageImageViewContainerXConstraint.constant = newMessageTapGestureStartPoint - translation.x
+      newMessageImageView.alpha = 1.0 - ((translation.x * -0.1) / 8)
+      newMessageImageViewContainer.alpha = 1.0 - ((translation.x * -0.1) / 8)
     case .Ended:
       if Double(sqrt((translation.x * translation.x) + (translation.y * translation.y) )) > 10.0 {
         hideNewMessageImageView()
@@ -161,15 +174,23 @@ class AMRMainViewController: AMRViewController, AMRViewControllerProtocol {
   //MARK: - Utility
   func hideNewMessageImageView() {
     UIView.animateWithDuration(1.0, animations: { () -> Void in
+      self.newMessageImageViewContainer.alpha = 0.0
       self.newMessageImageView.alpha = 0.0
       }) { (success: Bool) -> Void in
-        self.newMessageImageViewXConstraint.constant = self.newMessageTapGestureStartPoint
+        self.newMessageImageViewContainerXConstraint.constant = self.newMessageTapGestureStartPoint
+        self.newMessageImageViewContainerYConstraint.constant = 1000.0
     }
   }
   
   func showNewMessageImageView() {
+    containerView.layoutIfNeeded()
+    containerView.bringSubviewToFront(newMessageImageViewContainer)
+    newMessageImageViewContainerYConstraint.constant = 10
     newMessageImageView.alpha = 1.0
-    containerView.bringSubviewToFront(newMessageImageView)
+    newMessageImageViewContainer.alpha = 1.0
+    UIView.animateWithDuration(0.8, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.8, options: UIViewAnimationOptions.AllowUserInteraction, animations: { () -> Void in
+        self.containerView.layoutIfNeeded()
+    }, completion: nil)
   }
   
   // MARK: - Appearance Methods

@@ -159,7 +159,7 @@ class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtoc
   func hideNewMessageImageView() {
     UIView.animateWithDuration(1.0, animations: { () -> Void in
       self.newMessageImageView.alpha = 0.0
-      self.newMessageImageViewContainer.alpha = 1.0
+      self.newMessageImageViewContainer.alpha = 0.0
       }) { (success: Bool) -> Void in
         self.newMessageImageViewContainerXConstraint.constant = self.newMessageTapGestureStartPoint
         self.newMessageImageViewContainerYConstraint.constant = 1000.0
