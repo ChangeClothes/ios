@@ -9,7 +9,7 @@
 import Foundation
 
 extension UIColor {
-  
+  //TODO name these something matching Theme.swift
   class func AMRPrimaryBackgroundColor() -> UIColor {
     //return
     return ThemeManager.currentTheme().backgroundColor
@@ -17,7 +17,7 @@ extension UIColor {
   
   class func AMRSecondaryBackgroundColor() -> UIColor {
     //return
-    return ThemeManager.currentTheme().backgroundColorSecondary
+    return ThemeManager.currentTheme().mainColorSecondary
   }
  
   class func AMRBrightButtonBackgroundColor() -> UIColor {
@@ -30,7 +30,7 @@ extension UIColor {
   }
   
   class func AMRUnselectedTabBarButtonTintColor() -> UIColor {
-    return ThemeManager.currentTheme().mainColorSecondary
+    return ThemeManager.currentTheme().backgroundColorSecondary
   }
   
   class func AMRClientUnselectedTabBarButtonTintColor() -> UIColor {

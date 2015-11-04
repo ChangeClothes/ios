@@ -149,6 +149,7 @@ class PhotoPicker: NSObject, UINavigationControllerDelegate, UIImagePickerContro
     
     let alert:UIAlertController=UIAlertController(title: "Choose Image", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
     
+       alert.view.tintColor = UIColor.AMRSecondaryBackgroundColor()
     let cameraAction = UIAlertAction(title: "Take Photo", style: UIAlertActionStyle.Default)
       {
         UIAlertAction in

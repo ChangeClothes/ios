@@ -21,6 +21,8 @@ extension UIAlertController {
   class func AMRSettingsController(settings:[AMRSettingsControllerSetting], completion:(AMRSettingsControllerSetting) -> ()) -> UIAlertController {
     
     let controller = UIAlertController(title: "Settings", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
+    
+    controller.view.tintColor = UIColor.AMRSecondaryBackgroundColor()
     let handler: (UIAlertAction) -> () = {
       action in
       let setting = AMRSettingsControllerSetting(rawValue: action.title!)!

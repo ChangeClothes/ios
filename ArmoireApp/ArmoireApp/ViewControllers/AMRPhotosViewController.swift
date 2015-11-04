@@ -27,9 +27,9 @@ class AMRPhotosViewController: AMRViewController, UICollectionViewDelegateFlowLa
     
     if indexPath.row == 0 {
       cell.activityIndicatorView.stopAnimating()
-      var cameraIcon = UIImage(named: "camera")
+      var cameraIcon = UIImage(named: "camera-add")
       cameraIcon = cameraIcon?.imageWithRenderingMode(.AlwaysTemplate)
-      cell.imageView.tintColor = UIColor.AMRBrightButtonTintColor()
+      cell.imageView.tintColor = UIColor.AMRSecondaryBackgroundColor()
       cell.imageView.image = cameraIcon
     } else {
       if cell.imageView.image != nil {
