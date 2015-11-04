@@ -132,6 +132,7 @@ class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtoc
       break
     case .Changed:
       newMessageImageViewXConstraint.constant = newMessageTapGestureStartPoint - translation.x
+      newMessageImageView.alpha = 1.0 - ((translation.x * -0.1) / 8)
     case .Ended:
       if Double(sqrt((translation.x * translation.x) + (translation.y * translation.y) )) > 10.0 {
         hideNewMessageImageView()
