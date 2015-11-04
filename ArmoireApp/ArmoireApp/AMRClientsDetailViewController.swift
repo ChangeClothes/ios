@@ -49,7 +49,6 @@ class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtoc
     
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "deviceDidRotate", name: UIDeviceOrientationDidChangeNotification, object: nil)
     
-
     
     setupTabBarAppearance()
     selectViewController(vcArray[3])
@@ -155,8 +154,13 @@ class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtoc
   }
   
   func showNewMessageImageView() {
-    newMessageImageView.alpha = 1.0
+    containerView.layoutIfNeeded()
     containerView.bringSubviewToFront(newMessageImageView)
+    newMessageImageViewXConstraint.constant = 10
+    newMessageImageView.alpha = 1.0
+    UIView.animateWithDuration(3.0, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.5, options: UIViewAnimationOptions.AllowUserInteraction, animations: { () -> Void in
+      self.containerView.layoutIfNeeded()
+      }, completion: nil)
     NSNotificationCenter.defaultCenter().postNotificationName(kNewMessageIconShown, object: self)
   }
   
