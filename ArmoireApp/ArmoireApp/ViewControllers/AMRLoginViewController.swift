@@ -24,7 +24,7 @@ class AMRLoginViewController: PFLogInViewController {
     logoImageView.contentMode = .ScaleAspectFit
     logInView?.logo = logoImageView
     
-    logInView?.backgroundColor = UIColor.AMRUnselectedTabBarButtonTintColor()
+    logInView?.backgroundColor = UIColor.AMRSecondaryBackgroundColor()
     
     logInView
   }

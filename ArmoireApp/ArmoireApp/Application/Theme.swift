@@ -93,11 +93,10 @@ struct ThemeManager {
     sharedApplication.delegate?.window??.tintColor = theme.mainColor
     
     UINavigationBar.appearance().barStyle = theme.barStyle
-    UINavigationBar.appearance().tintColor = theme.mainColorSecondary
-    UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName:theme.mainColorSecondary]
-    //UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName:theme.mainColorSecondary, UIControlState:.Highlighted]
-    UINavigationBar.appearance().barTintColor = theme.backgroundColorSecondary
-    UINavigationBar.appearance().backgroundColor = theme.backgroundColorSecondary
+    UINavigationBar.appearance().tintColor = theme.backgroundColorSecondary
+    UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName:theme.backgroundColorSecondary]
+    UINavigationBar.appearance().barTintColor = theme.mainColorSecondary
+    UINavigationBar.appearance().backgroundColor = theme.mainColorSecondary
     
     UITabBar.appearance().barStyle = theme.barStyle
 
