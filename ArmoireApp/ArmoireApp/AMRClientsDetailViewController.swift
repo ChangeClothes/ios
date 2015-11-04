@@ -92,6 +92,14 @@ class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtoc
     newMessageImageView.addGestureRecognizer(newMessageTapGR)
     newMessageTapGestureStartPoint = newMessageImageViewContainerXConstraint.constant
     
+    containerView.layer.masksToBounds = false
+    newMessageImageViewContainer.layer.masksToBounds = false;
+    newMessageImageViewContainer.layer.cornerRadius = newMessageImageViewContainer.frame.width/2
+    newMessageImageViewContainer.layer.shadowOffset = CGSizeMake(0, 0);
+    newMessageImageViewContainer.layer.shadowRadius = 5;
+    newMessageImageViewContainer.layer.shadowOpacity = 0.7;
+    newMessageImageViewContainer.clipsToBounds = false
+
     hideNewMessageImageView()
   }
   
@@ -134,6 +142,7 @@ class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtoc
     case .Changed:
       newMessageImageViewContainerXConstraint.constant = newMessageTapGestureStartPoint - translation.x
       newMessageImageView.alpha = 1.0 - ((translation.x * -0.1) / 8)
+      newMessageImageViewContainer.alpha = 1.0 - ((translation.x * -0.1) / 8)
     case .Ended:
       if Double(sqrt((translation.x * translation.x) + (translation.y * translation.y) )) > 10.0 {
         hideNewMessageImageView()
@@ -158,11 +167,6 @@ class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtoc
   func showNewMessageImageView() {
     containerView.layoutIfNeeded()
     containerView.bringSubviewToFront(newMessageImageViewContainer)
-
-//    newMessageImageView.layer.masksToBounds = false;
-//    newMessageImageView.layer.shadowOffset = CGSizeMake(-5, 0);
-//    newMessageImageView.layer.shadowRadius = 5;
-//    newMessageImageView.layer.shadowOpacity = 0.5;
 
     newMessageImageViewContainerXConstraint.constant = 10
     newMessageImageView.alpha = 1.0
