@@ -16,6 +16,7 @@
                 <outlet property="newMessageImageView" destination="XMV-RK-gGZ" id="mHr-LG-4mN"/>
                 <outlet property="newMessageImageViewContainer" destination="NWi-2h-Fry" id="Onf-Dc-cKy"/>
                 <outlet property="newMessageImageViewContainerXConstraint" destination="G7j-eU-5kV" id="GVv-UF-yrg"/>
+                <outlet property="newMessageImageViewContainerYConstraint" destination="KYT-M4-xr4" id="es9-ui-DpR"/>
                 <outlet property="notesIconImageView" destination="gs0-Bc-OGw" id="FfF-qt-bQD"/>
                 <outlet property="profileIconImageView" destination="4dW-fm-G3h" id="F4g-6d-umW"/>
                 <outlet property="selectedIconView" destination="eEh-FI-Q51" id="AX9-bM-grg"/>
@@ -32,7 +33,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NWi-2h-Fry">
-                            <rect key="frame" x="-150" y="491" width="50" height="50"/>
+                            <rect key="frame" x="540" y="-499" width="50" height="50"/>
                             <subviews>
                                 <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XMV-RK-gGZ">
                                     <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
@@ -57,8 +58,8 @@
                     <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="trailing" secondItem="NWi-2h-Fry" secondAttribute="trailing" constant="700" id="G7j-eU-5kV"/>
-                        <constraint firstAttribute="bottom" secondItem="NWi-2h-Fry" secondAttribute="bottom" constant="10" id="KYT-M4-xr4"/>
+                        <constraint firstAttribute="trailing" secondItem="NWi-2h-Fry" secondAttribute="trailing" constant="10" id="G7j-eU-5kV"/>
+                        <constraint firstAttribute="bottom" secondItem="NWi-2h-Fry" secondAttribute="bottom" constant="1000" id="KYT-M4-xr4"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wVd-Rb-1D5">

@@ -11,6 +11,7 @@ import LayerKit
 
 class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtocol,  LYRQueryControllerDelegate  {
   
+  @IBOutlet weak var newMessageImageViewContainerYConstraint: NSLayoutConstraint!
   @IBOutlet weak var newMessageImageViewContainerXConstraint: NSLayoutConstraint!
   @IBOutlet weak var newMessageImageViewContainer: UIView!
   @IBOutlet weak var newMessageImageView: UIImageView!
@@ -158,8 +159,10 @@ class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtoc
   func hideNewMessageImageView() {
     UIView.animateWithDuration(1.0, animations: { () -> Void in
       self.newMessageImageView.alpha = 0.0
+      self.newMessageImageViewContainer.alpha = 1.0
       }) { (success: Bool) -> Void in
         self.newMessageImageViewContainerXConstraint.constant = self.newMessageTapGestureStartPoint
+        self.newMessageImageViewContainerYConstraint.constant = 1000.0
     }
     NSNotificationCenter.defaultCenter().postNotificationName(kNewMessageIconHidden, object: self)
   }
@@ -167,10 +170,10 @@ class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtoc
   func showNewMessageImageView() {
     containerView.layoutIfNeeded()
     containerView.bringSubviewToFront(newMessageImageViewContainer)
-
-    newMessageImageViewContainerXConstraint.constant = 10
+    newMessageImageViewContainerYConstraint.constant = 10
     newMessageImageView.alpha = 1.0
-    UIView.animateWithDuration(3.0, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.5, options: UIViewAnimationOptions.AllowUserInteraction, animations: { () -> Void in
+    newMessageImageViewContainer.alpha = 1.0
+    UIView.animateWithDuration(0.8, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.8, options: UIViewAnimationOptions.AllowUserInteraction, animations: { () -> Void in
       self.containerView.layoutIfNeeded()
       }, completion: nil)
     NSNotificationCenter.defaultCenter().postNotificationName(kNewMessageIconShown, object: self)
