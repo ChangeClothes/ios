@@ -101,54 +101,30 @@ The above is the bare minimum that needs to be provided to ensure value is added
 
 
 ### Demo Workflow
-- Let's see how a typical Armoire user, Veronica Corningstone, uses the app.  This is a typical morning in Veronica's day.  Veronica is sitting at the local Blue Bottle Coffee, sipping her favorite single origin cappucino with a rosetta pattern on top.
-- She opens up the Armoire app, and checks her schedule for the day.  As an independent personal stylist, her work revolves around both in-person appointments and direct communication with her clients.
+- Let's see how a typical Armoire user, Veronica Corningstone, uses the app.  This is a typical morning in Veronica's day.  Veronica is sitting at the local Blue Bottle Coffee, sipping her favorite single origin cappucino with a rosetta pattern on top, looking at her new iPhone 6s - rose gold.
+- She opens up the Armoire app, logs in, and checks her schedule for the day.  As an independent personal stylist, her work revolves around both in-person appointments and direct communication with her clients.
 - In order to stay on track, she messages her first client, Zayn, to remind him of his appointment.
 - Veronica: "Hi Zayn! Are we still on for 10am today?"
+- Zayn, who receives a notification through the Armoire app, promptly responds with his availability.
 - Zayn: "Hi Veronica! Actually, can we do 9 instead?"
 - Veronica jumps back to the calendar feature of the Armoire app to check her availability and change the appointment time, which Zayn sees in his app.
 - Veronica: "Sure, I just updated our appointment time, please check your calendar to make sure the location and time is correct.  See you later!"
-- Zayn: "emoji - thumbs up"
+
 - Because Veronica hasn't seen Zayn in a while, she refreshes her memory by looking through Zayn's Armoire profile.
+- Zayn: "emoji - thumbs up"
 - Veronica looks at her notes on Zayn and notices that he is looking for a new job.
 - Veronica: "Did you see the new pictures of clothes I uploaded last week?"
+- Zayn checks the pictures that Veronica uploaded
 - Zayn: "Yes, they look great"
 - Zayn: "Can we look for shoes today too?  I'm a 11.5 W."
 - Veronica: "Of course!"
 - Veronica adds Zayn's shoe size to Zayn's measurements.
-- Beyonce: "Hey can we meet up today?"
+- Beyonce: "Hey can we meet up tomorrow?"
 - Veronica looks at Beyonce's previous meetings and notices she only shops at Burberry.  She checks her notes on Beyonce.
 - Veronica: "Sure, I have an opening at 4-5pm.  Burberry on Market again?"
 - Beyonce: "I'll be there."
-- Veronica adds the appointment to her calendar.
+- Veronica adds the appointment to her calendar.  
+- And that's the end of our app demo.
 
-- Just to give a peak at what the client sees, we'll sign in as Zayn.
-
-- present some of the slides; high level
-  - reference market size, problem, and solution space
-- present , one stylist who exists in the space we just outlined
-- she wakes up in the morning and prepares for the day with Armoire; the first thing she does is check her work schedule
-- as an independent personal stylist, her work revolves around both in-person appointments and direct communication with her clients
-- she opens Armoire, which has kept her logged in through the night
-- finds her first appointment is with Tim Face
-- jumps onto messaging to confirm appointment; search for Tim
-- he wants to go earlier
-- she updates the calendar
-- she wants to refresh her memory on Tim and goes to his profile
-  - notes say he is looking for new job
-  - goes on messaging from client workflow -> did you see the new dress shirts I uploaded last week?
-    - yes they look perfect, he responds, so we can look for shoes today too? I'm 11 1/2 W.
-    - sound great
-  - adds to measurements
-
-- sees a new message icon
-  - hey can we meet up?
-  - checks for meetings, sees only BR
-  - checks notes to figure out WTF
-  - gets confirmation for time and location for BR
-  - creates meeting at BR at the time agreed
-  - says it's been added to calendar
-
-- show client workflow quickly
 
 ###![Video Walkthrough](151020_ArmoireApp_Walkthrough.gif)
