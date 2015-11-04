@@ -197,32 +197,16 @@ class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtoc
     
     if let _ = stylist {
       client?.fetchIfNeededInBackgroundWithBlock({ (user, error) -> Void in
-        let clientObject = user as! AMRUser
-        let photoId = clientObject.profilePhoto?.objectId
-        if photoId != nil {
-          AMRImage.queryForObjectWithObjectID(clientObject.profilePhoto!.objectId!, withCompletion: { (photos: NSArray?, error: NSError?) -> Void in
-            if error == nil {
-              self.clientProfileImageView.setAMRImage(photos![0] as? AMRImage, withPlaceholder: "profile-image-placeholder")
-            } else {
-              print("Error: \(error)")
-            }
-          })
+        if let error = error {
+          print(error.localizedDescription)
+        } else {
+          self.clientProfileImageView.setAMRImage(self.client?.profilePhoto, withPlaceholder: "profile-image-placeholder")
         }
       })
-      //clientProfileImageView.setAMRImage(client?.profilePhoto, withPlaceholder: "profile-image-placeholder")
     } else {
       client?.stylist?.fetchIfNeededInBackgroundWithBlock({ (user: PFObject?, error: NSError?) -> Void in
         self.clientProfileImageView.setAMRImage((user as! AMRUser).profilePhoto, withPlaceholder: "profile-image-placeholder")
       })
-      
-//      AMRUserManager.sharedManager.queryForUserWithObjectID((client?.stylist!.objectId)!, withCompletion: { (users, error) -> Void in
-//        let stylistObject = users![0] as! AMRUser
-//        if let stylistProfilePhotoID = stylistObject.profilePhoto?.objectId {
-//          AMRImage.queryForObjectWithObjectID(stylistProfilePhotoID, withCompletion: { (photos: NSArray?, error: NSError?) -> Void in
-//            self.clientProfileImageView.setAMRImage(photos![0] as! AMRImage, withPlaceholder: "profile-image-placeholder")
-//          })
-//        }
-//      })
     }
     
     clientProfileImageView.image = clientProfileImageView.image?.imageWithRenderingMode(.AlwaysTemplate)
