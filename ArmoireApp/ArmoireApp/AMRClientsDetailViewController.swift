@@ -192,16 +192,16 @@ class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtoc
     
     clientProfileImageView.image = clientProfileImageView.image?.imageWithRenderingMode(.AlwaysTemplate)
     clientProfileImageView.backgroundColor = UIColor.AMRPrimaryBackgroundColor()
-    clientProfileImageView.tintColor = UIColor.AMRClientUnselectedTabBarButtonTintColor()
+    clientProfileImageView.tintColor = UIColor.AMRUnselectedTabBarButtonTintColor()
     clientProfileImageView.clipsToBounds = true
     clientProfileImageView.layer.cornerRadius = clientProfileImageView.frame.width/2
   }
   
   private func resetIconColors() {
-    messagesIconImageView.tintColor = UIColor.AMRClientUnselectedTabBarButtonTintColor()
-    notesIconImageView.tintColor = UIColor.AMRClientUnselectedTabBarButtonTintColor()
-    calendarIconImageView.tintColor = UIColor.AMRClientUnselectedTabBarButtonTintColor()
-    profileIconImageView.tintColor = UIColor.AMRClientUnselectedTabBarButtonTintColor()
+    messagesIconImageView.tintColor = UIColor.AMRUnselectedTabBarButtonTintColor()
+    notesIconImageView.tintColor = UIColor.AMRUnselectedTabBarButtonTintColor()
+    calendarIconImageView.tintColor = UIColor.AMRUnselectedTabBarButtonTintColor()
+    profileIconImageView.tintColor = UIColor.AMRUnselectedTabBarButtonTintColor()
   }
   
   private func setSelectedAppearanceColorForImageView(imageView: UIImageView) {
@@ -277,10 +277,10 @@ class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtoc
       if (index != 0) {
         let vc = value.viewControllers.first as? AMRViewControllerProtocol
         vc?.setVcData(self.stylist, client: self.client)
-        value.navigationBar.tintColor = UIColor.AMRBrightButtonTintColor()
-        value.navigationBar.barTintColor = UIColor.AMRUnselectedTabBarButtonTintColor()
-        value.navigationBar.backgroundColor = UIColor.AMRUnselectedTabBarButtonTintColor()
-        value.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.AMRBrightButtonTintColor()]
+        //value.navigationBar.tintColor = UIColor.AMRBrightButtonTintColor()
+        //value.navigationBar.barTintColor = UIColor.AMRUnselectedTabBarButtonTintColor()
+        //value.navigationBar.backgroundColor = UIColor.AMRUnselectedTabBarButtonTintColor()
+        //value.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.AMRBrightButtonTintColor()]
       }
     }
   }

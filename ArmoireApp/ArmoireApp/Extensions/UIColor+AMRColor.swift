@@ -9,7 +9,7 @@
 import Foundation
 
 extension UIColor {
-  
+  //TODO name these something matching Theme.swift
   class func AMRPrimaryBackgroundColor() -> UIColor {
     //return
     return ThemeManager.currentTheme().backgroundColor

@@ -15,6 +15,7 @@ enum Theme: Int {
     switch self {
     case .Default:
       return ColorHelper.sharedInstance.colorFromHexString("#E1DBDA")
+      //return ColorHelper.sharedInstance.colorFromHexString("#E1DBDA")
     case .Theme1:
       return ColorHelper.sharedInstance.colorFromHexString("#937250")
     }
@@ -24,8 +25,9 @@ enum Theme: Int {
     switch self {
     case .Default:
       return ColorHelper.sharedInstance.colorFromHexString("#0172C9")
+      //return ColorHelper.sharedInstance.colorFromHexString("#28B9AD")
     case .Theme1:
-      return ColorHelper.sharedInstance.colorFromHexString("#28B9AD")
+      return ColorHelper.sharedInstance.colorFromHexString("#58C0E1")
     }
   }
   
@@ -94,11 +96,10 @@ struct ThemeManager {
     UINavigationBar.appearance().tintColor = theme.mainColorSecondary
     UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName:theme.mainColorSecondary]
     //UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName:theme.mainColorSecondary, UIControlState:.Highlighted]
-    UINavigationBar.appearance().barTintColor = theme.backgroundColor
-    UINavigationBar.appearance().backgroundColor = theme.backgroundColor
+    UINavigationBar.appearance().barTintColor = theme.backgroundColorSecondary
+    UINavigationBar.appearance().backgroundColor = theme.backgroundColorSecondary
     
     UITabBar.appearance().barStyle = theme.barStyle
-    UINavigationBar.appearance().backgroundColor = theme.backgroundColorSecondary
 
     
     

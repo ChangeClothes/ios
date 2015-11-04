@@ -104,8 +104,8 @@ class AMRClientProfileViewController: AMRViewController, UIAlertViewDelegate, AM
   private func setupSegmentedControl(){
     segmentedControl.setBackgroundImage(imageWithColor(UIColor.clearColor()), forState: .Normal, barMetrics: .Default)
     segmentedControl.setBackgroundImage(imageWithColor(UIColor.clearColor()), forState: .Selected, barMetrics: .Default)
-    segmentedControl.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.AMRPrimaryBackgroundColor()], forState: .Normal)
-    segmentedControl.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.AMRSecondaryBackgroundColor()], forState: .Selected)
+    segmentedControl.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.AMRUnselectedTabBarButtonTintColor()], forState: .Normal)
+    segmentedControl.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.AMRSelectedTabBarButtonTintColor()], forState: .Selected)
     segmentedControl.setDividerImage(imageWithColor(UIColor.clearColor()), forLeftSegmentState: .Normal, rightSegmentState: .Normal, barMetrics: .Default)
   }
   

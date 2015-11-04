@@ -109,6 +109,10 @@ class AMRClientsViewController: AMRViewController, UITableViewDataSource, UITabl
   func setUpClientTable(){
     clientTable.delegate = self
     clientTable.dataSource = self
+    clientTable.sectionIndexColor = UIColor.AMRBrightButtonTintColor()
+    //let header:UITableViewHeaderFooterView = clientTable as! UITableViewHeaderFooterView
+    //header.textLabel!.textColor = UIColor.AMRUnselectedTabBarButtonTintColor()
+    //header.contentView.backgroundColor = UIColor.AMRSecondaryBackgroundColor()
     searchbar.delegate = self
     searchbar.searchBarStyle = UISearchBarStyle.Minimal
     self.view.addSubview(searchbar)

@@ -96,7 +96,7 @@ class AMRMainViewController: AMRViewController, AMRViewControllerProtocol {
     newMessageImageView.image = newMessageImageView.image?.imageWithRenderingMode(.AlwaysTemplate)
     newMessageImageView.clipsToBounds = true
     newMessageImageView.layer.cornerRadius = newMessageImageView.frame.width/2
-    newMessageImageView.backgroundColor = UIColor.AMRBrightButtonBackgroundColor()
+    newMessageImageView.backgroundColor = UIColor.AMRSecondaryBackgroundColor()
     
     let newMessagePanGR = UIPanGestureRecognizer(target: self, action: "onMessageIconPan:")
     newMessagePanGR.delegate = self
@@ -182,12 +182,12 @@ class AMRMainViewController: AMRViewController, AMRViewControllerProtocol {
     resetIconColors()
     
     selectedIconView.layer.cornerRadius = selectedIconView.frame.width/2
-    selectedIconView.backgroundColor = UIColor.AMRSecondaryBackgroundColor()
+    selectedIconView.backgroundColor = UIColor.AMRPrimaryBackgroundColor()
     
     selectedIconViewXPositionConstraint.constant = 1000
     view.layoutIfNeeded()
     
-    menuView.backgroundColor = UIColor.AMRPrimaryBackgroundColor()
+    menuView.backgroundColor = UIColor.AMRSecondaryBackgroundColor()
   }
   
   private func resetIconColors() {
