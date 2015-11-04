@@ -359,8 +359,9 @@ extension AMRMainViewController: LYRQueryControllerDelegate {
     if type != LYRQueryControllerChangeType.Delete && controller.numberOfObjectsInSection(0) > 0{
       let conversation = object as! LYRConversation
       newConversationIdentifier = conversation.identifier
-      let senderObjectID = conversation.participants.first as! String
-      
+      var remainingParticipants = conversation.participants
+      remainingParticipants.remove(AMRUser.currentUser()!.objectId!)
+      let senderObjectID = remainingParticipants.first as! String
 
       AMRUserManager.sharedManager.queryForUserWithObjectID(senderObjectID) { (users: NSArray?, error: NSError?) -> Void in
         if let error = error {
