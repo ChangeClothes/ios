@@ -60,6 +60,17 @@ class AMRMeasurementsViewController: AMRViewController, UITableViewDelegate, UIT
     self.navigationController?.setNavigationBarHidden(true, animated: false)
     self.myTableView.delegate = self
     self.myTableView.dataSource = self
+    
+    myTableView.backgroundColor = UIColor.AMRPrimaryBackgroundColor()
+    let footerView = UIView(frame: CGRectZero)
+    myTableView.tableFooterView = footerView
+    
+    let tapGR = UITapGestureRecognizer(target: self, action: "dismissKeyboard:")
+    view.addGestureRecognizer(tapGR)
+  }
+  
+  func dismissKeyboard(sender: UITapGestureRecognizer) {
+    view.endEditing(true)
   }
   
   func updateCell(cell: AMRMeasurementCell) {
