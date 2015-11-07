@@ -82,6 +82,11 @@ class AMRUpcomingMeetingsViewController: AMRViewController, AMRViewControllerPro
     tableView.dataSource = self
     let cellNib = UINib(nibName: "AMRUpcomingMeetingsTableViewCell", bundle: nil)
     tableView.registerNib(cellNib, forCellReuseIdentifier: meetingTableViewCellReuseIdentifier)
+    
+    tableView.backgroundColor = UIColor.AMRPrimaryBackgroundColor()
+    
+    let footerView = UIView(frame: CGRectZero)
+    tableView.tableFooterView = footerView
   }
   
   internal func setVcData(stylist: AMRUser?, client: AMRUser?) {
@@ -104,8 +109,13 @@ class AMRUpcomingMeetingsViewController: AMRViewController, AMRViewControllerPro
       
       // Hack because navigationController is not present sometimes
       let navBarHeight = navigationController?.navigationBar.frame.height ?? 44
-      let heightOffset = cellRect.origin.y - navBarHeight - meetingsTableView.sectionHeaderHeight
-      meetingsTableView.setContentOffset(CGPointMake(0, heightOffset), animated: false)
+      
+      if cellRect.origin.y > view.bounds.height {
+        // not sure how to get height of cell, so put 50 down for now.
+        let heightOffset = cellRect.origin.y - view.bounds.height + 50 - navBarHeight - meetingsTableView.sectionHeaderHeight
+        meetingsTableView.setContentOffset(CGPointMake(0, heightOffset), animated: false)
+      }
+      
     }
   }
   
