@@ -47,6 +47,7 @@ class AMRClientProfileViewController: AMRViewController, UIAlertViewDelegate, AM
     setupPageController()
     setupSegmentedControl()
     setupPageSelectionIndicatorView()
+    
   }
   
   
@@ -89,6 +90,12 @@ class AMRClientProfileViewController: AMRViewController, UIAlertViewDelegate, AM
     addChildViewController(pageController)
     containerView.addSubview(pageController.view)
     pageController.didMoveToParentViewController(self)
+    
+    for view in self.pageController.view.subviews {
+      if view.isKindOfClass(UIScrollView.self) == true {
+        (view as! UIScrollView).scrollEnabled = false
+      }
+    }
   }
   
   internal func setUpNavBar(){
@@ -151,6 +158,8 @@ class AMRClientProfileViewController: AMRViewController, UIAlertViewDelegate, AM
   
 }
 
+
+//MARK: UIPageViewController Datasource and Delegate
 extension AMRClientProfileViewController: UIPageViewControllerDataSource, UIPageViewControllerDelegate {
   func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
     if viewController.isEqual(vcArray[0]) {
@@ -198,4 +207,3 @@ extension AMRClientProfileViewController: UIPageViewControllerDataSource, UIPage
   }
   
 }
-
