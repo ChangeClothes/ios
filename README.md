@@ -101,31 +101,31 @@ The above is the bare minimum that needs to be provided to ensure value is added
 
 
 ### Demo Workflow
-•	Let's see how a typical Armoire user, Veronica, uses the app. This is a typical morning in Veronica's day. Veronica is sitting at the local Blue Bottle Coffee, sipping her favorite single origin cappucino with a rosetta pattern on top, looking at her new iPhone 6s - rose gold.
-•	She opens up the Armoire app and checks her schedule for the day. In order to stay on track, she messages her first client, Zayn, to remind him of his appointment.
-Veronica: "Hi Zayn! Are we still on for 10am today?"
-•	 As an independent personal stylist, her work revolves around both in-person appointments and direct communication with her clients.
-•	Zayn, who receives a notification through the Armoire app, promptly responds with his availability.
-Zayn: "Hi Veronica! Actually, can we do 9 instead?"
-•	Veronica jumps back to the calendar feature of the Armoire app to check her availability and change the appointment time, which Zayn sees in his app.
-Veronica: "Sure, I just updated our appointment time, please check your calendar to make sure the location and time is correct. See you later!"
-•	Because Veronica hasn't seen Zayn in a while, she refreshes her memory by looking through Zayn's Armoire profile.
-Zayn: "emoji - thumbs up"
-•	Veronica looks at her notes on Zayn and notices that he is looking for a new job – one can say he is looking for a “new” DIRECTION. Veronica recalls that she added some clothing recommendations to the shared gallery in the Armoire app and asks Zayn for feedback.
-Veronica: "Did you see the new pictures of clothes I uploaded last week?"
-•	Zayn checks the pictures that Veronica uploaded, and gives a thumbs up.
-Zayn: "Yes, they look great"
-•	Being a dapper man, he recalls that he needs new shoes for an upcoming party.
-Zayn: "Can we look for shoes today too? I'm a 11.5 W."
-Veronica: "Of course!"
-•	Veronica, who hasn’t shopped for Zayn’s shoes in the past, adds Zayn's shoe size to Zayn's profile for easy reference later.
-•	Meanwhile, another client, Beyonce, messages Veronica to get her shop on.  Because she’s a single lady, she needs to stay fashionable.
-Beyonce: "Hey can we meet up tomorrow?"
-•	Veronica looks at Beyonce's previous notes and appointments, and notices she only shops at Burberry.  Because all her client’s information is stored in the Armoire app, she can easily recommend where their next appointment should take place.
-Veronica: "Sure, I have an opening at 4-5pm. Burberry in dowtown again?"
-Beyonce: "I'll be there."
-•	Veronica adds the appointment to her shared calendar with Beyonce, and starts her day of appointments.
-•	This has been a high level overview of the Armoire App.  We’re really excited about releasing this app, and we think you’re going to love it.
+-	Let's see how a typical Armoire user, Veronica, uses the app. This is a typical morning in Veronica's day. Veronica is sitting at the local Blue Bottle Coffee, sipping her favorite single origin cappucino with a rosetta pattern on top, looking at her new iPhone 6s - rose gold.
+-	She opens up the Armoire app and checks her schedule for the day. In order to stay on track, she messages her first client, Zayn, to remind him of his appointment.
+-- Veronica: "Hi Zayn! Are we still on for 10am today?"
+-	 As an independent personal stylist, her work revolves around both in-person appointments and direct communication with her clients.
+-	Zayn, who receives a notification through the Armoire app, promptly responds with his availability.
+-- Zayn: "Hi Veronica! Actually, can we do 9 instead?"
+-	Veronica jumps back to the calendar feature of the Armoire app to check her availability and change the appointment time, which Zayn sees in his app.
+-- Veronica: "Sure, I just updated our appointment time, please check your calendar to make sure the location and time is correct. See you later!"
+-	Because Veronica hasn't seen Zayn in a while, she refreshes her memory by looking through Zayn's Armoire profile.
+-- Zayn: "emoji - thumbs up"
+-	Veronica looks at her notes on Zayn and notices that he is looking for a new job – one can say he is looking for a “new” DIRECTION. Veronica recalls that she added some clothing recommendations to the shared gallery in the Armoire app and asks Zayn for feedback.
+-- Veronica: "Did you see the new pictures of clothes I uploaded last week?"
+-	Zayn checks the pictures that Veronica uploaded, and gives a thumbs up.
+-- Zayn: "Yes, they look great"
+-	Being a dapper man, he recalls that he needs new shoes for an upcoming party.
+-- Zayn: "Can we look for shoes today too? I'm a 11.5 W."
+-- Veronica: "Of course!"
+-	Veronica, who hasn’t shopped for Zayn’s shoes in the past, adds Zayn's shoe size to Zayn's profile for easy reference later.
+-	Meanwhile, another client, Beyonce, messages Veronica to get her shop on.  Because she’s a single lady, she needs to stay fashionable.
+-- Beyonce: "Hey can we meet up tomorrow?"
+-	Veronica looks at Beyonce's previous notes and appointments, and notices she only shops at Burberry.  Because all her client’s information is stored in the Armoire app, she can easily recommend where their next appointment should take place.
+-- Veronica: "Sure, I have an opening at 4-5pm. Burberry in dowtown again?"
+-- Beyonce: "I'll be there."
+-	Veronica adds the appointment to her shared calendar with Beyonce, and starts her day of appointments.
+-	This has been a high level overview of the Armoire App.  We’re really excited about releasing this app, and we think you’re going to love it.
 
 
 ###![Video Walkthrough](151020_ArmoireApp_Walkthrough.gif)
