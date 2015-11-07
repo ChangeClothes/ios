@@ -180,18 +180,8 @@ class AMRUpcomingMeetingsViewController: AMRViewController, AMRViewControllerPro
       let calendarArray: [EKCalendar] = Array.init(arrayLiteral: calendar)
       let yearSeconds: NSTimeInterval = 365 * (60 * 60 * 24);
       let predicate = eventStore.predicateForEventsWithStartDate(NSDate(timeIntervalSinceNow: -yearSeconds), endDate: NSDate(timeIntervalSinceNow: yearSeconds), calendars: calendarArray)
-      var eventsArray = eventStore.eventsMatchingPredicate(predicate)
-      eventsArray.sortInPlace { (event1, event2) -> Bool in
-        switch event1.startDate.compare(event2.startDate){
-        case .OrderedAscending:
-          return true
-        case .OrderedDescending:
-          return false
-        case .OrderedSame:
-          return false
-        }
-      }
-      
+      let eventsArray = eventStore.eventsMatchingPredicate(predicate)
+
       return eventsArray
     }
     
@@ -220,7 +210,18 @@ class AMRUpcomingMeetingsViewController: AMRViewController, AMRViewControllerPro
       })
     }
     
-    private func sectionsForEvents(events: [EKEvent]) -> [NSDate: [EKEvent]] {
+    private func sectionsForEvents(var events: [EKEvent]) -> [NSDate: [EKEvent]] {
+      events.sortInPlace { (event1, event2) -> Bool in
+        switch event1.startDate.compare(event2.startDate){
+        case .OrderedAscending:
+          return true
+        case .OrderedDescending:
+          return false
+        case .OrderedSame:
+          return false
+        }
+      }
+      
       var sections = [NSDate: [EKEvent]]()
       for event in events {
         let dateRepresentingThisDay = self.dateAtBeginningOfDayForDate(event.startDate)
