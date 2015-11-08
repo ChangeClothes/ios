@@ -9,27 +9,7 @@
 import UIKit
 import LayerKit
 
-class AMRViewController: UIViewController {
-  
-  var stylist: AMRUser?
-  var client: AMRUser?
- 
-  func showSettings () {
-    let settingsVC = UIAlertController.AMRSettingsController { (setting: AMRSettingsControllerSetting) -> () in
-      if setting == AMRSettingsControllerSetting.ProfilePicture {
-        PhotoPicker.sharedInstance.selectPhoto(self.stylist, client: self.client, viewDelegate: self, completion: {
-          (image: AMRImage) -> () in
-          let user = CurrentUser.sharedInstance.user
-          user?.profilePhoto = image
-          user?.saveInBackground()
-        })
-      }
-    }
-    self.presentViewController(settingsVC, animated: true, completion: nil)
-  }
-}
-
-class AMRMainViewController: AMRViewController, AMRViewControllerProtocol {
+class AMRMainViewController: AMRViewController{
   
   @IBOutlet weak var newMessageImageViewContainerXConstraint: NSLayoutConstraint!
   @IBOutlet weak var newMessageImageViewContainerYConstraint: NSLayoutConstraint!
@@ -47,11 +27,8 @@ class AMRMainViewController: AMRViewController, AMRViewControllerProtocol {
   @IBOutlet weak var selectedIconViewXPositionConstraint: NSLayoutConstraint!
   
   var selectedViewController: UIViewController?
-  var layerClient: LYRClient!
+  var layerClient: LYRClient?
   var layerQueryController: LYRQueryController!
-  
-  //var stylist: AMRUser?
-  //var client: AMRUser?
   
   var vcArray: [UINavigationController]!
   var selectedIconImageView: UIImageView?
@@ -82,7 +59,7 @@ class AMRMainViewController: AMRViewController, AMRViewControllerProtocol {
   private func setupLayerQueryController() {
     let query = LYRQuery(queryableClass: LYRConversation.self)
     query.predicate = LYRPredicate(property: "hasUnreadMessages", predicateOperator: LYRPredicateOperator.IsEqualTo, value: true)
-    layerQueryController = try? layerClient.queryControllerWithQuery(query, error: ())
+    layerQueryController = try? layerClient!.queryControllerWithQuery(query, error: ())
     layerQueryController.delegate = self
     layerQueryController.executeWithCompletion { (success: Bool, error: NSError!) -> Void in
       if let error = error {
@@ -127,7 +104,7 @@ class AMRMainViewController: AMRViewController, AMRViewControllerProtocol {
   private func presentConversationWithIdentifier(identifier: NSURL) {
     let query = LYRQuery(queryableClass: LYRConversation.self)
     query.predicate = LYRPredicate(property: "identifier", predicateOperator: LYRPredicateOperator.IsEqualTo, value: identifier)
-    layerClient.executeQuery(query) { (conversations, error) -> Void in
+    layerClient!.executeQuery(query) { (conversations, error) -> Void in
       if let error = error {
         print(error.localizedDescription)
       } else {
@@ -256,7 +233,7 @@ class AMRMainViewController: AMRViewController, AMRViewControllerProtocol {
     setVcData(nil, client: nil)
     if (self.client != nil) {
       //client workflow
-      let vc = AMRClientsDetailViewController(layerClient: layerClient)
+      let vc = AMRClientsDetailViewController(layerClient: layerClient!)
       vc.setVcData(self.stylist, client: self.client)
       UIApplication.sharedApplication().windows[0].rootViewController = vc
       UIApplication.sharedApplication().windows[0].makeKeyAndVisible()
@@ -296,7 +273,7 @@ class AMRMainViewController: AMRViewController, AMRViewControllerProtocol {
     vcArray = nil
   }
   
-  internal func setVcData(stylist: AMRUser?, client: AMRUser?) {
+  internal override func setVcData(stylist: AMRUser?, client: AMRUser?) {
     setVcArray()
     setLocalVcData()
     setVcDataForTabs()
@@ -305,18 +282,18 @@ class AMRMainViewController: AMRViewController, AMRViewControllerProtocol {
   private func setVcArray(){
     vcArray = [
       UINavigationController(rootViewController: AMRLoginViewController()),
-      UINavigationController(rootViewController: AMRClientsViewController(layerClient: layerClient)),
+      UINavigationController(rootViewController: AMRClientsViewController(layerClient: layerClient!)),
       UINavigationController(rootViewController: AMRMessagesViewController(layerClient: layerClient) ),
       UINavigationController(rootViewController: AMRNotesViewController()),
       UINavigationController(rootViewController: AMRUpcomingMeetingsViewController()),
-      UINavigationController (rootViewController: AMRClientsDetailViewController(layerClient: layerClient))
+      UINavigationController (rootViewController: AMRClientsDetailViewController(layerClient: layerClient!))
     ]
   }
   
   private func setVcDataForTabs(){
     for (index, value) in vcArray.enumerate() {
       if (index != 0) {
-        let vc = value.viewControllers.first as? AMRViewControllerProtocol
+        let vc = value.viewControllers.first as? AMRViewController
         vc?.setVcData(self.stylist, client: self.client)
       }
     }
@@ -366,10 +343,6 @@ class AMRMainViewController: AMRViewController, AMRViewControllerProtocol {
     }
   }
   
-}
-
-protocol AMRViewControllerProtocol {
-  func setVcData(stylist: AMRUser?, client: AMRUser?)
 }
 
 // MARK: - LYRQueryController Delegate

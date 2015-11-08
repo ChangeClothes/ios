@@ -9,7 +9,7 @@
 import UIKit
 import MessageUI
 
-class AMRAddClientViewController: UIViewController, AMRViewControllerProtocol, MFMailComposeViewControllerDelegate {
+class AMRAddClientViewController: UIViewController, MFMailComposeViewControllerDelegate {
 
   @IBOutlet weak var firstNameTextField: UITextField!
   @IBOutlet weak var lastNameTextField: UITextField!

@@ -39,7 +39,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let theme = ThemeManager.currentTheme()
     ThemeManager.applyTheme(theme)
     
-    
     window = UIWindow(frame: UIScreen.mainScreen().bounds)
     mainVC = AMRMainViewController()
     mainVC?.layerClient = layerClient
