@@ -18,10 +18,7 @@ class AMRLoginViewController: UIViewController {
   @IBOutlet weak var logInButton: UIButton!
   @IBOutlet weak var usernameField: UITextField!
   @IBOutlet weak var passwordField: UITextField!
- 
   @IBOutlet weak var backgroundImageView: UIImageView!
-
-  
   @IBOutlet weak var logoImageView: UIImageView!
   var customSignUpViewController: AMRSignUpViewController?
   
@@ -31,14 +28,17 @@ class AMRLoginViewController: UIViewController {
     super.viewDidLoad()
     
     signUpButton.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)
-    
     signUpButton.addTarget(self, action: "signUpButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+    
     logInButton?.addTarget(self, action: "loginButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+    logInButton.layer.borderWidth = 3.0
+    logInButton.layer.borderColor = logInButton.tintColor.CGColor
     
     logoImageView.contentMode = .ScaleAspectFit
     logoImageView.image = UIImage(named: "Armoire")
     
     backgroundImageView.image = UIImage.sd_animatedGIFNamed("Armoire_LoginPageBackground")
+    
     
   }
   
