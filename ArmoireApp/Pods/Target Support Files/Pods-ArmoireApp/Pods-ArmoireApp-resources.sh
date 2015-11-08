@@ -59,12 +59,10 @@ install_resource()
 }
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "Parse/Parse/Resources/en.lproj"
-  install_resource "ParseUI/ParseUI/Resources/Localization/en.lproj"
   install_resource "${BUILT_PRODUCTS_DIR}/AtlasResource.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "Parse/Parse/Resources/en.lproj"
-  install_resource "ParseUI/ParseUI/Resources/Localization/en.lproj"
   install_resource "${BUILT_PRODUCTS_DIR}/AtlasResource.bundle"
 fi
 

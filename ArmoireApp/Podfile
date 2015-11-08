@@ -6,8 +6,8 @@ target 'ArmoireApp' do
 pod 'LayerKit'
 pod 'Atlas'
 pod 'Parse'
-pod 'ParseUI'
 pod 'MZFormSheetPresentationController'
+pod 'SDWebImage'
 
 end
 

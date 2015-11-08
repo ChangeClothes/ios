@@ -8,30 +8,61 @@
 
 import UIKit
 
-class AMRLoginViewController: PFLogInViewController {
+protocol AMRLoginViewControllerDelegate: class{
+  func logInViewController(logInController: AMRLoginViewController, didLoginUser user: PFUser)
+}
+
+class AMRLoginViewController: UIViewController {
   
+  @IBOutlet weak var signUpButton: UIButton!
+  @IBOutlet weak var logInButton: UIButton!
+  @IBOutlet weak var usernameField: UITextField!
+  @IBOutlet weak var passwordField: UITextField!
+  @IBOutlet weak var backgroundImageView: UIImageView!
+  @IBOutlet weak var logoImageView: UIImageView!
   var customSignUpViewController: AMRSignUpViewController?
+  
+  weak var delegate: AMRLoginViewControllerDelegate?
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    logInView?.signUpButton?.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)
-    logInView?.signUpButton?.addTarget(self, action: "signUpButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-    logInView?.logInButton?.addTarget(self, action: "loginButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
     
-    logInView?.dismissButton?.hidden = true
+    signUpButton.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)
+    signUpButton.addTarget(self, action: "signUpButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
     
-    let logoImageView = UIImageView(image: UIImage(named: "Armoire"))
+    logInButton?.addTarget(self, action: "loginButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+    logInButton.layer.borderWidth = 3.0
+    logInButton.layer.borderColor = logInButton.tintColor.CGColor
+    logInButton.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.4)
+
     logoImageView.contentMode = .ScaleAspectFit
-    logInView?.logo = logoImageView
+    logoImageView.image = UIImage(named: "Armoire")
     
-    logInView?.backgroundColor = UIColor.AMRSecondaryBackgroundColor()
+    usernameField.borderStyle = .RoundedRect
+    passwordField.borderStyle = .RoundedRect
     
-    logInView
+    backgroundImageView.image = UIImage.sd_animatedGIFNamed("Armoire_LoginPageBackground")
+    
+    let tapGR = UITapGestureRecognizer(target: self, action: "dismissKeyboard:")
+    view.addGestureRecognizer(tapGR)
+    
+  }
+  
+  func dismissKeyboard(sender: UITapGestureRecognizer) {
+    view.endEditing(true)
   }
   
   func loginButtonTapped(sender: UIButton) {
-    logInView?.usernameField?.text = ""
-    logInView?.passwordField?.text = ""
+    PFUser.logInWithUsernameInBackground(usernameField.text!, password: passwordField.text!) { (user: PFUser?, error: NSError?) -> Void in
+      if let error = error {
+        print(error.localizedDescription)
+      } else {
+        self.delegate?.logInViewController(self, didLoginUser: user!)
+      }
+    }
+    
+    usernameField.text = ""
+    passwordField.text = ""
   }
   
   func signUpButtonTapped(sender: UIButton) {

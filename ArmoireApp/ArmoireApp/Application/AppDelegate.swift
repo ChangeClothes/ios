@@ -251,8 +251,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 // MARK: - PFLogInViewController Delegate
-extension AppDelegate: PFLogInViewControllerDelegate {
-  func logInViewController(logInController: PFLogInViewController, didLogInUser user: PFUser) {
+extension AppDelegate: AMRLoginViewControllerDelegate {
+  func logInViewController(logInController: AMRLoginViewController, didLoginUser user: PFUser) {
     loginLayer()
   }
   
