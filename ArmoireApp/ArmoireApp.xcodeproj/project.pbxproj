@@ -33,6 +33,7 @@
 		0FD5476F1BDC32AB005587F2 /* LayerKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0FD5476E1BDC32AB005587F2 /* LayerKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0FD547721BDDA4A9005587F2 /* AMRAddClientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD547701BDDA4A9005587F2 /* AMRAddClientViewController.swift */; };
 		0FD547731BDDA4A9005587F2 /* AMRAddClientViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FD547711BDDA4A9005587F2 /* AMRAddClientViewController.xib */; };
+		6F1B37BE1BEECCE5005DBA10 /* AMRLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F1B37BD1BEECCE5005DBA10 /* AMRLoginViewController.xib */; };
 		6F2828921BE1D874002B7B85 /* UIColor+AMRColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2828911BE1D874002B7B85 /* UIColor+AMRColor.swift */; };
 		6F41E1FA1BCE0FF900729AC5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F41E1F91BCE0FF900729AC5 /* AppDelegate.swift */; };
 		6F41E2011BCE0FF900729AC5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6F41E2001BCE0FF900729AC5 /* Assets.xcassets */; };
@@ -106,6 +107,7 @@
 		1993BFE730F24C865BE5C48B /* Pods-ArmoireApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArmoireApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-ArmoireApp/Pods-ArmoireApp.release.xcconfig"; sourceTree = "<group>"; };
 		406AF373DF68CB583A6ACFC0 /* libPods-ArmoireApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ArmoireApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		540C02D174B0814FAFCB2B92 /* Pods-ArmoireApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArmoireApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ArmoireApp/Pods-ArmoireApp.debug.xcconfig"; sourceTree = "<group>"; };
+		6F1B37BD1BEECCE5005DBA10 /* AMRLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AMRLoginViewController.xib; path = ViewControllers/AMRLoginViewController.xib; sourceTree = "<group>"; };
 		6F2828911BE1D874002B7B85 /* UIColor+AMRColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIColor+AMRColor.swift"; path = "Extensions/UIColor+AMRColor.swift"; sourceTree = "<group>"; };
 		6F41E1F61BCE0FF900729AC5 /* ArmoireApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ArmoireApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F41E1F91BCE0FF900729AC5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Application/AppDelegate.swift; sourceTree = "<group>"; };
@@ -265,6 +267,7 @@
 				6FA0130D1BD752460019E0D6 /* AMRSignUpViewController.swift */,
 				6FA0130E1BD752460019E0D6 /* AMRSignUpViewController.xib */,
 				6FA013111BD75C190019E0D6 /* AMRLoginViewController.swift */,
+				6F1B37BD1BEECCE5005DBA10 /* AMRLoginViewController.xib */,
 				0FD547701BDDA4A9005587F2 /* AMRAddClientViewController.swift */,
 				0FD547711BDDA4A9005587F2 /* AMRAddClientViewController.xib */,
 				0F5E5BF61BDF2D0E00464DB2 /* AMRClientProfileViewController.swift */,
@@ -370,6 +373,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F1B37BE1BEECCE5005DBA10 /* AMRLoginViewController.xib in Resources */,
 				6FDD83981BD0833500028E3D /* LaunchScreen.storyboard in Resources */,
 				C5B75A891BE0A19D0009296C /* AMRMeasurementCell.xib in Resources */,
 				0FD0BAC51BD605F500D91504 /* AMRUpcomingMeetingsTableViewCell.xib in Resources */,

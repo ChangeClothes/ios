@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AMRLoginViewController" customModule="ArmoireApp" customModuleProvider="target">
+            <connections>
+                <outlet property="backgroundImageView" destination="glz-IB-zU4" id="UmY-Kr-wa3"/>
+                <outlet property="logInButton" destination="lCR-8T-Sjp" id="54A-lc-JDQ"/>
+                <outlet property="logoImageView" destination="YtA-U7-mbY" id="T4q-Mc-jM6"/>
+                <outlet property="passwordField" destination="uPp-77-zmR" id="zKz-oO-qqM"/>
+                <outlet property="signUpButton" destination="CVN-wq-5Rg" id="a3a-IB-4wZ"/>
+                <outlet property="usernameField" destination="4DS-Hd-CoC" id="CXD-HB-NEj"/>
+                <outlet property="view" destination="iN0-l3-epB" id="4zw-w3-Icp"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="glz-IB-zU4">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <animations/>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CVN-wq-5Rg">
+                    <rect key="frame" x="228" y="398" width="111" height="30"/>
+                    <animations/>
+                    <state key="normal" title="Signup"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lCR-8T-Sjp">
+                    <rect key="frame" x="260" y="302" width="46" height="30"/>
+                    <animations/>
+                    <state key="normal" title="Login"/>
+                </button>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4DS-Hd-CoC">
+                    <rect key="frame" x="157" y="177" width="274" height="30"/>
+                    <animations/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uPp-77-zmR">
+                    <rect key="frame" x="157" y="227" width="294" height="30"/>
+                    <animations/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YtA-U7-mbY">
+                    <rect key="frame" x="157" y="27" width="240" height="128"/>
+                    <animations/>
+                </imageView>
+            </subviews>
+            <animations/>
+            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="glz-IB-zU4" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="1he-RD-tCP"/>
+                <constraint firstAttribute="bottom" secondItem="glz-IB-zU4" secondAttribute="bottom" id="KTr-BL-bhD"/>
+                <constraint firstItem="glz-IB-zU4" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Ujc-gS-ZX7"/>
+                <constraint firstAttribute="trailing" secondItem="glz-IB-zU4" secondAttribute="trailing" id="crH-6I-1WK"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

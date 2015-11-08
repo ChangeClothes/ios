@@ -11,6 +11,9 @@ PODS:
   - ParseUI (1.1.6):
     - Bolts/Tasks (~> 1.2)
     - Parse (~> 1.8)
+  - SDWebImage (3.7.3):
+    - SDWebImage/Core (= 3.7.3)
+  - SDWebImage/Core (3.7.3)
 
 DEPENDENCIES:
   - Atlas
@@ -18,6 +21,7 @@ DEPENDENCIES:
   - MZFormSheetPresentationController
   - Parse
   - ParseUI
+  - SDWebImage
 
 SPEC CHECKSUMS:
   Atlas: b72929aac7d8b5d653d07bed0333a8e9318f9d93
@@ -27,5 +31,6 @@ SPEC CHECKSUMS:
   MZFormSheetPresentationController: a268a1840780d52f47688d823d2b6d35318bf24d
   Parse: 712efbc476d4f47b0f96b70db7e53101575753aa
   ParseUI: 8a22e448c03f825203d8c379c80523517f68baa3
+  SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
 
 COCOAPODS: 0.39.0

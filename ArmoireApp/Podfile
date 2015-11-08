@@ -8,6 +8,7 @@ pod 'Atlas'
 pod 'Parse'
 pod 'ParseUI'
 pod 'MZFormSheetPresentationController'
+pod 'SDWebImage'
 
 end
 
