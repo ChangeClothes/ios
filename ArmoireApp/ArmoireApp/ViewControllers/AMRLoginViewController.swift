@@ -33,13 +33,23 @@ class AMRLoginViewController: UIViewController {
     logInButton?.addTarget(self, action: "loginButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
     logInButton.layer.borderWidth = 3.0
     logInButton.layer.borderColor = logInButton.tintColor.CGColor
-    
+    logInButton.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.4)
+
     logoImageView.contentMode = .ScaleAspectFit
     logoImageView.image = UIImage(named: "Armoire")
     
+    usernameField.borderStyle = .RoundedRect
+    passwordField.borderStyle = .RoundedRect
+    
     backgroundImageView.image = UIImage.sd_animatedGIFNamed("Armoire_LoginPageBackground")
     
+    let tapGR = UITapGestureRecognizer(target: self, action: "dismissKeyboard:")
+    view.addGestureRecognizer(tapGR)
     
+  }
+  
+  func dismissKeyboard(sender: UITapGestureRecognizer) {
+    view.endEditing(true)
   }
   
   func loginButtonTapped(sender: UIButton) {
