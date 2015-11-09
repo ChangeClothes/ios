@@ -6,19 +6,19 @@
 //  Copyright © 2015 Armoire. All rights reserved.
 //
 
-class AMRImage: PFObject {
+enum AMRPhotoRating: NSNumber {
+  case Dislike = 0
+  case Like = 1
+  case Love = 2
   
-  enum AMRPhotoRating: NSNumber {
-    case Dislike = 0
-    case Like = 1
-    case Love = 2
+  func titleForRating() -> String {
+    let titles = ["Dislike", "Like", "Love"]
     
-    func titleForRating() -> String {
-      let titles = ["Dislike", "Like", "Love"]
-      
-      return titles[self.rawValue as Int]
-    }
+    return titles[self.rawValue as Int]
   }
+}
+
+class AMRImage: PFObject {
   
   @NSManaged var defaultImageName: String?
   @NSManaged var file: PFFile?

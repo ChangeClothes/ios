@@ -36,17 +36,17 @@ class AMRPhotoDetailViewController: UIViewController {
   }
   
   @IBAction func dislikeButtonPressed(sender: UIButton) {
-    photo?.rating = AMRImage.AMRPhotoRating.Dislike
+    photo?.rating = .Dislike
     ratingLabel.text = photo?.rating?.titleForRating()
   }
   
   @IBAction func likeButtonPressed(sender: UIButton) {
-    photo?.rating = AMRImage.AMRPhotoRating.Like
+    photo?.rating = .Like
     ratingLabel.text = photo?.rating?.titleForRating()
   }
   
   @IBAction func loveButtonPressed(sender: UIButton) {
-    photo?.rating = AMRImage.AMRPhotoRating.Love
+    photo?.rating = .Love
     ratingLabel.text = photo?.rating?.titleForRating()
   }
   

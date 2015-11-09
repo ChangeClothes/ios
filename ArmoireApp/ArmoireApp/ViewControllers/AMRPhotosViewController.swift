@@ -8,14 +8,15 @@
 
 import UIKit
 
+let uncategorizedSectionTitle = "Uncategorized"
 let imageCellReuseIdentifier = "cell"
-
 class AMRPhotosViewController: AMRViewController {
 
   
   @IBOutlet weak var collectionView: UICollectionView!
   var photos: [AMRImage] = []
   var photoPicker:PhotoPicker?
+  var photoSections: [String: [AMRImage]]?
   
   // MARK: - Lifecycle
   override func viewDidLoad() {
@@ -28,6 +29,7 @@ class AMRPhotosViewController: AMRViewController {
   private func setupCollectionView() {
     AMRImage.imagesForUser(stylist, client: client) { (objects, error) -> Void in
       self.photos = objects! as [AMRImage]
+      self.photoSections = self.sectionsForPhotosArray(self.photos)
       self.collectionView.reloadData()
     }
     
@@ -39,6 +41,27 @@ class AMRPhotosViewController: AMRViewController {
     self.view.addSubview(collectionView)
   }
   
+  // MARK: - Utility
+  private func sectionsForPhotosArray(images: [AMRImage]) -> [String: [AMRImage]] {
+    var photoSections = [String: [AMRImage]]()
+    
+    for image in images {
+      if let rating = image.rating {
+        guard let _ = photoSections[rating.titleForRating()] else {
+          photoSections[rating.titleForRating()] = [AMRImage]()
+          break
+        }
+        photoSections[rating.titleForRating()]?.append(image)
+  
+      } else {
+        if photoSections[uncategorizedSectionTitle] == nil {
+          photoSections[uncategorizedSectionTitle] = [AMRImage]()
+        }
+        photoSections[uncategorizedSectionTitle]?.append(image)
+      }
+    }
+    return photoSections
+  }
 }
 
 // MARK: UICollectionViewDataSource
@@ -58,9 +81,6 @@ extension AMRPhotosViewController: UICollectionViewDataSource{
       cell.imageView.tintColor = UIColor.AMRSecondaryBackgroundColor()
       cell.imageView.image = cameraIcon
     } else {
-      if cell.imageView.image != nil {
-        
-      }
       cell.activityIndicatorView.startAnimating()
       let image = photos[indexPath.row - 1]
       cell.imageView.backgroundColor = UIColor.grayColor()
