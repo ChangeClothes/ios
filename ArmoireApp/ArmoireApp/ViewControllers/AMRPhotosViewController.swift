@@ -27,11 +27,7 @@ class AMRPhotosViewController: AMRViewController {
   
   // MARK: - Initial Setup
   private func setupCollectionView() {
-    AMRImage.imagesForUser(stylist, client: client) { (objects, error) -> Void in
-      self.photos = objects! as [AMRImage]
-      self.photoSections = self.sectionsForPhotosArray(self.photos)
-      self.collectionView.reloadData()
-    }
+    refreshCollectionView()
     
     collectionView.dataSource = self
     collectionView.delegate = self
@@ -44,45 +40,78 @@ class AMRPhotosViewController: AMRViewController {
   // MARK: - Utility
   private func sectionsForPhotosArray(images: [AMRImage]) -> [String: [AMRImage]] {
     var photoSections = [String: [AMRImage]]()
+    print(images.count)
     
     for image in images {
-      if let rating = image.rating {
-        guard let _ = photoSections[rating.titleForRating()] else {
-          photoSections[rating.titleForRating()] = [AMRImage]()
-          break
-        }
-        photoSections[rating.titleForRating()]?.append(image)
-  
-      } else {
-        if photoSections[uncategorizedSectionTitle] == nil {
-          photoSections[uncategorizedSectionTitle] = [AMRImage]()
-        }
-        photoSections[uncategorizedSectionTitle]?.append(image)
+      print("image found")
+      
+      if image.rating == nil {
+        image.rating = AMRPhotoRating.Unrated
       }
+      
+      if photoSections[image.rating!.titleForRating()] == nil{
+        photoSections[image.rating!.titleForRating()] = [AMRImage]()
+      }
+      photoSections[image.rating!.titleForRating()]!.append(image)
     }
     return photoSections
+  }
+  
+  private func refreshCollectionView() {
+    AMRImage.imagesForUser(stylist, client: client) { (objects, error) -> Void in
+      self.photos = objects! as [AMRImage]
+      self.photoSections = self.sectionsForPhotosArray(self.photos)
+      print(self.photoSections)
+      self.collectionView.reloadData()
+    }
   }
 }
 
 // MARK: UICollectionViewDataSource
 extension AMRPhotosViewController: UICollectionViewDataSource{
+  
+  func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    return AMRPhotoRating.titleArray().count
+  }
+  
   func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return photos.count + 1
+    if let sections = photoSections {
+      if let imagesArray = sections[AMRPhotoRating.titleArray()[section]] {
+        if section == 0 {
+          return imagesArray.count + 1 // For camera button
+        } else {
+          return imagesArray.count
+        }
+        
+      }
+    }
+    if section == 0 {
+      return 1  // For camera button
+    }
+    return 0
   }
   
   func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
     
     let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! imageCollectionViewCell
     
-    if indexPath.row == 0 {
+    if indexPath.row == 0 && indexPath.section == 0{
       cell.activityIndicatorView.stopAnimating()
       var cameraIcon = UIImage(named: "camera-add")
       cameraIcon = cameraIcon?.imageWithRenderingMode(.AlwaysTemplate)
       cell.imageView.tintColor = UIColor.AMRSecondaryBackgroundColor()
       cell.imageView.image = cameraIcon
+    } else if indexPath.section == 0 {
+      cell.activityIndicatorView.startAnimating()
+      let image = photoSections![AMRPhotoRating.titleArray()[indexPath.section]]![indexPath.row - 1]
+      cell.imageView.backgroundColor = UIColor.grayColor()
+      cell.imageView.setAMRImage(image, withPlaceholder: "download", withCompletion: { (success) -> Void in
+        cell.activityIndicatorView.stopAnimating()
+      })
+      
     } else {
       cell.activityIndicatorView.startAnimating()
-      let image = photos[indexPath.row - 1]
+      let image = photoSections![AMRPhotoRating.titleArray()[indexPath.section]]![indexPath.row]
       cell.imageView.backgroundColor = UIColor.grayColor()
       cell.imageView.setAMRImage(image, withPlaceholder: "download", withCompletion: { (success) -> Void in
         cell.activityIndicatorView.stopAnimating()
@@ -91,6 +120,7 @@ extension AMRPhotosViewController: UICollectionViewDataSource{
     }
     return cell
   }
+  
 }
 
 // MARK: - UICollectionViewDelegate
@@ -98,10 +128,13 @@ extension AMRPhotosViewController: UICollectionViewDelegate {
   func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
     collectionView.deselectItemAtIndexPath(indexPath, animated: true)
     
-    if indexPath.row == 0 {
+    if indexPath.row == 0 && indexPath.section == 0 {
       selectPhoto()
+    } else if indexPath.section == 0 {
+      let photo = photoSections![AMRPhotoRating.titleArray()[indexPath.section]]![indexPath.row - 1]
+      showPicture(photo)
     } else {
-      let photo = photos[indexPath.row - 1]
+      let photo = photoSections![AMRPhotoRating.titleArray()[indexPath.section]]![indexPath.row]
       showPicture(photo)
     }
   }
@@ -143,6 +176,7 @@ extension AMRPhotosViewController: UICollectionViewDelegateFlowLayout {
 extension AMRPhotosViewController: AMRPhotoDetailViewControllerDelegate {
   func AMRPhotoDetailVIewController(photoViewDetailController: AMRPhotoDetailViewController, didDismiss: Bool) {
     self.navigationController?.popViewControllerAnimated(true)
+    refreshCollectionView()
   }
 }
 

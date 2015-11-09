@@ -7,14 +7,19 @@
 //
 
 enum AMRPhotoRating: NSNumber {
-  case Dislike = 0
-  case Like = 1
-  case Love = 2
+  case Dislike = 3
+  case Like = 2
+  case Love = 1
+  case Unrated = 0
   
   func titleForRating() -> String {
-    let titles = ["Dislike", "Like", "Love"]
+    let titles = AMRPhotoRating.titleArray()
     
     return titles[self.rawValue as Int]
+  }
+  
+  static func titleArray() -> [String] {
+    return ["Unrated", "Love",  "Like", "Dislike", ]
   }
 }
 
