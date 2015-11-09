@@ -1,6 +1,6 @@
 //
 //  AMRPhotoDetailViewController.swift
-//  
+//
 //
 //  Created by Mathew Kellogg on 11/1/15.
 //
@@ -15,14 +15,17 @@ protocol AMRPhotoDetailViewControllerDelegate: class{
 class AMRPhotoDetailViewController: UIViewController {
   
   @IBOutlet weak var containerViewController: UIImageView!
+  @IBOutlet weak var ratingLabel: UILabel!
   
   weak var delegate: AMRPhotoDetailViewControllerDelegate?
   
   var photo: AMRImage?
-
+  
   override func viewDidLoad() {
     super.viewDidLoad()
-
+    
+    
+    ratingLabel.text = photo?.rating?.titleForRating()
     containerViewController.setAMRImage(photo!)
     let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismiss:")
     containerViewController.addGestureRecognizer(tapGestureRecognizer)
@@ -31,21 +34,17 @@ class AMRPhotoDetailViewController: UIViewController {
   func dismiss(sender: UITapGestureRecognizer){
     self.delegate?.AMRPhotoDetailVIewController(self, didDismiss: true)
   }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+  
+  @IBAction func dislikeButtonPressed(sender: UIButton) {
+    photo?.rating = AMRImage.AMRPhotoRating.Dislike
+  }
+  
+  @IBAction func likeButtonPressed(sender: UIButton) {
+    photo?.rating = AMRImage.AMRPhotoRating.Like
+  }
+  
+  @IBAction func loveButtonPressed(sender: UIButton) {
+    photo?.rating = AMRImage.AMRPhotoRating.Love
+  }
+  
 }

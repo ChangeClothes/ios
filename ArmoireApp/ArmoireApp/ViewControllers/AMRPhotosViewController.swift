@@ -17,14 +17,19 @@ class AMRPhotosViewController: AMRViewController {
   var photos: [AMRImage] = []
   var photoPicker:PhotoPicker?
   
-
+  // MARK: - Lifecycle
   override func viewDidLoad() {
+    setupCollectionView()
+    
+    self.navigationController?.setNavigationBarHidden(true, animated: false)
+  }
+  
+  // MARK: - Initial Setup
+  private func setupCollectionView() {
     AMRImage.imagesForUser(stylist, client: client) { (objects, error) -> Void in
       self.photos = objects! as [AMRImage]
       self.collectionView.reloadData()
     }
-    
-    self.navigationController?.setNavigationBarHidden(true, animated: false)
     
     collectionView.dataSource = self
     collectionView.delegate = self
@@ -32,7 +37,6 @@ class AMRPhotosViewController: AMRViewController {
     collectionView.registerNib(cellNib, forCellWithReuseIdentifier: "Cell")
     collectionView.backgroundColor = UIColor.whiteColor()
     self.view.addSubview(collectionView)
-    
   }
   
 }
