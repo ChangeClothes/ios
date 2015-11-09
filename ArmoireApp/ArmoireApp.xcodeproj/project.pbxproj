@@ -58,6 +58,9 @@
 		C5B6127C1BE75AF600B3B738 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B6127B1BE75AF600B3B738 /* Theme.swift */; };
 		C5B75A881BE0A19D0009296C /* AMRMeasurementCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B75A861BE0A19D0009296C /* AMRMeasurementCell.swift */; };
 		C5B75A891BE0A19D0009296C /* AMRMeasurementCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5B75A871BE0A19D0009296C /* AMRMeasurementCell.xib */; };
+		C5C2680B1BF04F7300B637AF /* AMRQANotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C268091BF04F7300B637AF /* AMRQANotesViewController.swift */; };
+		C5C2680C1BF04F7300B637AF /* AMRQANotesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5C2680A1BF04F7300B637AF /* AMRQANotesViewController.xib */; };
+		C5C2680E1BF052FA00B637AF /* AMRQuestionAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C2680D1BF052FA00B637AF /* AMRQuestionAnswer.swift */; };
 		C5D535FF1BE086750046A288 /* AMRPhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D535FD1BE086750046A288 /* AMRPhotosViewController.swift */; };
 		C5D536001BE086750046A288 /* AMRPhotosViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5D535FE1BE086750046A288 /* AMRPhotosViewController.xib */; };
 		C5D536031BE086A00046A288 /* AMRMeasurementsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D536011BE086A00046A288 /* AMRMeasurementsViewController.swift */; };
@@ -136,6 +139,9 @@
 		C5B6127B1BE75AF600B3B738 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Theme.swift; path = Application/Theme.swift; sourceTree = "<group>"; };
 		C5B75A861BE0A19D0009296C /* AMRMeasurementCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRMeasurementCell.swift; path = Views/AMRMeasurementCell.swift; sourceTree = "<group>"; };
 		C5B75A871BE0A19D0009296C /* AMRMeasurementCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AMRMeasurementCell.xib; path = Views/AMRMeasurementCell.xib; sourceTree = "<group>"; };
+		C5C268091BF04F7300B637AF /* AMRQANotesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRQANotesViewController.swift; path = ViewControllers/AMRQANotesViewController.swift; sourceTree = "<group>"; };
+		C5C2680A1BF04F7300B637AF /* AMRQANotesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AMRQANotesViewController.xib; path = ViewControllers/AMRQANotesViewController.xib; sourceTree = "<group>"; };
+		C5C2680D1BF052FA00B637AF /* AMRQuestionAnswer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRQuestionAnswer.swift; path = Models/AMRQuestionAnswer.swift; sourceTree = "<group>"; };
 		C5D535FD1BE086750046A288 /* AMRPhotosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRPhotosViewController.swift; path = ViewControllers/AMRPhotosViewController.swift; sourceTree = "<group>"; };
 		C5D535FE1BE086750046A288 /* AMRPhotosViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AMRPhotosViewController.xib; path = ViewControllers/AMRPhotosViewController.xib; sourceTree = "<group>"; };
 		C5D536011BE086A00046A288 /* AMRMeasurementsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRMeasurementsViewController.swift; path = ViewControllers/AMRMeasurementsViewController.swift; sourceTree = "<group>"; };
@@ -163,6 +169,7 @@
 				0FD5476A1BDB3350005587F2 /* AMRNote.swift */,
 				C51751E61BDD7F17000F7A82 /* AMRImage.swift */,
 				C50363E41BE1D12F008030E1 /* AMRMeasurements.swift */,
+				C5C2680D1BF052FA00B637AF /* AMRQuestionAnswer.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -281,6 +288,8 @@
 				C58401A11BE6FD0B00D90117 /* AMRPhotoDetailViewController.swift */,
 				C58401A21BE6FD0B00D90117 /* AMRPhotoDetailViewController.xib */,
 				6F1B37BF1BF00BD5005DBA10 /* AMRViewController.swift */,
+				C5C268091BF04F7300B637AF /* AMRQANotesViewController.swift */,
+				C5C2680A1BF04F7300B637AF /* AMRQANotesViewController.xib */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -379,6 +388,7 @@
 				6F1B37BE1BEECCE5005DBA10 /* AMRLoginViewController.xib in Resources */,
 				6FDD83981BD0833500028E3D /* LaunchScreen.storyboard in Resources */,
 				C5B75A891BE0A19D0009296C /* AMRMeasurementCell.xib in Resources */,
+				C5C2680C1BF04F7300B637AF /* AMRQANotesViewController.xib in Resources */,
 				0FD0BAC51BD605F500D91504 /* AMRUpcomingMeetingsTableViewCell.xib in Resources */,
 				0FD547731BDDA4A9005587F2 /* AMRAddClientViewController.xib in Resources */,
 				0F18931F1BD623C8007126D2 /* AMRClientTableViewCell.xib in Resources */,
@@ -466,6 +476,7 @@
 				6FA013121BD75C190019E0D6 /* AMRLoginViewController.swift in Sources */,
 				0F4590BC1BD4B57300C839F9 /* AMRClientsDetailViewController.swift in Sources */,
 				C5B75A881BE0A19D0009296C /* AMRMeasurementCell.swift in Sources */,
+				C5C2680B1BF04F7300B637AF /* AMRQANotesViewController.swift in Sources */,
 				C50363E51BE1D12F008030E1 /* AMRMeasurements.swift in Sources */,
 				6FF7BA181BDC3A9D00A7C54A /* AMRParticipantTableViewController.swift in Sources */,
 				0FD0BABE1BD6037000D91504 /* AMRUpcomingMeetingsViewController.swift in Sources */,
@@ -486,6 +497,7 @@
 				0F4590C61BD4B88100C839F9 /* AMRMessagesDetailsViewController.swift in Sources */,
 				6FE7AB691BD84E9A00FAFAC0 /* AMRUser.swift in Sources */,
 				C58401A31BE6FD0B00D90117 /* AMRPhotoDetailViewController.swift in Sources */,
+				C5C2680E1BF052FA00B637AF /* AMRQuestionAnswer.swift in Sources */,
 				0F4590B41BD4A59300C839F9 /* AMRMessageTableViewCell.swift in Sources */,
 				6F6AEACF1BDB1F3A009B8F74 /* AMRUser+ATLParticipant.swift in Sources */,
 			);
