@@ -19,9 +19,7 @@ extension AMRUser: ATLParticipant {
   }
   
   var avatarImage: UIImage? {
-    print("getting avatar for: \(self.fullName) \(self._avatarImage)")
     if let aImage = self._avatarImage {
-      print("got avatar")
       return aImage
     }
     return nil

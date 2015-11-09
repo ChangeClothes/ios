@@ -155,7 +155,6 @@ extension AMRMessagesViewController: ATLConversationListViewControllerDelegate {
       })
     }
     user?.setAvatarImage(){ (avatarDidChange:Bool) in
-      print(avatarDidChange)
       if avatarDidChange {
         self.tableView.reloadData()
       }
