@@ -19,6 +19,9 @@ extension AMRUser: ATLParticipant {
   }
   
   var avatarImage: UIImage? {
+    if let aImage = self._avatarImage {
+      return aImage
+    }
     return nil
   }
   
