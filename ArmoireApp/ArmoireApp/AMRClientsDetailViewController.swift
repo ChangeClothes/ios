@@ -9,7 +9,7 @@
 import UIKit
 import LayerKit
 
-class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtocol,  LYRQueryControllerDelegate  {
+class AMRClientsDetailViewController: AMRViewController, LYRQueryControllerDelegate  {
   
   @IBOutlet weak var newMessageImageViewContainerYConstraint: NSLayoutConstraint!
   @IBOutlet weak var newMessageImageViewContainerXConstraint: NSLayoutConstraint!
@@ -47,8 +47,9 @@ class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtoc
   override func viewDidLoad() {
     super.viewDidLoad()
     self.navigationController?.navigationBarHidden = true
-    setVcData(self.stylist, client: self.client)
-    
+//    setVcData(self.stylist, client: self.client)
+    setVcArray()
+    setVcDataForTabs()
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "deviceDidRotate", name: UIDeviceOrientationDidChangeNotification, object: nil)
     
     
@@ -242,13 +243,6 @@ class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtoc
   }
   
   // MARK: - View Controller Selection
-  func setVcData(stylist: AMRUser?, client: AMRUser?) {
-    self.stylist = stylist
-    self.client = client
-    setVcArray()
-    setVcDataForTabs()
-  }
-  
   private func onSettingsTap(){
     showSettings()
   }
@@ -294,7 +288,7 @@ class AMRClientsDetailViewController: AMRViewController, AMRViewControllerProtoc
   private func setVcDataForTabs(){
     for (index, value) in vcArray.enumerate() {
       if (index != 0) {
-        let vc = value.viewControllers.first as? AMRViewControllerProtocol
+        let vc = value.viewControllers.first as? AMRViewController
         vc?.setVcData(self.stylist, client: self.client)
         //value.navigationBar.tintColor = UIColor.AMRBrightButtonTintColor()
         //value.navigationBar.barTintColor = UIColor.AMRUnselectedTabBarButtonTintColor()

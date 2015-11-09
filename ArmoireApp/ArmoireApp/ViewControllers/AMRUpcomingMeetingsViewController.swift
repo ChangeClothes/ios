@@ -10,7 +10,7 @@ import UIKit
 import EventKit
 import EventKitUI
 
-class AMRUpcomingMeetingsViewController: AMRViewController, AMRViewControllerProtocol {
+class AMRUpcomingMeetingsViewController: AMRViewController {
   
   // MARK: - Constants
   private let meetingTableViewCellReuseIdentifier = "com.armoireapp.meetingTableViewCellReuseIdentifier"
@@ -88,11 +88,7 @@ class AMRUpcomingMeetingsViewController: AMRViewController, AMRViewControllerPro
     let footerView = UIView(frame: CGRectZero)
     tableView.tableFooterView = footerView
   }
-  
-  internal func setVcData(stylist: AMRUser?, client: AMRUser?) {
-    self.stylist = stylist
-    self.client = client
-  }
+
   
   private func scrollToLatestDate(){
     if sortedDays.count > 0 {

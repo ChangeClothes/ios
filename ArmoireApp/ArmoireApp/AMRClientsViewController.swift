@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AMRClientsViewController: AMRViewController, UITableViewDataSource, UITableViewDelegate, AMRViewControllerProtocol, UISearchBarDelegate, UIGestureRecognizerDelegate {
+class AMRClientsViewController: AMRViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UIGestureRecognizerDelegate {
 
   // MARK: - Outlets
   
@@ -180,22 +180,4 @@ class AMRClientsViewController: AMRViewController, UITableViewDataSource, UITabl
     return index
   }
   
-  // MARK: - AMRViewControllerProtocol Conformity
-
-  internal func setVcData(stylist: AMRUser?, client: AMRUser?) {
-    self.stylist = stylist
-    self.client = client
-  }
-  
-
-  /*
-  // MARK: - Navigation
-
-  // In a storyboard-based application, you will often want to do a little preparation before navigation
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-      // Get the new view controller using segue.destinationViewController.
-      // Pass the selected object to the new view controller.
-  }
-  */
-
 }
