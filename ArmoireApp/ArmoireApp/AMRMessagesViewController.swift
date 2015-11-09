@@ -14,7 +14,6 @@ class AMRMessagesViewController: ATLConversationListViewController, AMRViewContr
   var messages: NSDictionary?
   var stylist: AMRUser?
   var client: AMRUser?
-  @IBOutlet weak var messagesTable: UITableView!
 
   // MARK: - Lifecycle
 
@@ -32,7 +31,7 @@ class AMRMessagesViewController: ATLConversationListViewController, AMRViewContr
     
     setupNavigationBar()
 
-    displaysAvatarItem = true
+    self.displaysAvatarItem = true
   }
 
   override func didReceiveMemoryWarning() {
@@ -140,6 +139,7 @@ extension AMRMessagesViewController: ATLConversationListViewControllerDelegate {
   }
   
   func conversationListViewController(conversationListViewController: ATLConversationListViewController!, avatarItemForConversation conversation: LYRConversation!) -> ATLAvatarItem! {
+    
     let userID: String = conversation.lastMessage.sender.userID
     if userID == AMRUser.currentUser()!.objectId {
       return AMRUser.currentUser()
@@ -154,8 +154,15 @@ extension AMRMessagesViewController: ATLConversationListViewControllerDelegate {
         }
       })
     }
+    user?.setAvatarImage(){ (avatarDidChange:Bool) in
+      print(avatarDidChange)
+      if avatarDidChange {
+        self.tableView.reloadData()
+      }
+    }
     return user;
   }
+  
 
   internal func setVcData(stylist: AMRUser?, client: AMRUser?) {
     self.stylist = stylist
