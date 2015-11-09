@@ -42,6 +42,8 @@
 		6F55790F1BD2335C0033A7C8 /* AMRMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F55790D1BD2335C0033A7C8 /* AMRMainViewController.xib */; };
 		6F6AEACF1BDB1F3A009B8F74 /* AMRUser+ATLParticipant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6AEACE1BDB1F3A009B8F74 /* AMRUser+ATLParticipant.swift */; };
 		6F6AEAD11BDB209B009B8F74 /* AMRUserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6AEAD01BDB209B009B8F74 /* AMRUserManager.swift */; };
+		6F6C64991BF07D0100871004 /* AMRPhotosSectionCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6C64971BF07D0100871004 /* AMRPhotosSectionCollectionReusableView.swift */; };
+		6F6C649A1BF07D0100871004 /* AMRPhotosSectionCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F6C64981BF07D0100871004 /* AMRPhotosSectionCollectionReusableView.xib */; };
 		6FA0130F1BD752460019E0D6 /* AMRSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA0130D1BD752460019E0D6 /* AMRSignUpViewController.swift */; };
 		6FA013101BD752460019E0D6 /* AMRSignUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FA0130E1BD752460019E0D6 /* AMRSignUpViewController.xib */; };
 		6FA013121BD75C190019E0D6 /* AMRLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA013111BD75C190019E0D6 /* AMRLoginViewController.swift */; };
@@ -119,6 +121,8 @@
 		6F55790D1BD2335C0033A7C8 /* AMRMainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AMRMainViewController.xib; path = ViewControllers/AMRMainViewController.xib; sourceTree = "<group>"; };
 		6F6AEACE1BDB1F3A009B8F74 /* AMRUser+ATLParticipant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "AMRUser+ATLParticipant.swift"; path = "Extensions/AMRUser+ATLParticipant.swift"; sourceTree = "<group>"; };
 		6F6AEAD01BDB209B009B8F74 /* AMRUserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRUserManager.swift; path = Models/AMRUserManager.swift; sourceTree = "<group>"; };
+		6F6C64971BF07D0100871004 /* AMRPhotosSectionCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRPhotosSectionCollectionReusableView.swift; path = Views/AMRPhotosSectionCollectionReusableView.swift; sourceTree = "<group>"; };
+		6F6C64981BF07D0100871004 /* AMRPhotosSectionCollectionReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AMRPhotosSectionCollectionReusableView.xib; path = Views/AMRPhotosSectionCollectionReusableView.xib; sourceTree = "<group>"; };
 		6FA0130D1BD752460019E0D6 /* AMRSignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRSignUpViewController.swift; path = ViewControllers/AMRSignUpViewController.swift; sourceTree = "<group>"; };
 		6FA0130E1BD752460019E0D6 /* AMRSignUpViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AMRSignUpViewController.xib; path = ViewControllers/AMRSignUpViewController.xib; sourceTree = "<group>"; };
 		6FA013111BD75C190019E0D6 /* AMRLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRLoginViewController.swift; path = ViewControllers/AMRLoginViewController.swift; sourceTree = "<group>"; };
@@ -246,6 +250,8 @@
 				C5B75A871BE0A19D0009296C /* AMRMeasurementCell.xib */,
 				C53F001B1BE1F50600070118 /* imageCollectionViewCell.swift */,
 				C53F001C1BE1F50600070118 /* imageCollectionViewCell.xib */,
+				6F6C64971BF07D0100871004 /* AMRPhotosSectionCollectionReusableView.swift */,
+				6F6C64981BF07D0100871004 /* AMRPhotosSectionCollectionReusableView.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -385,6 +391,7 @@
 				0F4590911BD4867800C839F9 /* Credentials.plist in Resources */,
 				6FA013101BD752460019E0D6 /* AMRSignUpViewController.xib in Resources */,
 				C5D536001BE086750046A288 /* AMRPhotosViewController.xib in Resources */,
+				6F6C649A1BF07D0100871004 /* AMRPhotosSectionCollectionReusableView.xib in Resources */,
 				0F4590B51BD4A59300C839F9 /* AMRMessageTableViewCell.xib in Resources */,
 				0F4590A51BD49ACF00C839F9 /* AMRNotesViewController.xib in Resources */,
 				C58401A41BE6FD0B00D90117 /* AMRPhotoDetailViewController.xib in Resources */,
@@ -464,6 +471,7 @@
 				C53F001D1BE1F50600070118 /* imageCollectionViewCell.swift in Sources */,
 				0FD547721BDDA4A9005587F2 /* AMRAddClientViewController.swift in Sources */,
 				6FA013121BD75C190019E0D6 /* AMRLoginViewController.swift in Sources */,
+				6F6C64991BF07D0100871004 /* AMRPhotosSectionCollectionReusableView.swift in Sources */,
 				0F4590BC1BD4B57300C839F9 /* AMRClientsDetailViewController.swift in Sources */,
 				C5B75A881BE0A19D0009296C /* AMRMeasurementCell.swift in Sources */,
 				C50363E51BE1D12F008030E1 /* AMRMeasurements.swift in Sources */,

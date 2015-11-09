@@ -9,7 +9,8 @@
 import UIKit
 
 let uncategorizedSectionTitle = "Uncategorized"
-let imageCellReuseIdentifier = "cell"
+let kImageCellReuseIdentifier = "com.armoire.imageCellReuseIdentifier"
+let kItemSectionHeaderViewID = "com.armoire.photoSectionHeaderViewID"
 class AMRPhotosViewController: AMRViewController {
 
   
@@ -21,8 +22,11 @@ class AMRPhotosViewController: AMRViewController {
   // MARK: - Lifecycle
   override func viewDidLoad() {
     setupCollectionView()
-    
     self.navigationController?.setNavigationBarHidden(true, animated: false)
+  }
+  
+  override func viewWillAppear(animated: Bool) {
+    //
   }
   
   // MARK: - Initial Setup
@@ -32,7 +36,10 @@ class AMRPhotosViewController: AMRViewController {
     collectionView.dataSource = self
     collectionView.delegate = self
     let cellNib = UINib(nibName: "imageCollectionViewCell", bundle: nil)
-    collectionView.registerNib(cellNib, forCellWithReuseIdentifier: "Cell")
+    collectionView.registerNib(cellNib, forCellWithReuseIdentifier: kImageCellReuseIdentifier)
+    
+    let sectionHeaderNib = UINib(nibName: "AMRPhotosSectionCollectionReusableView", bundle: nil)
+    collectionView.registerNib(sectionHeaderNib, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: kItemSectionHeaderViewID)
     collectionView.backgroundColor = UIColor.whiteColor()
     self.view.addSubview(collectionView)
   }
@@ -40,10 +47,8 @@ class AMRPhotosViewController: AMRViewController {
   // MARK: - Utility
   private func sectionsForPhotosArray(images: [AMRImage]) -> [String: [AMRImage]] {
     var photoSections = [String: [AMRImage]]()
-    print(images.count)
     
     for image in images {
-      print("image found")
       
       if image.rating == nil {
         image.rating = AMRPhotoRating.Unrated
@@ -61,7 +66,6 @@ class AMRPhotosViewController: AMRViewController {
     AMRImage.imagesForUser(stylist, client: client) { (objects, error) -> Void in
       self.photos = objects! as [AMRImage]
       self.photoSections = self.sectionsForPhotosArray(self.photos)
-      print(self.photoSections)
       self.collectionView.reloadData()
     }
   }
@@ -91,9 +95,21 @@ extension AMRPhotosViewController: UICollectionViewDataSource{
     return 0
   }
   
+  func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+    return CGSizeMake(60.0, 30.0)
+  }
+  
+  func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+    let view = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: kItemSectionHeaderViewID, forIndexPath: indexPath) as! AMRPhotosSectionCollectionReusableView
+
+    view.sectionTitleLabel.text = AMRPhotoRating.titleArray()[indexPath.section]
+    
+    return view
+  }
+  
   func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
     
-    let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! imageCollectionViewCell
+    let cell = collectionView.dequeueReusableCellWithReuseIdentifier(kImageCellReuseIdentifier, forIndexPath: indexPath) as! imageCollectionViewCell
     
     if indexPath.row == 0 && indexPath.section == 0{
       cell.activityIndicatorView.stopAnimating()
@@ -147,14 +163,12 @@ extension AMRPhotosViewController: UICollectionViewDelegate {
     popoverContent.photo = photo
     
     navigationController?.pushViewController(popoverContent, animated: true)
-    
   }
   
   func selectPhoto(){
-    print("selecting phto")
     PhotoPicker.sharedInstance.selectPhoto(self.stylist, client: self.client, viewDelegate: self) { image in
       self.photos.append(image)
-      self.collectionView.reloadData() //TOOD should I make this more efficient by just refreshing the one image?
+      self.refreshCollectionView() //TOOD should I make this more efficient by just refreshing the one image?
     }
   }
 }
@@ -168,14 +182,16 @@ extension AMRPhotosViewController: UICollectionViewDelegateFlowLayout {
   }
   
   func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
-    //let leftRightInset = self.view.frame.size.width / 14.0
-    return UIEdgeInsetsMake(0, 0, 0, 0)
+    return UIEdgeInsetsMake(15.0, 0, 15.0, 0)
   }
 }
 
 extension AMRPhotosViewController: AMRPhotoDetailViewControllerDelegate {
   func AMRPhotoDetailVIewController(photoViewDetailController: AMRPhotoDetailViewController, didDismiss: Bool) {
     self.navigationController?.popViewControllerAnimated(true)
+  }
+  
+  func AMRPhotoDetailVIewController(photoViewDetailController: AMRPhotoDetailViewController, didChangeToRating rating: AMRPhotoRating?, didChangeToComment comment: String? ){
     refreshCollectionView()
   }
 }
