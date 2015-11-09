@@ -9,7 +9,7 @@
 import UIKit
 import LayerKit
 
-class AMRMessagesViewController: ATLConversationListViewController, AMRViewControllerProtocol{
+class AMRMessagesViewController: ATLConversationListViewController{
 
   var messages: NSDictionary?
   var stylist: AMRUser?

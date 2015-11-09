@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AMRClientProfileViewController: AMRViewController, UIAlertViewDelegate, AMRViewControllerProtocol{
+class AMRClientProfileViewController: AMRViewController, UIAlertViewDelegate{
   
   // MARK: - IBOutlets
   @IBOutlet weak var containerView: UIView!
@@ -47,24 +47,16 @@ class AMRClientProfileViewController: AMRViewController, UIAlertViewDelegate, AM
     setupPageController()
     setupSegmentedControl()
     setupPageSelectionIndicatorView()
+    setUpNavBar()
     
   }
   
   
   
   // MARK: - Initial Setup
-  func setVcData(stylist: AMRUser?, client: AMRUser?) {
-    self.stylist = stylist
-    self.client = client
-    if (client != nil){
-      self.title = (client?.firstName)! + " " + (client?.lastName)!
-    }
-    setUpNavBar()
-  }
-  
   private func setVcDataForTabs(){
     for (_, value) in vcArray.enumerate() {
-      let vc = (value as! UINavigationController).viewControllers.first as? AMRViewControllerProtocol
+      let vc = (value as! UINavigationController).viewControllers.first as? AMRViewController
       vc?.setVcData(self.stylist, client: self.client)
     }
   }
@@ -105,6 +97,9 @@ class AMRClientProfileViewController: AMRViewController, UIAlertViewDelegate, AM
     } else {
       let leftNavBarButton = UIBarButtonItem(image: UIImage(named: "settings"), style: .Plain, target: self, action: "onSettingsTap")
       self.navigationItem.leftBarButtonItem = leftNavBarButton
+    }
+    if (client != nil){
+      self.title = (client?.firstName)! + " " + (client?.lastName)!
     }
   }
   

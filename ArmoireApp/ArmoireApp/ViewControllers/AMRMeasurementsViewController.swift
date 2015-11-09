@@ -10,7 +10,7 @@ import UIKit
 
 let measurementCellReuseIdentifier = "com.armoire.AMRMeasurementCell"
 
-class AMRMeasurementsViewController: AMRViewController, UITableViewDelegate, UITableViewDataSource, AMRViewControllerProtocol, AMRMeasurementCellDelegate {
+class AMRMeasurementsViewController: AMRViewController, UITableViewDelegate, UITableViewDataSource, AMRMeasurementCellDelegate {
 
   @IBOutlet weak var myTableView: UITableView!
   var measurements: AMRMeasurements?
@@ -110,11 +110,6 @@ class AMRMeasurementsViewController: AMRViewController, UITableViewDelegate, UIT
     measurements?.measurements.append(["":""])
     myTableView.insertRowsAtIndexPaths([nextIndexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
     self.measurements?.saveInBackground()
-  }
-  
-  internal func setVcData(stylist: AMRUser?, client: AMRUser?) {
-    self.stylist = stylist
-    self.client = client
   }
   
   override func didReceiveMemoryWarning() {
