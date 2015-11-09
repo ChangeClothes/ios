@@ -64,8 +64,6 @@ class AMRMainViewController: AMRViewController{
     layerQueryController.executeWithCompletion { (success: Bool, error: NSError!) -> Void in
       if let error = error {
         print(error.localizedDescription)
-      } else {
-        print("Query fetched \(self.layerQueryController.numberOfObjectsInSection(0)) message objects")
       }
     }
   }
@@ -293,8 +291,12 @@ class AMRMainViewController: AMRViewController{
   private func setVcDataForTabs(){
     for (index, value) in vcArray.enumerate() {
       if (index != 0) {
-        let vc = value.viewControllers.first as? AMRViewController
-        vc?.setVcData(self.stylist, client: self.client)
+        let vc = value.viewControllers.first
+        if vc?.isKindOfClass(AMRViewController.self) == true {
+          (vc as! AMRViewController).setVcData(self.stylist, client: self.client)
+        } else if vc?.isKindOfClass(AMRMessagesViewController.self) == true{
+          (vc as! AMRMessagesViewController).setVcData(self.stylist, client: self.client)
+        }
       }
     }
   }
