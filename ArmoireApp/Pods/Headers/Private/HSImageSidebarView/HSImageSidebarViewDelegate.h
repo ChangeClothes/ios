@@ -1,0 +1,1 @@
+../../../HSImageSidebarView/HSImageSidebarView/HSImageSidebarViewDelegate.h

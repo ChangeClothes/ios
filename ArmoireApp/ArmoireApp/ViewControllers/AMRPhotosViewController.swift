@@ -16,6 +16,7 @@ class AMRPhotosViewController: AMRViewController {
   
   @IBOutlet weak var collectionView: UICollectionView!
   var photos: [AMRImage] = []
+  var photosAsUIImage: [UIImage] = []
   var photoPicker:PhotoPicker?
   var photoSections: [String: [AMRImage]]?
   
@@ -65,9 +66,21 @@ class AMRPhotosViewController: AMRViewController {
   private func refreshCollectionView() {
     AMRImage.imagesForUser(stylist, client: client) { (objects, error) -> Void in
       self.photos = objects! as [AMRImage]
+      self.uiImageArrayFromAMRImageArray(self.photos)
       self.photoSections = self.sectionsForPhotosArray(self.photos)
       self.collectionView.reloadData()
     }
+  }
+  
+  private func uiImageArrayFromAMRImageArray(array: [AMRImage]) {
+    photosAsUIImage = [UIImage]()
+    
+    for image in array {
+      image.getImage({ (correctImage: UIImage) -> () in
+        self.photosAsUIImage.append(correctImage)
+      })
+    }
+
   }
 }
 
@@ -161,6 +174,8 @@ extension AMRPhotosViewController: UICollectionViewDelegate {
     let popoverContent = AMRPhotoDetailViewController()
     popoverContent.delegate = self
     popoverContent.photo = photo
+    
+    popoverContent.photos = photosAsUIImage
     
     navigationController?.pushViewController(popoverContent, animated: true)
   }
