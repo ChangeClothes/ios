@@ -8,7 +8,12 @@
 
 import UIKit
 
+
 class AMRNoteTableViewCell: UITableViewCell {
+  
+  class func cellReuseIdentifier() -> String{
+    return "com.armoire.AMRNoteTableViewCell"
+  }
   
   override func awakeFromNib() {
     super.awakeFromNib()

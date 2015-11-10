@@ -65,8 +65,15 @@ class AMRQuestionAnswer: PFObject {
     }
        
       if let templates = objects {
-        let template = templates.first as! AMRQuestionAnswer
-        completion(template: template, error: nil)
+        if templates.count == 0 {
+          let template = AMRQuestionAnswer()
+          template.stylist = stylist
+          template.qas = [[String:String]()]
+          completion(template: template, error: nil)
+        } else {
+          let template = templates.first as! AMRQuestionAnswer
+          completion(template: template, error: nil)
+        }
       } else {
         let template = AMRQuestionAnswer()
         template.stylist = stylist

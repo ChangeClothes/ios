@@ -9,6 +9,11 @@
 import UIKit
 
 class AMRQuestionAnswerTableViewCell: UITableViewCell {
+  
+  
+  class func cellReuseIdentifier() -> String{
+    return "com.armoire.AMRQuestionAnswerTableViewCell"
+  }
 
   @IBOutlet weak var question: UILabel!
   @IBOutlet weak var answer: UITextView!
