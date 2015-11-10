@@ -73,11 +73,12 @@ class AMRPhotosViewController: AMRViewController {
   }
   
   private func uiImageArrayFromAMRImageArray(array: [AMRImage]) {
-    photosAsUIImage = [UIImage]()
+    let arrayCount = array.count
+    photosAsUIImage = [UIImage](count: arrayCount, repeatedValue: UIImage())
     
-    for image in array {
+    for (index,image) in array.enumerate() {
       image.getImage({ (correctImage: UIImage) -> () in
-        self.photosAsUIImage.append(correctImage)
+        self.photosAsUIImage[index] = correctImage
       })
     }
 
@@ -173,8 +174,9 @@ extension AMRPhotosViewController: UICollectionViewDelegate {
     
     let popoverContent = AMRPhotoDetailViewController()
     popoverContent.delegate = self
-    popoverContent.photo = photo
     
+    popoverContent.photo = photo
+    popoverContent.amrImages = photos
     popoverContent.photos = photosAsUIImage
     
     navigationController?.pushViewController(popoverContent, animated: true)

@@ -22,10 +22,12 @@ class AMRPhotoDetailViewController: UIViewController {
   @IBOutlet weak var ratingLabel: UILabel!
   @IBOutlet weak var thumbnailCollectionView: UICollectionView!
   
+  
   weak var delegate: AMRPhotoDetailViewControllerDelegate?
   
   var photos = [UIImage]()
-  var photo: AMRImage?
+  var amrImages = [AMRImage]()
+  var photo: AMRImage!
   
   // MARK: - Lifecycle
   override func viewDidLoad() {
@@ -37,8 +39,15 @@ class AMRPhotoDetailViewController: UIViewController {
     containerViewController.addGestureRecognizer(tapGestureRecognizer)
     
     setupThumbnailCollectionView()
+    dispatch_async(dispatch_get_main_queue()) { () -> Void in
+      self.thumbnailCollectionView.reloadData()
+    }
+    dispatch_async(dispatch_get_main_queue()) { () -> Void in
+      self.setInitialContentOffset()
+    }
     
   }
+  
   
   // MARK: - Initial Setup
   private func setupThumbnailCollectionView() {
@@ -46,8 +55,15 @@ class AMRPhotoDetailViewController: UIViewController {
     thumbnailCollectionView.registerNib(cellNib, forCellWithReuseIdentifier: kThumbnailCollectionViewCellId)
     thumbnailCollectionView.delegate = self
     thumbnailCollectionView.dataSource = self
+    
   }
-
+  
+  private func setInitialContentOffset() {
+    let thumbnailWidth = thumbnailCollectionView.frame.height
+    let row = amrImages.indexOf(photo)
+    thumbnailCollectionView.setContentOffset(CGPoint(x: CGFloat(row!)*thumbnailWidth , y: 0), animated: false)
+  }
+  
   // MARK: - Behavior
   func dismiss(sender: UITapGestureRecognizer){
     self.delegate?.AMRPhotoDetailVIewController(self, didDismiss: true)
@@ -120,11 +136,27 @@ extension AMRPhotoDetailViewController: UICollectionViewDelegateFlowLayout {
   }
   
   func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-    return CGSizeMake(collectionView.frame.width/2, collectionView.frame.height)
+    return CGSizeMake(collectionView.frame.width/2 - collectionView.frame.height/2, collectionView.frame.height)
   }
   
   func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-    return CGSizeMake(collectionView.frame.width/2, collectionView.frame.height)
+    return CGSizeMake(collectionView.frame.width/2 - collectionView.frame.height/2, collectionView.frame.height)
+  }
+}
+
+// MARK: - UIScrollViewDelegate
+extension AMRPhotoDetailViewController: UIScrollViewDelegate {
+  func scrollViewDidScroll(scrollView: UIScrollView) {
+    let collectionViewWidthCenter = thumbnailCollectionView.bounds.width/2
+    let collectionViewHeightCenter = thumbnailCollectionView.bounds.height/2
+    let collectionViewCenter = CGPointMake(collectionViewWidthCenter + thumbnailCollectionView.contentOffset.x,
+      collectionViewHeightCenter + thumbnailCollectionView.contentOffset.y)
+    
+    if let photoIndexPath = thumbnailCollectionView.indexPathForItemAtPoint(collectionViewCenter) {
+      containerViewController.image = photos[photoIndexPath.row]
+      photo = amrImages[photoIndexPath.row]
+    }
+
   }
 }
 
