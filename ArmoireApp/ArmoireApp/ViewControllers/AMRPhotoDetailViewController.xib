@@ -10,8 +10,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AMRPhotoDetailViewController" customModule="ArmoireApp" customModuleProvider="target">
             <connections>
                 <outlet property="containerViewController" destination="RPB-2l-EQw" id="2ZH-b3-umO"/>
-                <outlet property="imageSidebarView" destination="YNL-ex-Cqi" id="Fj1-p4-00g"/>
                 <outlet property="ratingLabel" destination="Nex-fD-qcL" id="o9e-tU-yN1"/>
+                <outlet property="thumbnailCollectionView" destination="bBz-RI-dfx" id="lHS-Mv-Gnp"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -55,14 +55,19 @@
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YNL-ex-Cqi" customClass="HSImageSidebarView">
-                    <rect key="frame" x="0.0" y="580" width="600" height="20"/>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="bBz-RI-dfx">
+                    <rect key="frame" x="0.0" y="570" width="600" height="30"/>
                     <animations/>
-                    <color key="backgroundColor" red="0.33333333329999998" green="0.67450980390000004" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="20" id="dRF-SQ-HWk"/>
+                        <constraint firstAttribute="height" constant="30" id="2Tm-Nc-1GK"/>
                     </constraints>
-                </view>
+                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="DST-jQ-o37">
+                        <size key="itemSize" width="50" height="50"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
             </subviews>
             <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -70,18 +75,18 @@
                 <constraint firstItem="mrt-T0-wbu" firstAttribute="centerY" secondItem="mIe-KM-UHv" secondAttribute="centerY" id="1Wb-F6-nm1"/>
                 <constraint firstItem="mrt-T0-wbu" firstAttribute="leading" secondItem="mIe-KM-UHv" secondAttribute="trailing" constant="10" id="2vG-C6-FGG"/>
                 <constraint firstItem="RPB-2l-EQw" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="6LW-Xp-fOc"/>
-                <constraint firstAttribute="trailing" secondItem="YNL-ex-Cqi" secondAttribute="trailing" id="8fS-Gx-KJ8"/>
                 <constraint firstAttribute="bottom" secondItem="mrt-T0-wbu" secondAttribute="bottom" constant="30" id="BeS-TJ-moj"/>
                 <constraint firstItem="RPB-2l-EQw" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.5" id="GYx-kK-HlI"/>
-                <constraint firstAttribute="bottom" secondItem="YNL-ex-Cqi" secondAttribute="bottom" id="H9r-N7-Bb8"/>
                 <constraint firstItem="mrt-T0-wbu" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Jl5-KS-SRY"/>
-                <constraint firstItem="YNL-ex-Cqi" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="K00-Op-pVG"/>
                 <constraint firstItem="RPB-2l-EQw" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leadingMargin" id="TPM-k2-QSC"/>
                 <constraint firstItem="8ry-Ki-F13" firstAttribute="leading" secondItem="mrt-T0-wbu" secondAttribute="trailing" constant="10" id="UJJ-Vf-w8W"/>
                 <constraint firstAttribute="trailingMargin" secondItem="RPB-2l-EQw" secondAttribute="trailing" id="UJr-ch-M6F"/>
                 <constraint firstItem="Nex-fD-qcL" firstAttribute="top" secondItem="RPB-2l-EQw" secondAttribute="bottom" constant="10" id="XBg-xP-MNx"/>
+                <constraint firstItem="bBz-RI-dfx" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="dYx-iA-7EN"/>
                 <constraint firstItem="Nex-fD-qcL" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="e86-d8-zEW"/>
+                <constraint firstAttribute="trailing" secondItem="bBz-RI-dfx" secondAttribute="trailing" id="eIm-HS-91e"/>
                 <constraint firstItem="8ry-Ki-F13" firstAttribute="centerY" secondItem="mIe-KM-UHv" secondAttribute="centerY" id="feP-oT-epz"/>
+                <constraint firstAttribute="bottom" secondItem="bBz-RI-dfx" secondAttribute="bottom" id="uDS-in-n66"/>
             </constraints>
         </view>
     </objects>

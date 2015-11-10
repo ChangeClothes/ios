@@ -1,3 +1,4 @@
+
 //
 //  AMRPhotoDetailViewController.swift
 //
@@ -15,9 +16,11 @@ protocol AMRPhotoDetailViewControllerDelegate: class{
 
 class AMRPhotoDetailViewController: UIViewController {
   
-  @IBOutlet weak var imageSidebarView: HSImageSidebarView!
+  let kThumbnailCollectionViewCellId = "com.armoire.thumbnailCollectionViewCellId"
+  
   @IBOutlet weak var containerViewController: UIImageView!
   @IBOutlet weak var ratingLabel: UILabel!
+  @IBOutlet weak var thumbnailCollectionView: UICollectionView!
   
   weak var delegate: AMRPhotoDetailViewControllerDelegate?
   
@@ -33,14 +36,18 @@ class AMRPhotoDetailViewController: UIViewController {
     let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismiss:")
     containerViewController.addGestureRecognizer(tapGestureRecognizer)
     
-    setupImageSidebar()
+    setupThumbnailCollectionView()
+    
   }
   
   // MARK: - Initial Setup
-  private func setupImageSidebar() {
-    imageSidebarView.delegate = self
+  private func setupThumbnailCollectionView() {
+    let cellNib = UINib(nibName: "AMRPhotoDetailCollectionViewCell", bundle: nil)
+    thumbnailCollectionView.registerNib(cellNib, forCellWithReuseIdentifier: kThumbnailCollectionViewCellId)
+    thumbnailCollectionView.delegate = self
+    thumbnailCollectionView.dataSource = self
   }
-  
+
   // MARK: - Behavior
   func dismiss(sender: UITapGestureRecognizer){
     self.delegate?.AMRPhotoDetailVIewController(self, didDismiss: true)
@@ -75,12 +82,49 @@ class AMRPhotoDetailViewController: UIViewController {
   
 }
 
-extension AMRPhotoDetailViewController: HSImageSidebarViewDelegate {
-  func countOfImagesInSidebar(sidebar: HSImageSidebarView!) -> UInt {
-    return UInt(photos.count)
+extension AMRPhotoDetailViewController: UICollectionViewDelegate {
+  
+}
+
+extension AMRPhotoDetailViewController: UICollectionViewDataSource {
+  func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    let cell = collectionView.dequeueReusableCellWithReuseIdentifier(kThumbnailCollectionViewCellId, forIndexPath: indexPath) as! AMRPhotoDetailCollectionViewCell
+    
+    cell.thumbnailImageView.image = photos[indexPath.row]
+    
+    return cell
   }
   
-  func sidebar(sidebar: HSImageSidebarView!, imageForIndex anIndex: UInt) -> UIImage! {
-    return photos[Int(anIndex)]
+  func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    return photos.count
   }
 }
+
+// MARK: - UICollectionViewDelegateFlowLayout
+extension AMRPhotoDetailViewController: UICollectionViewDelegateFlowLayout {
+  func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+    let picDimension = collectionView.frame.height
+    return CGSizeMake(picDimension, picDimension)
+  }
+  
+  func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
+    return UIEdgeInsetsMake(0, 0, 0, 0)
+  }
+  
+  func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
+    return 0
+  }
+  
+  func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+    return 0
+  }
+  
+  func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+    return CGSizeMake(collectionView.frame.width/2, collectionView.frame.height)
+  }
+  
+  func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+    return CGSizeMake(collectionView.frame.width/2, collectionView.frame.height)
+  }
+}
+

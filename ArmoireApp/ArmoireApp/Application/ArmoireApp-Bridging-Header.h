@@ -8,5 +8,3 @@
 #import <MZFormSheetPresentationController/MZFormSheetPresentationController.h>
 #import <MZFormSheetPresentationController/MZFormSheetPresentationViewControllerSegue.h>
 #import <SDWebImage/UIImage+GIF.h>
-#import <HSImageSidebarView/HSImageSidebarView.h>
-#import <HSImageSidebarView/HSImageSidebarViewDelegate.h>

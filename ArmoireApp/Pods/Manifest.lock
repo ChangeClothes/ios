@@ -2,7 +2,6 @@ PODS:
   - Atlas (1.0.13):
     - LayerKit (>= 0.17.0)
   - Bolts/Tasks (1.3.0)
-  - HSImageSidebarView (0.0.1)
   - LayerKit (0.17.0)
   - MZAppearance (1.1.6)
   - MZFormSheetPresentationController (2.1.2):
@@ -15,7 +14,6 @@ PODS:
 
 DEPENDENCIES:
   - Atlas
-  - HSImageSidebarView
   - LayerKit
   - MZFormSheetPresentationController
   - Parse
@@ -24,7 +22,6 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   Atlas: b72929aac7d8b5d653d07bed0333a8e9318f9d93
   Bolts: 805a4a87413e49d4a0c2b7d469084cbc46b09342
-  HSImageSidebarView: e7137e3485dc40064682d98def93d1f93081ddd7
   LayerKit: 81d635966427859230deb8ede88dbc710dcac8fd
   MZAppearance: 0c06d3fa9cc55142f1da14bc8631fbe8fd6e19d5
   MZFormSheetPresentationController: a268a1840780d52f47688d823d2b6d35318bf24d
