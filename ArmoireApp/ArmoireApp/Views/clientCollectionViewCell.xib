@@ -37,10 +37,17 @@
                             <constraint firstAttribute="width" constant="20" id="qI7-jz-7OF"/>
                         </constraints>
                     </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Morgan Wildermuth" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aSe-Um-4X2">
+                        <rect key="frame" x="22" y="205" width="189" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <constraints>
+                <constraint firstItem="aSe-Um-4X2" firstAttribute="leading" secondItem="9rY-Is-zGS" secondAttribute="trailing" id="3Mc-HT-sf6"/>
                 <constraint firstAttribute="bottom" secondItem="9rY-Is-zGS" secondAttribute="bottom" constant="2" id="89F-uu-0gb"/>
                 <constraint firstItem="Xu4-M3-72B" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="9Tk-lu-5ag"/>
                 <constraint firstAttribute="trailing" secondItem="QVj-IZ-zTX" secondAttribute="trailing" constant="2" id="DWb-8e-fSe"/>
@@ -49,6 +56,8 @@
                 <constraint firstAttribute="bottom" secondItem="Xu4-M3-72B" secondAttribute="bottom" id="NY5-Oz-AOv"/>
                 <constraint firstItem="9rY-Is-zGS" firstAttribute="top" secondItem="QVj-IZ-zTX" secondAttribute="bottom" constant="2" id="NbN-u9-r36"/>
                 <constraint firstAttribute="trailing" secondItem="Xu4-M3-72B" secondAttribute="trailing" id="Ox5-96-19v"/>
+                <constraint firstItem="LRk-4N-owQ" firstAttribute="leading" secondItem="aSe-Um-4X2" secondAttribute="trailing" id="dvz-35-qbR"/>
+                <constraint firstAttribute="bottom" secondItem="aSe-Um-4X2" secondAttribute="bottom" id="foG-Kg-g7O"/>
                 <constraint firstItem="QVj-IZ-zTX" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="2" id="gBf-y1-3Qf"/>
                 <constraint firstItem="Xu4-M3-72B" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="5" id="hXb-Kh-VW1"/>
                 <constraint firstAttribute="bottom" secondItem="LRk-4N-owQ" secondAttribute="bottom" constant="2" id="hrP-uG-5TR"/>
@@ -62,7 +71,11 @@
                 </mask>
             </variation>
             <connections>
+                <outlet property="calendarIcon" destination="LRk-4N-owQ" id="0dN-2X-Obb"/>
                 <outlet property="imageView" destination="Xu4-M3-72B" id="u6d-CR-gtK"/>
+                <outlet property="messageIcon" destination="QVj-IZ-zTX" id="Vs8-8X-LYQ"/>
+                <outlet property="nameLabel" destination="aSe-Um-4X2" id="TW7-Rg-F4b"/>
+                <outlet property="photoIcon" destination="9rY-Is-zGS" id="SsW-s9-wRd"/>
             </connections>
             <point key="canvasLocation" x="220.5" y="563"/>
         </collectionViewCell>

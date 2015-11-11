@@ -10,7 +10,16 @@ import UIKit
 
 class clientCollectionViewCell: UICollectionViewCell {
 
+  @IBOutlet weak var nameLabel: UILabel!
+  @IBOutlet weak var messageIcon: UIImageView!
   @IBOutlet weak var imageView: UIImageView!
+  @IBOutlet weak var calendarIcon: UIImageView!
+  @IBOutlet weak var photoIcon: UIImageView!
+  var client: AMRUser! {
+    didSet{
+      nameLabel.text = client.fullName
+    }
+  }
   var activityIndicatorView: UIActivityIndicatorView!
 
   override func awakeFromNib() {

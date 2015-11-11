@@ -197,12 +197,6 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
   func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
     collectionView.deselectItemAtIndexPath(indexPath, animated: true)
 
-    if indexPath.row == 0 {
-      //      selectClient()
-    } else {
-      let client = clients[indexPath.row]
-      //      showClient(client)
-    }
   }
   
   func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -212,7 +206,7 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
   func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCellWithReuseIdentifier("ClientCell", forIndexPath: indexPath) as! clientCollectionViewCell
     let client = clients[indexPath.row]
-
+    cell.client = client
     AMRUserManager.sharedManager.queryForUserWithObjectID(client.objectId!) { (users: NSArray?, error: NSError?) -> Void in
       if let error = error {
         print(error.localizedDescription)
