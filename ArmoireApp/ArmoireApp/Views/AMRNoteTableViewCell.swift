@@ -9,7 +9,8 @@
 import UIKit
 
 
-class AMRNoteTableViewCell: UITableViewCell {
+class AMRNoteTableViewCell: AMRDynamicHeightTableViewCell {
+  
   
   class func cellReuseIdentifier() -> String{
     return "com.armoire.AMRNoteTableViewCell"
@@ -24,6 +25,21 @@ class AMRNoteTableViewCell: UITableViewCell {
   override func setSelected(selected: Bool, animated: Bool) {
     super.setSelected(selected, animated: animated)
     
+  }
+  
+  override func getCellHeight(width:CGFloat?) -> CGFloat {
+    let heightMargins = CGFloat(24)
+    let widthMargins = CGFloat(16)
+    var fixedWidth: CGFloat
+    if let suggestedWidth = width {
+      fixedWidth = suggestedWidth - widthMargins
+    } else {
+      fixedWidth = contents.frame.size.width
+    }
+    let newSize : CGSize = contents.sizeThatFits(CGSizeMake(fixedWidth, CGFloat(MAXFLOAT)))
+    var newFrame : CGRect = contents.frame
+    newFrame.size = CGSizeMake(CGFloat(fmaxf((Float)(newSize.width), (Float)(fixedWidth))),newSize.height)
+    return newFrame.height + heightMargins
   }
   
 }

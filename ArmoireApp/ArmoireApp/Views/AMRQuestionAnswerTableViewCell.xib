@@ -19,9 +19,9 @@
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="right" translatesAutoresizingMaskIntoConstraints="NO" id="feL-ER-G2m">
-                        <rect key="frame" x="24" y="37" width="416" height="171"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" scrollEnabled="NO" textAlignment="right" translatesAutoresizingMaskIntoConstraints="NO" id="feL-ER-G2m">
+                        <rect key="frame" x="24" y="37" width="416" height="172"/>
+                        <color key="backgroundColor" red="0.34509803919999998" green="0.75294117650000003" blue="0.88235294119999996" alpha="1" colorSpace="calibratedRGB"/>
                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -30,7 +30,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="feL-ER-G2m" secondAttribute="trailing" constant="8" id="90J-VM-Yso"/>
-                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="lT0-1m-dEr" secondAttribute="trailing" constant="8" id="NEU-1C-fYN"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="lT0-1m-dEr" secondAttribute="trailing" constant="24" id="NEU-1C-fYN"/>
                     <constraint firstItem="lT0-1m-dEr" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="NZN-bg-YTf"/>
                     <constraint firstAttribute="bottom" secondItem="feL-ER-G2m" secondAttribute="bottom" constant="8" id="T05-Ki-Euf"/>
                     <constraint firstItem="lT0-1m-dEr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="fhL-tG-aJc"/>

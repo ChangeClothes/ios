@@ -8,36 +8,47 @@
 
 import UIKit
 
-class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITableViewDelegate, UITextViewDelegate{
-
+class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITableViewDelegate, UITextViewDelegate {
+  
   @IBOutlet weak var tableView: UITableView!
   var note: AMRNote?
   var questionAnswers: AMRQuestionAnswer?
-  var noteHeight = CGFloat(100);
+  var heights: [CGFloat]?
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    return buildCell(tableView, indexPath: indexPath)
+  }
+  
+  func buildCell(tableview: UITableView, indexPath: NSIndexPath) -> UITableViewCell {
+    print("section", indexPath.section, "row", indexPath.row)
     
     if indexPath.row == 0 { // return notes cell
-      let cell = tableView.dequeueReusableCellWithIdentifier(AMRNoteTableViewCell.cellReuseIdentifier(), forIndexPath: indexPath) as! AMRNoteTableViewCell
+      let cell = tableView.dequeueReusableCellWithIdentifier(AMRNoteTableViewCell.cellReuseIdentifier()) as! AMRNoteTableViewCell
       cell.contents.text = note?.content
       cell.contents.delegate = self
       return cell
     }
     
     //return QA cell
-    let cell = tableView.dequeueReusableCellWithIdentifier(AMRQuestionAnswerTableViewCell.cellReuseIdentifier(), forIndexPath: indexPath) as! AMRQuestionAnswerTableViewCell
+    let cell = tableView.dequeueReusableCellWithIdentifier(AMRQuestionAnswerTableViewCell.cellReuseIdentifier()) as! AMRQuestionAnswerTableViewCell
     let qa = questionAnswers?.qas![indexPath.row - 1]
     cell.question.text = qa!["question"]
     cell.answer.text = qa!["answer"]
+    cell.answer.delegate = self
     
     return cell
   }
   
-  //func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-  //  if indexPath.row == 0 {
-  //    return CGFloat(noteHeight) + 16
-  //  }
-  //}
+  func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    return AMRDynamicHeightTableViewCell.getDefaultHeight()
+  }
+  
+  func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    if let rowHeights = heights{
+      return rowHeights[indexPath.row]
+    }
+    return AMRDynamicHeightTableViewCell.getDefaultHeight()
+  }
   
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     if let qa = questionAnswers {
@@ -52,18 +63,19 @@ class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITabl
   
   func textViewDidChange(textView: UITextView)
   {
-    tableView.beginUpdates()
-    print(textView.text)
-    let fixedWidth : CGFloat = textView.frame.size.width
-    let newSize : CGSize = textView.sizeThatFits(CGSizeMake(fixedWidth, CGFloat(MAXFLOAT)))
-    var newFrame : CGRect = textView.frame
-    newFrame.size = CGSizeMake(CGFloat(fmaxf((Float)(newSize.width), (Float)(fixedWidth))),newSize.height)
-    textView.frame = newFrame
-    noteHeight = newSize.height
-    print(newSize.height)
-    
-    //tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Automatic)
-    tableView.endUpdates()
+    let indexPath = tableView.indexPathForRowAtPoint(textView.superview!.superview!.center)
+    let cell = tableView.cellForRowAtIndexPath(indexPath!) as! AMRDynamicHeightTableViewCell
+    let height = cell.getCellHeight(nil)
+    if indexPath!.row != 0 {
+      textView.textAlignment = .Right  // for some reason it defaults back to left on typing
+    }
+    print("text did changec for row", indexPath?.row, textView.center, height)
+
+    if heights![indexPath!.row] != height {
+      tableView.beginUpdates()
+      heights![indexPath!.row] = cell.getCellHeight(nil)
+      tableView.endUpdates()
+    }
   }
   
   func textViewDidBeginEditing(textView: UITextView) {
@@ -74,6 +86,28 @@ class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITabl
     
   }
   
+  func updateData(){
+    calculateRowHeights()
+    self.tableView.reloadData()
+    print("heights", heights)
+    print("note", note)
+    print("qa", questionAnswers!.qas, questionAnswers!.qas!.count)
+  }
+  
+  func getCellHeight(index:Int) -> CGFloat{
+    let indexPath = NSIndexPath(forRow: index, inSection: 0)
+    let cell = buildCell(tableView, indexPath: indexPath) as! AMRDynamicHeightTableViewCell
+    return cell.getCellHeight(tableView.frame.width)
+  }
+  
+  func calculateRowHeights(){
+    heights = [CGFloat]( count: (questionAnswers?.qas!.count)! + 1, repeatedValue: AMRDynamicHeightTableViewCell.getDefaultHeight())
+    for index in 0...(self.questionAnswers!.qas!.count) {
+      print("calculating row height for row", index)
+      heights![index] = getCellHeight(index)
+    }
+  }
+  
   func getData(){
     
     var noteLoaded = false
@@ -82,12 +116,13 @@ class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITabl
     AMRQuestionAnswer.getOrCreateForUser(self.stylist!, client: self.client) { (questionAnswer, error) -> Void in
       questionAnswer!.qas = [
         ["question": "What is your face?", "answer": "My face is a face like any face. FACE!"],
-        ["question": "What what do you think of this question? is it way too long? why are there so many parts?", "answer": "Yes, you should definitely make it shorter this is just ridiculous, why would you have a cell that size?"]
+        ["question": "What what do you think of this question? is it way too long? why are there so many parts?", "answer": "Yes, you should definitely make it shorter this is just ridiculous, why would you have a cell that size? \nOH NO WHY ISN'T THIS SHOWING UP!?@?@?@?@?@?\n"]
       ]
       self.questionAnswers = questionAnswer
       questionAnswerLoaded = true
+      print(noteLoaded, questionAnswerLoaded)
       if noteLoaded && questionAnswerLoaded {
-        self.tableView.reloadData()
+        self.updateData()
       }
     }
     
@@ -95,8 +130,9 @@ class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITabl
       note!.content = "I am a note, note, note.\nNOTTTEEEEEESSSSS\nnote\nnote\nnote\nnote\nnote\nnote\nnote"
       self.note = note
       noteLoaded = true
+      print(noteLoaded, questionAnswerLoaded)
       if noteLoaded && questionAnswerLoaded {
-        self.tableView.reloadData()
+        self.updateData()
       }
     }
     
@@ -104,6 +140,7 @@ class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITabl
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    self.navigationController?.setNavigationBarHidden(true, animated: false)
     
     //start fetching data
     getData()
@@ -125,5 +162,5 @@ class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITabl
     // Dispose of any resources that can be recreated.
   }
   
-
+  
 }
