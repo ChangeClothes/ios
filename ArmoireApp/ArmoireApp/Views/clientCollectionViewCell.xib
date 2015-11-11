@@ -8,26 +8,68 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="clientCollectionViewCell" customModule="ArmoireApp" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+            <rect key="frame" x="0.0" y="0.0" width="233" height="226"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                <rect key="frame" x="0.0" y="0.0" width="233" height="226"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Xu4-M3-72B">
-                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                        <rect key="frame" x="0.0" y="5" width="233" height="221"/>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="messaging" translatesAutoresizingMaskIntoConstraints="NO" id="QVj-IZ-zTX">
+                        <rect key="frame" x="211" y="2" width="20" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="20" id="2T5-VN-axp"/>
+                            <constraint firstAttribute="height" constant="20" id="Abh-wL-Wiq"/>
+                        </constraints>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="calendar" translatesAutoresizingMaskIntoConstraints="NO" id="LRk-4N-owQ">
+                        <rect key="frame" x="211" y="204" width="20" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="20" id="Kze-Xw-kgW"/>
+                            <constraint firstAttribute="height" constant="20" id="nH9-oe-RBa"/>
+                        </constraints>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="add-photo" translatesAutoresizingMaskIntoConstraints="NO" id="9rY-Is-zGS">
+                        <rect key="frame" x="2" y="204" width="20" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="Etc-Sv-qmX"/>
+                            <constraint firstAttribute="width" constant="20" id="qI7-jz-7OF"/>
+                        </constraints>
                     </imageView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <constraints>
+                <constraint firstAttribute="bottom" secondItem="9rY-Is-zGS" secondAttribute="bottom" constant="2" id="89F-uu-0gb"/>
                 <constraint firstItem="Xu4-M3-72B" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="9Tk-lu-5ag"/>
+                <constraint firstAttribute="trailing" secondItem="QVj-IZ-zTX" secondAttribute="trailing" constant="2" id="DWb-8e-fSe"/>
+                <constraint firstItem="9rY-Is-zGS" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="2" id="Eyp-fx-fRH"/>
+                <constraint firstItem="9rY-Is-zGS" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="2" id="Kww-E6-K65"/>
                 <constraint firstAttribute="bottom" secondItem="Xu4-M3-72B" secondAttribute="bottom" id="NY5-Oz-AOv"/>
+                <constraint firstItem="9rY-Is-zGS" firstAttribute="top" secondItem="QVj-IZ-zTX" secondAttribute="bottom" constant="2" id="NbN-u9-r36"/>
                 <constraint firstAttribute="trailing" secondItem="Xu4-M3-72B" secondAttribute="trailing" id="Ox5-96-19v"/>
-                <constraint firstItem="Xu4-M3-72B" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="hXb-Kh-VW1"/>
+                <constraint firstItem="QVj-IZ-zTX" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="2" id="gBf-y1-3Qf"/>
+                <constraint firstItem="Xu4-M3-72B" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="5" id="hXb-Kh-VW1"/>
+                <constraint firstAttribute="bottom" secondItem="LRk-4N-owQ" secondAttribute="bottom" constant="2" id="hrP-uG-5TR"/>
+                <constraint firstAttribute="trailing" secondItem="LRk-4N-owQ" secondAttribute="trailing" constant="2" id="zWl-NG-GrY"/>
             </constraints>
+            <size key="customSize" width="233" height="226"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="Eyp-fx-fRH"/>
+                    <exclude reference="NbN-u9-r36"/>
+                </mask>
+            </variation>
             <connections>
                 <outlet property="imageView" destination="Xu4-M3-72B" id="u6d-CR-gtK"/>
             </connections>
+            <point key="canvasLocation" x="220.5" y="563"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="add-photo" width="256" height="256"/>
+        <image name="calendar" width="25" height="25"/>
+        <image name="messaging" width="25" height="25"/>
+    </resources>
 </document>
