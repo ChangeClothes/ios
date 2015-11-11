@@ -25,7 +25,7 @@ class clientCollectionViewCell: UICollectionViewCell {
   override func awakeFromNib() {
     super.awakeFromNib()
     imageView.contentMode = UIViewContentMode.ScaleAspectFill
-    imageView.layer.cornerRadius = 5.0
+    imageView.layer.cornerRadius = 50
     imageView.clipsToBounds = true
   }
 
