@@ -279,7 +279,7 @@ class AMRClientsDetailViewController: AMRViewController, LYRQueryControllerDeleg
       UINavigationController(rootViewController: AMRLoginViewController()),
       UINavigationController(rootViewController: AMRNotesViewController()),
       UINavigationController(rootViewController: AMRUpcomingMeetingsViewController()),
-      UINavigationController(rootViewController: AMRClientProfileViewController()),
+      UINavigationController(rootViewController: AMRPhotosViewController()),
       UINavigationController(rootViewController: AMRMessagesViewController(layerClient: layerClient) ),
       UINavigationController(rootViewController: AMRMessagesDetailsViewController(layerClient: layerClient))
     ]

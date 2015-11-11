@@ -23,7 +23,8 @@ class AMRPhotosViewController: AMRViewController {
   // MARK: - Lifecycle
   override func viewDidLoad() {
     setupCollectionView()
-    self.navigationController?.setNavigationBarHidden(true, animated: false)
+    createNavBarButtonItems()
+    title = client!.firstName + "'s Photos"
   }
   
   override func viewWillAppear(animated: Bool) {
@@ -131,6 +132,7 @@ extension AMRPhotosViewController: UICollectionViewDataSource{
       cameraIcon = cameraIcon?.imageWithRenderingMode(.AlwaysTemplate)
       cell.imageView.tintColor = UIColor.AMRSecondaryBackgroundColor()
       cell.imageView.image = cameraIcon
+      cell.backgroundColor = UIColor.clearColor()
     } else if indexPath.section == 0 {
       cell.activityIndicatorView.startAnimating()
       let image = photoSections![AMRPhotoRating.titleArray()[indexPath.section]]![indexPath.row - 1]
@@ -211,5 +213,45 @@ extension AMRPhotosViewController: AMRPhotoDetailViewControllerDelegate {
   func AMRPhotoDetailVIewController(photoViewDetailController: AMRPhotoDetailViewController, didChangeToRating rating: AMRPhotoRating?, didChangeToComment comment: String? ){
     refreshCollectionView()
   }
+}
+
+// MARK: - Create Nav Bar Button Items
+extension AMRPhotosViewController {
+  private func createNavBarButtonItems(){
+    if (stylist != nil && client != nil){
+      createExitModalButton()
+    } else {
+      createSettingsButton()
+    }
+  }
+  
+  private func createDoneEditingButton(){
+    let doneButton: UIButton = UIButton()
+    doneButton.setImage(UIImage(named: "check"), forState: .Normal)
+    
+    doneButton.frame = CGRectMake(0, 0, 30, 30)
+    doneButton.addTarget(self, action: Selector("onDoneEditingTap"), forControlEvents: .TouchUpInside)
+    
+    let rightNavBarButton = UIBarButtonItem(customView: doneButton)
+    self.navigationItem.rightBarButtonItem = rightNavBarButton
+  }
+  
+  private func createExitModalButton(){
+    let leftNavBarButton = UIBarButtonItem(image: UIImage(named: "cancel"), style: .Plain, target: self, action: "exitModal")
+    self.navigationItem.leftBarButtonItem = leftNavBarButton
+  }
+  
+  private func createSettingsButton(){
+    let leftNavBarButton = UIBarButtonItem(image: UIImage(named: "settings"), style: .Plain, target: self, action: "onSettingsTap")
+    self.navigationItem.leftBarButtonItem = leftNavBarButton
+  }
+  
+  // MARK: - On Tap Actions
+  
+  func exitModal(){
+    self.dismissViewControllerAnimated(true, completion: nil)
+  }
+
+
 }
 
