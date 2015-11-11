@@ -9,7 +9,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AMRPhotoDetailViewController" customModule="ArmoireApp" customModuleProvider="target">
             <connections>
-                <outlet property="containerViewController" destination="RPB-2l-EQw" id="2ZH-b3-umO"/>
+                <outlet property="photoImageView" destination="RPB-2l-EQw" id="Llu-HG-jpq"/>
                 <outlet property="ratingSegmentedControl" destination="ADv-F4-Et2" id="8bC-fR-4fC"/>
                 <outlet property="thumbnailCollectionView" destination="bBz-RI-dfx" id="lHS-Mv-Gnp"/>
                 <outlet property="thumbnailSelectionBoxView" destination="Ewj-E4-idz" id="LkS-9a-CnB"/>

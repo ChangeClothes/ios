@@ -18,7 +18,7 @@ class AMRPhotoDetailViewController: UIViewController {
   
   let kThumbnailCollectionViewCellId = "com.armoire.thumbnailCollectionViewCellId"
   
-  @IBOutlet weak var containerViewController: UIImageView!
+  @IBOutlet weak var photoImageView: UIImageView!
   @IBOutlet weak var thumbnailCollectionView: UICollectionView!
   @IBOutlet weak var thumbnailSelectionBoxView: UIView!
   @IBOutlet weak var ratingSegmentedControl: UISegmentedControl!
@@ -38,6 +38,7 @@ class AMRPhotoDetailViewController: UIViewController {
     updateCurrentPhotoToPhoto(currentPhoto)
     setupThumbnailCollectionView()
     setupThumbnailSelectionBox()
+    setupPhotoImageView()
     dispatch_async(dispatch_get_main_queue()) { () -> Void in
       self.thumbnailCollectionView.reloadData()
     }
@@ -69,8 +70,15 @@ class AMRPhotoDetailViewController: UIViewController {
     ratingSegmentedControl.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.AMRSecondaryBackgroundColor()], forState: .Normal)
     ratingSegmentedControl.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.AMRSelectedTabBarButtonTintColor()], forState: .Selected)
     ratingSegmentedControl.setDividerImage(imageWithColor(UIColor.clearColor()), forLeftSegmentState: .Normal, rightSegmentState: .Normal, barMetrics: .Default)
-    
-    
+  }
+  
+  private func setupPhotoImageView(){
+    let swipeRightGR = UISwipeGestureRecognizer(target: self, action: "didSwipePhoto:")
+    swipeRightGR.direction = .Right
+    photoImageView.addGestureRecognizer(swipeRightGR)
+    let swipeLeftGR = UISwipeGestureRecognizer(target: self, action: "didSwipePhoto:")
+    swipeLeftGR.direction = .Left
+    photoImageView.addGestureRecognizer(swipeLeftGR)
   }
   
   private func setupThumbnailCollectionView() {
@@ -91,13 +99,33 @@ class AMRPhotoDetailViewController: UIViewController {
     let thumbnailWidth = thumbnailCollectionView.frame.height
     let row = amrImages.indexOf(currentPhoto)
     thumbnailCollectionView.setContentOffset(CGPoint(x: CGFloat(row!)*thumbnailWidth , y: 0), animated: false)
+    photoImageView.image = photos[row!]
   }
   
   // MARK: - Behavior
+  func didSwipePhoto(sender: UISwipeGestureRecognizer) {
+    switch sender.direction {
+    case UISwipeGestureRecognizerDirection.Right:
+      if let index = amrImages.indexOf(currentPhoto) where index == 0 {
+        // Do nothing
+      } else {
+        
+        currentPhoto = amrImages[amrImages.indexOf(currentPhoto)! - 1]
+      }
+    case UISwipeGestureRecognizerDirection.Left:
+      if let index = amrImages.indexOf(currentPhoto) where index == amrImages.count - 1 {
+        // Do nothing
+      } else {
+        currentPhoto = amrImages[amrImages.indexOf(currentPhoto)! + 1]
+      }
+    default:
+      print("Shouldn't be able to reach here")
+    }
+    changeThumbnailPhotoToCurrentPhoto()
+  }
+  
   private func updateCurrentPhotoToPhoto(photo: AMRImage) {
     currentPhoto = photo
-    let index = amrImages.indexOf(currentPhoto)
-    containerViewController.image = photos[index!]
     switch currentPhoto.rating! {
     case .Dislike:
       ratingSegmentedControl.selectedSegmentIndex = 2
@@ -140,7 +168,7 @@ class AMRPhotoDetailViewController: UIViewController {
       print("Should never reach here")
     }
     highlightSegment(sender.selectedSegmentIndex, inSegmentedControl: sender)
-
+    
   }
   
   private func highlightSegment(segment: Int, inSegmentedControl sender: UISegmentedControl) {
@@ -185,7 +213,7 @@ extension AMRPhotoDetailViewController: UICollectionViewDataSource {
   }
   
   func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-    updateCurrentPhotoToPhoto(self.amrImages[indexPath.row])
+    currentPhoto = amrImages[indexPath.row]
     changeThumbnailPhotoToCurrentPhoto()
   }
 }
@@ -228,8 +256,9 @@ extension AMRPhotoDetailViewController: UIScrollViewDelegate {
     
     if let photoIndexPath = thumbnailCollectionView.indexPathForItemAtPoint(collectionViewCenter) {
       updateCurrentPhotoToPhoto(amrImages[photoIndexPath.row])
+      photoImageView.image = photos[photoIndexPath.row]
     }
-    
+
   }
   
   func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
