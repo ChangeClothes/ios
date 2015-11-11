@@ -35,7 +35,8 @@ class AMRPhotoDetailViewController: UIViewController {
     super.viewDidLoad()
     
     updateCurrentPhotoToPhoto(currentPhoto)
-  
+    
+    setupRatingSegmentedControl()
     setupThumbnailCollectionView()
     setupThumbnailSelectionBox()
     dispatch_async(dispatch_get_main_queue()) { () -> Void in
@@ -47,8 +48,31 @@ class AMRPhotoDetailViewController: UIViewController {
     
   }
   
+  // MARK: - Utility
+  // create a 1x1 image with this color
+  private func imageWithColor(color: UIColor) -> UIImage {
+    let rect = CGRectMake(0.0, 0.0, 1.0, 1.0)
+    UIGraphicsBeginImageContext(rect.size)
+    let context = UIGraphicsGetCurrentContext()
+    CGContextSetFillColorWithColor(context, color.CGColor);
+    CGContextFillRect(context, rect);
+    let image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image
+  }
+  
   
   // MARK: - Initial Setup
+  private func setupRatingSegmentedControl(){
+    ratingSegmentedControl.setBackgroundImage(imageWithColor(UIColor.clearColor()), forState: .Normal, barMetrics: .Default)
+    ratingSegmentedControl.setBackgroundImage(imageWithColor(UIColor.clearColor()), forState: .Selected, barMetrics: .Default)
+    ratingSegmentedControl.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.AMRSecondaryBackgroundColor()], forState: .Normal)
+    ratingSegmentedControl.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.AMRSelectedTabBarButtonTintColor()], forState: .Selected)
+    ratingSegmentedControl.setDividerImage(imageWithColor(UIColor.clearColor()), forLeftSegmentState: .Normal, rightSegmentState: .Normal, barMetrics: .Default)
+    
+    ratingSegmentedControl.goVertical()
+  }
+  
   private func setupThumbnailCollectionView() {
     let cellNib = UINib(nibName: "AMRPhotoDetailCollectionViewCell", bundle: nil)
     thumbnailCollectionView.registerNib(cellNib, forCellWithReuseIdentifier: kThumbnailCollectionViewCellId)

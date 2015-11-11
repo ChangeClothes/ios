@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AMRPhotoDetailViewController" customModule="ArmoireApp" customModuleProvider="target">
@@ -54,8 +55,12 @@
                     </connections>
                 </button>
                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ADv-F4-Et2">
-                    <rect key="frame" x="218" y="517" width="164" height="29"/>
+                    <rect key="frame" x="410" y="258" width="300" height="51"/>
                     <animations/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="300" id="GHa-XD-hZD"/>
+                        <constraint firstAttribute="height" constant="50" id="eTt-qm-NM8"/>
+                    </constraints>
                     <segments>
                         <segment title="Dislike"/>
                         <segment title="Like"/>
@@ -69,17 +74,17 @@
             <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="ADv-F4-Et2" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="07M-RZ-vMG"/>
                 <constraint firstItem="Ewj-E4-idz" firstAttribute="height" secondItem="bBz-RI-dfx" secondAttribute="height" constant="4" id="5hn-6E-PIS"/>
                 <constraint firstItem="RPB-2l-EQw" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="6LW-Xp-fOc"/>
                 <constraint firstItem="Ewj-E4-idz" firstAttribute="top" secondItem="RPB-2l-EQw" secondAttribute="bottom" id="DHm-lM-vNk"/>
-                <constraint firstItem="Ewj-E4-idz" firstAttribute="top" secondItem="ADv-F4-Et2" secondAttribute="bottom" constant="20" id="HhO-xk-5Pj"/>
                 <constraint firstAttribute="trailing" secondItem="RPB-2l-EQw" secondAttribute="trailing" id="T7Z-Du-ra8"/>
                 <constraint firstItem="Ewj-E4-idz" firstAttribute="centerX" secondItem="bBz-RI-dfx" secondAttribute="centerX" id="XlD-g9-ruq"/>
                 <constraint firstItem="RPB-2l-EQw" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="cki-FM-J85"/>
                 <constraint firstItem="bBz-RI-dfx" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="dYx-iA-7EN"/>
+                <constraint firstItem="ADv-F4-Et2" firstAttribute="centerY" secondItem="RPB-2l-EQw" secondAttribute="centerY" id="e6W-6e-knQ"/>
                 <constraint firstAttribute="trailing" secondItem="bBz-RI-dfx" secondAttribute="trailing" id="eIm-HS-91e"/>
                 <constraint firstItem="exy-2z-Dnp" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="15" id="jnl-Wq-212"/>
+                <constraint firstItem="ADv-F4-Et2" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" multiplier="2" constant="-40" id="l5t-P3-boE"/>
                 <constraint firstItem="Ewj-E4-idz" firstAttribute="centerY" secondItem="bBz-RI-dfx" secondAttribute="centerY" id="phn-6P-7hR"/>
                 <constraint firstAttribute="bottom" secondItem="bBz-RI-dfx" secondAttribute="bottom" constant="3" id="uDS-in-n66"/>
                 <constraint firstItem="exy-2z-Dnp" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="zrH-gf-SDH"/>
