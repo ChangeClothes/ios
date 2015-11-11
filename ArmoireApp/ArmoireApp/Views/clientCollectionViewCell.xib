@@ -34,8 +34,8 @@
                             <constraint firstAttribute="width" constant="20" id="qI7-jz-7OF"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Morgan Wildermuth" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aSe-Um-4X2">
-                        <rect key="frame" x="22" y="205" width="189" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Morgan Wildermuth" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aSe-Um-4X2">
+                        <rect key="frame" x="22" y="110" width="189" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -64,6 +64,7 @@
                 <constraint firstItem="Xu4-M3-72B" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="5" id="V54-id-9Mb"/>
                 <constraint firstItem="Xu4-M3-72B" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="V5N-jz-WKh"/>
                 <constraint firstItem="Xu4-M3-72B" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="YPq-cU-jOx"/>
+                <constraint firstItem="aSe-Um-4X2" firstAttribute="top" secondItem="Xu4-M3-72B" secondAttribute="bottom" constant="5" id="ZIK-WE-Wbv"/>
                 <constraint firstItem="LRk-4N-owQ" firstAttribute="leading" secondItem="aSe-Um-4X2" secondAttribute="trailing" id="dvz-35-qbR"/>
                 <constraint firstAttribute="bottom" secondItem="aSe-Um-4X2" secondAttribute="bottom" id="foG-Kg-g7O"/>
                 <constraint firstItem="QVj-IZ-zTX" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="2" id="gBf-y1-3Qf"/>
@@ -82,6 +83,7 @@
                     <exclude reference="hXb-Kh-VW1"/>
                     <exclude reference="Eyp-fx-fRH"/>
                     <exclude reference="NbN-u9-r36"/>
+                    <exclude reference="foG-Kg-g7O"/>
                 </mask>
             </variation>
             <connections>
