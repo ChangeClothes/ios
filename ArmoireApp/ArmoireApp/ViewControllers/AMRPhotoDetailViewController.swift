@@ -19,9 +19,9 @@ class AMRPhotoDetailViewController: UIViewController {
   let kThumbnailCollectionViewCellId = "com.armoire.thumbnailCollectionViewCellId"
   
   @IBOutlet weak var containerViewController: UIImageView!
-  @IBOutlet weak var ratingLabel: UILabel!
   @IBOutlet weak var thumbnailCollectionView: UICollectionView!
   @IBOutlet weak var thumbnailSelectionBoxView: UIView!
+  @IBOutlet weak var ratingSegmentedControl: UISegmentedControl!
   
   
   weak var delegate: AMRPhotoDetailViewControllerDelegate?
@@ -34,11 +34,8 @@ class AMRPhotoDetailViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    ratingLabel.text = currentPhoto.rating?.titleForRating()
-    containerViewController.setAMRImage(currentPhoto)
-    let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismiss:")
-    containerViewController.addGestureRecognizer(tapGestureRecognizer)
-    
+    updateCurrentPhotoToPhoto(currentPhoto)
+  
     setupThumbnailCollectionView()
     setupThumbnailSelectionBox()
     dispatch_async(dispatch_get_main_queue()) { () -> Void in
@@ -73,44 +70,50 @@ class AMRPhotoDetailViewController: UIViewController {
   }
   
   // MARK: - Behavior
-  func dismiss(sender: UITapGestureRecognizer){
-    self.delegate?.AMRPhotoDetailVIewController(self, didDismiss: true)
-  }
-  
   private func updateCurrentPhotoToPhoto(photo: AMRImage) {
     currentPhoto = photo
-    ratingLabel.text = currentPhoto.rating?.titleForRating()
+    let index = amrImages.indexOf(currentPhoto)
+    containerViewController.image = photos[index!]
+    switch currentPhoto.rating! {
+    case .Dislike:
+      ratingSegmentedControl.selectedSegmentIndex = 0
+    case .Like:
+      ratingSegmentedControl.selectedSegmentIndex = 1
+    case .Love:
+      ratingSegmentedControl.selectedSegmentIndex = 2
+    case .Unrated:
+      ratingSegmentedControl.selectedSegmentIndex = UISegmentedControlNoSegment
+    }
   }
   
   
   // MARK: - IBActions
-  @IBAction func dislikeButtonPressed(sender: UIButton) {
-    currentPhoto.rating = .Dislike
-    ratingLabel.text = currentPhoto.rating?.titleForRating()
-    currentPhoto.saveInBackgroundWithBlock({ (success: Bool, error: NSError?) -> Void in
-      self.delegate?.AMRPhotoDetailVIewController(self, didChangeToRating: .Dislike, didChangeToComment: nil)
-    })
-    
+  @IBAction func didTapBackButton(sender: AnyObject) {
+    self.delegate?.AMRPhotoDetailVIewController(self, didDismiss: true)
   }
   
-  @IBAction func likeButtonPressed(sender: UIButton) {
-    currentPhoto.rating = .Like
-    ratingLabel.text = currentPhoto.rating?.titleForRating()
-    currentPhoto.saveInBackgroundWithBlock({ (success: Bool, error: NSError?) -> Void in
-      self.delegate?.AMRPhotoDetailVIewController(self, didChangeToRating: .Like, didChangeToComment: nil)
-    })
+  @IBAction func ratingSegmentedControlValueDidChange(sender: UISegmentedControl) {
+    switch sender.selectedSegmentIndex {
+    case 0:
+      currentPhoto.updateRating(.Dislike, withCompletion: { () -> Void in
+        self.delegate?.AMRPhotoDetailVIewController(self, didChangeToRating: .Dislike, didChangeToComment: nil)
+      })
+    case 1:
+      currentPhoto.updateRating(.Like, withCompletion: { () -> Void in
+        self.delegate?.AMRPhotoDetailVIewController(self, didChangeToRating: .Like, didChangeToComment: nil)
+      })
+    case 2:
+      currentPhoto.updateRating(.Love, withCompletion: { () -> Void in
+        self.delegate?.AMRPhotoDetailVIewController(self, didChangeToRating: .Love, didChangeToComment: nil)
+      })
+    default:
+      print("Should never reach here")
+    }
+
   }
-  
-  @IBAction func loveButtonPressed(sender: UIButton) {
-    currentPhoto.rating = .Love
-    ratingLabel.text = currentPhoto.rating?.titleForRating()
-    currentPhoto.saveInBackgroundWithBlock({ (success: Bool, error: NSError?) -> Void in
-      self.delegate?.AMRPhotoDetailVIewController(self, didChangeToRating: .Love, didChangeToComment: nil)
-    })
-  }
-  
 }
 
+// MARK: - UICollecitonViewDelegate
 extension AMRPhotoDetailViewController: UICollectionViewDelegate {
   
 }
@@ -166,7 +169,6 @@ extension AMRPhotoDetailViewController: UIScrollViewDelegate {
       collectionViewHeightCenter + thumbnailCollectionView.contentOffset.y)
     
     if let photoIndexPath = thumbnailCollectionView.indexPathForItemAtPoint(collectionViewCenter) {
-      containerViewController.image = photos[photoIndexPath.row]
       updateCurrentPhotoToPhoto(amrImages[photoIndexPath.row])
     }
 

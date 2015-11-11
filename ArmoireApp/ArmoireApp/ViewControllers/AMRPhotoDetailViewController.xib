@@ -4,14 +4,12 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AMRPhotoDetailViewController" customModule="ArmoireApp" customModuleProvider="target">
             <connections>
                 <outlet property="containerViewController" destination="RPB-2l-EQw" id="2ZH-b3-umO"/>
-                <outlet property="ratingLabel" destination="Nex-fD-qcL" id="o9e-tU-yN1"/>
+                <outlet property="ratingSegmentedControl" destination="ADv-F4-Et2" id="8bC-fR-4fC"/>
                 <outlet property="thumbnailCollectionView" destination="bBz-RI-dfx" id="lHS-Mv-Gnp"/>
                 <outlet property="thumbnailSelectionBoxView" destination="Ewj-E4-idz" id="LkS-9a-CnB"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -23,40 +21,9 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RPB-2l-EQw">
-                    <rect key="frame" x="8" y="0.0" width="584" height="300"/>
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="565"/>
                     <animations/>
                 </imageView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mIe-KM-UHv">
-                    <rect key="frame" x="230" y="540" width="45" height="30"/>
-                    <animations/>
-                    <state key="normal" title="Dislike"/>
-                    <connections>
-                        <action selector="dislikeButtonPressed:" destination="-1" eventType="touchUpInside" id="lQJ-0A-B3D"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mrt-T0-wbu">
-                    <rect key="frame" x="285" y="540" width="30" height="30"/>
-                    <animations/>
-                    <state key="normal" title="Like"/>
-                    <connections>
-                        <action selector="likeButtonPressed:" destination="-1" eventType="touchUpInside" id="qMY-cx-rJz"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ry-Ki-F13">
-                    <rect key="frame" x="325" y="540" width="33" height="30"/>
-                    <animations/>
-                    <state key="normal" title="Love"/>
-                    <connections>
-                        <action selector="loveButtonPressed:" destination="-1" eventType="touchUpInside" id="jxm-v8-2wz"/>
-                    </connections>
-                </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nex-fD-qcL">
-                    <rect key="frame" x="279" y="310" width="42" height="21"/>
-                    <animations/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="bBz-RI-dfx">
                     <rect key="frame" x="0.0" y="567" width="600" height="30"/>
                     <animations/>
@@ -78,28 +45,44 @@
                         <constraint firstAttribute="width" secondItem="Ewj-E4-idz" secondAttribute="height" multiplier="1:1" id="V6K-18-9JI"/>
                     </constraints>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="exy-2z-Dnp">
+                    <rect key="frame" x="15" y="15" width="34" height="30"/>
+                    <animations/>
+                    <state key="normal" title="Back"/>
+                    <connections>
+                        <action selector="didTapBackButton:" destination="-1" eventType="touchUpInside" id="a45-Sc-tVD"/>
+                    </connections>
+                </button>
+                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ADv-F4-Et2">
+                    <rect key="frame" x="218" y="517" width="164" height="29"/>
+                    <animations/>
+                    <segments>
+                        <segment title="Dislike"/>
+                        <segment title="Like"/>
+                        <segment title="Love"/>
+                    </segments>
+                    <connections>
+                        <action selector="ratingSegmentedControlValueDidChange:" destination="-1" eventType="valueChanged" id="ey7-5w-4QA"/>
+                    </connections>
+                </segmentedControl>
             </subviews>
             <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="mrt-T0-wbu" firstAttribute="centerY" secondItem="mIe-KM-UHv" secondAttribute="centerY" id="1Wb-F6-nm1"/>
-                <constraint firstItem="mrt-T0-wbu" firstAttribute="leading" secondItem="mIe-KM-UHv" secondAttribute="trailing" constant="10" id="2vG-C6-FGG"/>
+                <constraint firstItem="ADv-F4-Et2" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="07M-RZ-vMG"/>
                 <constraint firstItem="Ewj-E4-idz" firstAttribute="height" secondItem="bBz-RI-dfx" secondAttribute="height" constant="4" id="5hn-6E-PIS"/>
                 <constraint firstItem="RPB-2l-EQw" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="6LW-Xp-fOc"/>
-                <constraint firstAttribute="bottom" secondItem="mrt-T0-wbu" secondAttribute="bottom" constant="30" id="BeS-TJ-moj"/>
-                <constraint firstItem="RPB-2l-EQw" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.5" id="GYx-kK-HlI"/>
-                <constraint firstItem="mrt-T0-wbu" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Jl5-KS-SRY"/>
-                <constraint firstItem="RPB-2l-EQw" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leadingMargin" id="TPM-k2-QSC"/>
-                <constraint firstItem="8ry-Ki-F13" firstAttribute="leading" secondItem="mrt-T0-wbu" secondAttribute="trailing" constant="10" id="UJJ-Vf-w8W"/>
-                <constraint firstAttribute="trailingMargin" secondItem="RPB-2l-EQw" secondAttribute="trailing" id="UJr-ch-M6F"/>
-                <constraint firstItem="Nex-fD-qcL" firstAttribute="top" secondItem="RPB-2l-EQw" secondAttribute="bottom" constant="10" id="XBg-xP-MNx"/>
+                <constraint firstItem="Ewj-E4-idz" firstAttribute="top" secondItem="RPB-2l-EQw" secondAttribute="bottom" id="DHm-lM-vNk"/>
+                <constraint firstItem="Ewj-E4-idz" firstAttribute="top" secondItem="ADv-F4-Et2" secondAttribute="bottom" constant="20" id="HhO-xk-5Pj"/>
+                <constraint firstAttribute="trailing" secondItem="RPB-2l-EQw" secondAttribute="trailing" id="T7Z-Du-ra8"/>
                 <constraint firstItem="Ewj-E4-idz" firstAttribute="centerX" secondItem="bBz-RI-dfx" secondAttribute="centerX" id="XlD-g9-ruq"/>
+                <constraint firstItem="RPB-2l-EQw" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="cki-FM-J85"/>
                 <constraint firstItem="bBz-RI-dfx" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="dYx-iA-7EN"/>
-                <constraint firstItem="Nex-fD-qcL" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="e86-d8-zEW"/>
                 <constraint firstAttribute="trailing" secondItem="bBz-RI-dfx" secondAttribute="trailing" id="eIm-HS-91e"/>
-                <constraint firstItem="8ry-Ki-F13" firstAttribute="centerY" secondItem="mIe-KM-UHv" secondAttribute="centerY" id="feP-oT-epz"/>
+                <constraint firstItem="exy-2z-Dnp" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="15" id="jnl-Wq-212"/>
                 <constraint firstItem="Ewj-E4-idz" firstAttribute="centerY" secondItem="bBz-RI-dfx" secondAttribute="centerY" id="phn-6P-7hR"/>
                 <constraint firstAttribute="bottom" secondItem="bBz-RI-dfx" secondAttribute="bottom" constant="3" id="uDS-in-n66"/>
+                <constraint firstItem="exy-2z-Dnp" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="zrH-gf-SDH"/>
             </constraints>
         </view>
     </objects>

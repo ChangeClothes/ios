@@ -73,6 +73,17 @@ class AMRImage: PFObject {
     })
   }
   
+  func updateRating(rating: AMRPhotoRating, withCompletion completion:() -> Void) {
+    self.rating = rating
+    self.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
+      if let error = error {
+        print(error.localizedDescription)
+      } else {
+        completion()
+      }
+    }
+  }
+  
   class func imagesForUser(stylist: AMRUser?, client: AMRUser?, completion: (objects: [AMRImage]?, error: NSError?) -> Void)  {
     
     let query = self.query()
