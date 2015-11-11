@@ -117,10 +117,6 @@ class AMRPhotoDetailViewController: UIViewController {
   
   
   // MARK: - IBActions
-  @IBAction func didTapBackButton(sender: AnyObject) {
-    self.delegate?.AMRPhotoDetailVIewController(self, didDismiss: true)
-  }
-  
   @IBAction func ratingSegmentedControlValueDidChange(sender: UISegmentedControl) {
     switch sender.selectedSegmentIndex {
     case 0:
@@ -150,7 +146,16 @@ class AMRPhotoDetailViewController: UIViewController {
       subview.tintColor = UIColor.lightGrayColor()
       let centerHeight = subview.center.x
       if abs(round(selectedSegmentHeight) - round(centerHeight)) <= 1 {
-        subview.tintColor = UIColor.AMRSelectedTabBarButtonTintColor()
+        switch sender.selectedSegmentIndex {
+        case 0:
+          subview.tintColor = UIColor.purpleColor()
+        case 1:
+          subview.tintColor = UIColor.greenColor()
+        case 2:
+          subview.tintColor = UIColor.redColor()
+        default:
+          print("Shouldn't reach here")
+        }
       }
     }
   }

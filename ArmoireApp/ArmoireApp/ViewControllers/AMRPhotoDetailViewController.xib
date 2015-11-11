@@ -46,14 +46,6 @@
                         <constraint firstAttribute="width" secondItem="Ewj-E4-idz" secondAttribute="height" multiplier="1:1" id="V6K-18-9JI"/>
                     </constraints>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="exy-2z-Dnp">
-                    <rect key="frame" x="15" y="15" width="34" height="30"/>
-                    <animations/>
-                    <state key="normal" title="Back"/>
-                    <connections>
-                        <action selector="didTapBackButton:" destination="-1" eventType="touchUpInside" id="a45-Sc-tVD"/>
-                    </connections>
-                </button>
                 <segmentedControl opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ADv-F4-Et2">
                     <rect key="frame" x="445" y="253" width="230" height="61"/>
                     <animations/>
@@ -83,11 +75,9 @@
                 <constraint firstItem="bBz-RI-dfx" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="dYx-iA-7EN"/>
                 <constraint firstItem="ADv-F4-Et2" firstAttribute="centerY" secondItem="RPB-2l-EQw" secondAttribute="centerY" id="e6W-6e-knQ"/>
                 <constraint firstAttribute="trailing" secondItem="bBz-RI-dfx" secondAttribute="trailing" id="eIm-HS-91e"/>
-                <constraint firstItem="exy-2z-Dnp" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="15" id="jnl-Wq-212"/>
                 <constraint firstItem="ADv-F4-Et2" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" multiplier="2" constant="-40" id="l5t-P3-boE"/>
                 <constraint firstItem="Ewj-E4-idz" firstAttribute="centerY" secondItem="bBz-RI-dfx" secondAttribute="centerY" id="phn-6P-7hR"/>
                 <constraint firstAttribute="bottom" secondItem="bBz-RI-dfx" secondAttribute="bottom" constant="3" id="uDS-in-n66"/>
-                <constraint firstItem="exy-2z-Dnp" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="zrH-gf-SDH"/>
             </constraints>
         </view>
     </objects>

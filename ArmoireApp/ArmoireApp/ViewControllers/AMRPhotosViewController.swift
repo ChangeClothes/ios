@@ -136,7 +136,6 @@ extension AMRPhotosViewController: UICollectionViewDataSource{
     } else if indexPath.section == 0 {
       cell.activityIndicatorView.startAnimating()
       let image = photoSections![AMRPhotoRating.titleArray()[indexPath.section]]![indexPath.row - 1]
-      cell.imageView.backgroundColor = UIColor.grayColor()
       cell.imageView.setAMRImage(image, withPlaceholder: "download", withCompletion: { (success) -> Void in
         cell.activityIndicatorView.stopAnimating()
       })
@@ -144,7 +143,6 @@ extension AMRPhotosViewController: UICollectionViewDataSource{
     } else {
       cell.activityIndicatorView.startAnimating()
       let image = photoSections![AMRPhotoRating.titleArray()[indexPath.section]]![indexPath.row]
-      cell.imageView.backgroundColor = UIColor.grayColor()
       cell.imageView.setAMRImage(image, withPlaceholder: "download", withCompletion: { (success) -> Void in
         cell.activityIndicatorView.stopAnimating()
       })
@@ -196,12 +194,20 @@ extension AMRPhotosViewController: UICollectionViewDelegate {
 extension AMRPhotosViewController: UICollectionViewDelegateFlowLayout {
   func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
     let viewSize = self.view.frame.size
-    let picDimension = viewSize.width/3.5
+    let picDimension = viewSize.width/4.0
     return CGSizeMake(picDimension, picDimension)
   }
   
   func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
-    return UIEdgeInsetsMake(15.0, 0, 15.0, 0)
+    return UIEdgeInsetsMake(0, 0, 10.0, 0)
+  }
+  
+  func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
+    return 0.0
+  }
+  
+  func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+    return 0.0
   }
 }
 

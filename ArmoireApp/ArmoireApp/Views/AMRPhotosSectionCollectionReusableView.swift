@@ -26,8 +26,7 @@ class AMRPhotosSectionCollectionReusableView: UICollectionReusableView {
   }
   
   private func setupAppearance() {
-    backgroundColor = UIColor.AMRSecondaryBackgroundColor()
-    sectionTitleLabel.textColor = UIColor.whiteColor()
+
   }
   
 }
