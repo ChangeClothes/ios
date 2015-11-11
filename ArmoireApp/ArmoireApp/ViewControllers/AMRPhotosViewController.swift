@@ -118,6 +118,9 @@ extension AMRPhotosViewController: UICollectionViewDataSource{
     let view = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: kItemSectionHeaderViewID, forIndexPath: indexPath) as! AMRPhotosSectionCollectionReusableView
 
     view.sectionTitleLabel.text = AMRPhotoRating.titleArray()[indexPath.section]
+    view.sectionTitleLabel.textColor = AMRPhotoRating.iconColorArray()[indexPath.section]
+    view.ratingIconImageView.tintColor = AMRPhotoRating.iconColorArray()[indexPath.section]
+    view.ratingIconImageView.image = AMRPhotoRating.ratingIconArray()[indexPath.section]
     
     return view
   }

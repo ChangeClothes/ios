@@ -56,10 +56,9 @@
                         <constraint firstAttribute="height" constant="60" id="eTt-qm-NM8"/>
                     </constraints>
                     <segments>
-                        <segment title="" image="love"/>
-                        <segment title="" image="like"/>
-                        <segment title="" image="neutral"/>
-                        <segment title="" image="dislike"/>
+                        <segment title="" image="yep"/>
+                        <segment title="" image="maybe"/>
+                        <segment title="" image="nope"/>
                     </segments>
                     <connections>
                         <action selector="ratingSegmentedControlValueDidChange:" destination="-1" eventType="valueChanged" id="ey7-5w-4QA"/>
@@ -104,9 +103,8 @@
         </view>
     </objects>
     <resources>
-        <image name="dislike" width="60" height="60"/>
-        <image name="like" width="60" height="60"/>
-        <image name="love" width="60" height="60"/>
-        <image name="neutral" width="60" height="60"/>
+        <image name="maybe" width="60" height="60"/>
+        <image name="nope" width="60" height="60"/>
+        <image name="yep" width="60" height="60"/>
     </resources>
 </document>

@@ -7,10 +7,9 @@
 //
 
 enum AMRPhotoRating: NSNumber {
-  case Dislike = 4
-  case Neutral = 3
-  case Like = 2
-  case Love = 1
+  case Nope = 3
+  case Maybe = 2
+  case Yep = 1
   case Unrated = 0
   
   func titleForRating() -> String {
@@ -20,7 +19,27 @@ enum AMRPhotoRating: NSNumber {
   }
   
   static func titleArray() -> [String] {
-    return ["Unrated", "Love",  "Like", "Neutral", "Dislike", ]
+    return ["Unrated", "Yep!",  "Maybe?", "Nope", ]
+  }
+  
+  static func iconColorArray() -> [UIColor] {
+    return [
+      ThemeManager.currentTheme().unratedIconColor,
+      ThemeManager.currentTheme().likeIconColor,
+      ThemeManager.currentTheme().neutralIconColor,
+      ThemeManager.currentTheme().dislikeIconColor,
+    ]
+    
+  }
+  
+  static func ratingIconArray() -> [UIImage] {
+    let imageArray: [UIImage] = [
+      UIImage(named: "unrated")!.imageWithRenderingMode(.AlwaysTemplate),
+      UIImage(named: "yep")!.imageWithRenderingMode(.AlwaysTemplate),
+      UIImage(named: "maybe")!.imageWithRenderingMode(.AlwaysTemplate),
+      UIImage(named: "nope")!.imageWithRenderingMode(.AlwaysTemplate), ]
+    
+    return imageArray
   }
 }
 
@@ -186,7 +205,7 @@ class PhotoPicker: NSObject, UINavigationControllerDelegate, UIImagePickerContro
     
     let alert:UIAlertController=UIAlertController(title: "Choose Image", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
     
-       alert.view.tintColor = UIColor.AMRSecondaryBackgroundColor()
+    alert.view.tintColor = UIColor.AMRSecondaryBackgroundColor()
     let cameraAction = UIAlertAction(title: "Take Photo", style: UIAlertActionStyle.Default)
       {
         UIAlertAction in
@@ -230,7 +249,7 @@ class PhotoPicker: NSObject, UINavigationControllerDelegate, UIImagePickerContro
       let storedImage = AMRImage()
       storedImage.stylist = self.stylist
       storedImage.client = self.client
-//      storedImage.setImage(image!)
+      //      storedImage.setImage(image!)
       
       storedImage.setImage(image!) { (success: Bool) -> Void in
         self.complete!(storedImage)

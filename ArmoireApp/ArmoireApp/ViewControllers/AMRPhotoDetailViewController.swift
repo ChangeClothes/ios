@@ -126,16 +126,13 @@ class AMRPhotoDetailViewController: UIViewController {
   private func updateCurrentPhotoToPhoto(photo: AMRImage) {
     currentPhoto = photo
     switch currentPhoto.rating! {
-    case .Dislike:
-      ratingSegmentedControl.selectedSegmentIndex = 3
-      highlightSegment(3, inSegmentedControl: ratingSegmentedControl)
-    case .Neutral:
+    case .Nope:
       ratingSegmentedControl.selectedSegmentIndex = 2
       highlightSegment(2, inSegmentedControl: ratingSegmentedControl)
-    case .Like:
+    case .Maybe:
       ratingSegmentedControl.selectedSegmentIndex = 1
       highlightSegment(1, inSegmentedControl: ratingSegmentedControl)
-    case .Love:
+    case .Yep:
       ratingSegmentedControl.selectedSegmentIndex = 0
       highlightSegment(0, inSegmentedControl: ratingSegmentedControl)
     case .Unrated:
@@ -155,20 +152,16 @@ class AMRPhotoDetailViewController: UIViewController {
   @IBAction func ratingSegmentedControlValueDidChange(sender: UISegmentedControl) {
     switch sender.selectedSegmentIndex {
     case 0:
-      currentPhoto.updateRating(.Love, withCompletion: { () -> Void in
-        self.delegate?.AMRPhotoDetailVIewController(self, didChangeToRating: .Love, didChangeToComment: nil)
+      currentPhoto.updateRating(.Yep, withCompletion: { () -> Void in
+        self.delegate?.AMRPhotoDetailVIewController(self, didChangeToRating: .Yep, didChangeToComment: nil)
       })
     case 1:
-      currentPhoto.updateRating(.Like, withCompletion: { () -> Void in
-        self.delegate?.AMRPhotoDetailVIewController(self, didChangeToRating: .Like, didChangeToComment: nil)
+      currentPhoto.updateRating(.Maybe, withCompletion: { () -> Void in
+        self.delegate?.AMRPhotoDetailVIewController(self, didChangeToRating: .Maybe, didChangeToComment: nil)
       })
     case 2:
-      currentPhoto.updateRating(.Neutral, withCompletion: { () -> Void in
-        self.delegate?.AMRPhotoDetailVIewController(self, didChangeToRating: .Neutral, didChangeToComment: nil)
-      })
-    case 3:
-      currentPhoto.updateRating(.Dislike, withCompletion: { () -> Void in
-        self.delegate?.AMRPhotoDetailVIewController(self, didChangeToRating: .Dislike, didChangeToComment: nil)
+      currentPhoto.updateRating(.Nope, withCompletion: { () -> Void in
+        self.delegate?.AMRPhotoDetailVIewController(self, didChangeToRating: .Nope, didChangeToComment: nil)
       })
     default:
       print("Should never reach here")
@@ -182,18 +175,16 @@ class AMRPhotoDetailViewController: UIViewController {
     let selectedSegmentHeight = sender.frame.width - (CGFloat(sender.numberOfSegments-1-sender.selectedSegmentIndex)+0.5)*segmentWidth
     
     for subview in sender.subviews{
-      subview.tintColor = UIColor.lightGrayColor()
+      subview.tintColor = ThemeManager.currentTheme().unselectedRatingIconColor
       let centerHeight = subview.center.x
       if abs(round(selectedSegmentHeight) - round(centerHeight)) <= 1 {
         switch sender.selectedSegmentIndex {
         case 0:
-          subview.tintColor = UIColor.purpleColor()
+          subview.tintColor = ThemeManager.currentTheme().likeIconColor
         case 1:
-          subview.tintColor = UIColor.greenColor()
+          subview.tintColor = ThemeManager.currentTheme().neutralIconColor
         case 2:
-          subview.tintColor = UIColor.yellowColor()
-        case 3:
-          subview.tintColor = UIColor.redColor()
+          subview.tintColor = ThemeManager.currentTheme().dislikeIconColor
         default:
           print("Shouldn't reach here")
         }

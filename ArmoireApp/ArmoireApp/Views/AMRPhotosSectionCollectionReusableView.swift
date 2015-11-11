@@ -11,6 +11,7 @@ import UIKit
 class AMRPhotosSectionCollectionReusableView: UICollectionReusableView {
   
   @IBOutlet weak var sectionTitleLabel: UILabel!
+  @IBOutlet weak var ratingIconImageView: UIImageView!
   
   override func awakeFromNib() {
     super.awakeFromNib()
@@ -26,7 +27,7 @@ class AMRPhotosSectionCollectionReusableView: UICollectionReusableView {
   }
   
   private func setupAppearance() {
-
+    backgroundColor = ThemeManager.currentTheme().sectionHeaderBackgroundColor
   }
   
 }
