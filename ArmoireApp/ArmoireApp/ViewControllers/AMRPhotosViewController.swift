@@ -175,7 +175,7 @@ extension AMRPhotosViewController: UICollectionViewDelegate {
     let popoverContent = AMRPhotoDetailViewController()
     popoverContent.delegate = self
     
-    popoverContent.photo = photo
+    popoverContent.currentPhoto = photo
     popoverContent.amrImages = photos
     popoverContent.photos = photosAsUIImage
     

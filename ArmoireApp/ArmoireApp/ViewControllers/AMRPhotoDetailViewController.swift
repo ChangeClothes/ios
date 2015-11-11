@@ -21,24 +21,26 @@ class AMRPhotoDetailViewController: UIViewController {
   @IBOutlet weak var containerViewController: UIImageView!
   @IBOutlet weak var ratingLabel: UILabel!
   @IBOutlet weak var thumbnailCollectionView: UICollectionView!
+  @IBOutlet weak var thumbnailSelectionBoxView: UIView!
   
   
   weak var delegate: AMRPhotoDetailViewControllerDelegate?
   
   var photos = [UIImage]()
   var amrImages = [AMRImage]()
-  var photo: AMRImage!
+  var currentPhoto: AMRImage!
   
   // MARK: - Lifecycle
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    ratingLabel.text = photo?.rating?.titleForRating()
-    containerViewController.setAMRImage(photo!)
+    ratingLabel.text = currentPhoto.rating?.titleForRating()
+    containerViewController.setAMRImage(currentPhoto)
     let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismiss:")
     containerViewController.addGestureRecognizer(tapGestureRecognizer)
     
     setupThumbnailCollectionView()
+    setupThumbnailSelectionBox()
     dispatch_async(dispatch_get_main_queue()) { () -> Void in
       self.thumbnailCollectionView.reloadData()
     }
@@ -55,12 +57,18 @@ class AMRPhotoDetailViewController: UIViewController {
     thumbnailCollectionView.registerNib(cellNib, forCellWithReuseIdentifier: kThumbnailCollectionViewCellId)
     thumbnailCollectionView.delegate = self
     thumbnailCollectionView.dataSource = self
+    thumbnailCollectionView.backgroundColor = UIColor.clearColor()
     
+  }
+  
+  private func setupThumbnailSelectionBox() {
+    thumbnailSelectionBoxView.layer.borderWidth = 3.0
+    thumbnailSelectionBoxView.layer.borderColor = UIColor.AMRSecondaryBackgroundColor().CGColor
   }
   
   private func setInitialContentOffset() {
     let thumbnailWidth = thumbnailCollectionView.frame.height
-    let row = amrImages.indexOf(photo)
+    let row = amrImages.indexOf(currentPhoto)
     thumbnailCollectionView.setContentOffset(CGPoint(x: CGFloat(row!)*thumbnailWidth , y: 0), animated: false)
   }
   
@@ -69,29 +77,34 @@ class AMRPhotoDetailViewController: UIViewController {
     self.delegate?.AMRPhotoDetailVIewController(self, didDismiss: true)
   }
   
+  private func updateCurrentPhotoToPhoto(photo: AMRImage) {
+    currentPhoto = photo
+    ratingLabel.text = currentPhoto.rating?.titleForRating()
+  }
+  
   
   // MARK: - IBActions
   @IBAction func dislikeButtonPressed(sender: UIButton) {
-    photo?.rating = .Dislike
-    ratingLabel.text = photo?.rating?.titleForRating()
-    photo?.saveInBackgroundWithBlock({ (success: Bool, error: NSError?) -> Void in
+    currentPhoto.rating = .Dislike
+    ratingLabel.text = currentPhoto.rating?.titleForRating()
+    currentPhoto.saveInBackgroundWithBlock({ (success: Bool, error: NSError?) -> Void in
       self.delegate?.AMRPhotoDetailVIewController(self, didChangeToRating: .Dislike, didChangeToComment: nil)
     })
     
   }
   
   @IBAction func likeButtonPressed(sender: UIButton) {
-    photo?.rating = .Like
-    ratingLabel.text = photo?.rating?.titleForRating()
-    photo?.saveInBackgroundWithBlock({ (success: Bool, error: NSError?) -> Void in
+    currentPhoto.rating = .Like
+    ratingLabel.text = currentPhoto.rating?.titleForRating()
+    currentPhoto.saveInBackgroundWithBlock({ (success: Bool, error: NSError?) -> Void in
       self.delegate?.AMRPhotoDetailVIewController(self, didChangeToRating: .Like, didChangeToComment: nil)
     })
   }
   
   @IBAction func loveButtonPressed(sender: UIButton) {
-    photo?.rating = .Love
-    ratingLabel.text = photo?.rating?.titleForRating()
-    photo?.saveInBackgroundWithBlock({ (success: Bool, error: NSError?) -> Void in
+    currentPhoto.rating = .Love
+    ratingLabel.text = currentPhoto.rating?.titleForRating()
+    currentPhoto.saveInBackgroundWithBlock({ (success: Bool, error: NSError?) -> Void in
       self.delegate?.AMRPhotoDetailVIewController(self, didChangeToRating: .Love, didChangeToComment: nil)
     })
   }
@@ -154,9 +167,15 @@ extension AMRPhotoDetailViewController: UIScrollViewDelegate {
     
     if let photoIndexPath = thumbnailCollectionView.indexPathForItemAtPoint(collectionViewCenter) {
       containerViewController.image = photos[photoIndexPath.row]
-      photo = amrImages[photoIndexPath.row]
+      updateCurrentPhotoToPhoto(amrImages[photoIndexPath.row])
     }
 
+  }
+  
+  func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    let thumbnailWidth = thumbnailCollectionView.frame.height
+    let row = amrImages.indexOf(currentPhoto)
+    thumbnailCollectionView.setContentOffset(CGPoint(x: CGFloat(row!)*thumbnailWidth , y: 0), animated: true)
   }
 }
 
