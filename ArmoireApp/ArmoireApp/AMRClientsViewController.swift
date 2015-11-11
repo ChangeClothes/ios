@@ -231,7 +231,7 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
 //    let viewSize = self.view.frame.size
 //    let picDimension = viewSize.width/3.5
 //    return CGSizeMake(picDimension, picDimension)
-    return CGSizeMake(150, 150)
+    return CGSizeMake(180, 150)
   }
   
   func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
