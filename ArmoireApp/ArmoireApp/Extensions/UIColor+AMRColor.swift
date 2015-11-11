@@ -41,4 +41,8 @@ extension UIColor {
     return ThemeManager.currentTheme().highlightColor
   }
   
+  class func AMRClientNotificationIconColor() -> UIColor{
+    return ThemeManager.currentTheme().highlightColor
+  }
+  
 }

@@ -24,6 +24,7 @@ class clientCollectionViewCell: UICollectionViewCell {
 
   override func awakeFromNib() {
     super.awakeFromNib()
+    setIcons()
     imageView.contentMode = UIViewContentMode.ScaleAspectFill
     imageView.layer.cornerRadius = 50
     imageView.clipsToBounds = true
@@ -43,5 +44,12 @@ class clientCollectionViewCell: UICollectionViewCell {
     activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
     activityIndicatorView.startAnimating()
     addSubview(activityIndicatorView)
+  }
+  
+  private func setIcons(){
+    for icon in [messageIcon, calendarIcon, photoIcon]{
+      icon.image = icon.image?.imageWithRenderingMode(.AlwaysTemplate)
+      icon.tintColor = UIColor.AMRClientNotificationIconColor()
+    }
   }
 }
