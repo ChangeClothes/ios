@@ -68,6 +68,7 @@ class AMRPhotoDetailViewController: UIViewController {
     ratingSegmentedControl.setBackgroundImage(imageWithColor(UIColor.clearColor()), forState: .Selected, barMetrics: .Default)
     ratingSegmentedControl.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.AMRSecondaryBackgroundColor()], forState: .Normal)
     ratingSegmentedControl.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.AMRSelectedTabBarButtonTintColor()], forState: .Selected)
+    //    ratingSegmentedControl.tintColor = UIColor.AMRSecondaryBackgroundColor()
     ratingSegmentedControl.setDividerImage(imageWithColor(UIColor.clearColor()), forLeftSegmentState: .Normal, rightSegmentState: .Normal, barMetrics: .Default)
     
     ratingSegmentedControl.goVertical()
@@ -100,13 +101,17 @@ class AMRPhotoDetailViewController: UIViewController {
     containerViewController.image = photos[index!]
     switch currentPhoto.rating! {
     case .Dislike:
-      ratingSegmentedControl.selectedSegmentIndex = 0
+      ratingSegmentedControl.selectedSegmentIndex = 2
+      highlightSegment(2, inSegmentedControl: ratingSegmentedControl)
     case .Like:
       ratingSegmentedControl.selectedSegmentIndex = 1
+      highlightSegment(1, inSegmentedControl: ratingSegmentedControl)
     case .Love:
-      ratingSegmentedControl.selectedSegmentIndex = 2
+      ratingSegmentedControl.selectedSegmentIndex = 0
+      highlightSegment(0, inSegmentedControl: ratingSegmentedControl)
     case .Unrated:
       ratingSegmentedControl.selectedSegmentIndex = UISegmentedControlNoSegment
+      highlightSegment(-1, inSegmentedControl: ratingSegmentedControl)
     }
   }
   
@@ -119,21 +124,35 @@ class AMRPhotoDetailViewController: UIViewController {
   @IBAction func ratingSegmentedControlValueDidChange(sender: UISegmentedControl) {
     switch sender.selectedSegmentIndex {
     case 0:
-      currentPhoto.updateRating(.Dislike, withCompletion: { () -> Void in
-        self.delegate?.AMRPhotoDetailVIewController(self, didChangeToRating: .Dislike, didChangeToComment: nil)
+      currentPhoto.updateRating(.Love, withCompletion: { () -> Void in
+        self.delegate?.AMRPhotoDetailVIewController(self, didChangeToRating: .Love, didChangeToComment: nil)
       })
     case 1:
       currentPhoto.updateRating(.Like, withCompletion: { () -> Void in
         self.delegate?.AMRPhotoDetailVIewController(self, didChangeToRating: .Like, didChangeToComment: nil)
       })
     case 2:
-      currentPhoto.updateRating(.Love, withCompletion: { () -> Void in
-        self.delegate?.AMRPhotoDetailVIewController(self, didChangeToRating: .Love, didChangeToComment: nil)
+      currentPhoto.updateRating(.Dislike, withCompletion: { () -> Void in
+        self.delegate?.AMRPhotoDetailVIewController(self, didChangeToRating: .Dislike, didChangeToComment: nil)
       })
     default:
       print("Should never reach here")
     }
+    highlightSegment(sender.selectedSegmentIndex, inSegmentedControl: sender)
 
+  }
+  
+  private func highlightSegment(segment: Int, inSegmentedControl sender: UISegmentedControl) {
+    let segmentWidth = sender.frame.height/CGFloat(sender.numberOfSegments)
+    let selectedSegmentHeight = sender.frame.height - (CGFloat(2-sender.selectedSegmentIndex)+0.5)*segmentWidth
+    
+    for subview in sender.subviews{
+      subview.tintColor = UIColor.lightGrayColor()
+      let centerHeight = subview.center.x
+      if abs(round(selectedSegmentHeight) - round(centerHeight)) <= 1 {
+        subview.tintColor = UIColor.AMRSelectedTabBarButtonTintColor()
+      }
+    }
   }
 }
 
@@ -195,7 +214,7 @@ extension AMRPhotoDetailViewController: UIScrollViewDelegate {
     if let photoIndexPath = thumbnailCollectionView.indexPathForItemAtPoint(collectionViewCenter) {
       updateCurrentPhotoToPhoto(amrImages[photoIndexPath.row])
     }
-
+    
   }
   
   func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {

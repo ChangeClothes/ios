@@ -54,17 +54,17 @@
                         <action selector="didTapBackButton:" destination="-1" eventType="touchUpInside" id="a45-Sc-tVD"/>
                     </connections>
                 </button>
-                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ADv-F4-Et2">
-                    <rect key="frame" x="410" y="258" width="300" height="51"/>
+                <segmentedControl opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ADv-F4-Et2">
+                    <rect key="frame" x="445" y="253" width="230" height="61"/>
                     <animations/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="300" id="GHa-XD-hZD"/>
-                        <constraint firstAttribute="height" constant="50" id="eTt-qm-NM8"/>
+                        <constraint firstAttribute="width" constant="230" id="GHa-XD-hZD"/>
+                        <constraint firstAttribute="height" constant="60" id="eTt-qm-NM8"/>
                     </constraints>
                     <segments>
-                        <segment title="Dislike"/>
-                        <segment title="Like"/>
-                        <segment title="Love"/>
+                        <segment title="" image="love"/>
+                        <segment title="" image="like"/>
+                        <segment title="" image="dislike"/>
                     </segments>
                     <connections>
                         <action selector="ratingSegmentedControlValueDidChange:" destination="-1" eventType="valueChanged" id="ey7-5w-4QA"/>
@@ -91,4 +91,9 @@
             </constraints>
         </view>
     </objects>
+    <resources>
+        <image name="dislike" width="60" height="60"/>
+        <image name="like" width="60" height="60"/>
+        <image name="love" width="60" height="60"/>
+    </resources>
 </document>
