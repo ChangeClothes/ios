@@ -13,9 +13,6 @@
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="233" height="226"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Xu4-M3-72B">
-                        <rect key="frame" x="0.0" y="5" width="233" height="221"/>
-                    </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="messaging" translatesAutoresizingMaskIntoConstraints="NO" id="QVj-IZ-zTX">
                         <rect key="frame" x="211" y="2" width="20" height="20"/>
                         <constraints>
@@ -43,6 +40,13 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Xu4-M3-72B">
+                        <rect key="frame" x="66" y="5" width="100" height="100"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="100" id="Y3m-Pa-JEZ"/>
+                            <constraint firstAttribute="height" constant="100" id="seB-XH-P9d"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
@@ -50,12 +54,16 @@
                 <constraint firstItem="aSe-Um-4X2" firstAttribute="leading" secondItem="9rY-Is-zGS" secondAttribute="trailing" id="3Mc-HT-sf6"/>
                 <constraint firstAttribute="bottom" secondItem="9rY-Is-zGS" secondAttribute="bottom" constant="2" id="89F-uu-0gb"/>
                 <constraint firstItem="Xu4-M3-72B" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="9Tk-lu-5ag"/>
+                <constraint firstItem="Xu4-M3-72B" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="AMm-lP-dBi"/>
                 <constraint firstAttribute="trailing" secondItem="QVj-IZ-zTX" secondAttribute="trailing" constant="2" id="DWb-8e-fSe"/>
                 <constraint firstItem="9rY-Is-zGS" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="2" id="Eyp-fx-fRH"/>
                 <constraint firstItem="9rY-Is-zGS" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="2" id="Kww-E6-K65"/>
                 <constraint firstAttribute="bottom" secondItem="Xu4-M3-72B" secondAttribute="bottom" id="NY5-Oz-AOv"/>
                 <constraint firstItem="9rY-Is-zGS" firstAttribute="top" secondItem="QVj-IZ-zTX" secondAttribute="bottom" constant="2" id="NbN-u9-r36"/>
                 <constraint firstAttribute="trailing" secondItem="Xu4-M3-72B" secondAttribute="trailing" id="Ox5-96-19v"/>
+                <constraint firstItem="Xu4-M3-72B" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="5" id="V54-id-9Mb"/>
+                <constraint firstItem="Xu4-M3-72B" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="V5N-jz-WKh"/>
+                <constraint firstItem="Xu4-M3-72B" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="YPq-cU-jOx"/>
                 <constraint firstItem="LRk-4N-owQ" firstAttribute="leading" secondItem="aSe-Um-4X2" secondAttribute="trailing" id="dvz-35-qbR"/>
                 <constraint firstAttribute="bottom" secondItem="aSe-Um-4X2" secondAttribute="bottom" id="foG-Kg-g7O"/>
                 <constraint firstItem="QVj-IZ-zTX" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="2" id="gBf-y1-3Qf"/>
@@ -66,6 +74,12 @@
             <size key="customSize" width="233" height="226"/>
             <variation key="default">
                 <mask key="constraints">
+                    <exclude reference="9Tk-lu-5ag"/>
+                    <exclude reference="AMm-lP-dBi"/>
+                    <exclude reference="NY5-Oz-AOv"/>
+                    <exclude reference="Ox5-96-19v"/>
+                    <exclude reference="V5N-jz-WKh"/>
+                    <exclude reference="hXb-Kh-VW1"/>
                     <exclude reference="Eyp-fx-fRH"/>
                     <exclude reference="NbN-u9-r36"/>
                 </mask>

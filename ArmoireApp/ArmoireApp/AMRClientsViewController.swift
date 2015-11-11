@@ -228,9 +228,10 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
   }
   
   func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-    let viewSize = self.view.frame.size
-    let picDimension = viewSize.width/3.5
-    return CGSizeMake(picDimension, picDimension)
+//    let viewSize = self.view.frame.size
+//    let picDimension = viewSize.width/3.5
+//    return CGSizeMake(picDimension, picDimension)
+    return CGSizeMake(150, 150)
   }
   
   func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
