@@ -17,8 +17,6 @@ class imageCollectionViewCell: UICollectionViewCell {
   override func awakeFromNib() {
     super.awakeFromNib()
     imageView.contentMode = UIViewContentMode.ScaleAspectFill
-    imageView.layer.cornerRadius = 5.0
-    imageView.clipsToBounds = true
   }
   
   required init?(coder aDecoder: NSCoder) {

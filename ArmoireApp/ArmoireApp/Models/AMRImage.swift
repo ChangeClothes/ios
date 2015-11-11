@@ -6,12 +6,57 @@
 //  Copyright © 2015 Armoire. All rights reserved.
 //
 
+enum AMRPhotoRating: NSNumber {
+  case Nope = 3
+  case Maybe = 2
+  case Yep = 1
+  case Unrated = 0
+  
+  func titleForRating() -> String {
+    let titles = AMRPhotoRating.titleArray()
+    
+    return titles[self.rawValue as Int]
+  }
+  
+  static func titleArray() -> [String] {
+    return ["Unrated", "Yep!",  "Maybe?", "Nope", ]
+  }
+  
+  static func iconColorArray() -> [UIColor] {
+    return [
+      ThemeManager.currentTheme().unratedIconColor,
+      ThemeManager.currentTheme().likeIconColor,
+      ThemeManager.currentTheme().neutralIconColor,
+      ThemeManager.currentTheme().dislikeIconColor,
+    ]
+    
+  }
+  
+  static func ratingIconArray() -> [UIImage] {
+    let imageArray: [UIImage] = [
+      UIImage(named: "unrated")!.imageWithRenderingMode(.AlwaysTemplate),
+      UIImage(named: "yep")!.imageWithRenderingMode(.AlwaysTemplate),
+      UIImage(named: "maybe")!.imageWithRenderingMode(.AlwaysTemplate),
+      UIImage(named: "nope")!.imageWithRenderingMode(.AlwaysTemplate), ]
+    
+    return imageArray
+  }
+}
+
 class AMRImage: PFObject {
   
   @NSManaged var defaultImageName: String?
   @NSManaged var file: PFFile?
   @NSManaged var client: AMRUser?
   @NSManaged var stylist: AMRUser?
+  
+  var rating: AMRPhotoRating? {
+    get { return self["rating"] != nil ? AMRPhotoRating(rawValue: self["rating"] as! NSNumber) : nil }
+    set {
+      self["rating"] = newValue?.rawValue
+      self.saveInBackground()
+    }
+  }
   
   func getData() -> NSData?{
     do {
@@ -46,6 +91,17 @@ class AMRImage: PFObject {
         print("error loading image from file")
       }
     })
+  }
+  
+  func updateRating(rating: AMRPhotoRating, withCompletion completion:() -> Void) {
+    self.rating = rating
+    self.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
+      if let error = error {
+        print(error.localizedDescription)
+      } else {
+        completion()
+      }
+    }
   }
   
   class func imagesForUser(stylist: AMRUser?, client: AMRUser?, completion: (objects: [AMRImage]?, error: NSError?) -> Void)  {
@@ -149,7 +205,7 @@ class PhotoPicker: NSObject, UINavigationControllerDelegate, UIImagePickerContro
     
     let alert:UIAlertController=UIAlertController(title: "Choose Image", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
     
-       alert.view.tintColor = UIColor.AMRSecondaryBackgroundColor()
+    alert.view.tintColor = UIColor.AMRSecondaryBackgroundColor()
     let cameraAction = UIAlertAction(title: "Take Photo", style: UIAlertActionStyle.Default)
       {
         UIAlertAction in
@@ -193,7 +249,7 @@ class PhotoPicker: NSObject, UINavigationControllerDelegate, UIImagePickerContro
       let storedImage = AMRImage()
       storedImage.stylist = self.stylist
       storedImage.client = self.client
-//      storedImage.setImage(image!)
+      //      storedImage.setImage(image!)
       
       storedImage.setImage(image!) { (success: Bool) -> Void in
         self.complete!(storedImage)
