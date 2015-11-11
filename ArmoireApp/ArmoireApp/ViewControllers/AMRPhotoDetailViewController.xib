@@ -4,7 +4,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AMRPhotoDetailViewController" customModule="ArmoireApp" customModuleProvider="target">
@@ -18,15 +17,18 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <rect key="frame" x="0.0" y="0.0" width="590" height="775"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RPB-2l-EQw">
-                    <rect key="frame" x="0.0" y="0.0" width="600" height="565"/>
+                    <rect key="frame" x="0.0" y="41" width="590" height="590"/>
                     <animations/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="RPB-2l-EQw" secondAttribute="height" multiplier="1:1" id="ZhY-9k-EEi"/>
+                    </constraints>
                 </imageView>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="bBz-RI-dfx">
-                    <rect key="frame" x="0.0" y="567" width="600" height="30"/>
+                    <rect key="frame" x="0.0" y="742" width="590" height="30"/>
                     <animations/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="2Tm-Nc-1GK"/>
@@ -38,8 +40,8 @@
                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                     </collectionViewFlowLayout>
                 </collectionView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ewj-E4-idz">
-                    <rect key="frame" x="283" y="565" width="34" height="34"/>
+                <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ewj-E4-idz">
+                    <rect key="frame" x="278" y="740" width="34" height="34"/>
                     <animations/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
@@ -47,43 +49,64 @@
                     </constraints>
                 </view>
                 <segmentedControl opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ADv-F4-Et2">
-                    <rect key="frame" x="445" y="253" width="230" height="61"/>
+                    <rect key="frame" x="150" y="672" width="290" height="61"/>
                     <animations/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="230" id="GHa-XD-hZD"/>
+                        <constraint firstAttribute="width" constant="290" id="GHa-XD-hZD"/>
                         <constraint firstAttribute="height" constant="60" id="eTt-qm-NM8"/>
                     </constraints>
                     <segments>
                         <segment title="" image="love"/>
                         <segment title="" image="like"/>
+                        <segment title="" image="neutral"/>
                         <segment title="" image="dislike"/>
                     </segments>
                     <connections>
                         <action selector="ratingSegmentedControlValueDidChange:" destination="-1" eventType="valueChanged" id="ey7-5w-4QA"/>
                     </connections>
                 </segmentedControl>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sGp-Wq-ymb">
+                    <rect key="frame" x="0.0" y="631" width="590" height="41"/>
+                    <animations/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Ir-ZV-rew">
+                    <rect key="frame" x="0.0" y="0.0" width="590" height="41"/>
+                    <animations/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
             </subviews>
             <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="Ewj-E4-idz" firstAttribute="height" secondItem="bBz-RI-dfx" secondAttribute="height" constant="4" id="5hn-6E-PIS"/>
-                <constraint firstItem="RPB-2l-EQw" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="6LW-Xp-fOc"/>
-                <constraint firstItem="Ewj-E4-idz" firstAttribute="top" secondItem="RPB-2l-EQw" secondAttribute="bottom" id="DHm-lM-vNk"/>
+                <constraint firstItem="bBz-RI-dfx" firstAttribute="top" secondItem="ADv-F4-Et2" secondAttribute="bottom" constant="10" id="7sI-mS-1eI"/>
+                <constraint firstAttribute="trailing" secondItem="sGp-Wq-ymb" secondAttribute="trailing" id="9KL-fu-IzV"/>
+                <constraint firstItem="ADv-F4-Et2" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="DGI-qo-fzD"/>
+                <constraint firstItem="RPB-2l-EQw" firstAttribute="top" secondItem="9Ir-ZV-rew" secondAttribute="bottom" id="Mkq-bn-KWr"/>
+                <constraint firstItem="sGp-Wq-ymb" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Pej-PH-1JQ"/>
+                <constraint firstAttribute="trailing" secondItem="9Ir-ZV-rew" secondAttribute="trailing" id="QlE-cT-6Hw"/>
                 <constraint firstAttribute="trailing" secondItem="RPB-2l-EQw" secondAttribute="trailing" id="T7Z-Du-ra8"/>
+                <constraint firstItem="9Ir-ZV-rew" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="VJ5-fQ-BLY"/>
                 <constraint firstItem="Ewj-E4-idz" firstAttribute="centerX" secondItem="bBz-RI-dfx" secondAttribute="centerX" id="XlD-g9-ruq"/>
                 <constraint firstItem="RPB-2l-EQw" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="cki-FM-J85"/>
                 <constraint firstItem="bBz-RI-dfx" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="dYx-iA-7EN"/>
-                <constraint firstItem="ADv-F4-Et2" firstAttribute="centerY" secondItem="RPB-2l-EQw" secondAttribute="centerY" id="e6W-6e-knQ"/>
+                <constraint firstItem="sGp-Wq-ymb" firstAttribute="height" secondItem="9Ir-ZV-rew" secondAttribute="height" id="eF0-id-w9P"/>
                 <constraint firstAttribute="trailing" secondItem="bBz-RI-dfx" secondAttribute="trailing" id="eIm-HS-91e"/>
-                <constraint firstItem="ADv-F4-Et2" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" multiplier="2" constant="-40" id="l5t-P3-boE"/>
+                <constraint firstItem="9Ir-ZV-rew" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="eLM-gr-E0s"/>
+                <constraint firstItem="ADv-F4-Et2" firstAttribute="top" secondItem="sGp-Wq-ymb" secondAttribute="bottom" id="ga2-aO-cxg"/>
+                <constraint firstItem="sGp-Wq-ymb" firstAttribute="top" secondItem="RPB-2l-EQw" secondAttribute="bottom" id="mIZ-k7-U8d"/>
                 <constraint firstItem="Ewj-E4-idz" firstAttribute="centerY" secondItem="bBz-RI-dfx" secondAttribute="centerY" id="phn-6P-7hR"/>
                 <constraint firstAttribute="bottom" secondItem="bBz-RI-dfx" secondAttribute="bottom" constant="3" id="uDS-in-n66"/>
             </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="355" y="476.5"/>
         </view>
     </objects>
     <resources>
         <image name="dislike" width="60" height="60"/>
         <image name="like" width="60" height="60"/>
         <image name="love" width="60" height="60"/>
+        <image name="neutral" width="60" height="60"/>
     </resources>
 </document>

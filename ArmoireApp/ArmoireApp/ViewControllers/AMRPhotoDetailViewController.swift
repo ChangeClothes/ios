@@ -64,7 +64,6 @@ class AMRPhotoDetailViewController: UIViewController {
   
   // MARK: - Initial Setup
   private func setupRatingSegmentedControl(){
-    ratingSegmentedControl.goVertical()
     ratingSegmentedControl.setBackgroundImage(imageWithColor(UIColor.clearColor()), forState: .Normal, barMetrics: .Default)
     ratingSegmentedControl.setBackgroundImage(imageWithColor(UIColor.clearColor()), forState: .Selected, barMetrics: .Default)
     ratingSegmentedControl.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.AMRSecondaryBackgroundColor()], forState: .Normal)
@@ -128,6 +127,9 @@ class AMRPhotoDetailViewController: UIViewController {
     currentPhoto = photo
     switch currentPhoto.rating! {
     case .Dislike:
+      ratingSegmentedControl.selectedSegmentIndex = 3
+      highlightSegment(3, inSegmentedControl: ratingSegmentedControl)
+    case .Neutral:
       ratingSegmentedControl.selectedSegmentIndex = 2
       highlightSegment(2, inSegmentedControl: ratingSegmentedControl)
     case .Like:
@@ -161,6 +163,10 @@ class AMRPhotoDetailViewController: UIViewController {
         self.delegate?.AMRPhotoDetailVIewController(self, didChangeToRating: .Like, didChangeToComment: nil)
       })
     case 2:
+      currentPhoto.updateRating(.Neutral, withCompletion: { () -> Void in
+        self.delegate?.AMRPhotoDetailVIewController(self, didChangeToRating: .Neutral, didChangeToComment: nil)
+      })
+    case 3:
       currentPhoto.updateRating(.Dislike, withCompletion: { () -> Void in
         self.delegate?.AMRPhotoDetailVIewController(self, didChangeToRating: .Dislike, didChangeToComment: nil)
       })
@@ -172,8 +178,8 @@ class AMRPhotoDetailViewController: UIViewController {
   }
   
   private func highlightSegment(segment: Int, inSegmentedControl sender: UISegmentedControl) {
-    let segmentWidth = sender.frame.height/CGFloat(sender.numberOfSegments)
-    let selectedSegmentHeight = sender.frame.height - (CGFloat(2-sender.selectedSegmentIndex)+0.5)*segmentWidth
+    let segmentWidth = sender.frame.width/CGFloat(sender.numberOfSegments)
+    let selectedSegmentHeight = sender.frame.width - (CGFloat(sender.numberOfSegments-1-sender.selectedSegmentIndex)+0.5)*segmentWidth
     
     for subview in sender.subviews{
       subview.tintColor = UIColor.lightGrayColor()
@@ -185,6 +191,8 @@ class AMRPhotoDetailViewController: UIViewController {
         case 1:
           subview.tintColor = UIColor.greenColor()
         case 2:
+          subview.tintColor = UIColor.yellowColor()
+        case 3:
           subview.tintColor = UIColor.redColor()
         default:
           print("Shouldn't reach here")
