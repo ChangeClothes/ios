@@ -34,9 +34,8 @@ class AMRPhotoDetailViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    updateCurrentPhotoToPhoto(currentPhoto)
-    
     setupRatingSegmentedControl()
+    updateCurrentPhotoToPhoto(currentPhoto)
     setupThumbnailCollectionView()
     setupThumbnailSelectionBox()
     dispatch_async(dispatch_get_main_queue()) { () -> Void in
@@ -64,14 +63,14 @@ class AMRPhotoDetailViewController: UIViewController {
   
   // MARK: - Initial Setup
   private func setupRatingSegmentedControl(){
+    ratingSegmentedControl.goVertical()
     ratingSegmentedControl.setBackgroundImage(imageWithColor(UIColor.clearColor()), forState: .Normal, barMetrics: .Default)
     ratingSegmentedControl.setBackgroundImage(imageWithColor(UIColor.clearColor()), forState: .Selected, barMetrics: .Default)
     ratingSegmentedControl.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.AMRSecondaryBackgroundColor()], forState: .Normal)
     ratingSegmentedControl.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.AMRSelectedTabBarButtonTintColor()], forState: .Selected)
-    //    ratingSegmentedControl.tintColor = UIColor.AMRSecondaryBackgroundColor()
     ratingSegmentedControl.setDividerImage(imageWithColor(UIColor.clearColor()), forLeftSegmentState: .Normal, rightSegmentState: .Normal, barMetrics: .Default)
     
-    ratingSegmentedControl.goVertical()
+    
   }
   
   private func setupThumbnailCollectionView() {
@@ -113,8 +112,14 @@ class AMRPhotoDetailViewController: UIViewController {
       ratingSegmentedControl.selectedSegmentIndex = UISegmentedControlNoSegment
       highlightSegment(-1, inSegmentedControl: ratingSegmentedControl)
     }
+    
   }
   
+  private func changeThumbnailPhotoToCurrentPhoto() {
+    let thumbnailWidth = thumbnailCollectionView.frame.height
+    let row = amrImages.indexOf(currentPhoto)
+    thumbnailCollectionView.setContentOffset(CGPoint(x: CGFloat(row!)*thumbnailWidth , y: 0), animated: true)
+  }
   
   // MARK: - IBActions
   @IBAction func ratingSegmentedControlValueDidChange(sender: UISegmentedControl) {
@@ -178,6 +183,11 @@ extension AMRPhotoDetailViewController: UICollectionViewDataSource {
   func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return photos.count
   }
+  
+  func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    updateCurrentPhotoToPhoto(self.amrImages[indexPath.row])
+    changeThumbnailPhotoToCurrentPhoto()
+  }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
@@ -223,9 +233,7 @@ extension AMRPhotoDetailViewController: UIScrollViewDelegate {
   }
   
   func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-    let thumbnailWidth = thumbnailCollectionView.frame.height
-    let row = amrImages.indexOf(currentPhoto)
-    thumbnailCollectionView.setContentOffset(CGPoint(x: CGFloat(row!)*thumbnailWidth , y: 0), animated: true)
+    changeThumbnailPhotoToCurrentPhoto()
   }
 }
 
