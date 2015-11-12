@@ -68,7 +68,8 @@ class AMRQuestionAnswer: PFObject {
         if templates.count == 0 {
           let template = AMRQuestionAnswer()
           template.stylist = stylist
-          template.qas = [[String:String]()]
+          let newTemplate: [[String:String]] = []
+          template.qas = newTemplate
           completion(template: template, error: nil)
         } else {
           let template = templates.first as! AMRQuestionAnswer
@@ -77,7 +78,8 @@ class AMRQuestionAnswer: PFObject {
       } else {
         let template = AMRQuestionAnswer()
         template.stylist = stylist
-        template.qas = [[String:String]()]
+        let newTemplate: [[String:String]] = []
+        template.qas = newTemplate
         completion(template: template, error: nil)
       }
       

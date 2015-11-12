@@ -282,7 +282,8 @@ class AMRMainViewController: AMRViewController{
       UINavigationController(rootViewController: AMRLoginViewController()),
       UINavigationController(rootViewController: AMRClientsViewController(layerClient: layerClient!)),
       UINavigationController(rootViewController: AMRMessagesViewController(layerClient: layerClient) ),
-      UINavigationController(rootViewController: AMRNotesViewController()),
+      //UINavigationController(rootViewController: AMRNotesViewController()),
+      UINavigationController(rootViewController: AMRQANotesViewController()),
       UINavigationController(rootViewController: AMRUpcomingMeetingsViewController()),
       UINavigationController (rootViewController: AMRClientsDetailViewController(layerClient: layerClient!))
     ]

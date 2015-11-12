@@ -28,7 +28,7 @@ class AMRNoteTableViewCell: AMRDynamicHeightTableViewCell {
   }
   
   override func getCellHeight(width:CGFloat?) -> CGFloat {
-    let heightMargins = CGFloat(24)
+    let heightMargins = CGFloat(16)
     let widthMargins = CGFloat(16)
     var fixedWidth: CGFloat
     if let suggestedWidth = width {

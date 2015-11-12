@@ -17,19 +17,22 @@ class AMRQuestionAnswerTableViewCell: AMRDynamicHeightTableViewCell {
 
   @IBOutlet weak var question: UILabel!
   @IBOutlet weak var answer: UITextView!
+  var hideAnswer = false
   
   override func awakeFromNib() {
     super.awakeFromNib()
     // Initialization code
     question.sizeToFit()
-    answer.sizeToFit()
-    
-    answer.layer.cornerRadius = CGFloat(10.0)
+    if hideAnswer {
+      answer.hidden = true
+    } else {
+      answer.sizeToFit()
+      answer.layer.cornerRadius = CGFloat(10.0)
+    }
   }
   
   override func setSelected(selected: Bool, animated: Bool) {
-    super.setSelected(selected, animated: animated)
-    
+    super.setSelected(selected, animated: false)
     // Configure the view for the selected state
   }
  
@@ -59,7 +62,6 @@ class AMRQuestionAnswerTableViewCell: AMRDynamicHeightTableViewCell {
     var answerNewFrame : CGRect = answer.frame
     answerNewFrame.size = CGSizeMake(CGFloat(fmaxf((Float)(answerNewSize.width), (Float)(answerFixedWidth))),answerNewSize.height)
     
-    
-    return questionNewFrame.height + answerNewFrame.height + heightMargins
+    return hideAnswer ? questionNewFrame.height + heightMargins : questionNewFrame.height + answerNewFrame.height + heightMargins
   }
 }

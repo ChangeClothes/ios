@@ -22,18 +22,25 @@ class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITabl
   func buildCell(tableview: UITableView, indexPath: NSIndexPath) -> UITableViewCell {
     print("section", indexPath.section, "row", indexPath.row)
     
-    if indexPath.row == 0 { // return notes cell
+    if indexPath.row == 0 && client != nil{ // return notes cell
       let cell = tableView.dequeueReusableCellWithIdentifier(AMRNoteTableViewCell.cellReuseIdentifier()) as! AMRNoteTableViewCell
       cell.contents.text = note?.content
       cell.contents.delegate = self
       return cell
     }
     
+    let isNotesOffset = client == nil ? 0 : 1
+    
     //return QA cell
     let cell = tableView.dequeueReusableCellWithIdentifier(AMRQuestionAnswerTableViewCell.cellReuseIdentifier()) as! AMRQuestionAnswerTableViewCell
-    let qa = questionAnswers?.qas![indexPath.row - 1]
+    let qa = questionAnswers?.qas![indexPath.row - isNotesOffset]
     cell.question.text = qa!["question"]
-    cell.answer.text = qa!["answer"]
+    if client != nil {
+      cell.answer.text = qa!["answer"]
+    } else {
+      cell.answer.hidden = true
+      cell.answer.text = ""
+    }
     cell.answer.delegate = self
     
     return cell
@@ -50,11 +57,20 @@ class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITabl
     return AMRDynamicHeightTableViewCell.getDefaultHeight()
   }
   
-  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  func numberOfRows() -> Int {
+    var count = 0
     if let qa = questionAnswers {
-      return qa.qas!.count + 1
+      count += qa.qas!.count
     }
-    return 1
+    if client != nil {
+      count += 1
+    }
+    print("returning count:", count)
+    return count
+  }
+  
+  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return numberOfRows()
   }
   
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -78,7 +94,7 @@ class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITabl
     if indexPath!.row != 0 {
       textView.textAlignment = .Right  // for some reason it defaults back to left on typing
     }
-    print("text did changec for row", indexPath?.row, textView.center, height)
+    print("text did change for row", indexPath?.row, textView.center, height)
 
     if heights![indexPath!.row] != height {
       tableView.beginUpdates()
@@ -88,11 +104,10 @@ class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITabl
   }
   
   func textViewDidBeginEditing(textView: UITextView) {
-    
   }
   
   func textViewDidEndEditing(textView: UITextView) {
-    
+      self.questionAnswers?.saveInBackground()
   }
   
   func updateData(){
@@ -110,10 +125,13 @@ class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITabl
   }
   
   func calculateRowHeights(){
-    heights = [CGFloat]( count: (questionAnswers?.qas!.count)! + 1, repeatedValue: AMRDynamicHeightTableViewCell.getDefaultHeight())
-    for index in 0...(self.questionAnswers!.qas!.count) {
-      print("calculating row height for row", index)
-      heights![index] = getCellHeight(index)
+    let numRows =  self.numberOfRows()
+    heights = [CGFloat]( count: numRows , repeatedValue: AMRDynamicHeightTableViewCell.getDefaultHeight())
+    if numRows > 0 {
+      for index in 0...numRows - 1 {
+        print("calculating row height for row", index)
+        heights![index] = getCellHeight(index)
+      }
     }
   }
   
@@ -122,21 +140,25 @@ class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITabl
     var noteLoaded = false
     var questionAnswerLoaded = false
     
-    AMRQuestionAnswer.getOrCreateForUser(self.stylist!, client: self.client) { (questionAnswer, error) -> Void in
-      questionAnswer!.qas = [
-        ["question": "What is your face?", "answer": "My face is a face like any face. FACE!"],
-        ["question": "What what do you think of this question? is it way too long? why are there so many parts?", "answer": "Yes, you should definitely make it shorter this is just ridiculous, why would you have a cell that size? \nOH NO WHY ISN'T THIS SHOWING UP!?@?@?@?@?@?\n"]
-      ]
-      self.questionAnswers = questionAnswer
-      questionAnswerLoaded = true
-      print(noteLoaded, questionAnswerLoaded)
-      if noteLoaded && questionAnswerLoaded {
-        self.updateData()
+    if client != nil {
+      AMRQuestionAnswer.getOrCreateForUser(self.stylist!, client: self.client) { (questionAnswer, error) -> Void in
+        self.questionAnswers = questionAnswer
+        questionAnswerLoaded = true
+        if noteLoaded && questionAnswerLoaded {
+          self.updateData()
+        }
       }
+    } else {
+      AMRQuestionAnswer.getTemplate(self.stylist, completion: { (template, error) -> Void in
+        self.questionAnswers = template
+        questionAnswerLoaded = true
+        if noteLoaded && questionAnswerLoaded {
+          self.updateData()
+        }
+      })
     }
     
     AMRNote.getOrCreateNoteForUser(stylist, client: client) { (note, error) -> Void in
-      note!.content = "I am a note, note, note.\nNOTTTEEEEEESSSSS\nnote\nnote\nnote\nnote\nnote\nnote\nnote"
       self.note = note
       noteLoaded = true
       print(noteLoaded, questionAnswerLoaded)
@@ -145,6 +167,30 @@ class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITabl
       }
     }
     
+  }
+  
+  func addQuestionAnswer(){
+    let alertController = UIAlertController(title: "Choose Question:", message: "Type the text of the new question you'd like to add.", preferredStyle: .Alert)
+    alertController.view.tintColor = UIColor.AMRSecondaryBackgroundColor()
+    let addAction = UIAlertAction(title: "Add", style: .Default) { (action) in
+      let questionTextField = alertController.textFields![0] as UITextField
+      self.questionAnswers?.qas!.append(["question": questionTextField.text!, "answer":""])
+      self.updateData()
+      self.questionAnswers?.saveInBackground()
+    }
+    let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (action) in }
+    
+    alertController.addTextFieldWithConfigurationHandler { (textField: UITextField) -> Void in
+      textField.placeholder = "type your question here"
+    }
+    alertController.addAction(addAction)
+    alertController.addAction(cancelAction)
+    
+    self.presentViewController(alertController, animated: true){}
+  }
+  
+  func exitModal(){
+    self.dismissViewControllerAnimated(true, completion: nil)
   }
   
   internal func setUpNavBar(){
@@ -157,13 +203,21 @@ class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITabl
     }
     if (client != nil){
       self.title = (client?.firstName)! + " " + (client?.lastName)!
+    } else {
+      self.title = "Template Builder"
+    }
+    if CurrentUser.sharedInstance.user?.isStylist == true {
+      let rightNavBarButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "addQuestionAnswer")
+      self.navigationItem.rightBarButtonItem = rightNavBarButton
     }
   }
   
   override func viewDidLoad() {
     super.viewDidLoad()
     self.tableView.separatorStyle = .None
-    //self.navigationController?.setNavigationBarHidden(true, animated: false)
+    if client != nil {
+      self.automaticallyAdjustsScrollViewInsets = false
+    }
     
     //start fetching data
     getData()
@@ -185,6 +239,5 @@ class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITabl
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
   }
-  
   
 }
