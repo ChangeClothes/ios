@@ -18,7 +18,10 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
   var layerClient: LYRClient!
   var filteredClients: [AMRUser]?
   var clients: [AMRUser] = []
-  var searchActive = false
+
+  var sections = [String]()
+  var clientSections = [String:[AMRUser]]()
+
 
   // MARK: - Lifecycle
 
@@ -73,9 +76,9 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
         let currentClient = $0
         return currentClient.fullName.lowercaseString.rangeOfString(searchText.lowercaseString) != nil
       })
-      searchActive = true
+      setUpSections(filteredClients!)
     } else {
-      searchActive = false
+      setUpSections(self.clients)
       filteredClients = []
       searchBar.performSelector("resignFirstResponder", withObject: nil, afterDelay: 0)
     }
@@ -90,6 +93,7 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
         print(error.localizedDescription)
       } else {
         self.clients = (arrayOfUsers as? [AMRUser])!
+        self.setUpSections(self.clients)
         self.collectionView.reloadData()
       }
     }
@@ -107,7 +111,7 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
   func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
     searchbar.resignFirstResponder()
     collectionView.deselectItemAtIndexPath(indexPath, animated: true)
-    let cell = collectionView.cellForItemAtIndexPath(indexPath) as? clientCollectionViewCell
+    let cell = clientSections[sections[indexPath.section]]![indexPath.row] as? clientCollectionViewCell
     let clientDetailVC = AMRClientsDetailViewController(layerClient: layerClient)
     clientDetailVC.stylist = self.stylist
     clientDetailVC.client = cell!.client
@@ -121,23 +125,31 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
   }
   
   func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    if searchActive {
-      return (filteredClients?.count)!
+    if sections.count == 0 {
+      return 0
     } else {
-      return clients.count
+      return clientSections[sections[section]]!.count
     }
+  }
+
+  func setUpSections(clients:[AMRUser]) {
+    clientSections = [String:[AMRUser]]()
+    for client in clients {
+      let firstLetter = String(client.firstName[client.firstName.startIndex])
+      if let _ = clientSections[firstLetter] {
+        clientSections[firstLetter]!.append(client)
+      } else {
+        clientSections[firstLetter] = [client]
+      }
+    }
+    sections = clientSections.keys.sort()
   }
 
   func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCellWithReuseIdentifier("ClientCell", forIndexPath: indexPath) as! clientCollectionViewCell
-    var client: AMRUser?
-    if searchActive {
-      client = filteredClients![indexPath.row]
-    } else {
-      client = clients[indexPath.row]
-    }
+    let client = clientSections[sections[indexPath.section]]![indexPath.row]
     cell.client = client
-    AMRUserManager.sharedManager.queryForUserWithObjectID(client!.objectId!) { (users: NSArray?, error: NSError?) -> Void in
+    AMRUserManager.sharedManager.queryForUserWithObjectID(client.objectId!) { (users: NSArray?, error: NSError?) -> Void in
       if let error = error {
         print(error.localizedDescription)
       } else {
@@ -167,5 +179,13 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
   
   func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
     return CGSize(width: collectionView.frame.size.width, height: 40)
+  }
+
+  func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+    return CGSize(width: collectionView.frame.size.width, height: 40)
+  }
+
+  func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    return sections.count
   }
 }
