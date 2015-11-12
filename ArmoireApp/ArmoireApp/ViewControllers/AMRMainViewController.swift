@@ -237,6 +237,7 @@ class AMRMainViewController: AMRViewController{
       UIApplication.sharedApplication().windows[0].makeKeyAndVisible()
     } else {
       //stylist workflow
+      AMRBadgeManager.sharedInstance.getClientBadgesForStylist(AMRUser.currentUser()!, withCompletion: nil)
       selectViewController(vcArray[1])
       setSelectedAppearanceColorForImageView(profileIconImageView)
       setupLayerQueryController()
