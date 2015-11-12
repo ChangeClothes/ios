@@ -16,7 +16,7 @@ class AMRPhotosViewController: AMRViewController {
   
   @IBOutlet weak var collectionView: UICollectionView!
   var photos: [AMRImage] = []
-  var photosAsUIImage: [UIImage] = []
+  var photosAsUIImage = [UIImage]()
   var photoPicker:PhotoPicker?
   var photoSections: [String: [AMRImage]]?
   
@@ -67,13 +67,14 @@ class AMRPhotosViewController: AMRViewController {
   private func refreshCollectionView() {
     AMRImage.imagesForUser(stylist, client: client) { (objects, error) -> Void in
       self.photos = objects! as [AMRImage]
-      self.uiImageArrayFromAMRImageArray(self.photos)
+
       self.photoSections = self.sectionsForPhotosArray(self.photos)
+      self.uiImageArrayFromAMRImageArray(self.amrImageArrayFromPhotoSections(self.photoSections!))
       self.collectionView.reloadData()
     }
   }
   
-  private func uiImageArrayFromAMRImageArray(array: [AMRImage]) {
+  private func uiImageArrayFromAMRImageArray(array: [AMRImage]){
     let arrayCount = array.count
     photosAsUIImage = [UIImage](count: arrayCount, repeatedValue: UIImage())
     
@@ -82,7 +83,18 @@ class AMRPhotosViewController: AMRViewController {
         self.photosAsUIImage[index] = correctImage
       })
     }
+  }
+  
+  private func amrImageArrayFromPhotoSections(sections:[String: [AMRImage]]) -> [AMRImage] {
+    var resultArray = [AMRImage]()
 
+    for rating in AMRPhotoRating.titleArray() {
+      if let array = sections[rating] {
+        resultArray.appendContentsOf(array)
+      }
+    }
+    
+    return resultArray
   }
 }
 
@@ -179,8 +191,10 @@ extension AMRPhotosViewController: UICollectionViewDelegate {
     popoverContent.delegate = self
     
     popoverContent.currentPhoto = photo
-    popoverContent.amrImages = photos
-    popoverContent.photos = photosAsUIImage
+    
+    let amrImages = amrImageArrayFromPhotoSections(photoSections!)
+    popoverContent.amrImages = amrImages
+    popoverContent.photos = self.photosAsUIImage
     
     navigationController?.pushViewController(popoverContent, animated: true)
   }
