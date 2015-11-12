@@ -42,9 +42,9 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
 
   override func viewDidLoad() {
     super.viewDidLoad()
-//    setUpClientTable()
     searchbar.delegate = self
     searchbar.searchBarStyle = UISearchBarStyle.Minimal
+    searchbar.setShowsCancelButton(true, animated: false)
     searchbar.frame = CGRectMake(0, 0, view.frame.width, 40)
     searchbar.frame.size.width = UIScreen.mainScreen().bounds.width
     self.collectionView.addSubview(searchbar)
@@ -53,9 +53,9 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
     setUpClientCollectionView()
     self.title = "Clients"
     
-//    self.tap = UITapGestureRecognizer(target: self, action: "viewTapped:")
-//    self.tap.delegate = self
-//    self.view.addGestureRecognizer(self.tap)
+    self.tap = UITapGestureRecognizer(target: self, action: "viewTapped:")
+    self.tap.delegate = self
+    self.view.addGestureRecognizer(self.tap)
     
     let leftNavBarButton = UIBarButtonItem(image: UIImage(named: "settings"), style: .Plain, target: self, action: "onSettingsTap")
     self.navigationItem.leftBarButtonItem = leftNavBarButton
@@ -74,13 +74,15 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
   // MARK: - On Taps Functions
 
 //  func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
-//    searchbar.resignFirstResponder()
+//    print("otuched")
+////    searchbar.resignFirstResponder()
 //    return false
 //  }
-//
-//  func onSettingsTap(){
+
+  func onSettingsTap(){
 //    showSettings()
-//  }
+  }
+  
 //
 //  func onAddClientType(){
 //    let addClientVC = AMRAddClientViewController()
@@ -97,13 +99,13 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
         return currentClient.fullName.lowercaseString.rangeOfString(searchText.lowercaseString) != nil
       })
       searchActive = true
-//      setUpSections(filteredClients!)
     } else {
-//      setUpSections(self.clients!)
       searchActive = false
       filteredClients = []
+      searchBar.performSelector("resignFirstResponder", withObject: nil, afterDelay: 0)
     }
     self.collectionView.reloadData()
+    searchBar.becomeFirstResponder()
   }
 
   func loadClients(){
@@ -127,21 +129,7 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
     collectionView.backgroundColor = UIColor.whiteColor()
     self.view.addSubview(collectionView)
   }
-//  func setUpClientTable(){
-//    clientTable.delegate = self
-//    clientTable.dataSource = self
-//    clientTable.sectionIndexColor = UIColor.AMRBrightButtonTintColor()
-//    //let header:UITableViewHeaderFooterView = clientTable as! UITableViewHeaderFooterView
-//    //header.textLabel!.textColor = UIColor.AMRUnselectedTabBarButtonTintColor()
-//    //header.contentView.backgroundColor = UIColor.AMRSecondaryBackgroundColor()
-//    searchbar.delegate = self
-//    searchbar.searchBarStyle = UISearchBarStyle.Minimal
-//    self.view.addSubview(searchbar)
-//    clientTable.tableHeaderView = searchbar;
-//    let celNib = UINib(nibName: "AMRClientTableViewCell", bundle: nil)
-//    clientTable.registerNib(celNib, forCellReuseIdentifier: cellConstant)
-//  }
-//
+
 //  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 //    let cell = clientTable.dequeueReusableCellWithIdentifier(cellConstant, forIndexPath: indexPath) as! AMRClientTableViewCell
 //    cell.client = clientSections[sections[indexPath.section]]![indexPath.row]
@@ -163,43 +151,6 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
 //    self.presentViewController(formSheetController, animated: true, completion: nil)
 //  }
 //
-//  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//    if sections.count == 0 {
-//      return 0
-//    } else {
-//      return clientSections[sections[section]]!.count
-//    }
-//  }
-//
-//  func setUpSections(clients:[AMRUser]) {
-//    clientSections = [String:[AMRUser]]()
-//    for client in clients {
-//      let firstLetter = String(client.firstName[client.firstName.startIndex])
-//      if let _ = clientSections[firstLetter] {
-//        clientSections[firstLetter]!.append(client)
-//      } else {
-//        clientSections[firstLetter] = [client]
-//      }
-//    }
-//    sections = clientSections.keys.sort()
-//  }
-//
-  
-//  func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-//    return sections.count
-//  }
-//
-//  func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//    return sections[section]
-//  }
-//
-//  func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]? {
-//    return sections
-//  }
-//
-//  func tableView(tableView: UITableView, sectionForSectionIndexTitle title: String, atIndex index: Int) -> Int {
-//    return index
-//  }
 
   func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
     collectionView.deselectItemAtIndexPath(indexPath, animated: true)
@@ -248,18 +199,10 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
   }
   
   func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
-    //let leftRightInset = self.view.frame.size.width / 14.0
     return UIEdgeInsetsMake(0, 0, 0, 0)
   }
   
   func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
     return CGSize(width: collectionView.frame.size.width, height: 40)
   }
-  
 }
-
-//extension AMRClientsViewController: AMRPhotoDetailViewControllerDelegate {
-//  func AMRPhotoDetailVIewController(photoViewDetailController: AMRPhotoDetailViewController, didDismiss: Bool) {
-//    self.navigationController?.popViewControllerAnimated(true)
-//  }
-//}
