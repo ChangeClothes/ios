@@ -111,10 +111,10 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
   func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
     searchbar.resignFirstResponder()
     collectionView.deselectItemAtIndexPath(indexPath, animated: true)
-    let cell = clientSections[sections[indexPath.section]]![indexPath.row] as? clientCollectionViewCell
+    let client = clientSections[sections[indexPath.section]]![indexPath.row]
     let clientDetailVC = AMRClientsDetailViewController(layerClient: layerClient)
     clientDetailVC.stylist = self.stylist
-    clientDetailVC.client = cell!.client
+    clientDetailVC.client = client
     let nav = UINavigationController(rootViewController: clientDetailVC)
     let formSheetController = MZFormSheetPresentationViewController(contentViewController: nav)
     let viewHeight = self.view.frame.height - 40
