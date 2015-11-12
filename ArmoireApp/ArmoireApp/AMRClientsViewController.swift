@@ -141,10 +141,10 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
   }
   
   func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    if sections.count == 0 {
+    if sections.count == 0 || section == 0 {
       return 0
     } else {
-      return clientSections[sections[section]]!.count
+      return clientSections[sections[section - 1]]!.count
     }
   }
 
@@ -163,7 +163,7 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
 
   func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCellWithReuseIdentifier("ClientCell", forIndexPath: indexPath) as! clientCollectionViewCell
-    let client = clientSections[sections[indexPath.section]]![indexPath.row]
+    let client = clientSections[sections[indexPath.section - 1]]![indexPath.row]
     cell.client = client
     AMRUserManager.sharedManager.queryForUserWithObjectID(client.objectId!) { (users: NSArray?, error: NSError?) -> Void in
       if let error = error {
@@ -216,13 +216,15 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
             options:[], metrics:nil, views:["lab":lab])
           ].flatten().map{$0})
       }
-      let lab = v.subviews[0] as! UILabel
-      lab.text = self.sections[indexPath.section]
+      if indexPath.section != 0 {
+        let lab = v.subviews[0] as! UILabel
+        lab.text = self.sections[indexPath.section - 1]
+      }
     }
     return v
   }
 
   func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-    return sections.count
+    return sections.count + 1
   }
 }
