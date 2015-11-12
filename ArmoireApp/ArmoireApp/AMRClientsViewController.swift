@@ -8,27 +8,14 @@
 
 import UIKit
 
-//class AMRClientsViewController: AMRViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UIGestureRecognizerDelegate {
-
 class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
 
   // MARK: - Outlets
   
   @IBOutlet weak var collectionView: UICollectionView!
-//  @IBOutlet weak var clientTable: UITableView!
-//
-//  // MARK: - Constants
-//
-//  let cellConstant = "clientTableViewCellReuseIdentifier"
-//
-//  // MARK: - Properties
-//
   @IBOutlet weak var collectionViewConstraintTop: NSLayoutConstraint!
-  var tap: UITapGestureRecognizer!
   var searchbar = UISearchBar()
   var layerClient: LYRClient!
-//  var sections = [String]()
-//  var clientSections = [String:[AMRUser]]()
   var filteredClients: [AMRUser]?
   var clients: [AMRUser] = []
   var searchActive = false
@@ -44,7 +31,6 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
     super.viewDidLoad()
     searchbar.delegate = self
     searchbar.searchBarStyle = UISearchBarStyle.Minimal
-    searchbar.setShowsCancelButton(true, animated: false)
     searchbar.frame = CGRectMake(0, 0, view.frame.width, 40)
     searchbar.frame.size.width = UIScreen.mainScreen().bounds.width
     self.collectionView.addSubview(searchbar)
@@ -52,10 +38,6 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
     loadClients()
     setUpClientCollectionView()
     self.title = "Clients"
-    
-    self.tap = UITapGestureRecognizer(target: self, action: "viewTapped:")
-    self.tap.delegate = self
-    self.view.addGestureRecognizer(self.tap)
     
     let leftNavBarButton = UIBarButtonItem(image: UIImage(named: "settings"), style: .Plain, target: self, action: "onSettingsTap")
     self.navigationItem.leftBarButtonItem = leftNavBarButton
@@ -73,22 +55,15 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
   
   // MARK: - On Taps Functions
 
-//  func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
-//    print("otuched")
-////    searchbar.resignFirstResponder()
-//    return false
-//  }
-
   func onSettingsTap(){
-//    showSettings()
+    showSettings()
   }
   
-//
-//  func onAddClientType(){
-//    let addClientVC = AMRAddClientViewController()
-//    addClientVC.setVcData(self.stylist, client: nil)
-//    self.presentViewController(addClientVC, animated: true, completion: nil)
-//  }
+  func onAddClientType(){
+    let addClientVC = AMRAddClientViewController()
+    addClientVC.setVcData(self.stylist, client: nil)
+    self.presentViewController(addClientVC, animated: true, completion: nil)
+  }
 
   // MARK: - Table Set Up
 
@@ -115,7 +90,6 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
         print(error.localizedDescription)
       } else {
         self.clients = (arrayOfUsers as? [AMRUser])!
-//        self.setUpSections(self.clients!)
         self.collectionView.reloadData()
       }
     }
@@ -130,30 +104,19 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
     self.view.addSubview(collectionView)
   }
 
-//  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-//    let cell = clientTable.dequeueReusableCellWithIdentifier(cellConstant, forIndexPath: indexPath) as! AMRClientTableViewCell
-//    cell.client = clientSections[sections[indexPath.section]]![indexPath.row]
-//    cell.textLabel!.text = cell.client?.fullName
-//    return cell
-//  }
-//
-//  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-//    tableView.deselectRowAtIndexPath(indexPath, animated: true)
-//    let cell = clientTable.cellForRowAtIndexPath(indexPath) as! AMRClientTableViewCell
-//    let clientDetailVC = AMRClientsDetailViewController(layerClient: layerClient)
-//    clientDetailVC.stylist = self.stylist
-//    clientDetailVC.client = cell.client
-//    let nav = UINavigationController(rootViewController: clientDetailVC)
-//    let formSheetController = MZFormSheetPresentationViewController(contentViewController: nav)
-//    let viewHeight = self.view.frame.height - 40
-//    let viewWidth = self.view.frame.width - 25
-//    formSheetController.presentationController?.contentViewSize = CGSizeMake(viewWidth, viewHeight)
-//    self.presentViewController(formSheetController, animated: true, completion: nil)
-//  }
-//
-
   func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    searchbar.resignFirstResponder()
     collectionView.deselectItemAtIndexPath(indexPath, animated: true)
+    let cell = collectionView.cellForItemAtIndexPath(indexPath) as? clientCollectionViewCell
+    let clientDetailVC = AMRClientsDetailViewController(layerClient: layerClient)
+    clientDetailVC.stylist = self.stylist
+    clientDetailVC.client = cell!.client
+    let nav = UINavigationController(rootViewController: clientDetailVC)
+    let formSheetController = MZFormSheetPresentationViewController(contentViewController: nav)
+    let viewHeight = self.view.frame.height - 40
+    let viewWidth = self.view.frame.width - 25
+    formSheetController.presentationController?.contentViewSize = CGSizeMake(viewWidth, viewHeight)
+    self.presentViewController(formSheetController, animated: true, completion: nil)
 
   }
   
