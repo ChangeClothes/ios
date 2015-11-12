@@ -21,7 +21,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RPB-2l-EQw">
-                    <rect key="frame" x="0.0" y="41" width="590" height="590"/>
+                    <rect key="frame" x="0.0" y="63" width="590" height="590"/>
                     <animations/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="RPB-2l-EQw" secondAttribute="height" multiplier="1:1" id="ZhY-9k-EEi"/>
@@ -65,12 +65,12 @@
                     </connections>
                 </segmentedControl>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sGp-Wq-ymb">
-                    <rect key="frame" x="0.0" y="631" width="590" height="41"/>
+                    <rect key="frame" x="0.0" y="653" width="590" height="19"/>
                     <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Ir-ZV-rew">
-                    <rect key="frame" x="0.0" y="0.0" width="590" height="41"/>
+                    <rect key="frame" x="0.0" y="0.0" width="590" height="63"/>
                     <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
@@ -90,7 +90,7 @@
                 <constraint firstItem="Ewj-E4-idz" firstAttribute="centerX" secondItem="bBz-RI-dfx" secondAttribute="centerX" id="XlD-g9-ruq"/>
                 <constraint firstItem="RPB-2l-EQw" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="cki-FM-J85"/>
                 <constraint firstItem="bBz-RI-dfx" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="dYx-iA-7EN"/>
-                <constraint firstItem="sGp-Wq-ymb" firstAttribute="height" secondItem="9Ir-ZV-rew" secondAttribute="height" id="eF0-id-w9P"/>
+                <constraint firstItem="sGp-Wq-ymb" firstAttribute="height" secondItem="9Ir-ZV-rew" secondAttribute="height" constant="-44" id="eF0-id-w9P"/>
                 <constraint firstAttribute="trailing" secondItem="bBz-RI-dfx" secondAttribute="trailing" id="eIm-HS-91e"/>
                 <constraint firstItem="9Ir-ZV-rew" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="eLM-gr-E0s"/>
                 <constraint firstItem="ADv-F4-Et2" firstAttribute="top" secondItem="sGp-Wq-ymb" secondAttribute="bottom" id="ga2-aO-cxg"/>

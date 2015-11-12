@@ -16,7 +16,7 @@ class AMRPhotosViewController: AMRViewController {
   
   @IBOutlet weak var collectionView: UICollectionView!
   var photos: [AMRImage] = []
-  var photosAsUIImage: [UIImage] = []
+  var photosAsUIImage = [UIImage]()
   var photoPicker:PhotoPicker?
   var photoSections: [String: [AMRImage]]?
   
@@ -67,13 +67,14 @@ class AMRPhotosViewController: AMRViewController {
   private func refreshCollectionView() {
     AMRImage.imagesForUser(stylist, client: client) { (objects, error) -> Void in
       self.photos = objects! as [AMRImage]
-      self.uiImageArrayFromAMRImageArray(self.photos)
+
       self.photoSections = self.sectionsForPhotosArray(self.photos)
+      self.uiImageArrayFromAMRImageArray(self.amrImageArrayFromPhotoSections(self.photoSections!))
       self.collectionView.reloadData()
     }
   }
   
-  private func uiImageArrayFromAMRImageArray(array: [AMRImage]) {
+  private func uiImageArrayFromAMRImageArray(array: [AMRImage]){
     let arrayCount = array.count
     photosAsUIImage = [UIImage](count: arrayCount, repeatedValue: UIImage())
     
@@ -82,7 +83,18 @@ class AMRPhotosViewController: AMRViewController {
         self.photosAsUIImage[index] = correctImage
       })
     }
+  }
+  
+  private func amrImageArrayFromPhotoSections(sections:[String: [AMRImage]]) -> [AMRImage] {
+    var resultArray = [AMRImage]()
 
+    for rating in AMRPhotoRating.titleArray() {
+      if let array = sections[rating] {
+        resultArray.appendContentsOf(array)
+      }
+    }
+    
+    return resultArray
   }
 }
 
@@ -131,10 +143,9 @@ extension AMRPhotosViewController: UICollectionViewDataSource{
     
     if indexPath.row == 0 && indexPath.section == 0{
       cell.activityIndicatorView.stopAnimating()
-      var cameraIcon = UIImage(named: "camera-add")
-      cameraIcon = cameraIcon?.imageWithRenderingMode(.AlwaysTemplate)
-      cell.imageView.tintColor = UIColor.AMRSecondaryBackgroundColor()
-      cell.imageView.image = cameraIcon
+      let addPhotoIcon = UIImage(named: "add-photo")
+      cell.imageView.image = addPhotoIcon
+      cell.imageView.contentMode = .ScaleAspectFit
       cell.backgroundColor = UIColor.clearColor()
     } else if indexPath.section == 0 {
       cell.activityIndicatorView.startAnimating()
@@ -179,8 +190,10 @@ extension AMRPhotosViewController: UICollectionViewDelegate {
     popoverContent.delegate = self
     
     popoverContent.currentPhoto = photo
-    popoverContent.amrImages = photos
-    popoverContent.photos = photosAsUIImage
+    
+    let amrImages = amrImageArrayFromPhotoSections(photoSections!)
+    popoverContent.amrImages = amrImages
+    popoverContent.photos = self.photosAsUIImage
     
     navigationController?.pushViewController(popoverContent, animated: true)
   }
@@ -202,7 +215,7 @@ extension AMRPhotosViewController: UICollectionViewDelegateFlowLayout {
   }
   
   func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
-    return UIEdgeInsetsMake(0, 0, 10.0, 0)
+    return UIEdgeInsetsMake(10.0, 0, 10.0, 0)
   }
   
   func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
@@ -210,7 +223,7 @@ extension AMRPhotosViewController: UICollectionViewDelegateFlowLayout {
   }
   
   func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
-    return 0.0
+    return 10.0
   }
 }
 
