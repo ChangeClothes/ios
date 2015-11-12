@@ -61,6 +61,15 @@ class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITabl
     tableView.deselectRowAtIndexPath(indexPath, animated: true)
   }
   
+  func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    return CGFloat(0)
+  }
+  
+  func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    return CGFloat(0)
+  }
+  
+  
   func textViewDidChange(textView: UITextView)
   {
     let indexPath = tableView.indexPathForRowAtPoint(textView.superview!.superview!.center)
@@ -138,12 +147,27 @@ class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITabl
     
   }
   
+  internal func setUpNavBar(){
+    if (stylist != nil && client != nil){
+      let leftNavBarButton = UIBarButtonItem(image: UIImage(named: "cancel"), style: .Plain, target: self, action: "exitModal")
+      self.navigationItem.leftBarButtonItem = leftNavBarButton
+    } else {
+      let leftNavBarButton = UIBarButtonItem(image: UIImage(named: "settings"), style: .Plain, target: self, action: "onSettingsTap")
+      self.navigationItem.leftBarButtonItem = leftNavBarButton
+    }
+    if (client != nil){
+      self.title = (client?.firstName)! + " " + (client?.lastName)!
+    }
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.navigationController?.setNavigationBarHidden(true, animated: false)
+    self.tableView.separatorStyle = .None
+    //self.navigationController?.setNavigationBarHidden(true, animated: false)
     
     //start fetching data
     getData()
+    setUpNavBar()
     
     //set up table
     tableView.delegate = self

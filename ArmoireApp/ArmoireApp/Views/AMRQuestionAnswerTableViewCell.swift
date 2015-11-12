@@ -23,6 +23,8 @@ class AMRQuestionAnswerTableViewCell: AMRDynamicHeightTableViewCell {
     // Initialization code
     question.sizeToFit()
     answer.sizeToFit()
+    
+    answer.layer.cornerRadius = CGFloat(10.0)
   }
   
   override func setSelected(selected: Bool, animated: Bool) {
