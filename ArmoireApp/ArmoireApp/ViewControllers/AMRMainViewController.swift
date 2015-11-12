@@ -228,6 +228,7 @@ class AMRMainViewController: AMRViewController{
   
   // MARK: - Notifiation Observers
   func onUserLogin(notification: NSNotification){
+    AMRBadgeManager.sharedInstance.layerClient = layerClient
     setVcData(nil, client: nil)
     if (self.client != nil) {
       //client workflow

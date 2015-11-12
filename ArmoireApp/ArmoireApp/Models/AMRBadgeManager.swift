@@ -20,12 +20,13 @@ class AMRBadgeManager: NSObject {
   // MARK: - Shared Instance
   static let sharedInstance = AMRBadgeManager()
   
+  var layerClient: LYRClient!
+  
   var clientBadges = [AMRUser: AMRClientBadges]()
   private var getClientBadgesCompletion: (() -> Void)?
-  private let numberOfClientChecks = 2
+  private let numberOfClientChecks = 3
   private var clientBadgesCountdown: Int! {
     didSet {
-      print(clientBadgesCountdown)
       if clientBadgesCountdown == 0 {
         for (client, badges) in clientBadges {
           print("\(client) \(badges.hasMeetingToday) \(badges.hasUnratedPhotos) \(badges.hasUnreadMessages)")
@@ -67,6 +68,7 @@ class AMRBadgeManager: NSObject {
             // Check for unrated images
             self.determineUnratedImageBadgesForClient(client)
             self.determineMeetingTodayBadgeForClient(client)
+            self.determineUnreadConversationForClient(client)
           }
         }
       }
@@ -122,6 +124,30 @@ class AMRBadgeManager: NSObject {
         }
       }
       
+    }
+  }
+  
+  private func determineUnreadConversationForClient(client: AMRUser) {
+    let query = LYRQuery(queryableClass: LYRMessage.self)
+    let unreadPredicate = LYRPredicate(property: "isUnread", predicateOperator: LYRPredicateOperator.IsEqualTo, value: true)
+    let userPredicate = LYRPredicate(property: "sender.userID", predicateOperator: LYRPredicateOperator.IsEqualTo, value: client.objectId)
+    
+    query.predicate = LYRCompoundPredicate(type: LYRCompoundPredicateType.And, subpredicates: [userPredicate, unreadPredicate])
+    
+    layerClient.executeQuery(query) { (conversations: NSOrderedSet!, error: NSError!) -> Void in
+      if let error = error {
+        print(error.localizedDescription)
+      } else {
+        if conversations.count != 0 {
+          if let badges = self.clientBadges[client] {
+            badges.hasUnreadMessages = true
+          } else {
+            self.clientBadges[client] = AMRClientBadges()
+            self.clientBadges[client]?.hasUnreadMessages = true
+          }
+        }
+        self.clientBadgesCountdown = self.clientBadgesCountdown - 1
+      }
     }
   }
   
