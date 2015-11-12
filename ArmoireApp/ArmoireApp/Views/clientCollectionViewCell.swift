@@ -46,6 +46,10 @@ class clientCollectionViewCell: UICollectionViewCell {
     addSubview(activityIndicatorView)
   }
   
+  override func prepareForReuse() {
+    self.photoIcon = nil;
+  }
+
   private func setIcons(){
     for icon in [messageIcon, calendarIcon, photoIcon]{
       icon.image = icon.image?.imageWithRenderingMode(.AlwaysTemplate)

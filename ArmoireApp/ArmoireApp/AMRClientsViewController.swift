@@ -77,8 +77,8 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
 
   // MARK: - Table Set Up
   func setUpFlowLayout(flow:UICollectionViewFlowLayout) {
-    flow.headerReferenceSize = CGSizeMake(50,50) // larger - we will place label within this
-    flow.sectionInset = UIEdgeInsetsMake(0, 10, 10, 10) // looks nicer
+    flow.headerReferenceSize = CGSizeMake(50,50)
+    flow.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0)
 
     // flow.sectionHeadersPinToVisibleBounds = true // try cool new iOS 9 feature
 
@@ -216,9 +216,11 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
             options:[], metrics:nil, views:["lab":lab])
           ].flatten().map{$0})
       }
+      let lab = v.subviews[0] as! UILabel
       if indexPath.section != 0 {
-        let lab = v.subviews[0] as! UILabel
         lab.text = self.sections[indexPath.section - 1]
+      } else {
+        lab.text = ""
       }
     }
     return v
