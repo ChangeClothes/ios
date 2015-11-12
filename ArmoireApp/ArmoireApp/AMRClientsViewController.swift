@@ -10,7 +10,7 @@ import UIKit
 
 //class AMRClientsViewController: AMRViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UIGestureRecognizerDelegate {
 
-class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
 
   // MARK: - Outlets
   
@@ -23,11 +23,12 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
 //
 //  // MARK: - Properties
 //
+  @IBOutlet weak var collectionViewConstraintTop: NSLayoutConstraint!
   var tap: UITapGestureRecognizer!
-  var searchbar = UISearchBar(frame: CGRect(x: 0.0, y: 0.0, width: 280.0, height: 44.0))
+  var searchbar = UISearchBar()
   var layerClient: LYRClient!
-  var sections = [String]()
-  var clientSections = [String:[AMRUser]]()
+//  var sections = [String]()
+//  var clientSections = [String:[AMRUser]]()
   var filteredClients: [AMRUser]?
   var clients: [AMRUser] = []
   var searchActive = false
@@ -42,6 +43,12 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
   override func viewDidLoad() {
     super.viewDidLoad()
 //    setUpClientTable()
+    searchbar.delegate = self
+    searchbar.searchBarStyle = UISearchBarStyle.Minimal
+    searchbar.frame = CGRectMake(0, 0, view.frame.width, 40)
+    searchbar.frame.size.width = UIScreen.mainScreen().bounds.width
+    self.collectionView.addSubview(searchbar)
+    searchbar.layoutIfNeeded()
     loadClients()
     setUpClientCollectionView()
     self.title = "Clients"
@@ -83,19 +90,21 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
 
   // MARK: - Table Set Up
 
-//  func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-//    if searchText != "" {
-//      filteredClients = clients!.filter({
-//        let currentClient = $0
-//        return currentClient.fullName.lowercaseString.rangeOfString(searchText.lowercaseString) != nil
-//      })
+  func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+    if searchText != "" {
+      filteredClients = clients.filter({
+        let currentClient = $0
+        return currentClient.fullName.lowercaseString.rangeOfString(searchText.lowercaseString) != nil
+      })
+      searchActive = true
 //      setUpSections(filteredClients!)
-//    } else {
+    } else {
 //      setUpSections(self.clients!)
-//      filteredClients = []
-//    }
-//    self.clientTable.reloadData()
-//  }
+      searchActive = false
+      filteredClients = []
+    }
+    self.collectionView.reloadData()
+  }
 
   func loadClients(){
     let userManager = AMRUserManager()
@@ -105,8 +114,6 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
       } else {
         self.clients = (arrayOfUsers as? [AMRUser])!
 //        self.setUpSections(self.clients!)
-        print("we have clients")
-        print(self.clients.count)
         self.collectionView.reloadData()
       }
     }
@@ -200,14 +207,23 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
   }
   
   func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return clients.count
+    if searchActive {
+      return (filteredClients?.count)!
+    } else {
+      return clients.count
+    }
   }
 
   func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCellWithReuseIdentifier("ClientCell", forIndexPath: indexPath) as! clientCollectionViewCell
-    let client = clients[indexPath.row]
+    var client: AMRUser?
+    if searchActive {
+      client = filteredClients![indexPath.row]
+    } else {
+      client = clients[indexPath.row]
+    }
     cell.client = client
-    AMRUserManager.sharedManager.queryForUserWithObjectID(client.objectId!) { (users: NSArray?, error: NSError?) -> Void in
+    AMRUserManager.sharedManager.queryForUserWithObjectID(client!.objectId!) { (users: NSArray?, error: NSError?) -> Void in
       if let error = error {
         print(error.localizedDescription)
       } else {
@@ -228,9 +244,6 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
   }
   
   func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-//    let viewSize = self.view.frame.size
-//    let picDimension = viewSize.width/3.5
-//    return CGSizeMake(picDimension, picDimension)
     return CGSizeMake(180, 150)
   }
   
@@ -238,6 +251,11 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
     //let leftRightInset = self.view.frame.size.width / 14.0
     return UIEdgeInsetsMake(0, 0, 0, 0)
   }
+  
+  func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+    return CGSize(width: collectionView.frame.size.width, height: 40)
+  }
+  
 }
 
 //extension AMRClientsViewController: AMRPhotoDetailViewControllerDelegate {

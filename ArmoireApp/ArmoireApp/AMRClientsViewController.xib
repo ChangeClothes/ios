@@ -8,6 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AMRClientsViewController" customModule="ArmoireApp" customModuleProvider="target">
             <connections>
                 <outlet property="collectionView" destination="Qp4-9y-NF6" id="J3L-Nv-XRP"/>
+                <outlet property="collectionViewConstraintTop" destination="com-pY-XaC" id="dss-1E-yZP"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
