@@ -45,9 +45,6 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
     self.collectionView!.registerClass(UICollectionReusableView.self,
       forSupplementaryViewOfKind:UICollectionElementKindSectionHeader,
       withReuseIdentifier:"Header")
-    let flow = self.collectionView!.collectionViewLayout as! UICollectionViewFlowLayout
-    self.setUpFlowLayout(flow)
-
 
     let leftNavBarButton = UIBarButtonItem(image: UIImage(named: "settings"), style: .Plain, target: self, action: "onSettingsTap")
     self.navigationItem.leftBarButtonItem = leftNavBarButton
@@ -75,16 +72,6 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
     self.presentViewController(addClientVC, animated: true, completion: nil)
   }
 
-  // MARK: - Table Set Up
-  func setUpFlowLayout(flow:UICollectionViewFlowLayout) {
-    flow.headerReferenceSize = CGSizeMake(50,50)
-    flow.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0)
-
-    // flow.sectionHeadersPinToVisibleBounds = true // try cool new iOS 9 feature
-
-    // uncomment to crash
-    // flow.estimatedItemSize = CGSizeMake(100,30)
-  }
 
   func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
     if searchText != "" {
@@ -190,11 +177,19 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
   }
   
   func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
-    return UIEdgeInsetsMake(0, 0, 0, 0)
+    if section == 0 {
+      return UIEdgeInsetsMake(0, 0, 0, 0)
+    } else {
+      return UIEdgeInsetsMake(-10, 0, 20, 0)
+    }
   }
   
   func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-    return CGSize(width: collectionView.frame.size.width, height: 40)
+    if section == 0 {
+      return CGSize(width: collectionView.frame.size.width, height: 40)
+    } else {
+      return CGSize(width: collectionView.frame.size.width, height: 30)
+    }
   }
 
   func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
