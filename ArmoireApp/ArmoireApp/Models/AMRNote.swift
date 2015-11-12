@@ -30,6 +30,29 @@ class AMRNote: PFObject {
     })
   }
   
+  class func getOrCreateNoteForUser(stylist: AMRUser?, client: AMRUser?, completion: (note: AMRNote?, error: NSError?) -> Void) {
+    
+    noteForUser(stylist, client: client) { (objects:[AMRNote]?, error: NSError?) -> Void in
+      if error != nil {
+        completion(note: nil, error: error)
+      } else {
+        if let notes = objects {
+          if notes.count == 0 {
+            let note = AMRNote()
+            note.stylist = stylist!
+            note.client = client!
+            note.content = ""
+            completion(note: note, error: nil)
+          } else {
+            let note = notes.first
+            completion(note: note, error: nil)
+          }
+        }
+      }
+    }
+    
+  }
+  
 }
 
 extension AMRNote: PFSubclassing {
