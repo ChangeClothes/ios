@@ -45,4 +45,7 @@ extension UIColor {
     return ThemeManager.currentTheme().highlightColor
   }
   
+  class func AMRClientCollectionLabel() -> UIColor{
+    return ThemeManager.currentTheme().mainColorSecondary
+  }
 }

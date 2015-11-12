@@ -42,6 +42,13 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
     setUpClientCollectionView()
     self.title = "Clients"
     
+    self.collectionView!.registerClass(UICollectionReusableView.self,
+      forSupplementaryViewOfKind:UICollectionElementKindSectionHeader,
+      withReuseIdentifier:"Header")
+    let flow = self.collectionView!.collectionViewLayout as! UICollectionViewFlowLayout
+    self.setUpFlowLayout(flow)
+
+
     let leftNavBarButton = UIBarButtonItem(image: UIImage(named: "settings"), style: .Plain, target: self, action: "onSettingsTap")
     self.navigationItem.leftBarButtonItem = leftNavBarButton
     
@@ -69,6 +76,15 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
   }
 
   // MARK: - Table Set Up
+  func setUpFlowLayout(flow:UICollectionViewFlowLayout) {
+    flow.headerReferenceSize = CGSizeMake(50,50) // larger - we will place label within this
+    flow.sectionInset = UIEdgeInsetsMake(0, 10, 10, 10) // looks nicer
+
+    // flow.sectionHeadersPinToVisibleBounds = true // try cool new iOS 9 feature
+
+    // uncomment to crash
+    // flow.estimatedItemSize = CGSizeMake(100,30)
+  }
 
   func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
     if searchText != "" {
@@ -181,8 +197,29 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
     return CGSize(width: collectionView.frame.size.width, height: 40)
   }
 
-  func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-    return CGSize(width: collectionView.frame.size.width, height: 40)
+  func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+
+    var v : UICollectionReusableView! = nil
+    if kind == UICollectionElementKindSectionHeader {
+      v = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier:"Header", forIndexPath:indexPath)
+      if v.subviews.count == 0 {
+        let lab = UILabel() // we will size it later
+        v.addSubview(lab)
+        lab.textAlignment = .Center
+        lab.textColor = UIColor.AMRClientCollectionLabel()
+        lab.layer.masksToBounds = true // has to be added for iOS 8 label
+        lab.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activateConstraints([
+          NSLayoutConstraint.constraintsWithVisualFormat("H:|-10-[lab(35)]",
+            options:[], metrics:nil, views:["lab":lab]),
+          NSLayoutConstraint.constraintsWithVisualFormat("V:[lab(30)]-5-|",
+            options:[], metrics:nil, views:["lab":lab])
+          ].flatten().map{$0})
+      }
+      let lab = v.subviews[0] as! UILabel
+      lab.text = self.sections[indexPath.section]
+    }
+    return v
   }
 
   func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
