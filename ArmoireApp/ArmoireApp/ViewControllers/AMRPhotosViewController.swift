@@ -143,10 +143,9 @@ extension AMRPhotosViewController: UICollectionViewDataSource{
     
     if indexPath.row == 0 && indexPath.section == 0{
       cell.activityIndicatorView.stopAnimating()
-      var cameraIcon = UIImage(named: "camera-add")
-      cameraIcon = cameraIcon?.imageWithRenderingMode(.AlwaysTemplate)
-      cell.imageView.tintColor = UIColor.AMRSecondaryBackgroundColor()
-      cell.imageView.image = cameraIcon
+      let addPhotoIcon = UIImage(named: "add-photo")
+      cell.imageView.image = addPhotoIcon
+      cell.imageView.contentMode = .ScaleAspectFit
       cell.backgroundColor = UIColor.clearColor()
     } else if indexPath.section == 0 {
       cell.activityIndicatorView.startAnimating()
@@ -216,7 +215,7 @@ extension AMRPhotosViewController: UICollectionViewDelegateFlowLayout {
   }
   
   func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
-    return UIEdgeInsetsMake(0, 0, 10.0, 0)
+    return UIEdgeInsetsMake(10.0, 0, 10.0, 0)
   }
   
   func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
@@ -224,7 +223,7 @@ extension AMRPhotosViewController: UICollectionViewDelegateFlowLayout {
   }
   
   func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
-    return 0.0
+    return 10.0
   }
 }
 
