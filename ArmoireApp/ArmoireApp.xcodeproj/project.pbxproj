@@ -41,6 +41,7 @@
 		6F55790E1BD2335C0033A7C8 /* AMRMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F55790C1BD2335C0033A7C8 /* AMRMainViewController.swift */; };
 		6F55790F1BD2335C0033A7C8 /* AMRMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F55790D1BD2335C0033A7C8 /* AMRMainViewController.xib */; };
 		6F5E635C1BF2E0DD009A3C5D /* UISegmentedControl+VerticalLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E635B1BF2E0DD009A3C5D /* UISegmentedControl+VerticalLayout.swift */; };
+		6F5E635E1BF46F6C009A3C5D /* AMRBadgeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E635D1BF46F6C009A3C5D /* AMRBadgeManager.swift */; };
 		6F6AEACF1BDB1F3A009B8F74 /* AMRUser+ATLParticipant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6AEACE1BDB1F3A009B8F74 /* AMRUser+ATLParticipant.swift */; };
 		6F6AEAD11BDB209B009B8F74 /* AMRUserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6AEAD01BDB209B009B8F74 /* AMRUserManager.swift */; };
 		6F6C64991BF07D0100871004 /* AMRPhotosSectionCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6C64971BF07D0100871004 /* AMRPhotosSectionCollectionReusableView.swift */; };
@@ -131,6 +132,7 @@
 		6F55790C1BD2335C0033A7C8 /* AMRMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRMainViewController.swift; path = ViewControllers/AMRMainViewController.swift; sourceTree = "<group>"; };
 		6F55790D1BD2335C0033A7C8 /* AMRMainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AMRMainViewController.xib; path = ViewControllers/AMRMainViewController.xib; sourceTree = "<group>"; };
 		6F5E635B1BF2E0DD009A3C5D /* UISegmentedControl+VerticalLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UISegmentedControl+VerticalLayout.swift"; path = "Extensions/UISegmentedControl+VerticalLayout.swift"; sourceTree = "<group>"; };
+		6F5E635D1BF46F6C009A3C5D /* AMRBadgeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRBadgeManager.swift; path = Models/AMRBadgeManager.swift; sourceTree = "<group>"; };
 		6F6AEACE1BDB1F3A009B8F74 /* AMRUser+ATLParticipant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "AMRUser+ATLParticipant.swift"; path = "Extensions/AMRUser+ATLParticipant.swift"; sourceTree = "<group>"; };
 		6F6AEAD01BDB209B009B8F74 /* AMRUserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRUserManager.swift; path = Models/AMRUserManager.swift; sourceTree = "<group>"; };
 		6F6C64971BF07D0100871004 /* AMRPhotosSectionCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRPhotosSectionCollectionReusableView.swift; path = Views/AMRPhotosSectionCollectionReusableView.swift; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 				C51751E61BDD7F17000F7A82 /* AMRImage.swift */,
 				C50363E41BE1D12F008030E1 /* AMRMeasurements.swift */,
 				C5C2680D1BF052FA00B637AF /* AMRQuestionAnswer.swift */,
+				6F5E635D1BF46F6C009A3C5D /* AMRBadgeManager.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -511,6 +514,7 @@
 				0FD547721BDDA4A9005587F2 /* AMRAddClientViewController.swift in Sources */,
 				6FA013121BD75C190019E0D6 /* AMRLoginViewController.swift in Sources */,
 				6F6C64991BF07D0100871004 /* AMRPhotosSectionCollectionReusableView.swift in Sources */,
+				6F5E635E1BF46F6C009A3C5D /* AMRBadgeManager.swift in Sources */,
 				6F6C649D1BF1BA4200871004 /* AMRPhotoDetailCollectionViewCell.swift in Sources */,
 				0F4590BC1BD4B57300C839F9 /* AMRClientsDetailViewController.swift in Sources */,
 				C5B75A881BE0A19D0009296C /* AMRMeasurementCell.swift in Sources */,
