@@ -29,17 +29,21 @@ class AMRLoginViewController: UIViewController {
     
     signUpButton.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)
     signUpButton.addTarget(self, action: "signUpButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+    signUpButton.tintColor = ThemeManager.currentTheme().mainColorSecondary
     
     logInButton?.addTarget(self, action: "loginButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-    logInButton.layer.borderWidth = 3.0
-    logInButton.layer.borderColor = logInButton.tintColor.CGColor
-    logInButton.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.4)
+    logInButton.layer.cornerRadius = 6.0
+    logInButton.backgroundColor = ThemeManager.currentTheme().mainColorSecondary
 
     logoImageView.contentMode = .ScaleAspectFit
     logoImageView.image = UIImage(named: "Armoire")
     
     usernameField.borderStyle = .RoundedRect
+    usernameField.backgroundColor = UIColor(colorLiteralRed: 1.0, green: 1.0, blue: 1.0, alpha: 0.7)
+    usernameField.textColor = UIColor(colorLiteralRed: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
     passwordField.borderStyle = .RoundedRect
+    passwordField.backgroundColor = UIColor(colorLiteralRed: 1.0, green: 1.0, blue: 1.0, alpha: 0.7)
+    passwordField.textColor = UIColor(colorLiteralRed: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
     
     backgroundImageView.image = UIImage.sd_animatedGIFNamed("Armoire_LoginPageBackground")
     

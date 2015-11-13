@@ -228,6 +228,7 @@ class AMRMainViewController: AMRViewController{
   
   // MARK: - Notifiation Observers
   func onUserLogin(notification: NSNotification){
+    AMRBadgeManager.sharedInstance.layerClient = layerClient
     setVcData(nil, client: nil)
     if (self.client != nil) {
       //client workflow
@@ -237,6 +238,7 @@ class AMRMainViewController: AMRViewController{
       UIApplication.sharedApplication().windows[0].makeKeyAndVisible()
     } else {
       //stylist workflow
+      AMRBadgeManager.sharedInstance.getClientBadgesForStylist(AMRUser.currentUser()!, withCompletion: nil)
       selectViewController(vcArray[1])
       setSelectedAppearanceColorForImageView(profileIconImageView)
       setupLayerQueryController()
@@ -282,7 +284,8 @@ class AMRMainViewController: AMRViewController{
       UINavigationController(rootViewController: AMRLoginViewController()),
       UINavigationController(rootViewController: AMRClientsViewController(layerClient: layerClient!)),
       UINavigationController(rootViewController: AMRMessagesViewController(layerClient: layerClient) ),
-      UINavigationController(rootViewController: AMRNotesViewController()),
+      //UINavigationController(rootViewController: AMRNotesViewController()),
+      UINavigationController(rootViewController: AMRQANotesViewController()),
       UINavigationController(rootViewController: AMRUpcomingMeetingsViewController()),
       UINavigationController (rootViewController: AMRClientsDetailViewController(layerClient: layerClient!))
     ]

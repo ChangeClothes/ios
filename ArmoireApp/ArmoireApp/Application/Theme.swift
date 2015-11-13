@@ -66,6 +66,70 @@ enum Theme: Int {
       return ColorHelper.sharedInstance.colorFromHexString("#FA5B52")
     }
   }
+  
+  var loveIconColor: UIColor {
+    switch self {
+    case .Default:
+      return ColorHelper.sharedInstance.colorFromHexString("#DB0A5B")
+    case .Theme1:
+      return ColorHelper.sharedInstance.colorFromHexString("#DB0A5B")
+    }
+  }
+  
+  var likeIconColor: UIColor {
+    switch self {
+    case .Default:
+      return ColorHelper.sharedInstance.colorFromHexString("#2ecc71")
+    case .Theme1:
+      return ColorHelper.sharedInstance.colorFromHexString("#2ecc71")
+    }
+  }
+  
+  var neutralIconColor: UIColor {
+    switch self {
+    case .Default:
+      return ColorHelper.sharedInstance.colorFromHexString("#f39c12")
+    case .Theme1:
+      return ColorHelper.sharedInstance.colorFromHexString("#f39c12")
+    }
+  }
+  
+  var dislikeIconColor: UIColor {
+    switch self {
+    case .Default:
+      return ColorHelper.sharedInstance.colorFromHexString("#c0392b")
+    case .Theme1:
+      return ColorHelper.sharedInstance.colorFromHexString("#c0392b")
+    }
+  }
+  
+  var unratedIconColor: UIColor {
+    switch self {
+    case .Default:
+      return ColorHelper.sharedInstance.colorFromHexString("#6C7A89")
+    case .Theme1:
+      return ColorHelper.sharedInstance.colorFromHexString("#6C7A89")
+    }
+  }
+  
+  var unselectedRatingIconColor: UIColor {
+    switch self {
+    case .Default:
+      return ColorHelper.sharedInstance.colorFromHexString("#95a5a6")
+    case .Theme1:
+      return ColorHelper.sharedInstance.colorFromHexString("#95a5a6")
+    }
+  }
+  
+  var sectionHeaderBackgroundColor: UIColor {
+    switch self {
+    case .Default:
+      return ColorHelper.sharedInstance.colorFromHexString("#ECECEC")
+    case .Theme1:
+      return ColorHelper.sharedInstance.colorFromHexString("#ECECEC")
+    }
+  }
+  
 }
 
 let SelectedThemeKey = "SelectedTheme"

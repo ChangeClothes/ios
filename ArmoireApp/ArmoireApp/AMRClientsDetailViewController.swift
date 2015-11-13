@@ -277,9 +277,10 @@ class AMRClientsDetailViewController: AMRViewController, LYRQueryControllerDeleg
   private func setVcArray(){
     vcArray = [
       UINavigationController(rootViewController: AMRLoginViewController()),
-      UINavigationController(rootViewController: AMRNotesViewController()),
+      //UINavigationController(rootViewController: AMRNotesViewController()),
+      UINavigationController(rootViewController: AMRQANotesViewController()),
       UINavigationController(rootViewController: AMRUpcomingMeetingsViewController()),
-      UINavigationController(rootViewController: AMRClientProfileViewController()),
+      UINavigationController(rootViewController: AMRPhotosViewController()),
       UINavigationController(rootViewController: AMRMessagesViewController(layerClient: layerClient) ),
       UINavigationController(rootViewController: AMRMessagesDetailsViewController(layerClient: layerClient))
     ]

@@ -48,4 +48,21 @@ extension UIColor {
   class func AMRClientCollectionLabel() -> UIColor{
     return ThemeManager.currentTheme().mainColorSecondary
   }
+
+  class func AMRLikeRatingIconTintColor() -> UIColor {
+    return ThemeManager.currentTheme().likeIconColor
+  }
+  
+  class func AMRNeutralRatingIconTintColor() -> UIColor {
+    return ThemeManager.currentTheme().neutralIconColor
+  }
+  
+  class func AMRDislikeRatingIconTintColor() -> UIColor {
+    return ThemeManager.currentTheme().dislikeIconColor
+  }
+  
+  class func AMRLoveRatingIconTintColor() -> UIColor {
+    return ThemeManager.currentTheme().loveIconColor
+  }
+  
 }

@@ -2,15 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Add Photo Icon v3.png",
+      "filename" : "iconmonstr-help-2-icon_1x.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "iconmonstr-help-2-icon_2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
+      "filename" : "iconmonstr-help-2-icon_3x.png",
       "scale" : "3x"
     }
   ],

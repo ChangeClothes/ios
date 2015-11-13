@@ -42,8 +42,14 @@
 		6F41E2011BCE0FF900729AC5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6F41E2001BCE0FF900729AC5 /* Assets.xcassets */; };
 		6F55790E1BD2335C0033A7C8 /* AMRMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F55790C1BD2335C0033A7C8 /* AMRMainViewController.swift */; };
 		6F55790F1BD2335C0033A7C8 /* AMRMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F55790D1BD2335C0033A7C8 /* AMRMainViewController.xib */; };
+		6F5E635C1BF2E0DD009A3C5D /* UISegmentedControl+VerticalLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E635B1BF2E0DD009A3C5D /* UISegmentedControl+VerticalLayout.swift */; };
+		6F5E635E1BF46F6C009A3C5D /* AMRBadgeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E635D1BF46F6C009A3C5D /* AMRBadgeManager.swift */; };
 		6F6AEACF1BDB1F3A009B8F74 /* AMRUser+ATLParticipant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6AEACE1BDB1F3A009B8F74 /* AMRUser+ATLParticipant.swift */; };
 		6F6AEAD11BDB209B009B8F74 /* AMRUserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6AEAD01BDB209B009B8F74 /* AMRUserManager.swift */; };
+		6F6C64991BF07D0100871004 /* AMRPhotosSectionCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6C64971BF07D0100871004 /* AMRPhotosSectionCollectionReusableView.swift */; };
+		6F6C649A1BF07D0100871004 /* AMRPhotosSectionCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F6C64981BF07D0100871004 /* AMRPhotosSectionCollectionReusableView.xib */; };
+		6F6C649D1BF1BA4200871004 /* AMRPhotoDetailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6C649B1BF1BA4200871004 /* AMRPhotoDetailCollectionViewCell.swift */; };
+		6F6C649E1BF1BA4200871004 /* AMRPhotoDetailCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F6C649C1BF1BA4200871004 /* AMRPhotoDetailCollectionViewCell.xib */; };
 		6FA0130F1BD752460019E0D6 /* AMRSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA0130D1BD752460019E0D6 /* AMRSignUpViewController.swift */; };
 		6FA013101BD752460019E0D6 /* AMRSignUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FA0130E1BD752460019E0D6 /* AMRSignUpViewController.xib */; };
 		6FA013121BD75C190019E0D6 /* AMRLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA013111BD75C190019E0D6 /* AMRLoginViewController.swift */; };
@@ -60,6 +66,14 @@
 		C5B6127C1BE75AF600B3B738 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B6127B1BE75AF600B3B738 /* Theme.swift */; };
 		C5B75A881BE0A19D0009296C /* AMRMeasurementCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B75A861BE0A19D0009296C /* AMRMeasurementCell.swift */; };
 		C5B75A891BE0A19D0009296C /* AMRMeasurementCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5B75A871BE0A19D0009296C /* AMRMeasurementCell.xib */; };
+		C5C268031BF0458400B637AF /* AMRNoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C268011BF0458400B637AF /* AMRNoteTableViewCell.swift */; };
+		C5C268041BF0458400B637AF /* AMRNoteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5C268021BF0458400B637AF /* AMRNoteTableViewCell.xib */; };
+		C5C268071BF045F800B637AF /* AMRQuestionAnswerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C268051BF045F800B637AF /* AMRQuestionAnswerTableViewCell.swift */; };
+		C5C268081BF045F800B637AF /* AMRQuestionAnswerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5C268061BF045F800B637AF /* AMRQuestionAnswerTableViewCell.xib */; };
+		C5C2680B1BF04F7300B637AF /* AMRQANotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C268091BF04F7300B637AF /* AMRQANotesViewController.swift */; };
+		C5C2680C1BF04F7300B637AF /* AMRQANotesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5C2680A1BF04F7300B637AF /* AMRQANotesViewController.xib */; };
+		C5C2680E1BF052FA00B637AF /* AMRQuestionAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C2680D1BF052FA00B637AF /* AMRQuestionAnswer.swift */; };
+		C5CE84801BF3CD23005A634E /* AMRDynamicHeightTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CE847F1BF3CD23005A634E /* AMRDynamicHeightTableViewCell.swift */; };
 		C5D535FF1BE086750046A288 /* AMRPhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D535FD1BE086750046A288 /* AMRPhotosViewController.swift */; };
 		C5D536001BE086750046A288 /* AMRPhotosViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5D535FE1BE086750046A288 /* AMRPhotosViewController.xib */; };
 		C5D536031BE086A00046A288 /* AMRMeasurementsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D536011BE086A00046A288 /* AMRMeasurementsViewController.swift */; };
@@ -121,8 +135,14 @@
 		6F41E2051BCE0FF900729AC5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = Application/Info.plist; sourceTree = "<group>"; };
 		6F55790C1BD2335C0033A7C8 /* AMRMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRMainViewController.swift; path = ViewControllers/AMRMainViewController.swift; sourceTree = "<group>"; };
 		6F55790D1BD2335C0033A7C8 /* AMRMainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AMRMainViewController.xib; path = ViewControllers/AMRMainViewController.xib; sourceTree = "<group>"; };
+		6F5E635B1BF2E0DD009A3C5D /* UISegmentedControl+VerticalLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UISegmentedControl+VerticalLayout.swift"; path = "Extensions/UISegmentedControl+VerticalLayout.swift"; sourceTree = "<group>"; };
+		6F5E635D1BF46F6C009A3C5D /* AMRBadgeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRBadgeManager.swift; path = Models/AMRBadgeManager.swift; sourceTree = "<group>"; };
 		6F6AEACE1BDB1F3A009B8F74 /* AMRUser+ATLParticipant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "AMRUser+ATLParticipant.swift"; path = "Extensions/AMRUser+ATLParticipant.swift"; sourceTree = "<group>"; };
 		6F6AEAD01BDB209B009B8F74 /* AMRUserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRUserManager.swift; path = Models/AMRUserManager.swift; sourceTree = "<group>"; };
+		6F6C64971BF07D0100871004 /* AMRPhotosSectionCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRPhotosSectionCollectionReusableView.swift; path = Views/AMRPhotosSectionCollectionReusableView.swift; sourceTree = "<group>"; };
+		6F6C64981BF07D0100871004 /* AMRPhotosSectionCollectionReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AMRPhotosSectionCollectionReusableView.xib; path = Views/AMRPhotosSectionCollectionReusableView.xib; sourceTree = "<group>"; };
+		6F6C649B1BF1BA4200871004 /* AMRPhotoDetailCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRPhotoDetailCollectionViewCell.swift; path = Views/AMRPhotoDetailCollectionViewCell.swift; sourceTree = "<group>"; };
+		6F6C649C1BF1BA4200871004 /* AMRPhotoDetailCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AMRPhotoDetailCollectionViewCell.xib; path = Views/AMRPhotoDetailCollectionViewCell.xib; sourceTree = "<group>"; };
 		6FA0130D1BD752460019E0D6 /* AMRSignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRSignUpViewController.swift; path = ViewControllers/AMRSignUpViewController.swift; sourceTree = "<group>"; };
 		6FA0130E1BD752460019E0D6 /* AMRSignUpViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AMRSignUpViewController.xib; path = ViewControllers/AMRSignUpViewController.xib; sourceTree = "<group>"; };
 		6FA013111BD75C190019E0D6 /* AMRLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRLoginViewController.swift; path = ViewControllers/AMRLoginViewController.swift; sourceTree = "<group>"; };
@@ -140,6 +160,14 @@
 		C5B6127B1BE75AF600B3B738 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Theme.swift; path = Application/Theme.swift; sourceTree = "<group>"; };
 		C5B75A861BE0A19D0009296C /* AMRMeasurementCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRMeasurementCell.swift; path = Views/AMRMeasurementCell.swift; sourceTree = "<group>"; };
 		C5B75A871BE0A19D0009296C /* AMRMeasurementCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AMRMeasurementCell.xib; path = Views/AMRMeasurementCell.xib; sourceTree = "<group>"; };
+		C5C268011BF0458400B637AF /* AMRNoteTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRNoteTableViewCell.swift; path = Views/AMRNoteTableViewCell.swift; sourceTree = "<group>"; };
+		C5C268021BF0458400B637AF /* AMRNoteTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AMRNoteTableViewCell.xib; path = Views/AMRNoteTableViewCell.xib; sourceTree = "<group>"; };
+		C5C268051BF045F800B637AF /* AMRQuestionAnswerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRQuestionAnswerTableViewCell.swift; path = Views/AMRQuestionAnswerTableViewCell.swift; sourceTree = "<group>"; };
+		C5C268061BF045F800B637AF /* AMRQuestionAnswerTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AMRQuestionAnswerTableViewCell.xib; path = Views/AMRQuestionAnswerTableViewCell.xib; sourceTree = "<group>"; };
+		C5C268091BF04F7300B637AF /* AMRQANotesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRQANotesViewController.swift; path = ViewControllers/AMRQANotesViewController.swift; sourceTree = "<group>"; };
+		C5C2680A1BF04F7300B637AF /* AMRQANotesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AMRQANotesViewController.xib; path = ViewControllers/AMRQANotesViewController.xib; sourceTree = "<group>"; };
+		C5C2680D1BF052FA00B637AF /* AMRQuestionAnswer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRQuestionAnswer.swift; path = Models/AMRQuestionAnswer.swift; sourceTree = "<group>"; };
+		C5CE847F1BF3CD23005A634E /* AMRDynamicHeightTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRDynamicHeightTableViewCell.swift; path = Views/AMRDynamicHeightTableViewCell.swift; sourceTree = "<group>"; };
 		C5D535FD1BE086750046A288 /* AMRPhotosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRPhotosViewController.swift; path = ViewControllers/AMRPhotosViewController.swift; sourceTree = "<group>"; };
 		C5D535FE1BE086750046A288 /* AMRPhotosViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AMRPhotosViewController.xib; path = ViewControllers/AMRPhotosViewController.xib; sourceTree = "<group>"; };
 		C5D536011BE086A00046A288 /* AMRMeasurementsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRMeasurementsViewController.swift; path = ViewControllers/AMRMeasurementsViewController.swift; sourceTree = "<group>"; };
@@ -167,6 +195,8 @@
 				0FD5476A1BDB3350005587F2 /* AMRNote.swift */,
 				C51751E61BDD7F17000F7A82 /* AMRImage.swift */,
 				C50363E41BE1D12F008030E1 /* AMRMeasurements.swift */,
+				C5C2680D1BF052FA00B637AF /* AMRQuestionAnswer.swift */,
+				6F5E635D1BF46F6C009A3C5D /* AMRBadgeManager.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -219,6 +249,7 @@
 				6F6AEACE1BDB1F3A009B8F74 /* AMRUser+ATLParticipant.swift */,
 				6F2828911BE1D874002B7B85 /* UIColor+AMRColor.swift */,
 				C584019B1BE574CC00D90117 /* UIAlertController+AMRSettingsController.swift */,
+				6F5E635B1BF2E0DD009A3C5D /* UISegmentedControl+VerticalLayout.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -252,6 +283,15 @@
 				C53F001C1BE1F50600070118 /* imageCollectionViewCell.xib */,
 				0F08E2351BF3C9CB00458E94 /* clientCollectionViewCell.swift */,
 				0F08E2361BF3C9CB00458E94 /* clientCollectionViewCell.xib */,
+				C5C268011BF0458400B637AF /* AMRNoteTableViewCell.swift */,
+				C5C268021BF0458400B637AF /* AMRNoteTableViewCell.xib */,
+				C5C268051BF045F800B637AF /* AMRQuestionAnswerTableViewCell.swift */,
+				C5C268061BF045F800B637AF /* AMRQuestionAnswerTableViewCell.xib */,
+				C5CE847F1BF3CD23005A634E /* AMRDynamicHeightTableViewCell.swift */,
+				6F6C64971BF07D0100871004 /* AMRPhotosSectionCollectionReusableView.swift */,
+				6F6C64981BF07D0100871004 /* AMRPhotosSectionCollectionReusableView.xib */,
+				6F6C649B1BF1BA4200871004 /* AMRPhotoDetailCollectionViewCell.swift */,
+				6F6C649C1BF1BA4200871004 /* AMRPhotoDetailCollectionViewCell.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -287,6 +327,8 @@
 				C58401A11BE6FD0B00D90117 /* AMRPhotoDetailViewController.swift */,
 				C58401A21BE6FD0B00D90117 /* AMRPhotoDetailViewController.xib */,
 				6F1B37BF1BF00BD5005DBA10 /* AMRViewController.swift */,
+				C5C268091BF04F7300B637AF /* AMRQANotesViewController.swift */,
+				C5C2680A1BF04F7300B637AF /* AMRQANotesViewController.xib */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -382,15 +424,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5C268041BF0458400B637AF /* AMRNoteTableViewCell.xib in Resources */,
+				C5C268081BF045F800B637AF /* AMRQuestionAnswerTableViewCell.xib in Resources */,
 				6F1B37BE1BEECCE5005DBA10 /* AMRLoginViewController.xib in Resources */,
 				6FDD83981BD0833500028E3D /* LaunchScreen.storyboard in Resources */,
 				C5B75A891BE0A19D0009296C /* AMRMeasurementCell.xib in Resources */,
+				C5C2680C1BF04F7300B637AF /* AMRQANotesViewController.xib in Resources */,
 				0FD0BAC51BD605F500D91504 /* AMRUpcomingMeetingsTableViewCell.xib in Resources */,
 				0FD547731BDDA4A9005587F2 /* AMRAddClientViewController.xib in Resources */,
 				0F18931F1BD623C8007126D2 /* AMRClientTableViewCell.xib in Resources */,
 				0F4590911BD4867800C839F9 /* Credentials.plist in Resources */,
 				6FA013101BD752460019E0D6 /* AMRSignUpViewController.xib in Resources */,
+				6F6C649E1BF1BA4200871004 /* AMRPhotoDetailCollectionViewCell.xib in Resources */,
 				C5D536001BE086750046A288 /* AMRPhotosViewController.xib in Resources */,
+				6F6C649A1BF07D0100871004 /* AMRPhotosSectionCollectionReusableView.xib in Resources */,
 				0F4590B51BD4A59300C839F9 /* AMRMessageTableViewCell.xib in Resources */,
 				0F4590A51BD49ACF00C839F9 /* AMRNotesViewController.xib in Resources */,
 				C58401A41BE6FD0B00D90117 /* AMRPhotoDetailViewController.xib in Resources */,
@@ -462,8 +509,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F5E635C1BF2E0DD009A3C5D /* UISegmentedControl+VerticalLayout.swift in Sources */,
 				C584019C1BE574CC00D90117 /* UIAlertController+AMRSettingsController.swift in Sources */,
 				0F08E2371BF3C9CB00458E94 /* clientCollectionViewCell.swift in Sources */,
+				C5CE84801BF3CD23005A634E /* AMRDynamicHeightTableViewCell.swift in Sources */,
 				0F4590B81BD4A5D500C839F9 /* AMRAppointmentTableViewCell.swift in Sources */,
 				0FD0BAC21BD6038C00D91504 /* AMRUpcomingMeetingsTableViewCell.swift in Sources */,
 				6F1B37C01BF00BD5005DBA10 /* AMRViewController.swift in Sources */,
@@ -472,10 +521,15 @@
 				C53F001D1BE1F50600070118 /* imageCollectionViewCell.swift in Sources */,
 				0FD547721BDDA4A9005587F2 /* AMRAddClientViewController.swift in Sources */,
 				6FA013121BD75C190019E0D6 /* AMRLoginViewController.swift in Sources */,
+				6F6C64991BF07D0100871004 /* AMRPhotosSectionCollectionReusableView.swift in Sources */,
+				6F5E635E1BF46F6C009A3C5D /* AMRBadgeManager.swift in Sources */,
+				6F6C649D1BF1BA4200871004 /* AMRPhotoDetailCollectionViewCell.swift in Sources */,
 				0F4590BC1BD4B57300C839F9 /* AMRClientsDetailViewController.swift in Sources */,
 				C5B75A881BE0A19D0009296C /* AMRMeasurementCell.swift in Sources */,
+				C5C2680B1BF04F7300B637AF /* AMRQANotesViewController.swift in Sources */,
 				C50363E51BE1D12F008030E1 /* AMRMeasurements.swift in Sources */,
 				6FF7BA181BDC3A9D00A7C54A /* AMRParticipantTableViewController.swift in Sources */,
+				C5C268071BF045F800B637AF /* AMRQuestionAnswerTableViewCell.swift in Sources */,
 				0FD0BABE1BD6037000D91504 /* AMRUpcomingMeetingsViewController.swift in Sources */,
 				0F4590A01BD49AC200C839F9 /* AMRMessagesViewController.swift in Sources */,
 				6F6AEAD11BDB209B009B8F74 /* AMRUserManager.swift in Sources */,
@@ -489,11 +543,13 @@
 				6F2828921BE1D874002B7B85 /* UIColor+AMRColor.swift in Sources */,
 				6FA0130F1BD752460019E0D6 /* AMRSignUpViewController.swift in Sources */,
 				0FD5476B1BDB3350005587F2 /* AMRNote.swift in Sources */,
+				C5C268031BF0458400B637AF /* AMRNoteTableViewCell.swift in Sources */,
 				C5B6127C1BE75AF600B3B738 /* Theme.swift in Sources */,
 				0F5E5BF81BDF2D0E00464DB2 /* AMRClientProfileViewController.swift in Sources */,
 				0F4590C61BD4B88100C839F9 /* AMRMessagesDetailsViewController.swift in Sources */,
 				6FE7AB691BD84E9A00FAFAC0 /* AMRUser.swift in Sources */,
 				C58401A31BE6FD0B00D90117 /* AMRPhotoDetailViewController.swift in Sources */,
+				C5C2680E1BF052FA00B637AF /* AMRQuestionAnswer.swift in Sources */,
 				0F4590B41BD4A59300C839F9 /* AMRMessageTableViewCell.swift in Sources */,
 				6F6AEACF1BDB1F3A009B8F74 /* AMRUser+ATLParticipant.swift in Sources */,
 			);
