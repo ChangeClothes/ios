@@ -33,6 +33,7 @@ class AMRClientsDetailViewController: AMRViewController, LYRQueryControllerDeleg
   @IBOutlet weak var profileIconImageView: UIImageView!
   @IBOutlet weak var calendarIconImageView: UIImageView!
   @IBOutlet weak var messagesIconImageView: UIImageView!
+  @IBOutlet weak var unreadMessagesBadgeLabel: UILabel!
   
   @IBOutlet weak var selectedIconView: UIView!
   @IBOutlet weak var selectedIconViewXPositionConstraint: NSLayoutConstraint!
@@ -47,11 +48,10 @@ class AMRClientsDetailViewController: AMRViewController, LYRQueryControllerDeleg
   override func viewDidLoad() {
     super.viewDidLoad()
     self.navigationController?.navigationBarHidden = true
-//    setVcData(self.stylist, client: self.client)
     setVcArray()
     setVcDataForTabs()
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "deviceDidRotate", name: UIDeviceOrientationDidChangeNotification, object: nil)
-    
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "updatedMessagesIconBadge", name: kUserConversationsChanged, object: nil)
     
     setupTabBarAppearance()
     selectViewController(vcArray[3])
@@ -59,11 +59,43 @@ class AMRClientsDetailViewController: AMRViewController, LYRQueryControllerDeleg
     
     setupLayerQueryController()
     setupNewMessageImageView()
+    setupUnreadMessagesBadgeLabel()
   }
   
   override func viewDidAppear(animated: Bool) {
     super.viewDidAppear(animated)
     setSelectedAppearanceColorForImageView(selectedIconImageView)
+  }
+  
+  private func setupUnreadMessagesBadgeLabel() {
+    unreadMessagesBadgeLabel.text = ""
+    unreadMessagesBadgeLabel.textColor = UIColor.whiteColor()
+    unreadMessagesBadgeLabel.backgroundColor = ThemeManager.currentTheme().highlightColor
+    unreadMessagesBadgeLabel.clipsToBounds = true
+    unreadMessagesBadgeLabel.layer.cornerRadius = unreadMessagesBadgeLabel.frame.height/2
+    unreadMessagesBadgeLabel.hidden = true
+  }
+
+  func updatedMessagesIconBadge() {
+    unreadMessagesBadgeLabel.hidden = true
+    if let _ = stylist {
+      for var row = 0; row < Int(AMRBadgeManager.sharedInstance.layerQueryController.count()); ++row {
+        let indexPath = NSIndexPath(forItem: row, inSection: 0)
+        let conversation = AMRBadgeManager.sharedInstance.layerQueryController.objectAtIndexPath(indexPath) as! LYRConversation
+        for participant in conversation.participants{
+          if (participant as! AMRUser).isEqual(client) {
+            unreadMessagesBadgeLabel.hidden = false
+          }
+        }
+      }
+    } else {
+      let unreadMessages = AMRBadgeManager.sharedInstance.layerQueryController.count()
+      if unreadMessages == 0 {
+        unreadMessagesBadgeLabel.hidden = true
+      } else {
+        unreadMessagesBadgeLabel.hidden = false
+      }
+    }
   }
   
   private func setupLayerQueryController() {
