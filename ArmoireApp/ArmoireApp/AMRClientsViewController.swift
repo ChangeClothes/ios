@@ -8,26 +8,19 @@
 
 import UIKit
 
-class AMRClientsViewController: AMRViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UIGestureRecognizerDelegate {
+class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
 
   // MARK: - Outlets
   
-  @IBOutlet weak var clientTable: UITableView!
-
-  // MARK: - Constants
-
-  let cellConstant = "clientTableViewCellReuseIdentifier"
-
-  // MARK: - Properties
-
-  var tap: UITapGestureRecognizer!
-  var searchbar = UISearchBar(frame: CGRect(x: 0.0, y: 0.0, width: 280.0, height: 44.0))
+  @IBOutlet weak var collectionView: UICollectionView!
+  @IBOutlet weak var collectionViewConstraintTop: NSLayoutConstraint!
+  var searchbar = UISearchBar()
   var layerClient: LYRClient!
+  var filteredClients: [AMRUser]?
+  var clients: [AMRUser] = []
   var sections = [String]()
   var clientSections = [String:[AMRUser]]()
-  var filteredClients: [AMRUser]?
-  var clients: [AMRUser]?
-  var searchActive = false
+
 
   // MARK: - Lifecycle
 
@@ -38,14 +31,11 @@ class AMRClientsViewController: AMRViewController, UITableViewDataSource, UITabl
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    setUpClientTable()
-    loadClients()
     self.title = "Clients"
-    
-    self.tap = UITapGestureRecognizer(target: self, action: "viewTapped:")
-    self.tap.delegate = self
-    self.view.addGestureRecognizer(self.tap)
-    
+    setUpSearchBar()
+    loadClients()
+    setUpClientCollectionView()
+
     let leftNavBarButton = UIBarButtonItem(image: UIImage(named: "settings"), style: .Plain, target: self, action: "onSettingsTap")
     self.navigationItem.leftBarButtonItem = leftNavBarButton
     
@@ -62,11 +52,6 @@ class AMRClientsViewController: AMRViewController, UITableViewDataSource, UITabl
   
   // MARK: - On Taps Functions
 
-  func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
-    searchbar.resignFirstResponder()
-    return false
-  }
-
   func onSettingsTap(){
     showSettings()
   }
@@ -77,21 +62,34 @@ class AMRClientsViewController: AMRViewController, UITableViewDataSource, UITabl
     self.presentViewController(addClientVC, animated: true, completion: nil)
   }
 
-  // MARK: - Table Set Up
+  // MARK: search bar
+
+  private func setUpSearchBar(){
+    searchbar.delegate = self
+    searchbar.searchBarStyle = UISearchBarStyle.Minimal
+    searchbar.frame = CGRectMake(0, 0, view.frame.width, 40)
+    searchbar.frame.size.width = UIScreen.mainScreen().bounds.width
+    self.collectionView.addSubview(searchbar)
+    searchbar.layoutIfNeeded()
+  }
 
   func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
     if searchText != "" {
-      filteredClients = clients!.filter({
+      filteredClients = clients.filter({
         let currentClient = $0
         return currentClient.fullName.lowercaseString.rangeOfString(searchText.lowercaseString) != nil
       })
       setUpSections(filteredClients!)
     } else {
-      setUpSections(self.clients!)
+      setUpSections(self.clients)
       filteredClients = []
+      searchBar.performSelector("resignFirstResponder", withObject: nil, afterDelay: 0)
     }
-    self.clientTable.reloadData()
+    self.collectionView.reloadData()
+    searchBar.becomeFirstResponder()
   }
+
+  // MARK: clients
 
   func loadClients(){
     let userManager = AMRUserManager()
@@ -99,57 +97,51 @@ class AMRClientsViewController: AMRViewController, UITableViewDataSource, UITabl
       if let error = error {
         print(error.localizedDescription)
       } else {
-        self.clients = arrayOfUsers as? [AMRUser]
-        self.setUpSections(self.clients!)
-        self.clientTable.reloadData()
+        self.clients = (arrayOfUsers as? [AMRUser])!
+        self.setUpSections(self.clients)
+        self.collectionView.reloadData()
       }
     }
   }
 
-  func setUpClientTable(){
-    clientTable.delegate = self
-    clientTable.dataSource = self
-    clientTable.sectionIndexColor = UIColor.AMRBrightButtonTintColor()
-    //let header:UITableViewHeaderFooterView = clientTable as! UITableViewHeaderFooterView
-    //header.textLabel!.textColor = UIColor.AMRUnselectedTabBarButtonTintColor()
-    //header.contentView.backgroundColor = UIColor.AMRSecondaryBackgroundColor()
-    searchbar.delegate = self
-    searchbar.searchBarStyle = UISearchBarStyle.Minimal
-    self.view.addSubview(searchbar)
-    clientTable.tableHeaderView = searchbar;
-    let celNib = UINib(nibName: "AMRClientTableViewCell", bundle: nil)
-    clientTable.registerNib(celNib, forCellReuseIdentifier: cellConstant)
-  }
-  
-  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = clientTable.dequeueReusableCellWithIdentifier(cellConstant, forIndexPath: indexPath) as! AMRClientTableViewCell
-    cell.client = clientSections[sections[indexPath.section]]![indexPath.row]
-    cell.textLabel!.text = cell.client?.fullName
-    return cell
+  // MARK: Collection View
+
+  func setUpClientCollectionView(){
+    collectionView.dataSource = self
+    collectionView.delegate = self
+    let cellNib = UINib(nibName: "clientCollectionViewCell", bundle: nil)
+    collectionView.registerNib(cellNib, forCellWithReuseIdentifier: "ClientCell")
+    collectionView.backgroundColor = UIColor.whiteColor()
+    self.view.addSubview(collectionView)
+    self.collectionView!.registerClass(UICollectionReusableView.self,
+      forSupplementaryViewOfKind:UICollectionElementKindSectionHeader,
+      withReuseIdentifier:"Header")
   }
 
-  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    tableView.deselectRowAtIndexPath(indexPath, animated: true)
-    let cell = clientTable.cellForRowAtIndexPath(indexPath) as! AMRClientTableViewCell
+  func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    searchbar.resignFirstResponder()
+    collectionView.deselectItemAtIndexPath(indexPath, animated: true)
+    let client = clientSections[sections[indexPath.section - 1]]![indexPath.row]
     let clientDetailVC = AMRClientsDetailViewController(layerClient: layerClient)
     clientDetailVC.stylist = self.stylist
-    clientDetailVC.client = cell.client
+    clientDetailVC.client = client
     let nav = UINavigationController(rootViewController: clientDetailVC)
     let formSheetController = MZFormSheetPresentationViewController(contentViewController: nav)
     let viewHeight = self.view.frame.height - 40
     let viewWidth = self.view.frame.width - 25
     formSheetController.presentationController?.contentViewSize = CGSizeMake(viewWidth, viewHeight)
     self.presentViewController(formSheetController, animated: true, completion: nil)
-  }
 
-  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    if sections.count == 0 {
-      return 0
-    } else {
-      return clientSections[sections[section]]!.count
-    }
   }
   
+  func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    if sections.count == 0 || section == 0 {
+      return 0
+    } else {
+      return clientSections[sections[section - 1]]!.count
+    }
+  }
+
   func setUpSections(clients:[AMRUser]) {
     clientSections = [String:[AMRUser]]()
     for client in clients {
@@ -162,22 +154,81 @@ class AMRClientsViewController: AMRViewController, UITableViewDataSource, UITabl
     }
     sections = clientSections.keys.sort()
   }
-  
-  
-  func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-    return sections.count
+
+  func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    let cell = collectionView.dequeueReusableCellWithReuseIdentifier("ClientCell", forIndexPath: indexPath) as! clientCollectionViewCell
+    let client = clientSections[sections[indexPath.section - 1]]![indexPath.row]
+    cell.client = client
+    AMRUserManager.sharedManager.queryForUserWithObjectID(client.objectId!) { (users: NSArray?, error: NSError?) -> Void in
+      if let error = error {
+        print(error.localizedDescription)
+      } else {
+        let user = users!.firstObject! as! AMRUser
+        if let profileImage = user.profilePhoto {
+          cell.imageView.setAMRImage(profileImage, withPlaceholder: "profile-image-placeholder", withCompletion: { (success) -> Void in
+            cell.activityIndicatorView.stopAnimating()
+          })
+        } else {
+          cell.imageView.setAMRImage(nil, withPlaceholder: "profile-image-placeholder")
+          cell.activityIndicatorView.stopAnimating()
+        }
+      }
+    }
+
+    cell.imageView.backgroundColor = UIColor.grayColor()
+    return cell
   }
   
-  func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-    return sections[section]
+  func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+    return CGSizeMake(115, 150)
   }
   
-  func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]? {
-    return sections
+  func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
+    if section == 0 {
+      return UIEdgeInsetsMake(0, 0, 0, 0)
+    } else {
+      return UIEdgeInsetsMake(-10, 0, 20, 0)
+    }
   }
   
-  func tableView(tableView: UITableView, sectionForSectionIndexTitle title: String, atIndex index: Int) -> Int {
-    return index
+  func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+    if section == 0 {
+      return CGSize(width: collectionView.frame.size.width, height: 40)
+    } else {
+      return CGSize(width: collectionView.frame.size.width, height: 30)
+    }
   }
-  
+
+  func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+
+    var v : UICollectionReusableView! = nil
+    if kind == UICollectionElementKindSectionHeader {
+      v = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier:"Header", forIndexPath:indexPath)
+      if v.subviews.count == 0 {
+        let lab = UILabel() // we will size it later
+        v.addSubview(lab)
+        lab.textAlignment = .Center
+        lab.textColor = UIColor.AMRClientCollectionLabel()
+        lab.layer.masksToBounds = true // has to be added for iOS 8 label
+        lab.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activateConstraints([
+          NSLayoutConstraint.constraintsWithVisualFormat("H:|-10-[lab(35)]",
+            options:[], metrics:nil, views:["lab":lab]),
+          NSLayoutConstraint.constraintsWithVisualFormat("V:[lab(30)]-5-|",
+            options:[], metrics:nil, views:["lab":lab])
+          ].flatten().map{$0})
+      }
+      let lab = v.subviews[0] as! UILabel
+      if indexPath.section != 0 {
+        lab.text = self.sections[indexPath.section - 1]
+      } else {
+        lab.text = ""
+      }
+    }
+    return v
+  }
+
+  func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    return sections.count + 1
+  }
 }

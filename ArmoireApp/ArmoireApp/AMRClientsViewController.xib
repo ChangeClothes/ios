@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
@@ -7,7 +7,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AMRClientsViewController" customModule="ArmoireApp" customModuleProvider="target">
             <connections>
-                <outlet property="clientTable" destination="q1C-8R-yBn" id="aBz-yE-bT5"/>
+                <outlet property="collectionView" destination="Qp4-9y-NF6" id="J3L-Nv-XRP"/>
+                <outlet property="collectionViewConstraintTop" destination="com-pY-XaC" id="dss-1E-yZP"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -16,27 +17,25 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="q1C-8R-yBn">
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Qp4-9y-NF6">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                    <animations/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                </tableView>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="qFW-4y-crr">
+                        <size key="itemSize" width="50" height="50"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
             </subviews>
             <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <gestureRecognizers/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="q1C-8R-yBn" secondAttribute="trailing" id="37L-u5-ad1"/>
-                <constraint firstItem="q1C-8R-yBn" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="50" id="CMt-SC-1Zm"/>
-                <constraint firstAttribute="bottom" secondItem="q1C-8R-yBn" secondAttribute="bottom" id="Q5Q-1c-hVq"/>
-                <constraint firstItem="q1C-8R-yBn" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="dex-8D-xVA"/>
-                <constraint firstItem="q1C-8R-yBn" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="nxF-ed-ZJy"/>
+                <constraint firstAttribute="trailing" secondItem="Qp4-9y-NF6" secondAttribute="trailing" id="E6b-f3-Kx7"/>
+                <constraint firstAttribute="bottom" secondItem="Qp4-9y-NF6" secondAttribute="bottom" id="Gyj-MO-5aJ"/>
+                <constraint firstItem="Qp4-9y-NF6" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="com-pY-XaC"/>
+                <constraint firstItem="Qp4-9y-NF6" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="nBW-J8-TOY"/>
             </constraints>
-            <variation key="default">
-                <mask key="constraints">
-                    <exclude reference="CMt-SC-1Zm"/>
-                </mask>
-            </variation>
         </view>
     </objects>
 </document>

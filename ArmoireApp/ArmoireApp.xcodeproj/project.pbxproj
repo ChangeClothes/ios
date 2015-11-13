@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F08E2371BF3C9CB00458E94 /* clientCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F08E2351BF3C9CB00458E94 /* clientCollectionViewCell.swift */; };
+		0F08E2381BF3C9CB00458E94 /* clientCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F08E2361BF3C9CB00458E94 /* clientCollectionViewCell.xib */; };
 		0F18931E1BD623C8007126D2 /* AMRClientTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F18931C1BD623C8007126D2 /* AMRClientTableViewCell.swift */; };
 		0F18931F1BD623C8007126D2 /* AMRClientTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F18931D1BD623C8007126D2 /* AMRClientTableViewCell.xib */; };
 		0F4590911BD4867800C839F9 /* Credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0F4590901BD4867800C839F9 /* Credentials.plist */; };
@@ -93,6 +95,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0F08E2351BF3C9CB00458E94 /* clientCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = clientCollectionViewCell.swift; path = Views/clientCollectionViewCell.swift; sourceTree = "<group>"; };
+		0F08E2361BF3C9CB00458E94 /* clientCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = clientCollectionViewCell.xib; path = Views/clientCollectionViewCell.xib; sourceTree = "<group>"; };
 		0F18931C1BD623C8007126D2 /* AMRClientTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRClientTableViewCell.swift; path = Views/AMRClientTableViewCell.swift; sourceTree = "<group>"; };
 		0F18931D1BD623C8007126D2 /* AMRClientTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AMRClientTableViewCell.xib; path = Views/AMRClientTableViewCell.xib; sourceTree = "<group>"; };
 		0F4590901BD4867800C839F9 /* Credentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Credentials.plist; sourceTree = "<group>"; };
@@ -277,6 +281,8 @@
 				C5B75A871BE0A19D0009296C /* AMRMeasurementCell.xib */,
 				C53F001B1BE1F50600070118 /* imageCollectionViewCell.swift */,
 				C53F001C1BE1F50600070118 /* imageCollectionViewCell.xib */,
+				0F08E2351BF3C9CB00458E94 /* clientCollectionViewCell.swift */,
+				0F08E2361BF3C9CB00458E94 /* clientCollectionViewCell.xib */,
 				C5C268011BF0458400B637AF /* AMRNoteTableViewCell.swift */,
 				C5C268021BF0458400B637AF /* AMRNoteTableViewCell.xib */,
 				C5C268051BF045F800B637AF /* AMRQuestionAnswerTableViewCell.swift */,
@@ -438,6 +444,7 @@
 				C53F001E1BE1F50600070118 /* imageCollectionViewCell.xib in Resources */,
 				C5D536041BE086A00046A288 /* AMRMeasurementsViewController.xib in Resources */,
 				6F55790F1BD2335C0033A7C8 /* AMRMainViewController.xib in Resources */,
+				0F08E2381BF3C9CB00458E94 /* clientCollectionViewCell.xib in Resources */,
 				0F4590BD1BD4B57300C839F9 /* AMRClientsDetailViewController.xib in Resources */,
 				0F5E5BF91BDF2D0E00464DB2 /* AMRClientProfileViewController.xib in Resources */,
 				0F4590B91BD4A5D500C839F9 /* AMRAppointmentTableViewCell.xib in Resources */,
@@ -504,6 +511,7 @@
 			files = (
 				6F5E635C1BF2E0DD009A3C5D /* UISegmentedControl+VerticalLayout.swift in Sources */,
 				C584019C1BE574CC00D90117 /* UIAlertController+AMRSettingsController.swift in Sources */,
+				0F08E2371BF3C9CB00458E94 /* clientCollectionViewCell.swift in Sources */,
 				C5CE84801BF3CD23005A634E /* AMRDynamicHeightTableViewCell.swift in Sources */,
 				0F4590B81BD4A5D500C839F9 /* AMRAppointmentTableViewCell.swift in Sources */,
 				0FD0BAC21BD6038C00D91504 /* AMRUpcomingMeetingsTableViewCell.swift in Sources */,
