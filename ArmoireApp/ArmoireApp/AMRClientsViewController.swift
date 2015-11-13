@@ -18,6 +18,8 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
   var layerClient: LYRClient!
   var filteredClients: [AMRUser]?
   var clients: [AMRUser] = []
+  var tapActivityFilter: UITapGestureRecognizer!
+  var activityFilterActive = false
 
   var sections = [String]()
   var clientSections = [String:[AMRUser]]()
@@ -32,19 +34,11 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    searchbar.delegate = self
-    searchbar.searchBarStyle = UISearchBarStyle.Minimal
-    searchbar.frame = CGRectMake(0, 0, view.frame.width, 40)
-    searchbar.frame.size.width = UIScreen.mainScreen().bounds.width
-    self.collectionView.addSubview(searchbar)
-    searchbar.layoutIfNeeded()
+    self.title = "Clients"
+    setUpSearchBar()
+    setUpActivityFilter()
     loadClients()
     setUpClientCollectionView()
-    self.title = "Clients"
-    
-    self.collectionView!.registerClass(UICollectionReusableView.self,
-      forSupplementaryViewOfKind:UICollectionElementKindSectionHeader,
-      withReuseIdentifier:"Header")
 
     let leftNavBarButton = UIBarButtonItem(image: UIImage(named: "settings"), style: .Plain, target: self, action: "onSettingsTap")
     self.navigationItem.leftBarButtonItem = leftNavBarButton
@@ -62,6 +56,15 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
   
   // MARK: - On Taps Functions
 
+  func toggleActivityFilter(){
+    if activityFilterActive {
+
+    } else {
+
+    }
+    activityFilterActive = !activityFilterActive
+  }
+
   func onSettingsTap(){
     showSettings()
   }
@@ -72,6 +75,30 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
     self.presentViewController(addClientVC, animated: true, completion: nil)
   }
 
+  // MARK: activity filter
+
+  private func setUpActivityFilter(){
+    let activeFilterFrame = CGRect(x: searchbar.frame.size.width + 15, y: -5, width: 75, height: 50)
+    let activeFilter = UIButton(frame: activeFilterFrame)
+
+    activeFilter.setTitle("Activity", forState: .Normal)
+    //    activeFilter.backgroundColor = UIColor.AMRClientUnselectedTabBarButtonTintColor()
+    activeFilter.setTitleColor(UIColor.blackColor(), forState: .Normal)
+    tapActivityFilter = UITapGestureRecognizer(target: activeFilter, action: "toggleActivityFilter:")
+
+    self.collectionView.addSubview(activeFilter)
+  }
+
+  // MARK: search bar
+
+  private func setUpSearchBar(){
+    searchbar.delegate = self
+    searchbar.searchBarStyle = UISearchBarStyle.Minimal
+    searchbar.frame = CGRectMake(0, 0, view.frame.width, 40)
+    searchbar.frame.size.width = UIScreen.mainScreen().bounds.width - 100
+    self.collectionView.addSubview(searchbar)
+    searchbar.layoutIfNeeded()
+  }
 
   func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
     if searchText != "" {
@@ -89,6 +116,8 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
     searchBar.becomeFirstResponder()
   }
 
+  // MARK: clients
+
   func loadClients(){
     let userManager = AMRUserManager()
     userManager.queryForAllClientsOfStylist(self.stylist!) { (arrayOfUsers, error) -> Void in
@@ -102,6 +131,8 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
     }
   }
 
+  // MARK: Collection View
+
   func setUpClientCollectionView(){
     collectionView.dataSource = self
     collectionView.delegate = self
@@ -109,6 +140,9 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
     collectionView.registerNib(cellNib, forCellWithReuseIdentifier: "ClientCell")
     collectionView.backgroundColor = UIColor.whiteColor()
     self.view.addSubview(collectionView)
+    self.collectionView!.registerClass(UICollectionReusableView.self,
+      forSupplementaryViewOfKind:UICollectionElementKindSectionHeader,
+      withReuseIdentifier:"Header")
   }
 
   func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
