@@ -39,7 +39,7 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
     let leftNavBarButton = UIBarButtonItem(image: UIImage(named: "settings"), style: .Plain, target: self, action: "onSettingsTap")
     self.navigationItem.leftBarButtonItem = leftNavBarButton
     
-    let rightNavBarButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "onAddClientType")
+    let rightNavBarButton = UIBarButtonItem(image: UIImage(named: "add-client"), style: .Plain, target: self, action: "onAddClientType")
     self.navigationItem.rightBarButtonItem = rightNavBarButton
 
   // Do any additional setup after loading the view.
