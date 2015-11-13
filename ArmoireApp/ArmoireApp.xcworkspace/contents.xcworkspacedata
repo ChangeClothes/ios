@@ -2,12 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:ArmoireApp/ViewControllers/AMRPhotoDetailViewController.swift">
-   </FileRef>
-   <FileRef
-      location = "group:ArmoireApp/ViewControllers/AMRPhotoDetailViewController.xib">
-   </FileRef>
-   <FileRef
       location = "group:ArmoireApp.xcodeproj">
    </FileRef>
    <FileRef
