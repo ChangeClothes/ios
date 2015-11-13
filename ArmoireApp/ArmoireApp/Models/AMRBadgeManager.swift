@@ -8,6 +8,7 @@
 
 import UIKit
 
+let kUserConversationsChanged = "com.ArmoireApp.userConversationsChanged"
 
 class AMRClientBadges {
   var hasUnreadMessages = false
@@ -16,11 +17,16 @@ class AMRClientBadges {
 }
 
 class AMRBadgeManager: NSObject {
+  var layerQueryController: LYRQueryController!
   
   // MARK: - Shared Instance
   static let sharedInstance = AMRBadgeManager()
   
-  var layerClient: LYRClient!
+  var layerClient: LYRClient! {
+    didSet {
+      setupLayerQueryControllerForUnreadConversations()
+    }
+  }
   
   var clientBadges = [AMRUser: AMRClientBadges]()
   private var getClientBadgesCompletion: (([AMRUser: AMRClientBadges]) -> Void)?
@@ -28,9 +34,6 @@ class AMRBadgeManager: NSObject {
   private var clientBadgesCountdown: Int! {
     didSet {
       if clientBadgesCountdown == 0 {
-        for (client, badges) in clientBadges {
-          print("\(client) \(badges.hasMeetingToday) \(badges.hasUnratedPhotos) \(badges.hasUnreadMessages)")
-        }
         getClientBadgesCompletion?(clientBadges)
       }
     }
@@ -40,6 +43,21 @@ class AMRBadgeManager: NSObject {
   // MARK: - Stylist Badges
   var numberOfUnreadConversations: Int?
   // Don't need to calculate this
+  
+  private func setupLayerQueryControllerForUnreadConversations(){
+    let query = LYRQuery(queryableClass: LYRConversation.self)
+    query.predicate = LYRPredicate(property: "hasUnreadMessages", predicateOperator: LYRPredicateOperator.IsEqualTo, value: true)
+    layerQueryController = try? layerClient!.queryControllerWithQuery(query, error: ())
+    layerQueryController!.delegate = self
+    layerQueryController!.executeWithCompletion { (success: Bool, error: NSError!) -> Void in
+      if let error = error {
+        print(error.localizedDescription)
+      } else {
+        NSNotificationCenter.defaultCenter().postNotificationName(kUserConversationsChanged, object: self)
+      }
+    }
+  }
+
   
   // MARK: - Stylists Client View Badges
   var numberOfUnreadMessagesForStylist: Int?
@@ -151,5 +169,12 @@ class AMRBadgeManager: NSObject {
     }
   }
   
-  
+}
+
+// MARK: - LYRQueryController Delegate
+
+extension AMRBadgeManager: LYRQueryControllerDelegate {
+  func queryControllerDidChangeContent(queryController: LYRQueryController!) {
+    NSNotificationCenter.defaultCenter().postNotificationName(kUserConversationsChanged, object: self)
+  }
 }
