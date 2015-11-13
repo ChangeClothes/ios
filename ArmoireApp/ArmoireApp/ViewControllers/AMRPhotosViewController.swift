@@ -24,7 +24,7 @@ class AMRPhotosViewController: AMRViewController {
   override func viewDidLoad() {
     setupCollectionView()
     createNavBarButtonItems()
-    title = client!.firstName + "'s Photos"
+    title = client!.firstName + "'s Outfits"
   }
   
   override func viewWillAppear(animated: Bool) {
@@ -109,7 +109,7 @@ extension AMRPhotosViewController: UICollectionViewDataSource{
     if let sections = photoSections {
       if let imagesArray = sections[AMRPhotoRating.titleArray()[section]] {
         if section == 0 {
-          return imagesArray.count + 1 // For camera button
+          return imagesArray.count// + 1 // For camera button
         } else {
           return imagesArray.count
         }
@@ -117,7 +117,7 @@ extension AMRPhotosViewController: UICollectionViewDataSource{
       }
     }
     if section == 0 {
-      return 1  // For camera button
+      //return 1  // For camera button
     }
     return 0
   }
@@ -141,27 +141,30 @@ extension AMRPhotosViewController: UICollectionViewDataSource{
     
     let cell = collectionView.dequeueReusableCellWithReuseIdentifier(kImageCellReuseIdentifier, forIndexPath: indexPath) as! imageCollectionViewCell
     
-    if indexPath.row == 0 && indexPath.section == 0{
+    /*if indexPath.row == 0 && indexPath.section == 0{
       cell.activityIndicatorView.stopAnimating()
       let addPhotoIcon = UIImage(named: "add-photo")
       cell.imageView.image = addPhotoIcon
+      //cell.imageView.layer.borderColor = UIColor.whiteColor().CGColor
+      //cell.imageView.layer.borderWidth = 7.0
+      //cell.imageView.layer.cornerRadius = 8
       cell.imageView.contentMode = .ScaleAspectFit
       cell.backgroundColor = UIColor.clearColor()
     } else if indexPath.section == 0 {
       cell.activityIndicatorView.startAnimating()
-      let image = photoSections![AMRPhotoRating.titleArray()[indexPath.section]]![indexPath.row - 1]
+      let image = photoSections![AMRPhotoRating.titleArray()[indexPath.section]]![indexPath.row]// - 1]
       cell.imageView.setAMRImage(image, withPlaceholder: "download", withCompletion: { (success) -> Void in
         cell.activityIndicatorView.stopAnimating()
       })
       
-    } else {
+    } else {*/
       cell.activityIndicatorView.startAnimating()
       let image = photoSections![AMRPhotoRating.titleArray()[indexPath.section]]![indexPath.row]
       cell.imageView.setAMRImage(image, withPlaceholder: "download", withCompletion: { (success) -> Void in
         cell.activityIndicatorView.stopAnimating()
       })
       
-    }
+    //}
     return cell
   }
   
@@ -245,6 +248,7 @@ extension AMRPhotosViewController {
     } else {
       createSettingsButton()
     }
+    createCameraButton()
   }
   
   private func createDoneEditingButton(){
@@ -255,6 +259,11 @@ extension AMRPhotosViewController {
     doneButton.addTarget(self, action: Selector("onDoneEditingTap"), forControlEvents: .TouchUpInside)
     
     let rightNavBarButton = UIBarButtonItem(customView: doneButton)
+    self.navigationItem.rightBarButtonItem = rightNavBarButton
+  }
+  
+  private func createCameraButton() {
+    let rightNavBarButton = UIBarButtonItem(image: UIImage(named: "camera"), style: .Plain, target: self, action: "exitModal")
     self.navigationItem.rightBarButtonItem = rightNavBarButton
   }
   

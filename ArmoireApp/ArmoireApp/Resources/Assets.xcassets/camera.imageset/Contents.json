@@ -2,7 +2,6 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "iconmonstr-photo-camera-7-icon-256.png",
       "scale" : "1x"
     },
     {
@@ -11,6 +10,7 @@
     },
     {
       "idiom" : "universal",
+      "filename" : "Pictures Add 128x128 vCharc.png",
       "scale" : "3x"
     }
   ],

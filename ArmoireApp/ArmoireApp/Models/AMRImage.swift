@@ -19,7 +19,7 @@ enum AMRPhotoRating: NSNumber {
   }
   
   static func titleArray() -> [String] {
-    return ["Unrated", "Yep!",  "Maybe?", "Nope", ]
+    return ["Unrated", "Love",  "Maybe", "No", ]
   }
   
   static func iconColorArray() -> [UIColor] {
@@ -35,7 +35,7 @@ enum AMRPhotoRating: NSNumber {
   static func ratingIconArray() -> [UIImage] {
     let imageArray: [UIImage] = [
       UIImage(named: "unrated")!.imageWithRenderingMode(.AlwaysTemplate),
-      UIImage(named: "yep")!.imageWithRenderingMode(.AlwaysTemplate),
+      UIImage(named: "love")!.imageWithRenderingMode(.AlwaysTemplate),
       UIImage(named: "maybe")!.imageWithRenderingMode(.AlwaysTemplate),
       UIImage(named: "nope")!.imageWithRenderingMode(.AlwaysTemplate), ]
     
