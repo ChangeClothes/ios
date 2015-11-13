@@ -8,39 +8,39 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="clientCollectionViewCell" customModule="ArmoireApp" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="231" height="151"/>
+            <rect key="frame" x="0.0" y="0.0" width="231" height="196"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="231" height="151"/>
+                <rect key="frame" x="0.0" y="0.0" width="231" height="196"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Xu4-M3-72B">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xu4-M3-72B">
                         <rect key="frame" x="66" y="26" width="100" height="100"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="100" id="Y3m-Pa-JEZ"/>
                             <constraint firstAttribute="height" constant="100" id="seB-XH-P9d"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="messaging" translatesAutoresizingMaskIntoConstraints="NO" id="QVj-IZ-zTX">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="messaging" translatesAutoresizingMaskIntoConstraints="NO" id="QVj-IZ-zTX">
                         <rect key="frame" x="146" y="26" width="20" height="20"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="20" id="2T5-VN-axp"/>
                             <constraint firstAttribute="height" constant="20" id="Abh-wL-Wiq"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="add-photo" translatesAutoresizingMaskIntoConstraints="NO" id="9rY-Is-zGS">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="add-photo" translatesAutoresizingMaskIntoConstraints="NO" id="9rY-Is-zGS">
                         <rect key="frame" x="66" y="26" width="20" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="Etc-Sv-qmX"/>
                             <constraint firstAttribute="width" constant="20" id="qI7-jz-7OF"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Morgan Wildermuth" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aSe-Um-4X2">
-                        <rect key="frame" x="40" y="131" width="152" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Morgan" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aSe-Um-4X2">
+                        <rect key="frame" x="86" y="153" width="59" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="calendar" translatesAutoresizingMaskIntoConstraints="NO" id="LRk-4N-owQ">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="calendar" translatesAutoresizingMaskIntoConstraints="NO" id="LRk-4N-owQ">
                         <rect key="frame" x="146" y="107" width="20" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="JOb-aP-Rab"/>
@@ -55,6 +55,12 @@
                             </mask>
                         </variation>
                     </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wildermuth" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rou-Lb-Ymx">
+                        <rect key="frame" x="71" y="176" width="89" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
@@ -67,6 +73,7 @@
                 <constraint firstAttribute="trailing" secondItem="QVj-IZ-zTX" secondAttribute="trailing" constant="2" id="DWb-8e-fSe"/>
                 <constraint firstItem="9rY-Is-zGS" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="2" id="Eyp-fx-fRH"/>
                 <constraint firstItem="9rY-Is-zGS" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="2" id="Kww-E6-K65"/>
+                <constraint firstItem="Rou-Lb-Ymx" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="LOw-9R-cS2"/>
                 <constraint firstItem="aSe-Um-4X2" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="LPH-xN-dPc"/>
                 <constraint firstAttribute="bottom" secondItem="Xu4-M3-72B" secondAttribute="bottom" id="NY5-Oz-AOv"/>
                 <constraint firstItem="9rY-Is-zGS" firstAttribute="top" secondItem="QVj-IZ-zTX" secondAttribute="bottom" constant="2" id="NbN-u9-r36"/>
@@ -88,9 +95,10 @@
                 <constraint firstAttribute="bottom" secondItem="LRk-4N-owQ" secondAttribute="bottom" constant="2" id="hrP-uG-5TR"/>
                 <constraint firstItem="aSe-Um-4X2" firstAttribute="top" secondItem="LRk-4N-owQ" secondAttribute="bottom" constant="4" id="pR4-7e-Pcp"/>
                 <constraint firstItem="Xu4-M3-72B" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="qcr-it-q8R"/>
+                <constraint firstItem="Rou-Lb-Ymx" firstAttribute="top" secondItem="aSe-Um-4X2" secondAttribute="bottom" constant="2" id="wOm-tU-kWL"/>
                 <constraint firstAttribute="trailing" secondItem="LRk-4N-owQ" secondAttribute="trailing" constant="2" id="zWl-NG-GrY"/>
             </constraints>
-            <size key="customSize" width="231" height="151"/>
+            <size key="customSize" width="231" height="196"/>
             <variation key="default">
                 <mask key="constraints">
                     <exclude reference="89F-uu-0gb"/>
@@ -105,11 +113,11 @@
                     <exclude reference="V54-id-9Mb"/>
                     <exclude reference="V5N-jz-WKh"/>
                     <exclude reference="hXb-Kh-VW1"/>
-                    <exclude reference="3Mc-HT-sf6"/>
-                    <exclude reference="foG-Kg-g7O"/>
                     <exclude reference="DWb-8e-fSe"/>
                     <exclude reference="RLi-gZ-FK5"/>
                     <exclude reference="gBf-y1-3Qf"/>
+                    <exclude reference="3Mc-HT-sf6"/>
+                    <exclude reference="foG-Kg-g7O"/>
                     <exclude reference="dvz-35-qbR"/>
                     <exclude reference="hrP-uG-5TR"/>
                     <exclude reference="zWl-NG-GrY"/>
@@ -118,15 +126,16 @@
             <connections>
                 <outlet property="calendarIcon" destination="LRk-4N-owQ" id="0dN-2X-Obb"/>
                 <outlet property="imageView" destination="Xu4-M3-72B" id="u6d-CR-gtK"/>
+                <outlet property="lastNameLabel" destination="Rou-Lb-Ymx" id="tma-tv-gPl"/>
                 <outlet property="messageIcon" destination="QVj-IZ-zTX" id="Vs8-8X-LYQ"/>
                 <outlet property="nameLabel" destination="aSe-Um-4X2" id="TW7-Rg-F4b"/>
                 <outlet property="photoIcon" destination="9rY-Is-zGS" id="SsW-s9-wRd"/>
             </connections>
-            <point key="canvasLocation" x="219.5" y="525.5"/>
+            <point key="canvasLocation" x="219.5" y="548"/>
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="add-photo" width="256" height="256"/>
+        <image name="add-photo" width="993" height="905"/>
         <image name="calendar" width="25" height="25"/>
         <image name="messaging" width="25" height="25"/>
     </resources>

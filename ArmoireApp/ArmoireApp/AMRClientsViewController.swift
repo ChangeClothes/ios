@@ -18,9 +18,6 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
   var layerClient: LYRClient!
   var filteredClients: [AMRUser]?
   var clients: [AMRUser] = []
-  var tapActivityFilter: UITapGestureRecognizer!
-  var activityFilterActive = false
-
   var sections = [String]()
   var clientSections = [String:[AMRUser]]()
 
@@ -36,7 +33,6 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
     super.viewDidLoad()
     self.title = "Clients"
     setUpSearchBar()
-    setUpActivityFilter()
     loadClients()
     setUpClientCollectionView()
 
@@ -56,15 +52,6 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
   
   // MARK: - On Taps Functions
 
-  func toggleActivityFilter(){
-    if activityFilterActive {
-
-    } else {
-
-    }
-    activityFilterActive = !activityFilterActive
-  }
-
   func onSettingsTap(){
     showSettings()
   }
@@ -75,27 +62,13 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
     self.presentViewController(addClientVC, animated: true, completion: nil)
   }
 
-  // MARK: activity filter
-
-  private func setUpActivityFilter(){
-    let activeFilterFrame = CGRect(x: searchbar.frame.size.width + 15, y: -5, width: 75, height: 50)
-    let activeFilter = UIButton(frame: activeFilterFrame)
-
-    activeFilter.setTitle("Activity", forState: .Normal)
-    //    activeFilter.backgroundColor = UIColor.AMRClientUnselectedTabBarButtonTintColor()
-    activeFilter.setTitleColor(UIColor.blackColor(), forState: .Normal)
-    tapActivityFilter = UITapGestureRecognizer(target: activeFilter, action: "toggleActivityFilter:")
-
-    self.collectionView.addSubview(activeFilter)
-  }
-
   // MARK: search bar
 
   private func setUpSearchBar(){
     searchbar.delegate = self
     searchbar.searchBarStyle = UISearchBarStyle.Minimal
     searchbar.frame = CGRectMake(0, 0, view.frame.width, 40)
-    searchbar.frame.size.width = UIScreen.mainScreen().bounds.width - 100
+    searchbar.frame.size.width = UIScreen.mainScreen().bounds.width
     self.collectionView.addSubview(searchbar)
     searchbar.layoutIfNeeded()
   }
@@ -207,7 +180,7 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
   }
   
   func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-    return CGSizeMake(180, 150)
+    return CGSizeMake(115, 150)
   }
   
   func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {

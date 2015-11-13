@@ -11,13 +11,15 @@ import UIKit
 class clientCollectionViewCell: UICollectionViewCell {
 
   @IBOutlet weak var nameLabel: UILabel!
+  @IBOutlet weak var lastNameLabel: UILabel!
   @IBOutlet weak var messageIcon: UIImageView!
   @IBOutlet weak var imageView: UIImageView!
   @IBOutlet weak var calendarIcon: UIImageView!
   @IBOutlet weak var photoIcon: UIImageView!
   var client: AMRUser! {
     didSet{
-      nameLabel.text = client.fullName
+      nameLabel.text = client.firstName
+      lastNameLabel.text = client.lastName
     }
   }
   var activityIndicatorView: UIActivityIndicatorView!
@@ -54,6 +56,7 @@ class clientCollectionViewCell: UICollectionViewCell {
     for icon in [messageIcon, calendarIcon, photoIcon]{
       icon.image = icon.image?.imageWithRenderingMode(.AlwaysTemplate)
       icon.tintColor = UIColor.AMRClientNotificationIconColor()
+      icon.hidden = true
     }
   }
 }
