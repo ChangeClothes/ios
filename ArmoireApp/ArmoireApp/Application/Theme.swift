@@ -63,6 +63,7 @@ enum Theme: Int {
     case .Default:
       return ColorHelper.sharedInstance.colorFromHexString("#FFB276")
     case .Theme1:
+      return ColorHelper.sharedInstance.colorFromHexString("#00D7FF")
       return ColorHelper.sharedInstance.colorFromHexString("#58C0E1")
       //return ColorHelper.sharedInstance.colorFromHexString("#FA5B52")
     }
@@ -73,8 +74,9 @@ enum Theme: Int {
     case .Default:
       return ColorHelper.sharedInstance.colorFromHexString("#DB0A5B")
     case .Theme1:
+      return ColorHelper.sharedInstance.colorFromHexString("#00D7FF")
       return ColorHelper.sharedInstance.colorFromHexString("#58C0E1")
-      //return ColorHelper.sharedInstance.colorFromHexString("#00D7FF")
+      return ColorHelper.sharedInstance.colorFromHexString("#00D7FF")
     }
   }
   
@@ -83,6 +85,7 @@ enum Theme: Int {
     case .Default:
       return ColorHelper.sharedInstance.colorFromHexString("#2ecc71")
     case .Theme1:
+      return ColorHelper.sharedInstance.colorFromHexString("#00D7FF")
       return ColorHelper.sharedInstance.colorFromHexString("#58C0E1")
       //return ColorHelper.sharedInstance.colorFromHexString("#00D7FF")
     }
