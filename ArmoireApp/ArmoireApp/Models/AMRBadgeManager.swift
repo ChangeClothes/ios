@@ -23,7 +23,7 @@ class AMRBadgeManager: NSObject {
   var layerClient: LYRClient!
   
   var clientBadges = [AMRUser: AMRClientBadges]()
-  private var getClientBadgesCompletion: (() -> Void)?
+  private var getClientBadgesCompletion: (([AMRUser: AMRClientBadges]) -> Void)?
   private let numberOfClientChecks = 3
   private var clientBadgesCountdown: Int! {
     didSet {
@@ -31,7 +31,7 @@ class AMRBadgeManager: NSObject {
         for (client, badges) in clientBadges {
           print("\(client) \(badges.hasMeetingToday) \(badges.hasUnratedPhotos) \(badges.hasUnreadMessages)")
         }
-        getClientBadgesCompletion?()
+        getClientBadgesCompletion?(clientBadges)
       }
     }
   }
@@ -52,7 +52,7 @@ class AMRBadgeManager: NSObject {
   var numberOfUnratedPhotos: Int?
   
   // MARK: - Today Client List
-  func getClientBadgesForStylist(stylist: AMRUser, withCompletion completion: (() -> Void)?) {
+  func getClientBadgesForStylist(stylist: AMRUser, withCompletion completion: ((clientBadges: [AMRUser: AMRClientBadges]) -> Void)?) {
     getClientBadgesCompletion = completion
     clientBadges = [AMRUser: AMRClientBadges]()
     AMRUserManager.sharedManager.queryForAllClientsOfStylist(stylist) { (clients: NSArray?, error: NSError?) -> Void in
