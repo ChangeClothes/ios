@@ -180,7 +180,6 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
     } else {
       let cell = collectionView.dequeueReusableCellWithReuseIdentifier("ClientCell", forIndexPath: indexPath) as! clientCollectionViewCell
       let client = clientSections[sections[indexPath.section - 1]]![indexPath.row]
-      print(client)
       cell.client = client
       cell.imageView.backgroundColor = UIColor.grayColor()
       return cell

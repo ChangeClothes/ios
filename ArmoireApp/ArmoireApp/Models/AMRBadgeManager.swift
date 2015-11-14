@@ -18,6 +18,7 @@ class AMRClientBadges {
 
 class AMRBadgeManager: NSObject {
   var layerQueryController: LYRQueryController!
+  var meetingsToday: [AMRMeeting]!
   
   // MARK: - Shared Instance
   static let sharedInstance = AMRBadgeManager()
@@ -121,6 +122,7 @@ class AMRBadgeManager: NSObject {
     let cal = NSCalendar.currentCalendar()
     let components = cal.components([.Era, .Year, .Month, .Day], fromDate: NSDate())
     let today = cal.dateFromComponents(components)
+    meetingsToday = [AMRMeeting]()
     
     AMRMeeting.meetingArrayForStylist(nil, client: client) { (objects, error) -> Void in
       if let error = error {
@@ -136,6 +138,7 @@ class AMRBadgeManager: NSObject {
               } else {
                 self.clientBadges[client] = AMRClientBadges()
                 self.clientBadges[client]?.hasMeetingToday = true
+                self.meetingsToday.append(meeting)
               }
             }
           }
