@@ -29,7 +29,7 @@ class AMRInventoryItemCollectionViewCell: UICollectionViewCell {
   }
 
   override func prepareForReuse() {
-    self.imageView = nil;
+    self.imageView.image = nil;
   }
 
   func getDataFromUrl(url:NSURL, completion: ((data: NSData?, response: NSURLResponse?, error: NSError? ) -> Void)) {
