@@ -33,12 +33,34 @@ class AMRTodayTableCollectionViewCell: UICollectionViewCell {
  
   private func sortClientsWithBadges(clientBadgeData: [AMRUser: AMRClientBadges]) -> [AMRUser]{
     var resultArray = [AMRUser]()
-    
+    var importanceScores = [AMRUser: Int](
     for (key, value) in clientBadgeData {
-      resultArray.append(key)
+      importanceScores[key] = importanceScoreForClient(key)
     }
     
+    for (k,v) in (Array(importanceScores).sort {$0.1 > $1.1}) {
+      print("\(k):\(v)")
+      resultArray.append(k)
+    }
+    
+    print(resultArray)
+    //    resultArray.sort({$0.date.timeIntervalSinceNow > $1.date.timeIntervalSinceNow})
+    
     return resultArray
+  }
+  
+  private func importanceScoreForClient(client: AMRUser) -> Int {
+    var score = 0
+    
+    for meeting in AMRBadgeManager.sharedInstance.meetingsToday {
+      print("Meeting Clien \(meeting.client)")
+      if meeting.client.objectId == client.objectId {
+        score = 100
+        return score
+      }
+    }
+    
+    return score
   }
   
   func updateData(){
