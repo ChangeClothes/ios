@@ -135,7 +135,7 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="add-photo" width="993" height="905"/>
+        <image name="add-photo" width="604" height="573"/>
         <image name="calendar" width="25" height="25"/>
         <image name="messaging" width="25" height="25"/>
     </resources>
