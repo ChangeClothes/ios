@@ -44,11 +44,11 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
   func setUpRightNavBarItem(){
     var rightNavBarButton: UIBarButtonItem?
 
-    if let items = currentItems {
+    if currentItems != nil && selectedPhotos.count > 0 {
       rightNavBarButton = UIBarButtonItem(image: UIImage(named: "check"), style: .Plain, target: self, action: "approveAdditions")
     } else {
       if inventoryCategoryHistory.count > 1 {
-        rightNavBarButton = UIBarButtonItem(image: UIImage(named: "check"), style: .Plain, target: self, action: "revertToPreviousCategory")
+        rightNavBarButton = UIBarButtonItem(image: UIImage(named: "undo"), style: .Plain, target: self, action: "revertToPreviousCategory")
       } else {
         rightNavBarButton = nil
       }
@@ -69,6 +69,8 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
     collectionView.delegate = self
     let cellNib = UINib(nibName: "AMRCategoryCollectionViewCell", bundle: nil)
     collectionView.registerNib(cellNib, forCellWithReuseIdentifier: "CategoryCell")
+    let itemCellNib = UINib(nibName: "AMRInventoryItemCollectionViewCell", bundle: nil)
+    collectionView.registerNib(itemCellNib, forCellWithReuseIdentifier: "ItemCell")
     collectionView.backgroundColor = UIColor.whiteColor()
     self.view.addSubview(collectionView)
   }
@@ -86,7 +88,6 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
     let category = inventoryCategoryHistory.topItem![indexPath.row]
     if let items = category.items {
       currentItems = items
-      updateCollectionViewCellNib()
     } else if let subcategories = category.subcategories{
       collectionView.deselectItemAtIndexPath(indexPath, animated: true)
       inventoryCategoryHistory.push(subcategories)
@@ -143,11 +144,6 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
     return UIEdgeInsetsMake(-10, 0, 20, 0)
   }
 
-  func updateCollectionViewCellNib(){
-    let cellNib = UINib(nibName: "AMRInventoryItemCollectionViewCell", bundle: nil)
-    collectionView.registerNib(cellNib, forCellWithReuseIdentifier: "ItemCell")
-  }
-
   // MARK: - On Tap Functions
   
   func exit(){
@@ -162,17 +158,21 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
   }
 
   func revertToPreviousCategory(){
-    inventoryCategoryHistory.pop()
     if let items = currentItems {
       currentItems = nil
+      selectedPhotos = [UIImage]()
+    } else {
+      inventoryCategoryHistory.pop()
     }
     collectionView.reloadData()
+    setUpRightNavBarItem()
   }
 
   // MARK: - Item Engagemenet
 
   func selectItem(item: UIImage){
     selectedPhotos.append(item)
+    setUpRightNavBarItem()
   }
 
   func deselectItem(item: UIImage){
@@ -183,6 +183,7 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
       }
     }
     selectedPhotos.removeAtIndex(deleteAtIndex!)
+    setUpRightNavBarItem()
   }
 
   // MARK: - Create AMRImage
