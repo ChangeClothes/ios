@@ -2,7 +2,6 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "iconmonstr-undo-4-icon-256.png",
       "scale" : "1x"
     },
     {
@@ -11,6 +10,7 @@
     },
     {
       "idiom" : "universal",
+      "filename" : "iconmonstr-undo-4-icon-256.png",
       "scale" : "3x"
     }
   ],

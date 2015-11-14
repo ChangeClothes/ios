@@ -21,9 +21,9 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
   // MARK: - Lifecycle
   override func viewDidLoad() {
     super.viewDidLoad()
-    setupNavBar()
     loadData()
     setupClientCollectionView()
+    setupNavBar()
     // Do any additional setup after loading the view.
   }
   
@@ -37,8 +37,23 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
   func setupNavBar(){
     self.title = "Stores"
     let leftNavBarButton = UIBarButtonItem(image: UIImage(named: "cancel"), style: .Plain, target: self, action: "exit")
-    let rightNavBarButton = UIBarButtonItem(image: UIImage(named: "check"), style: .Plain, target: self, action: "approveAdditions")
     self.navigationItem.leftBarButtonItem = leftNavBarButton
+    setUpRightNavBarItem()
+  }
+
+  func setUpRightNavBarItem(){
+    var rightNavBarButton: UIBarButtonItem?
+
+    if let items = currentItems {
+      rightNavBarButton = UIBarButtonItem(image: UIImage(named: "check"), style: .Plain, target: self, action: "approveAdditions")
+    } else {
+      if inventoryCategoryHistory.count > 1 {
+        rightNavBarButton = UIBarButtonItem(image: UIImage(named: "check"), style: .Plain, target: self, action: "revertToPreviousCategory")
+      } else {
+        rightNavBarButton = nil
+      }
+    }
+
     self.navigationItem.rightBarButtonItem = rightNavBarButton
   }
 
@@ -64,6 +79,7 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
     } else {
       selectedCategoryCell(indexPath)
     }
+    setUpRightNavBarItem()
   }
 
   func selectedCategoryCell(indexPath: NSIndexPath){
@@ -144,6 +160,15 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
     }
     self.dismissViewControllerAnimated(true, completion: nil)
   }
+
+  func revertToPreviousCategory(){
+    inventoryCategoryHistory.pop()
+    if let items = currentItems {
+      currentItems = nil
+    }
+    collectionView.reloadData()
+  }
+
   // MARK: - Item Engagemenet
 
   func selectItem(item: UIImage){
@@ -206,6 +231,10 @@ struct InventoryCategoryStack {
 
   var topItem: [AMRInventoryCategory]? {
     return items.isEmpty ? nil : items[items.count - 1]
+  }
+
+  var count: Int {
+    return items.count
   }
 
 }
