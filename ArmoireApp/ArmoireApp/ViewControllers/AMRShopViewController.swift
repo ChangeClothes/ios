@@ -11,7 +11,7 @@ import UIKit
 class AMRShopViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
 
   var inventory: AMRInventory?
-  var inventoryCategoryHistory: [[AMRInventoryCategory]] = []
+  var inventoryCategoryHistory = InventoryCategoryStack()
   var currentItems: [AMRInventoryItem]?
 
   @IBOutlet weak var collectionView: UICollectionView!
@@ -40,7 +40,7 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
 
   func loadData(){
     inventory = AMRInventory.get_inventory()
-    inventoryCategoryHistory.append((inventory?.categories)!)
+    inventoryCategoryHistory.push((inventory?.categories)!)
   }
 
   // MARK: - Collection View
@@ -56,11 +56,11 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
 
   func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
     collectionView.deselectItemAtIndexPath(indexPath, animated: true)
-    let category = inventoryCategoryHistory.last![indexPath.row]
+    let category = inventoryCategoryHistory.topItem![indexPath.row]
     if let items = category.items {
       currentItems = items
     } else if let subcategories = category.subcategories{
-      inventoryCategoryHistory.append(subcategories)
+      inventoryCategoryHistory.push(subcategories)
     } else {
       print("issue with didSelectItem: neither items or subcategories present")
       print(category)
@@ -72,7 +72,7 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
     if let items = currentItems {
       return items.count
     } else {
-      return inventoryCategoryHistory.last!.count
+      return inventoryCategoryHistory.topItem!.count
     }
   }
 
@@ -82,7 +82,7 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
 //      let item = items[indexPath.row]
 //    } else {
       let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CategoryCell", forIndexPath: indexPath) as! AMRCategoryCollectionViewCell
-      let category = inventoryCategoryHistory.last![indexPath.row]
+      let category = inventoryCategoryHistory.topItem![indexPath.row]
       cell.category = category
 //    }
     return cell
@@ -112,5 +112,22 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
   }
   */
 
+
+}
+
+struct InventoryCategoryStack {
+  var items = [[AMRInventoryCategory]]()
+
+  mutating func push(item: [AMRInventoryCategory]){
+    items.append(item)
+  }
+
+  mutating func pop() -> [AMRInventoryCategory] {
+    return items.removeLast()
+  }
+
+  var topItem: [AMRInventoryCategory]? {
+    return items.isEmpty ? nil : items[items.count - 1]
+  }
 
 }
