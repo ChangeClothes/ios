@@ -11,6 +11,7 @@ import UIKit
 let uncategorizedSectionTitle = "Uncategorized"
 let kImageCellReuseIdentifier = "com.armoire.imageCellReuseIdentifier"
 let kItemSectionHeaderViewID = "com.armoire.photoSectionHeaderViewID"
+let kPictureAddedNotification = "com.armoire.pictureAddedToClientNotification"
 class AMRPhotosViewController: AMRViewController {
 
   
@@ -24,6 +25,7 @@ class AMRPhotosViewController: AMRViewController {
   override func viewDidLoad() {
     setupCollectionView()
     createNavBarButtonItems()
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "onPictureAdded:", name: kPictureAddedNotification, object: nil)
     title = client!.firstName + "'s Outfits"
   }
   
@@ -96,6 +98,13 @@ class AMRPhotosViewController: AMRViewController {
     
     return resultArray
   }
+
+  // MARK - Notifications
+
+  func onPictureAdded(notification: NSNotification){
+    refreshCollectionView()
+  }
+
 }
 
 // MARK: UICollectionViewDataSource
@@ -288,7 +297,6 @@ extension AMRPhotosViewController {
     let settingsVC = UIAlertController.AMRSettingsController { (AMRSettingsControllerSetting) -> () in}
     self.presentViewController(settingsVC, animated: true, completion: nil)
   }
-
 
 }
 

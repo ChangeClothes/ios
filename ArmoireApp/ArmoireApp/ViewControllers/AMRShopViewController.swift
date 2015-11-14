@@ -15,6 +15,7 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
   var currentItems: [AMRInventoryItem]?
   var selectedPhotos = [UIImage]()
   var client: AMRUser?
+  let kPictureAddedNotification = "com.armoire.pictureAddedToClientNotification"
 
   @IBOutlet weak var collectionView: UICollectionView!
 
@@ -203,7 +204,7 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
       if let error = error {
         print(error.localizedDescription)
       } else {
-        print("Saved")
+        NSNotificationCenter.defaultCenter().postNotificationName(self.kPictureAddedNotification, object: self)
       }
     }
   }
