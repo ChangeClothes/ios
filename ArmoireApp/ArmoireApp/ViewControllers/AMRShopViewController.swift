@@ -57,23 +57,35 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
 
   func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
     if let items = currentItems {
-      let item = items[indexPath.row]
-      selectItem(item)
+      selectedItemCell(indexPath, items: items)
     } else {
+      selectedCategoryCell(indexPath)
+    }
+  }
+
+  func selectedCategoryCell(indexPath: NSIndexPath){
+    let category = inventoryCategoryHistory.topItem![indexPath.row]
+    if let items = category.items {
+      currentItems = items
+      updateCollectionViewCellNib()
+    } else if let subcategories = category.subcategories{
       collectionView.deselectItemAtIndexPath(indexPath, animated: true)
-      let category = inventoryCategoryHistory.topItem![indexPath.row]
-      if let items = category.items {
-        print("category has items")
-        currentItems = items
-        updateCollectionViewCellNib()
-      } else if let subcategories = category.subcategories{
-        print("category does not have items")
-        inventoryCategoryHistory.push(subcategories)
-      } else {
-        print("issue with didSelectItem: neither items or subcategories present")
-        print(category)
-      }
-      collectionView.reloadData()
+      inventoryCategoryHistory.push(subcategories)
+    } else {
+      print("issue with didSelectItem: neither items or subcategories present")
+    }
+    collectionView.reloadData()
+  }
+
+  func selectedItemCell(indexPath: NSIndexPath, items: [AMRInventoryItem]){
+    let item = items[indexPath.row]
+    var selectedCell = collectionView.cellForItemAtIndexPath(indexPath)
+    if selectedCell?.layer.borderWidth == 2.0 {
+      selectedCell!.layer.borderWidth = 0.0
+    } else {
+      selectedCell!.layer.borderWidth = 2.0
+      selectedCell!.layer.borderColor = UIColor.grayColor().CGColor
+      selectItem(item)
     }
   }
 
