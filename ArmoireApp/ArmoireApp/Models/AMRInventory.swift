@@ -10,6 +10,8 @@ import Foundation
 
 class AMRInventory {
   
+  static var sharedInstance: AMRInventory?
+  
   var categories: [AMRInventoryCategory] = []
   
   static func get_inventory(completion: (inventory: AMRInventory)->()) {
@@ -61,7 +63,6 @@ func getItemsForCategory(category:String, completion: ([AMRInventoryItem]) -> ()
         let imageUrl = "http://g.nordstromimage.com/imagegallery/store/product/Medium" + (item["PhotoPath"] as! String)
         let id = String(item["Id"])
         let price = item["OriginalMaximumPrice"] as! Float
-        print("got item", name, imageUrl, id, price)
         let item = AMRInventoryItem(name: name, imageUrl: imageUrl, id: id, price: price)
         items.append(item)
       }
