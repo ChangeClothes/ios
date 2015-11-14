@@ -192,7 +192,7 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
     if indexPath.section == 0 {
       return CGSizeMake(collectionView.bounds.width, CGFloat(AMRBadgeManager.sharedInstance.clientBadges.count)*90)
     } else {
-      return CGSizeMake(115, 150)
+      return CGSizeMake(115, 200)
     }
   }
   
