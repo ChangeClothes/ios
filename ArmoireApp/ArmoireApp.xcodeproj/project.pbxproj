@@ -28,6 +28,8 @@
 		0F5E5BF91BDF2D0E00464DB2 /* AMRClientProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F5E5BF71BDF2D0E00464DB2 /* AMRClientProfileViewController.xib */; };
 		0F9B425A1BF704B30045DE9D /* AMRShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F9B42581BF704B30045DE9D /* AMRShopViewController.swift */; };
 		0F9B425B1BF704B30045DE9D /* AMRShopViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F9B42591BF704B30045DE9D /* AMRShopViewController.xib */; };
+		0F9B425E1BF715500045DE9D /* AMRCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F9B425C1BF715500045DE9D /* AMRCategoryCollectionViewCell.swift */; };
+		0F9B425F1BF715500045DE9D /* AMRCategoryCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F9B425D1BF715500045DE9D /* AMRCategoryCollectionViewCell.xib */; };
 		0FD0BABB1BD6035600D91504 /* AMRMeeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD0BABA1BD6035600D91504 /* AMRMeeting.swift */; };
 		0FD0BABE1BD6037000D91504 /* AMRUpcomingMeetingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD0BABC1BD6037000D91504 /* AMRUpcomingMeetingsViewController.swift */; };
 		0FD0BAC21BD6038C00D91504 /* AMRUpcomingMeetingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD0BAC01BD6038C00D91504 /* AMRUpcomingMeetingsTableViewCell.swift */; };
@@ -119,6 +121,8 @@
 		0F5E5BF71BDF2D0E00464DB2 /* AMRClientProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AMRClientProfileViewController.xib; path = ViewControllers/AMRClientProfileViewController.xib; sourceTree = "<group>"; };
 		0F9B42581BF704B30045DE9D /* AMRShopViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRShopViewController.swift; path = ViewControllers/AMRShopViewController.swift; sourceTree = "<group>"; };
 		0F9B42591BF704B30045DE9D /* AMRShopViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AMRShopViewController.xib; path = ViewControllers/AMRShopViewController.xib; sourceTree = "<group>"; };
+		0F9B425C1BF715500045DE9D /* AMRCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRCategoryCollectionViewCell.swift; path = Views/AMRCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
+		0F9B425D1BF715500045DE9D /* AMRCategoryCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AMRCategoryCollectionViewCell.xib; path = Views/AMRCategoryCollectionViewCell.xib; sourceTree = "<group>"; };
 		0FD0BABA1BD6035600D91504 /* AMRMeeting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRMeeting.swift; path = Models/AMRMeeting.swift; sourceTree = "<group>"; };
 		0FD0BABC1BD6037000D91504 /* AMRUpcomingMeetingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRUpcomingMeetingsViewController.swift; path = ViewControllers/AMRUpcomingMeetingsViewController.swift; sourceTree = "<group>"; };
 		0FD0BAC01BD6038C00D91504 /* AMRUpcomingMeetingsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRUpcomingMeetingsTableViewCell.swift; path = Views/AMRUpcomingMeetingsTableViewCell.swift; sourceTree = "<group>"; };
@@ -299,6 +303,8 @@
 				6F6C64981BF07D0100871004 /* AMRPhotosSectionCollectionReusableView.xib */,
 				6F6C649B1BF1BA4200871004 /* AMRPhotoDetailCollectionViewCell.swift */,
 				6F6C649C1BF1BA4200871004 /* AMRPhotoDetailCollectionViewCell.xib */,
+				0F9B425C1BF715500045DE9D /* AMRCategoryCollectionViewCell.swift */,
+				0F9B425D1BF715500045DE9D /* AMRCategoryCollectionViewCell.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -442,6 +448,7 @@
 				0FD0BAC51BD605F500D91504 /* AMRUpcomingMeetingsTableViewCell.xib in Resources */,
 				0F9B425B1BF704B30045DE9D /* AMRShopViewController.xib in Resources */,
 				0FD547731BDDA4A9005587F2 /* AMRAddClientViewController.xib in Resources */,
+				0F9B425F1BF715500045DE9D /* AMRCategoryCollectionViewCell.xib in Resources */,
 				0F18931F1BD623C8007126D2 /* AMRClientTableViewCell.xib in Resources */,
 				0F4590911BD4867800C839F9 /* Credentials.plist in Resources */,
 				6FA013101BD752460019E0D6 /* AMRSignUpViewController.xib in Resources */,
@@ -542,6 +549,7 @@
 				C50363E51BE1D12F008030E1 /* AMRMeasurements.swift in Sources */,
 				6FF7BA181BDC3A9D00A7C54A /* AMRParticipantTableViewController.swift in Sources */,
 				C5C268071BF045F800B637AF /* AMRQuestionAnswerTableViewCell.swift in Sources */,
+				0F9B425E1BF715500045DE9D /* AMRCategoryCollectionViewCell.swift in Sources */,
 				0FD0BABE1BD6037000D91504 /* AMRUpcomingMeetingsViewController.swift in Sources */,
 				0F4590A01BD49AC200C839F9 /* AMRMessagesViewController.swift in Sources */,
 				6F6AEAD11BDB209B009B8F74 /* AMRUserManager.swift in Sources */,

@@ -8,16 +8,17 @@
 
 import UIKit
 
-class AMRShopViewController: UIViewController {
+class AMRShopViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
 
-  @IBOutlet var collectionView: [UICollectionView]!
   var inventory: AMRInventory?
+  @IBOutlet weak var collectionView: UICollectionView!
 
   // MARK: - Lifecycle
   override func viewDidLoad() {
     super.viewDidLoad()
     setupNavBar()
     loadData()
+    setupClientCollectionView()
     // Do any additional setup after loading the view.
   }
   
@@ -36,7 +37,42 @@ class AMRShopViewController: UIViewController {
 
   func loadData(){
     inventory = AMRInventory.get_inventory()
-    print(inventory)
+  }
+
+  // MARK: - Collection View
+
+  func setupClientCollectionView(){
+    collectionView.dataSource = self
+    collectionView.delegate = self
+    let cellNib = UINib(nibName: "AMRCategoryCollectionViewCell", bundle: nil)
+    collectionView.registerNib(cellNib, forCellWithReuseIdentifier: "CategoryCell")
+    collectionView.backgroundColor = UIColor.whiteColor()
+    self.view.addSubview(collectionView)
+  }
+
+  func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    collectionView.deselectItemAtIndexPath(indexPath, animated: true)
+//    let category = inventory?.categories[indexPath.row]
+
+  }
+
+  func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    return (inventory?.categories.count)!
+  }
+
+  func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CategoryCell", forIndexPath: indexPath) as! AMRCategoryCollectionViewCell
+    let category = inventory?.categories[indexPath.row]
+    cell.category = category
+    return cell
+  }
+
+  func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+    return CGSizeMake(115, 150)
+  }
+
+  func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
+    return UIEdgeInsetsMake(-10, 0, 20, 0)
   }
 
   // MARK: - On Tap Functions
