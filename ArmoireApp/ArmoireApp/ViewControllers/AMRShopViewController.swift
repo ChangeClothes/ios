@@ -11,7 +11,8 @@ import UIKit
 class AMRShopViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
 
   var inventory: AMRInventory?
-  var currentInventoryCategory: [AMRInventoryCategory]?
+  var inventoryCategoryHistory: [[AMRInventoryCategory]] = []
+  var currentItems: [AMRInventoryItem]?
 
   @IBOutlet weak var collectionView: UICollectionView!
 
@@ -39,7 +40,7 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
 
   func loadData(){
     inventory = AMRInventory.get_inventory()
-    currentInventoryCategory = inventory?.categories
+    inventoryCategoryHistory.append((inventory?.categories)!)
   }
 
   // MARK: - Collection View
@@ -55,18 +56,35 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
 
   func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
     collectionView.deselectItemAtIndexPath(indexPath, animated: true)
-//    let category = inventory?.categories[indexPath.row]
-
+    let category = inventoryCategoryHistory.last![indexPath.row]
+    if let items = category.items {
+      currentItems = items
+    } else if let subcategories = category.subcategories{
+      inventoryCategoryHistory.append(subcategories)
+    } else {
+      print("issue with didSelectItem: neither items or subcategories present")
+      print(category)
+    }
+    collectionView.reloadData()
   }
 
   func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return (currentInventoryCategory?.count)!
+    if let items = currentItems {
+      return items.count
+    } else {
+      return inventoryCategoryHistory.last!.count
+    }
   }
 
   func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CategoryCell", forIndexPath: indexPath) as! AMRCategoryCollectionViewCell
-    let category = currentInventoryCategory![indexPath.row]
-    cell.category = category
+//    if let items = currentItems {
+//      print("selected item: need to create cells for items")
+//      let item = items[indexPath.row]
+//    } else {
+      let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CategoryCell", forIndexPath: indexPath) as! AMRCategoryCollectionViewCell
+      let category = inventoryCategoryHistory.last![indexPath.row]
+      cell.category = category
+//    }
     return cell
   }
 
