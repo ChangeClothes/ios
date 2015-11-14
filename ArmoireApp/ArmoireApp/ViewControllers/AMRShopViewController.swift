@@ -58,8 +58,9 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
   }
 
   func loadData(){
-    inventory = AMRInventory.get_inventory()
-    inventoryCategoryHistory.push((inventory?.categories)!)
+    AMRInventory.get_inventory(){ inventory in
+      self.inventoryCategoryHistory.push(inventory.categories)
+    }
   }
 
   // MARK: - Collection View
