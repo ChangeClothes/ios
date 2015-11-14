@@ -49,6 +49,7 @@ class AMRImage: PFObject {
   @NSManaged var file: PFFile?
   @NSManaged var client: AMRUser?
   @NSManaged var stylist: AMRUser?
+  var cachedUIImage: UIImage?
   
   var rating: AMRPhotoRating? {
     get { return self["rating"] != nil ? AMRPhotoRating(rawValue: self["rating"] as! NSNumber) : nil }
@@ -144,8 +145,14 @@ extension UIImageView {
     setAMRImage(image, withPlaceholder: placeholder, withCompletion: nil)
   }
   
-  func setAMRImage(image: AMRImage?, withPlaceholder placeholder: String?, withCompletion completion: ((success: Bool) -> Void)?) {
-    if let myImage = image {
+  func setAMRImage(amrImage: AMRImage?, withPlaceholder placeholder: String?, withCompletion completion: ((success: Bool) -> Void)?) {
+    if let cachedImage = amrImage?.cachedUIImage {
+      self.image = cachedImage
+      completion?(success: true)
+      return
+    }
+    
+    if let myImage = amrImage {
       if placeholder != nil {
         self.image = UIImage(named: placeholder!)
       } else if (myImage.defaultImageName != nil){
@@ -158,6 +165,7 @@ extension UIImageView {
         profileImage?.file?.getDataInBackgroundWithBlock { (data: NSData?, error: NSError?) -> Void in
           if error == nil {
             self.image = UIImage(data: data!)
+            amrImage!.cachedUIImage = UIImage(data: data!)
             completion?(success: true)
           }
         }
