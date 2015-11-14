@@ -20,6 +20,7 @@ class AMRInventory {
     
     for store in ["Nordstroms", "Macys", "Forever 21"]{
       let aStore = AMRInventoryCategory(name: store)
+      aStore.subcategories = []
       for cat1 in ["Mens", "Womens", "Childrens"]{
         let aCat1 = AMRInventoryCategory(name: cat1)
         aCat1.subcategories = []

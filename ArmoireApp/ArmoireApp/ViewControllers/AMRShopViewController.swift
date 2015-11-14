@@ -11,11 +11,13 @@ import UIKit
 class AMRShopViewController: UIViewController {
 
   @IBOutlet var collectionView: [UICollectionView]!
+  var inventory: AMRInventory?
 
   // MARK: - Lifecycle
   override func viewDidLoad() {
     super.viewDidLoad()
     setupNavBar()
+    loadData()
     // Do any additional setup after loading the view.
   }
   
@@ -31,6 +33,12 @@ class AMRShopViewController: UIViewController {
     let leftNavBarButton = UIBarButtonItem(image: UIImage(named: "cancel"), style: .Plain, target: self, action: "exit")
     self.navigationItem.leftBarButtonItem = leftNavBarButton
   }
+
+  func loadData(){
+    inventory = AMRInventory.get_inventory()
+    print(inventory)
+  }
+
   // MARK: - On Tap Functions
   
   func exit(){
