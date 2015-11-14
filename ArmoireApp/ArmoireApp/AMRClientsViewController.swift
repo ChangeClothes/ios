@@ -180,23 +180,8 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
     } else {
       let cell = collectionView.dequeueReusableCellWithReuseIdentifier("ClientCell", forIndexPath: indexPath) as! clientCollectionViewCell
       let client = clientSections[sections[indexPath.section - 1]]![indexPath.row]
+      print(client)
       cell.client = client
-      AMRUserManager.sharedManager.queryForUserWithObjectID(client.objectId!) { (users: NSArray?, error: NSError?) -> Void in
-        if let error = error {
-          print(error.localizedDescription)
-        } else {
-          let user = users!.firstObject! as! AMRUser
-          if let profileImage = user.profilePhoto {
-            cell.imageView.setAMRImage(profileImage, withPlaceholder: "profile-image-placeholder", withCompletion: { (success) -> Void in
-              cell.activityIndicatorView.stopAnimating()
-            })
-          } else {
-            cell.imageView.setAMRImage(nil, withPlaceholder: "profile-image-placeholder")
-            cell.activityIndicatorView.stopAnimating()
-          }
-        }
-      }
-      
       cell.imageView.backgroundColor = UIColor.grayColor()
       return cell
     }
@@ -205,7 +190,7 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
   
   func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
     if indexPath.section == 0 {
-      return CGSizeMake(collectionView.bounds.width, CGFloat(AMRBadgeManager.sharedInstance.clientBadges.count)*44)
+      return CGSizeMake(collectionView.bounds.width, CGFloat(AMRBadgeManager.sharedInstance.clientBadges.count)*90)
     } else {
       return CGSizeMake(115, 150)
     }
