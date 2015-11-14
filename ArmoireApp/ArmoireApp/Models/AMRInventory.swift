@@ -77,10 +77,12 @@ func getItemsForCategory(category:String, completion: ([AMRInventoryItem]) -> ()
 
 class AMRInventoryCategory {
   var name: String?
+  var imageUrl: String?
   var items: [AMRInventoryItem]?
   var subcategories: [AMRInventoryCategory]?
-  init(name:String?){
+  init(name:String?, imageUrl: String?){
     self.name = name
+    self.imageUrl = imageUrl
   }
 }
 
