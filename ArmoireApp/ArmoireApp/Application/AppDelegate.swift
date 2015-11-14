@@ -31,6 +31,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     
+    AMRInventory.get_inventory({ (inventory) -> () in
+     AMRInventory.sharedInstance = inventory
+    })
+    
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDidLogout:", name: kUserDidLogoutNotification, object: nil)
     
     setupParse()
