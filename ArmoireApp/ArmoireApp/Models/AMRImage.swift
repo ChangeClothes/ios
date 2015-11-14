@@ -203,7 +203,8 @@ class PhotoPicker: NSObject, UINavigationControllerDelegate, UIImagePickerContro
   
   private func openShop() {
     let shopVC = AMRShopViewController()
-    viewDelegate?.presentViewController(shopVC, animated: true, completion: nil)
+    let nav = UINavigationController(rootViewController: shopVC)
+    viewDelegate?.presentViewController(nav, animated: true, completion: nil)
   }
 
   private func selectPhotoSource(){
