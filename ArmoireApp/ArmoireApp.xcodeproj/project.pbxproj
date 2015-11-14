@@ -44,6 +44,8 @@
 		6F55790F1BD2335C0033A7C8 /* AMRMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F55790D1BD2335C0033A7C8 /* AMRMainViewController.xib */; };
 		6F5E635C1BF2E0DD009A3C5D /* UISegmentedControl+VerticalLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E635B1BF2E0DD009A3C5D /* UISegmentedControl+VerticalLayout.swift */; };
 		6F5E635E1BF46F6C009A3C5D /* AMRBadgeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E635D1BF46F6C009A3C5D /* AMRBadgeManager.swift */; };
+		6F5E63611BF71795009A3C5D /* AMRTodayTableCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E635F1BF71795009A3C5D /* AMRTodayTableCollectionViewCell.swift */; };
+		6F5E63621BF71795009A3C5D /* AMRTodayTableCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F5E63601BF71795009A3C5D /* AMRTodayTableCollectionViewCell.xib */; };
 		6F6AEACF1BDB1F3A009B8F74 /* AMRUser+ATLParticipant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6AEACE1BDB1F3A009B8F74 /* AMRUser+ATLParticipant.swift */; };
 		6F6AEAD11BDB209B009B8F74 /* AMRUserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6AEAD01BDB209B009B8F74 /* AMRUserManager.swift */; };
 		6F6C64991BF07D0100871004 /* AMRPhotosSectionCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6C64971BF07D0100871004 /* AMRPhotosSectionCollectionReusableView.swift */; };
@@ -137,6 +139,8 @@
 		6F55790D1BD2335C0033A7C8 /* AMRMainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AMRMainViewController.xib; path = ViewControllers/AMRMainViewController.xib; sourceTree = "<group>"; };
 		6F5E635B1BF2E0DD009A3C5D /* UISegmentedControl+VerticalLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UISegmentedControl+VerticalLayout.swift"; path = "Extensions/UISegmentedControl+VerticalLayout.swift"; sourceTree = "<group>"; };
 		6F5E635D1BF46F6C009A3C5D /* AMRBadgeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRBadgeManager.swift; path = Models/AMRBadgeManager.swift; sourceTree = "<group>"; };
+		6F5E635F1BF71795009A3C5D /* AMRTodayTableCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRTodayTableCollectionViewCell.swift; path = Views/AMRTodayTableCollectionViewCell.swift; sourceTree = "<group>"; };
+		6F5E63601BF71795009A3C5D /* AMRTodayTableCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AMRTodayTableCollectionViewCell.xib; path = Views/AMRTodayTableCollectionViewCell.xib; sourceTree = "<group>"; };
 		6F6AEACE1BDB1F3A009B8F74 /* AMRUser+ATLParticipant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "AMRUser+ATLParticipant.swift"; path = "Extensions/AMRUser+ATLParticipant.swift"; sourceTree = "<group>"; };
 		6F6AEAD01BDB209B009B8F74 /* AMRUserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRUserManager.swift; path = Models/AMRUserManager.swift; sourceTree = "<group>"; };
 		6F6C64971BF07D0100871004 /* AMRPhotosSectionCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRPhotosSectionCollectionReusableView.swift; path = Views/AMRPhotosSectionCollectionReusableView.swift; sourceTree = "<group>"; };
@@ -292,6 +296,8 @@
 				6F6C64981BF07D0100871004 /* AMRPhotosSectionCollectionReusableView.xib */,
 				6F6C649B1BF1BA4200871004 /* AMRPhotoDetailCollectionViewCell.swift */,
 				6F6C649C1BF1BA4200871004 /* AMRPhotoDetailCollectionViewCell.xib */,
+				6F5E635F1BF71795009A3C5D /* AMRTodayTableCollectionViewCell.swift */,
+				6F5E63601BF71795009A3C5D /* AMRTodayTableCollectionViewCell.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -432,6 +438,7 @@
 				C5C2680C1BF04F7300B637AF /* AMRQANotesViewController.xib in Resources */,
 				0FD0BAC51BD605F500D91504 /* AMRUpcomingMeetingsTableViewCell.xib in Resources */,
 				0FD547731BDDA4A9005587F2 /* AMRAddClientViewController.xib in Resources */,
+				6F5E63621BF71795009A3C5D /* AMRTodayTableCollectionViewCell.xib in Resources */,
 				0F18931F1BD623C8007126D2 /* AMRClientTableViewCell.xib in Resources */,
 				0F4590911BD4867800C839F9 /* Credentials.plist in Resources */,
 				6FA013101BD752460019E0D6 /* AMRSignUpViewController.xib in Resources */,
@@ -541,6 +548,7 @@
 				C5D535FF1BE086750046A288 /* AMRPhotosViewController.swift in Sources */,
 				C51751E71BDD7F17000F7A82 /* AMRImage.swift in Sources */,
 				6F2828921BE1D874002B7B85 /* UIColor+AMRColor.swift in Sources */,
+				6F5E63611BF71795009A3C5D /* AMRTodayTableCollectionViewCell.swift in Sources */,
 				6FA0130F1BD752460019E0D6 /* AMRSignUpViewController.swift in Sources */,
 				0FD5476B1BDB3350005587F2 /* AMRNote.swift in Sources */,
 				C5C268031BF0458400B637AF /* AMRNoteTableViewCell.swift in Sources */,
