@@ -26,6 +26,8 @@
 		0F4590C61BD4B88100C839F9 /* AMRMessagesDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4590C41BD4B88100C839F9 /* AMRMessagesDetailsViewController.swift */; };
 		0F5E5BF81BDF2D0E00464DB2 /* AMRClientProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5E5BF61BDF2D0E00464DB2 /* AMRClientProfileViewController.swift */; };
 		0F5E5BF91BDF2D0E00464DB2 /* AMRClientProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F5E5BF71BDF2D0E00464DB2 /* AMRClientProfileViewController.xib */; };
+		0F9B425A1BF704B30045DE9D /* AMRShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F9B42581BF704B30045DE9D /* AMRShopViewController.swift */; };
+		0F9B425B1BF704B30045DE9D /* AMRShopViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F9B42591BF704B30045DE9D /* AMRShopViewController.xib */; };
 		0FD0BABB1BD6035600D91504 /* AMRMeeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD0BABA1BD6035600D91504 /* AMRMeeting.swift */; };
 		0FD0BABE1BD6037000D91504 /* AMRUpcomingMeetingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD0BABC1BD6037000D91504 /* AMRUpcomingMeetingsViewController.swift */; };
 		0FD0BAC21BD6038C00D91504 /* AMRUpcomingMeetingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD0BAC01BD6038C00D91504 /* AMRUpcomingMeetingsTableViewCell.swift */; };
@@ -114,6 +116,8 @@
 		0F4590C41BD4B88100C839F9 /* AMRMessagesDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AMRMessagesDetailsViewController.swift; sourceTree = "<group>"; };
 		0F5E5BF61BDF2D0E00464DB2 /* AMRClientProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRClientProfileViewController.swift; path = ViewControllers/AMRClientProfileViewController.swift; sourceTree = "<group>"; };
 		0F5E5BF71BDF2D0E00464DB2 /* AMRClientProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AMRClientProfileViewController.xib; path = ViewControllers/AMRClientProfileViewController.xib; sourceTree = "<group>"; };
+		0F9B42581BF704B30045DE9D /* AMRShopViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRShopViewController.swift; path = ViewControllers/AMRShopViewController.swift; sourceTree = "<group>"; };
+		0F9B42591BF704B30045DE9D /* AMRShopViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AMRShopViewController.xib; path = ViewControllers/AMRShopViewController.xib; sourceTree = "<group>"; };
 		0FD0BABA1BD6035600D91504 /* AMRMeeting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRMeeting.swift; path = Models/AMRMeeting.swift; sourceTree = "<group>"; };
 		0FD0BABC1BD6037000D91504 /* AMRUpcomingMeetingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRUpcomingMeetingsViewController.swift; path = ViewControllers/AMRUpcomingMeetingsViewController.swift; sourceTree = "<group>"; };
 		0FD0BAC01BD6038C00D91504 /* AMRUpcomingMeetingsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRUpcomingMeetingsTableViewCell.swift; path = Views/AMRUpcomingMeetingsTableViewCell.swift; sourceTree = "<group>"; };
@@ -329,6 +333,8 @@
 				6F1B37BF1BF00BD5005DBA10 /* AMRViewController.swift */,
 				C5C268091BF04F7300B637AF /* AMRQANotesViewController.swift */,
 				C5C2680A1BF04F7300B637AF /* AMRQANotesViewController.xib */,
+				0F9B42581BF704B30045DE9D /* AMRShopViewController.swift */,
+				0F9B42591BF704B30045DE9D /* AMRShopViewController.xib */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -431,6 +437,7 @@
 				C5B75A891BE0A19D0009296C /* AMRMeasurementCell.xib in Resources */,
 				C5C2680C1BF04F7300B637AF /* AMRQANotesViewController.xib in Resources */,
 				0FD0BAC51BD605F500D91504 /* AMRUpcomingMeetingsTableViewCell.xib in Resources */,
+				0F9B425B1BF704B30045DE9D /* AMRShopViewController.xib in Resources */,
 				0FD547731BDDA4A9005587F2 /* AMRAddClientViewController.xib in Resources */,
 				0F18931F1BD623C8007126D2 /* AMRClientTableViewCell.xib in Resources */,
 				0F4590911BD4867800C839F9 /* Credentials.plist in Resources */,
@@ -516,6 +523,7 @@
 				0F4590B81BD4A5D500C839F9 /* AMRAppointmentTableViewCell.swift in Sources */,
 				0FD0BAC21BD6038C00D91504 /* AMRUpcomingMeetingsTableViewCell.swift in Sources */,
 				6F1B37C01BF00BD5005DBA10 /* AMRViewController.swift in Sources */,
+				0F9B425A1BF704B30045DE9D /* AMRShopViewController.swift in Sources */,
 				6F55790E1BD2335C0033A7C8 /* AMRMainViewController.swift in Sources */,
 				0F18931E1BD623C8007126D2 /* AMRClientTableViewCell.swift in Sources */,
 				C53F001D1BE1F50600070118 /* imageCollectionViewCell.swift in Sources */,

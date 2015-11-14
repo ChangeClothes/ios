@@ -201,6 +201,11 @@ class PhotoPicker: NSObject, UINavigationControllerDelegate, UIImagePickerContro
     viewDelegate?.presentViewController(photoVC!, animated: true, completion: nil)
   }
   
+  private func openShop() {
+    let shopVC = AMRShopViewController()
+    viewDelegate?.presentViewController(shopVC, animated: true, completion: nil)
+  }
+
   private func selectPhotoSource(){
     
     let alert:UIAlertController=UIAlertController(title: "Choose Image", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
@@ -215,6 +220,10 @@ class PhotoPicker: NSObject, UINavigationControllerDelegate, UIImagePickerContro
       UIAlertAction in
       self.open(UIImagePickerControllerSourceType.SavedPhotosAlbum)
     }
+    let shopAction = UIAlertAction(title: "Select From Shop", style: UIAlertActionStyle.Default){
+      UIAlertAction in
+      self.openShop()
+    }
     let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) {
       UIAlertAction in
     }
@@ -226,6 +235,7 @@ class PhotoPicker: NSObject, UINavigationControllerDelegate, UIImagePickerContro
     if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.SavedPhotosAlbum) {
       alert.addAction(galleryAction)
     }
+    alert.addAction(shopAction)
     alert.addAction(cancelAction)
     
     viewDelegate?.presentViewController(alert, animated: true, completion: nil)
