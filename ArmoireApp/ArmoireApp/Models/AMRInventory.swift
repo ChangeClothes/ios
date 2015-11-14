@@ -25,22 +25,14 @@ class AMRInventory {
       let aStore = AMRInventoryCategory(name: store, imageUrl: "http://c.nordstromimage.com/Assets/IDEV/brand/nordstrom/nordstrom-logo-7-adam-02172f8b-19da-43e5-915a-a1e9013250e4-fil-file.gif?Version=1")
       aStore.subcategories = []
       for (cat1, cat1Data) in nordstromData {
-        let aCat1 = AMRInventoryCategory(name: cat1, imageUrl: nil)
+        let aCat1 = AMRInventoryCategory(name: cat1, imageUrl: "http://c.nordstromimage.com/Assets/IDEV/brand/nordstrom/nordstrom-logo-7-adam-02172f8b-19da-43e5-915a-a1e9013250e4-fil-file.gif?Version=1")
         aCat1.subcategories = []
         for (cat2, cat2Data) in cat1Data {
-          let aCat2 = AMRInventoryCategory(name: cat2, imageUrl: nil)
+          let aCat2 = AMRInventoryCategory(name: cat2, imageUrl: "http://c.nordstromimage.com/Assets/IDEV/brand/nordstrom/nordstrom-logo-7-adam-02172f8b-19da-43e5-915a-a1e9013250e4-fil-file.gif?Version=1")
           aCat2.subcategories = []
           for (cat3, cat3Data) in cat2Data {
-            let aCat3 = AMRInventoryCategory(name: cat3, imageUrl: nil)
-            aCat3.items = []
-            getItemsForCategory(cat3Data) { (items: [AMRInventoryItem]) in
-              aCat3.items = items
-              if items.count > 0 {
-                aCat3.imageUrl = items[0].imageUrl
-                aCat2.imageUrl = items[0].imageUrl
-                aCat1.imageUrl = items[0].imageUrl
-              }
-            }
+            let aCat3 = AMRInventoryCategory(name: cat3, imageUrl: "http://c.nordstromimage.com/Assets/IDEV/brand/nordstrom/nordstrom-logo-7-adam-02172f8b-19da-43e5-915a-a1e9013250e4-fil-file.gif?Version=1")
+            aCat3.id = cat3Data
             aCat2.subcategories!.append(aCat3)
           }
           aCat1.subcategories!.append(aCat2)
@@ -58,8 +50,6 @@ func getItemsForCategory(category:String, completion: ([AMRInventoryItem]) -> ()
   
   let url = NSURL(string: urlString)
   let request = NSURLRequest(URL:url!)
-  AMRInventory.requests += 1
-  print(AMRInventory.requests)
   
   NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) { (response, dataOrNil, errorOrNil) -> Void in
     
@@ -82,19 +72,19 @@ func getItemsForCategory(category:String, completion: ([AMRInventoryItem]) -> ()
         NSLog("Error: \(error)")
       }
     }
-    AMRInventory.requests -= 1
-    if AMRInventory.requests == 0 {
-      
-      
-    }
   }
 }
 
 class AMRInventoryCategory {
   var name: String?
   var imageUrl: String?
-  var items: [AMRInventoryItem]?
   var subcategories: [AMRInventoryCategory]?
+  var id: String?
+  func getItems(completion: (items: [AMRInventoryItem]) -> ()){
+    getItemsForCategory(id!) { ( items: [AMRInventoryItem]) -> () in
+      completion(items: items)
+    }
+  }
   init(name:String?, imageUrl: String?){
     self.name = name
     self.imageUrl = imageUrl

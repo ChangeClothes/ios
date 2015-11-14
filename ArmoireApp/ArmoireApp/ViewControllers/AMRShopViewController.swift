@@ -87,15 +87,16 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
 
   func selectedCategoryCell(indexPath: NSIndexPath){
     let category = inventoryCategoryHistory.topItem![indexPath.row]
-    if let items = category.items {
-      currentItems = items
-    } else if let subcategories = category.subcategories{
+    if let subcategories = category.subcategories {
       collectionView.deselectItemAtIndexPath(indexPath, animated: true)
       inventoryCategoryHistory.push(subcategories)
+      collectionView.reloadData()
     } else {
-      print("issue with didSelectItem: neither items or subcategories present")
+      category.getItems(){ items in
+        self.currentItems = items
+        self.collectionView.reloadData()
+      }
     }
-    collectionView.reloadData()
   }
 
   func selectedItemCell(indexPath: NSIndexPath, items: [AMRInventoryItem]){
