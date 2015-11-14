@@ -33,6 +33,7 @@ class AMRBadgeManager: NSObject {
   private let numberOfClientChecks = 3
   private var clientBadgesCountdown: Int! {
     didSet {
+      print(clientBadgesCountdown)
       if clientBadgesCountdown == 0 {
         getClientBadgesCompletion?(clientBadges)
       }

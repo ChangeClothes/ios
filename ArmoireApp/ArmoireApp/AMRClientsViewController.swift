@@ -10,6 +10,8 @@ import UIKit
 
 class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
 
+  let kTodayTableReuseIdentifier = "com.armoire.TodayTableReuseIdentifier"
+  
   // MARK: - Outlets
   
   @IBOutlet weak var collectionView: UICollectionView!
@@ -42,12 +44,20 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
     let rightNavBarButton = UIBarButtonItem(image: UIImage(named: "add-client"), style: .Plain, target: self, action: "onAddClientType")
     self.navigationItem.rightBarButtonItem = rightNavBarButton
 
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateTableView", name: kDismissedModalNotification, object: nil)
+    updateTableView()
   // Do any additional setup after loading the view.
   }
-
+  
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
+  }
+  
+  func updateTableView() {
+    AMRBadgeManager.sharedInstance.getClientBadgesForStylist(AMRUser.currentUser()!) { (clientBadges) -> Void in
+      self.collectionView.reloadData()
+    }
   }
   
   // MARK: - On Taps Functions
@@ -116,6 +126,9 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
     self.collectionView!.registerClass(UICollectionReusableView.self,
       forSupplementaryViewOfKind:UICollectionElementKindSectionHeader,
       withReuseIdentifier:"Header")
+    
+    let todayCellNib = UINib(nibName: "AMRTodayTableCollectionViewCell", bundle: nil)
+    collectionView.registerNib(todayCellNib, forCellWithReuseIdentifier: kTodayTableReuseIdentifier)
   }
 
   func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
@@ -135,8 +148,10 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
   }
   
   func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    if sections.count == 0 || section == 0 {
+    if sections.count == 0 {
       return 0
+    } else if section == 0 {
+      return 1
     } else {
       return clientSections[sections[section - 1]]!.count
     }
@@ -156,31 +171,29 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
   }
 
   func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCellWithReuseIdentifier("ClientCell", forIndexPath: indexPath) as! clientCollectionViewCell
-    let client = clientSections[sections[indexPath.section - 1]]![indexPath.row]
-    cell.client = client
-    AMRUserManager.sharedManager.queryForUserWithObjectID(client.objectId!) { (users: NSArray?, error: NSError?) -> Void in
-      if let error = error {
-        print(error.localizedDescription)
-      } else {
-        let user = users!.firstObject! as! AMRUser
-        if let profileImage = user.profilePhoto {
-          cell.imageView.setAMRImage(profileImage, withPlaceholder: "profile-image-placeholder", withCompletion: { (success) -> Void in
-            cell.activityIndicatorView.stopAnimating()
-          })
-        } else {
-          cell.imageView.setAMRImage(nil, withPlaceholder: "profile-image-placeholder")
-          cell.activityIndicatorView.stopAnimating()
-        }
-      }
+    if indexPath.section == 0 {
+      let cell = collectionView.dequeueReusableCellWithReuseIdentifier(kTodayTableReuseIdentifier, forIndexPath: indexPath) as! AMRTodayTableCollectionViewCell
+      cell.updateData()
+  
+      cell.delegate = self
+      return cell
+    } else {
+      let cell = collectionView.dequeueReusableCellWithReuseIdentifier("ClientCell", forIndexPath: indexPath) as! clientCollectionViewCell
+      let client = clientSections[sections[indexPath.section - 1]]![indexPath.row]
+      print(client)
+      cell.client = client
+      cell.imageView.backgroundColor = UIColor.grayColor()
+      return cell
     }
-
-    cell.imageView.backgroundColor = UIColor.grayColor()
-    return cell
+    
   }
   
   func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-    return CGSizeMake(115, 150)
+    if indexPath.section == 0 {
+      return CGSizeMake(collectionView.bounds.width, CGFloat(AMRBadgeManager.sharedInstance.clientBadges.count)*90)
+    } else {
+      return CGSizeMake(115, 150)
+    }
   }
   
   func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
@@ -230,5 +243,24 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
 
   func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
     return sections.count + 1
+  }
+  
+  deinit {
+    NSNotificationCenter.defaultCenter().removeObserver(self)
+  }
+}
+
+extension AMRClientsViewController: AMRTodayTableCollectionViewCellDelegate{
+  func todayTableCollectionViewCell(cell: AMRTodayTableCollectionViewCell, didSelectClient client: AMRUser) {
+    let clientDetailVC = AMRClientsDetailViewController(layerClient: layerClient)
+    clientDetailVC.stylist = self.stylist
+    clientDetailVC.client = client
+    let nav = UINavigationController(rootViewController: clientDetailVC)
+    let formSheetController = MZFormSheetPresentationViewController(contentViewController: nav)
+    let viewHeight = self.view.frame.height - 40
+    let viewWidth = self.view.frame.width - 25
+    formSheetController.presentationController?.contentViewSize = CGSizeMake(viewWidth, viewHeight)
+    self.presentViewController(formSheetController, animated: true, completion: nil)
+
   }
 }
