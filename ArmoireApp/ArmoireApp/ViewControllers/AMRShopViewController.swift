@@ -11,6 +11,8 @@ import UIKit
 class AMRShopViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
 
   var inventory: AMRInventory?
+  var currentInventoryCategory: [AMRInventoryCategory]?
+
   @IBOutlet weak var collectionView: UICollectionView!
 
   // MARK: - Lifecycle
@@ -37,6 +39,7 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
 
   func loadData(){
     inventory = AMRInventory.get_inventory()
+    currentInventoryCategory = inventory?.categories
   }
 
   // MARK: - Collection View
@@ -57,12 +60,12 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
   }
 
   func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return (inventory?.categories.count)!
+    return (currentInventoryCategory?.count)!
   }
 
   func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CategoryCell", forIndexPath: indexPath) as! AMRCategoryCollectionViewCell
-    let category = inventory?.categories[indexPath.row]
+    let category = currentInventoryCategory![indexPath.row]
     cell.category = category
     return cell
   }
