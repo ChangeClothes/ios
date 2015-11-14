@@ -13,7 +13,8 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
   var inventory: AMRInventory?
   var inventoryCategoryHistory = InventoryCategoryStack()
   var currentItems: [AMRInventoryItem]?
-  var selectedItems: [AMRInventoryItem]?
+  var selectedPhotos = [UIImage]()
+  var client: AMRUser?
 
   @IBOutlet weak var collectionView: UICollectionView!
 
@@ -36,7 +37,9 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
   func setupNavBar(){
     self.title = "Stores"
     let leftNavBarButton = UIBarButtonItem(image: UIImage(named: "cancel"), style: .Plain, target: self, action: "exit")
+    let rightNavBarButton = UIBarButtonItem(image: UIImage(named: "check"), style: .Plain, target: self, action: "approveAdditions")
     self.navigationItem.leftBarButtonItem = leftNavBarButton
+    self.navigationItem.rightBarButtonItem = rightNavBarButton
   }
 
   func loadData(){
@@ -79,13 +82,14 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
 
   func selectedItemCell(indexPath: NSIndexPath, items: [AMRInventoryItem]){
     let item = items[indexPath.row]
-    var selectedCell = collectionView.cellForItemAtIndexPath(indexPath)
-    if selectedCell?.layer.borderWidth == 2.0 {
-      selectedCell!.layer.borderWidth = 0.0
+    var selectedCell = collectionView.cellForItemAtIndexPath(indexPath) as! AMRInventoryItemCollectionViewCell
+    if selectedCell.layer.borderWidth == 2.0 {
+      selectedCell.layer.borderWidth = 0.0
+      deselectItem(selectedCell.imageView.image!)
     } else {
-      selectedCell!.layer.borderWidth = 2.0
-      selectedCell!.layer.borderColor = UIColor.grayColor().CGColor
-      selectItem(item)
+      selectedCell.layer.borderWidth = 2.0
+      selectedCell.layer.borderColor = UIColor.grayColor().CGColor
+      selectItem((selectedCell.imageView?.image)!)
     }
   }
 
@@ -134,10 +138,46 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
     self.dismissViewControllerAnimated(true, completion: nil)
   }
   
+  func approveAdditions(){
+    for item in selectedPhotos {
+      createAMRImage(item)
+    }
+    self.dismissViewControllerAnimated(true, completion: nil)
+  }
   // MARK: - Item Engagemenet
 
-  func selectItem(item: AMRInventoryItem){
-    selectedItems?.append(item)
+  func selectItem(item: UIImage){
+    selectedPhotos.append(item)
+  }
+
+  func deselectItem(item: UIImage){
+    var deleteAtIndex: Int?
+    for (index, element) in selectedPhotos.enumerate() {
+      if item === element {
+        deleteAtIndex = index
+      }
+    }
+    selectedPhotos.removeAtIndex(deleteAtIndex!)
+  }
+
+  // MARK: - Create AMRImage
+
+  private func createAMRImage(item: UIImage){
+    let image = PFObject(className: "Image")
+    if let client = self.client {
+      image.setObject(client, forKey: "client")
+    }
+    image.setObject(AMRUser.currentUser()!, forKey: "stylist")
+    let imageData = UIImagePNGRepresentation(item)
+    let imageFile = PFFile(data: imageData!)
+    image.setObject(imageFile!, forKey: "file")
+    image.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
+      if let error = error {
+        print(error.localizedDescription)
+      } else {
+        print("Saved")
+      }
+    }
   }
 
   /*

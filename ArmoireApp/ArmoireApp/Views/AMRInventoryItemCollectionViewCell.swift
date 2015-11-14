@@ -28,6 +28,10 @@ class AMRInventoryItemCollectionViewCell: UICollectionViewCell {
     // Initialization code
   }
 
+  override func prepareForReuse() {
+    self.imageView = nil;
+  }
+
   func getDataFromUrl(url:NSURL, completion: ((data: NSData?, response: NSURLResponse?, error: NSError? ) -> Void)) {
     NSURLSession.sharedSession().dataTaskWithURL(url) { (data, response, error) in
       completion(data: data, response: response, error: error)
