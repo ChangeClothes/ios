@@ -160,6 +160,7 @@ class AMRClientsDetailViewController: AMRViewController, LYRQueryControllerDeleg
   }
   
   func dismissModal(sender: UIBarButtonItem) {
+    NSNotificationCenter.defaultCenter().postNotificationName(kDismissedModalNotification, object: self)
     dismissViewControllerAnimated(true) { () -> Void in
       self.hideNewMessageImageView()
     }

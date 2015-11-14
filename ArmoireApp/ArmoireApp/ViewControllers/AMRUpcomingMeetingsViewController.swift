@@ -60,6 +60,7 @@ class AMRUpcomingMeetingsViewController: AMRViewController {
   }
   
   func exitModal(){
+    NSNotificationCenter.defaultCenter().postNotificationName(kDismissedModalNotification, object: self)
     self.dismissViewControllerAnimated(true, completion: nil)
   }
   

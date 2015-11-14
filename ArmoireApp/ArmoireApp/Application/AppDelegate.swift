@@ -18,6 +18,7 @@ let kNewMessageIconHidden = "com.ArmoireApp.newMessageIconHidden"
 let AMRMainShowMenuView = "com.ArmoireApp.mainShowMenuView"
 let AMRMainHideMenuView = "com.ArmoireApp.mainHideMenuView"
 let AMRErrorDomain = "com.ArmoireApp.errorDomain"
+let kDismissedModalNotification = "com.ArmoireApp.dismissedModalNotification"
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
