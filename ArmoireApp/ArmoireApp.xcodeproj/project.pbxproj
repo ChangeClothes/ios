@@ -321,13 +321,13 @@
 				0F5E5BF61BDF2D0E00464DB2 /* AMRClientProfileViewController.swift */,
 				0F5E5BF71BDF2D0E00464DB2 /* AMRClientProfileViewController.xib */,
 				C5D535FD1BE086750046A288 /* AMRPhotosViewController.swift */,
-				C5D535FE1BE086750046A288 /* AMRPhotosViewController.xib */,
 				C5D536011BE086A00046A288 /* AMRMeasurementsViewController.swift */,
 				C5D536021BE086A00046A288 /* AMRMeasurementsViewController.xib */,
 				C58401A11BE6FD0B00D90117 /* AMRPhotoDetailViewController.swift */,
 				C58401A21BE6FD0B00D90117 /* AMRPhotoDetailViewController.xib */,
 				6F1B37BF1BF00BD5005DBA10 /* AMRViewController.swift */,
 				C5C268091BF04F7300B637AF /* AMRQANotesViewController.swift */,
+				C5D535FE1BE086750046A288 /* AMRPhotosViewController.xib */,
 				C5C2680A1BF04F7300B637AF /* AMRQANotesViewController.xib */,
 			);
 			name = ViewControllers;

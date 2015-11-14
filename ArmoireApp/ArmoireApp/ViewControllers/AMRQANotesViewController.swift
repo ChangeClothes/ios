@@ -94,12 +94,15 @@ class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITabl
     if indexPath!.row != 0 {
       textView.textAlignment = .Right  // for some reason it defaults back to left on typing
     }
-    print("text did change for row", indexPath?.row, textView.center, height)
-
     if heights![indexPath!.row] != height {
       tableView.beginUpdates()
       heights![indexPath!.row] = cell.getCellHeight(nil)
       tableView.endUpdates()
+    }
+    if indexPath?.row == 0 {
+      note?.content = textView.text
+    } else {
+      questionAnswers?.qas?[indexPath!.row - 1]["answer"] = textView.text
     }
   }
   
@@ -113,9 +116,6 @@ class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITabl
   func updateData(){
     calculateRowHeights()
     self.tableView.reloadData()
-    print("heights", heights)
-    print("note", note)
-    print("qa", questionAnswers!.qas, questionAnswers!.qas!.count)
   }
   
   func getCellHeight(index:Int) -> CGFloat{
@@ -233,6 +233,41 @@ class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITabl
     
     
     // Do any additional setup after loading the view.
+  }
+  
+  override func viewWillAppear(animated: Bool) {
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillChangeFrameNotification, object: nil)
+  }
+  override func viewWillDisappear(animated: Bool){
+    super.viewWillDisappear(false)
+    saveQAs()
+    saveNotes()
+    NSNotificationCenter.defaultCenter().removeObserver(self)
+  }
+  
+  func saveNotes(){
+    self.note?.saveInBackground()
+  }
+  func saveQAs(){
+    self.questionAnswers?.saveInBackground()
+  }
+  
+  func keyboardWillShow(notification: NSNotification){
+    let userInfo = notification.userInfo as? NSDictionary
+    let endLocationOfKeyboard = userInfo?[UIKeyboardFrameEndUserInfoKey]?.CGRectValue
+    let size = endLocationOfKeyboard?.size
+    let keyboardHeight = size?.height
+    moveNoteUp(keyboardHeight)
+  }
+  
+  private func moveNoteUp(keyboardHeight: CGFloat?){
+    //self.constraintTextViewToBottom.constant = keyboardHeight! - (self.navigationController?.navigationBar.frame.height)! - UIApplication.sharedApplication().statusBarFrame.size.height - 5.0
+    self.view.layoutIfNeeded()
+  }
+  
+  private func moveNoteDown(){
+    //self.constraintTextViewToBottom.constant = 0
+    self.view.layoutIfNeeded()
   }
   
   override func didReceiveMemoryWarning() {
