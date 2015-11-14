@@ -14,6 +14,10 @@ protocol AMRTodayTableCollectionViewCellDelegate: class {
 
 class AMRTodayTableCollectionViewCell: UICollectionViewCell {
   
+  struct Calendar {
+    static let currentCalendar = NSCalendar.currentCalendar()
+  }
+  
   let kTodayTableViewCellReuseIdentifier = "com.armoire.TodayTableViewCellReuseIdentifier"
   
   @IBOutlet weak var todayTableView: UITableView!
@@ -33,12 +37,36 @@ class AMRTodayTableCollectionViewCell: UICollectionViewCell {
  
   private func sortClientsWithBadges(clientBadgeData: [AMRUser: AMRClientBadges]) -> [AMRUser]{
     var resultArray = [AMRUser]()
-    
+    var importanceScores = [AMRUser: Int]()
     for (key, value) in clientBadgeData {
-      resultArray.append(key)
+      importanceScores[key] = importanceScoreForClient(key)
+    }
+    
+    for (k,v) in (Array(importanceScores).sort {$0.1 > $1.1}) {
+      print("\(k) , \(v)")
+      resultArray.append(k)
     }
     
     return resultArray
+  }
+  
+  private func importanceScoreForClient(client: AMRUser) -> Int {
+    var score = 0
+    
+    for meeting in AMRBadgeManager.sharedInstance.meetingsToday {
+      if meeting.client.objectId == client.objectId {
+        let dateComponents = Calendar.currentCalendar.components([.Hour, .Minute], fromDate: meeting.startDate)
+        let hour = dateComponents.hour
+        let minutes = dateComponents.minute
+        score += (100 * (24-hour)) + (60 - minutes)
+      }
+    }
+    
+    if AMRBadgeManager.sharedInstance.clientBadges[client]?.hasUnreadMessages == true {
+      score += 1
+    }
+    
+    return score
   }
   
   func updateData(){
