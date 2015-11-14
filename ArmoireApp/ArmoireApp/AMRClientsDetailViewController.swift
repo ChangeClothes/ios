@@ -74,6 +74,7 @@ class AMRClientsDetailViewController: AMRViewController, LYRQueryControllerDeleg
     unreadMessagesBadgeLabel.clipsToBounds = true
     unreadMessagesBadgeLabel.layer.cornerRadius = unreadMessagesBadgeLabel.frame.height/2
     unreadMessagesBadgeLabel.hidden = true
+    updatedMessagesIconBadge()
   }
 
   func updatedMessagesIconBadge() {
@@ -83,7 +84,7 @@ class AMRClientsDetailViewController: AMRViewController, LYRQueryControllerDeleg
         let indexPath = NSIndexPath(forItem: row, inSection: 0)
         let conversation = AMRBadgeManager.sharedInstance.layerQueryController.objectAtIndexPath(indexPath) as! LYRConversation
         for participant in conversation.participants{
-          if (participant as! AMRUser).isEqual(client) {
+          if (participant as! String) == client?.objectId {
             unreadMessagesBadgeLabel.hidden = false
           }
         }
