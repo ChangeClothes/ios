@@ -16,7 +16,11 @@ class AMRCategoryCollectionViewCell: UICollectionViewCell {
   var category: AMRInventoryCategory! {
     didSet{
       nameLabel.text = category.name
-      setImageValue()
+      print(category.imageUrl)
+      if let checkedUrl = NSURL(string: category.imageUrl!) {
+        imageView.contentMode = .ScaleAspectFit
+        setImageValue(checkedUrl)
+      }
     }
   }
 
@@ -25,11 +29,21 @@ class AMRCategoryCollectionViewCell: UICollectionViewCell {
       // Initialization code
   }
 
-  func setImageValue(){
-//    let image_url = NSURL(string: category.imageUrl!)
-//    let url_request = NSURLRequest(URL: image_url!)
-//    let placeholder = UIImage(named: "no_photo")
-//    self.imageView.set
+  func getDataFromUrl(url:NSURL, completion: ((data: NSData?, response: NSURLResponse?, error: NSError? ) -> Void)) {
+    NSURLSession.sharedSession().dataTaskWithURL(url) { (data, response, error) in
+      completion(data: data, response: response, error: error)
+      }.resume()
+  }
+
+  func setImageValue(url: NSURL){
+    print("Started downloading \"\(url.URLByDeletingPathExtension!.lastPathComponent!)\".")
+    getDataFromUrl(url) { (data, response, error)  in
+      dispatch_async(dispatch_get_main_queue()) { () -> Void in
+        guard let data = data where error == nil else { return }
+        print("Finished downloading \"\(url.URLByDeletingPathExtension!.lastPathComponent!)\".")
+        self.imageView.image = UIImage(data: data)
+      }
+    }
   }
 
 }

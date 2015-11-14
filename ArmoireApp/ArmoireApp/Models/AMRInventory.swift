@@ -50,6 +50,7 @@ class AMRInventoryCategory {
   var subcategories: [AMRInventoryCategory]?
   init(name:String?, imageUrl: String?){
     self.name = name
+    self.imageUrl = imageUrl
   }
 }
 
