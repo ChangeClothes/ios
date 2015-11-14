@@ -13,6 +13,7 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
   var inventory: AMRInventory?
   var inventoryCategoryHistory = InventoryCategoryStack()
   var currentItems: [AMRInventoryItem]?
+  var selectedItems: [AMRInventoryItem]?
 
   @IBOutlet weak var collectionView: UICollectionView!
 
@@ -55,17 +56,25 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
   }
 
   func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-    collectionView.deselectItemAtIndexPath(indexPath, animated: true)
-    let category = inventoryCategoryHistory.topItem![indexPath.row]
-    if let items = category.items {
-      currentItems = items
-    } else if let subcategories = category.subcategories{
-      inventoryCategoryHistory.push(subcategories)
+    if let items = currentItems {
+      let item = items[indexPath.row]
+      selectItem(item)
     } else {
-      print("issue with didSelectItem: neither items or subcategories present")
-      print(category)
+      collectionView.deselectItemAtIndexPath(indexPath, animated: true)
+      let category = inventoryCategoryHistory.topItem![indexPath.row]
+      if let items = category.items {
+        print("category has items")
+        currentItems = items
+        updateCollectionViewCellNib()
+      } else if let subcategories = category.subcategories{
+        print("category does not have items")
+        inventoryCategoryHistory.push(subcategories)
+      } else {
+        print("issue with didSelectItem: neither items or subcategories present")
+        print(category)
+      }
+      collectionView.reloadData()
     }
-    collectionView.reloadData()
   }
 
   func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -77,15 +86,21 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
   }
 
   func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-//    if let items = currentItems {
-//      print("selected item: need to create cells for items")
-//      let item = items[indexPath.row]
-//    } else {
-      let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CategoryCell", forIndexPath: indexPath) as! AMRCategoryCollectionViewCell
+
+    let itemCell: AMRInventoryItemCollectionViewCell?
+    let categoryCell: AMRCategoryCollectionViewCell?
+
+    if let items = currentItems {
+      itemCell = collectionView.dequeueReusableCellWithReuseIdentifier("ItemCell", forIndexPath: indexPath) as! AMRInventoryItemCollectionViewCell
+      let item = items[indexPath.row]
+      itemCell!.item = item
+      return itemCell!
+    } else {
+      categoryCell = collectionView.dequeueReusableCellWithReuseIdentifier("CategoryCell", forIndexPath: indexPath) as! AMRCategoryCollectionViewCell
       let category = inventoryCategoryHistory.topItem![indexPath.row]
-      cell.category = category
-//    }
-    return cell
+      categoryCell!.category = category
+      return categoryCell!
+    }
   }
 
   func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
@@ -96,12 +111,23 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
     return UIEdgeInsetsMake(-10, 0, 20, 0)
   }
 
+  func updateCollectionViewCellNib(){
+    let cellNib = UINib(nibName: "AMRInventoryItemCollectionViewCell", bundle: nil)
+    collectionView.registerNib(cellNib, forCellWithReuseIdentifier: "ItemCell")
+  }
+
   // MARK: - On Tap Functions
   
   func exit(){
     self.dismissViewControllerAnimated(true, completion: nil)
   }
   
+  // MARK: - Item Engagemenet
+
+  func selectItem(item: AMRInventoryItem){
+    selectedItems?.append(item)
+  }
+
   /*
   // MARK: - Navigation
   

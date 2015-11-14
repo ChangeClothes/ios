@@ -25,7 +25,7 @@ class AMRInventory {
         let aCat1 = AMRInventoryCategory(name: cat1, imageUrl: "http://i.imgur.com/a4ZUCPB.jpg")
         aCat1.subcategories = []
         for cat2 in ["Tops", "Bottoms", "Shoes", "Accessories"]{
-          let aCat2 = AMRInventoryCategory(name: cat1, imageUrl: "http://i.imgur.com/a4ZUCPB.jpg")
+          let aCat2 = AMRInventoryCategory(name: cat2, imageUrl: "http://i.imgur.com/a4ZUCPB.jpg")
           aCat2.items = []
           for item in ["Item1", "Item2", "Item3", "Item4", "Item5", "Item6", "Item7"] {
             let item = AMRInventoryItem(name: item, imageUrl: "http://i.imgur.com/a4ZUCPB.jpg", id: String(id), price:7.77)
