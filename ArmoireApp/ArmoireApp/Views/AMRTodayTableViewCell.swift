@@ -25,7 +25,7 @@ class AMRTodayTableViewCell: UITableViewCell {
       
       self.avatarImage.layer.cornerRadius = self.avatarImage.frame.width/2
       self.avatarImage.clipsToBounds = true
-      self.avatarImage.setAMRImage(client.profilePhoto, withPlaceholder: "profile-image-placeholder")
+      self.avatarImage.setProfileImageForClientId(client.objectId!, andClient: client, withPlaceholder: "profile-image-placeholder", withCompletion: nil)
       
 
       nameLabel.text = client.firstName + " " + client.lastName

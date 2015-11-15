@@ -178,6 +178,17 @@ extension UIImageView {
       }
     }
   }
+  
+  func setProfileImageForClientId(clientId: String, andClient client: AMRUser, withPlaceholder placeholder: String?, withCompletion completion: ((success: Bool) -> Void)?) {
+    
+    if let cachedUIImage = AMRProfileImage.cache.profileImages[clientId] {
+      self.image = cachedUIImage
+      completion?(success: true)
+    } else {
+      setAMRImage(client.profilePhoto, withPlaceholder: placeholder, withCompletion: completion)
+    }
+    
+  }
 }
 
 

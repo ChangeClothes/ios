@@ -22,8 +22,7 @@ class clientCollectionViewCell: UICollectionViewCell {
       nameLabel.text = client.firstName
       lastNameLabel.text = client.lastName
       showBadgesForClient(client)
-      self.imageView.setAMRImage(client.profilePhoto, withPlaceholder: "profile-image-placeholder") { (success) -> Void in
-      }
+      imageView.setProfileImageForClientId(client.objectId!, andClient: client, withPlaceholder: "profile-image-placeholder", withCompletion: nil)
     }
   }
 
