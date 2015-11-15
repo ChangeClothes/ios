@@ -248,10 +248,8 @@ class AMRClientsDetailViewController: AMRViewController, LYRQueryControllerDeleg
         self.clientProfileImageView.setAMRImage((user as! AMRUser).profilePhoto, withPlaceholder: "profile-image-placeholder")
       })
     }
-    
-    clientProfileImageView.image = clientProfileImageView.image?.imageWithRenderingMode(.AlwaysTemplate)
-    clientProfileImageView.backgroundColor = UIColor.blackColor()
-    clientProfileImageView.tintColor = UIColor.AMRUnselectedTabBarButtonTintColor()
+    clientProfileImageView.backgroundColor = UIColor.whiteColor()
+    clientProfileImageView.tintColor = UIColor.whiteColor()
     clientProfileImageView.clipsToBounds = true
     clientProfileImageView.layer.cornerRadius = clientProfileImageView.frame.width/2
   }
