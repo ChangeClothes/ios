@@ -11,6 +11,8 @@ import LayerKit
 
 class AMRClientsDetailViewController: AMRViewController, LYRQueryControllerDelegate  {
   
+  @IBOutlet weak var tabBarBorderViewOne: UIView!
+  @IBOutlet weak var tabBarBorderViewTwo: UIView!
   @IBOutlet weak var newMessageImageViewContainerYConstraint: NSLayoutConstraint!
   @IBOutlet weak var newMessageImageViewContainerXConstraint: NSLayoutConstraint!
   @IBOutlet weak var newMessageImageViewContainer: UIView!
@@ -227,8 +229,10 @@ class AMRClientsDetailViewController: AMRViewController, LYRQueryControllerDeleg
     selectedIconView.layer.cornerRadius = selectedIconView.frame.width/2
     selectedIconView.backgroundColor = UIColor.AMRPrimaryBackgroundColor()
     
-    menuView.backgroundColor = UIColor.AMRSecondaryBackgroundColor()
+    tabBarBorderViewOne.layer.addBorder(UIRectEdge.Top, color: UIColor.grayColor(), thickness: 1.0)
+    tabBarBorderViewTwo.layer.addBorder(UIRectEdge.Top, color: UIColor.grayColor(), thickness: 1.0)
     
+    menuView.backgroundColor = UIColor.whiteColor()
     
     if let _ = stylist {
       client?.fetchIfNeededInBackgroundWithBlock({ (user, error) -> Void in
@@ -245,17 +249,17 @@ class AMRClientsDetailViewController: AMRViewController, LYRQueryControllerDeleg
     }
     
     clientProfileImageView.image = clientProfileImageView.image?.imageWithRenderingMode(.AlwaysTemplate)
-    clientProfileImageView.backgroundColor = UIColor.AMRPrimaryBackgroundColor()
+    clientProfileImageView.backgroundColor = UIColor.blackColor()
     clientProfileImageView.tintColor = UIColor.AMRUnselectedTabBarButtonTintColor()
     clientProfileImageView.clipsToBounds = true
     clientProfileImageView.layer.cornerRadius = clientProfileImageView.frame.width/2
   }
   
   private func resetIconColors() {
-    messagesIconImageView.tintColor = UIColor.AMRUnselectedTabBarButtonTintColor()
-    notesIconImageView.tintColor = UIColor.AMRUnselectedTabBarButtonTintColor()
-    calendarIconImageView.tintColor = UIColor.AMRUnselectedTabBarButtonTintColor()
-    profileIconImageView.tintColor = UIColor.AMRUnselectedTabBarButtonTintColor()
+    messagesIconImageView.tintColor = UIColor.AMRSecondaryBackgroundColor()
+    notesIconImageView.tintColor = UIColor.AMRSecondaryBackgroundColor()
+    calendarIconImageView.tintColor = UIColor.AMRSecondaryBackgroundColor()
+    profileIconImageView.tintColor = UIColor.AMRSecondaryBackgroundColor()
   }
   
   private func setSelectedAppearanceColorForImageView(imageView: UIImageView) {
@@ -432,5 +436,38 @@ extension AMRClientsDetailViewController {
 extension AMRClientsDetailViewController: UIGestureRecognizerDelegate {
   func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
     return true
+  }
+}
+
+
+
+// MARK - Border extension
+
+extension CALayer {
+
+  func addBorder(edge: UIRectEdge, color: UIColor, thickness: CGFloat) {
+
+    var border = CALayer()
+
+    switch edge {
+    case UIRectEdge.Top:
+      border.frame = CGRectMake(0, 0, CGRectGetWidth(self.frame), thickness)
+      break
+    case UIRectEdge.Bottom:
+      border.frame = CGRectMake(0, CGRectGetHeight(self.frame) - thickness, CGRectGetWidth(self.frame), thickness)
+      break
+    case UIRectEdge.Left:
+      border.frame = CGRectMake(0, 0, thickness, CGRectGetHeight(self.frame))
+      break
+    case UIRectEdge.Right:
+      border.frame = CGRectMake(CGRectGetWidth(self.frame) - thickness, 0, thickness, CGRectGetHeight(self.frame))
+      break
+    default:
+      break
+    }
+
+    border.backgroundColor = color.CGColor;
+
+    self.addSublayer(border)
   }
 }
