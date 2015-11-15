@@ -55,12 +55,15 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
     // Dispose of any resources that can be recreated.
   }
   
+
+  // MARK: - Set Up
+
   func updateTableView() {
     AMRBadgeManager.sharedInstance.getClientBadgesForStylist(AMRUser.currentUser()!) { (clientBadges) -> Void in
       self.collectionView.reloadData()
     }
   }
-  
+
   // MARK: - On Taps Functions
 
   func onSettingsTap(){
@@ -142,11 +145,7 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
     clientDetailVC.stylist = self.stylist
     clientDetailVC.client = client
     let nav = UINavigationController(rootViewController: clientDetailVC)
-    let formSheetController = MZFormSheetPresentationViewController(contentViewController: nav)
-    let viewHeight = self.view.frame.height - 40
-    let viewWidth = self.view.frame.width - 25
-    formSheetController.presentationController?.contentViewSize = CGSizeMake(viewWidth, viewHeight)
-    self.presentViewController(formSheetController, animated: true, completion: nil)
+    self.presentViewController(nav, animated: true, completion: nil)
 
   }
   
@@ -256,11 +255,7 @@ extension AMRClientsViewController: AMRTodayTableCollectionViewCellDelegate{
     clientDetailVC.stylist = self.stylist
     clientDetailVC.client = client
     let nav = UINavigationController(rootViewController: clientDetailVC)
-    let formSheetController = MZFormSheetPresentationViewController(contentViewController: nav)
-    let viewHeight = self.view.frame.height - 40
-    let viewWidth = self.view.frame.width - 25
-    formSheetController.presentationController?.contentViewSize = CGSizeMake(viewWidth, viewHeight)
-    self.presentViewController(formSheetController, animated: true, completion: nil)
+    self.presentViewController(nav, animated: true, completion: nil)
   }
   
   private func presentConversationWithClient(client: AMRUser){

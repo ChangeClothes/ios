@@ -23,6 +23,7 @@ class AMRMessagesDetailsViewController: ATLConversationViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+
     if (self.client == nil) {
       NSNotificationCenter.defaultCenter().postNotificationName(AMRMainHideMenuView, object: self)
     } else {
