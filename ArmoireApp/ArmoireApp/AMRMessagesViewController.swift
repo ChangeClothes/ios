@@ -82,7 +82,11 @@ class AMRMessagesViewController: ATLConversationListViewController{
     } else {
       AMRUserManager().queryForUserWithObjectID(conversationParticipants.first! as! String, withCompletion: { (users, error) -> Void in
         if let conversationClient = users![0] as? AMRUser {
-          conversationViewController.title = self.stylist!.firstName + " + " + conversationClient.firstName
+          if CurrentUser.sharedInstance.user?.isStylist == true {
+            conversationViewController.title = conversationClient.fullName
+          } else {
+            conversationViewController.title = conversationClient.stylist?.fullName
+          }
         }
       })
     }
