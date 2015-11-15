@@ -54,7 +54,6 @@ class clientCollectionViewCell: UICollectionViewCell {
     for icon in [messageIcon, calendarIcon, photoIcon]{
       icon.image = icon.image?.imageWithRenderingMode(.AlwaysTemplate)
       icon.tintColor = UIColor.AMRClientNotificationIconColor()
-      icon.backgroundColor = 
       icon.hidden = true
     }
   }
