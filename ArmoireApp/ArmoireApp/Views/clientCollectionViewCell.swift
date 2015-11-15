@@ -44,7 +44,7 @@ class clientCollectionViewCell: UICollectionViewCell {
   }
 
   override func prepareForReuse() {
-    self.photoIcon.image = nil;
+    self.imageView.image = nil;
     messageIcon.hidden = true
     calendarIcon.hidden = true
     photoIcon.hidden = true
@@ -53,7 +53,10 @@ class clientCollectionViewCell: UICollectionViewCell {
   private func setupIcons(){
     for icon in [messageIcon, calendarIcon, photoIcon]{
       icon.image = icon.image?.imageWithRenderingMode(.AlwaysTemplate)
-      icon.tintColor = UIColor.AMRClientNotificationIconColor()
+      icon.tintColor = UIColor.whiteColor()
+      icon.backgroundColor = ThemeManager.currentTheme().highlightColor
+      icon.clipsToBounds = true
+      icon.layer.cornerRadius = icon.frame.height/8
       icon.hidden = true
     }
   }
