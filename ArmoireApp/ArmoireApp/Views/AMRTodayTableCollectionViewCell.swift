@@ -38,12 +38,11 @@ class AMRTodayTableCollectionViewCell: UICollectionViewCell {
   private func sortClientsWithBadges(clientBadgeData: [AMRUser: AMRClientBadges]) -> [AMRUser]{
     var resultArray = [AMRUser]()
     var importanceScores = [AMRUser: Int]()
-    for (key, value) in clientBadgeData {
+    for (key, _) in clientBadgeData {
       importanceScores[key] = importanceScoreForClient(key)
     }
     
-    for (k,v) in (Array(importanceScores).sort {$0.1 > $1.1}) {
-      print("\(k) , \(v)")
+    for (k,_) in (Array(importanceScores).sort {$0.1 > $1.1}) {
       resultArray.append(k)
     }
     

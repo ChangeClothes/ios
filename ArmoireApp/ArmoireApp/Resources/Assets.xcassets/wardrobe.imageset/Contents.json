@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "wardrobe iconv2 25.png",
+      "filename" : "clothes25.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "wardrobe iconv2 50.png",
+      "filename" : "clothes50.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "wardrobe iconv2 75.png",
+      "filename" : "clothes75.png",
       "scale" : "3x"
     }
   ],

@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Message Iconv325.png",
+      "filename" : "chat25.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Message Iconv350.png",
+      "filename" : "chat50.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Message Iconv375.png",
+      "filename" : "chat75png.png",
       "scale" : "3x"
     }
   ],

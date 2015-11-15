@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "notesv325.png",
+      "filename" : "notes25.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "notesv350.png",
+      "filename" : "notes50.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "notesv375.png",
+      "filename" : "notes75.png",
       "scale" : "3x"
     }
   ],

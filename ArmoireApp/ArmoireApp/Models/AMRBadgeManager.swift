@@ -14,6 +14,22 @@ class AMRClientBadges {
   var hasUnreadMessages = false
   var hasUnratedPhotos = false
   var hasMeetingToday = false
+  
+  class func hasUnreadMessagesOnly() -> AMRClientBadges {
+    let result = AMRClientBadges()
+    result.hasUnreadMessages = true
+    return result
+  }
+  
+  func isEqualTo(otherClientBadge: AMRClientBadges) -> Bool {
+    if self.hasUnreadMessages == otherClientBadge.hasUnreadMessages &&
+    self.hasMeetingToday == otherClientBadge.hasMeetingToday &&
+      self.hasUnratedPhotos == otherClientBadge.hasUnratedPhotos {
+        return true
+    }
+    
+    return false
+  }
 }
 
 class AMRBadgeManager: NSObject {
@@ -35,7 +51,6 @@ class AMRBadgeManager: NSObject {
     get{
       var badges =  [AMRUser: AMRClientBadges]()
       
-      print(self.tempBadges)
       for client in clients{
         if let badge = tempBadges[client.objectId!]{
           if badge.hasMeetingToday || badge.hasUnratedPhotos || badge.hasUnreadMessages {
@@ -43,7 +58,6 @@ class AMRBadgeManager: NSObject {
           }
         }
       }
-      print(badges)
       return badges
     }
   }
@@ -53,7 +67,6 @@ class AMRBadgeManager: NSObject {
   private let numberOfClientChecks = 3
   private var clientBadgesCountdown: Int! {
     didSet {
-      print(clientBadgesCountdown)
       if clientBadgesCountdown == 0 {
         getClientBadgesCompletion?(clientBadges)
       }
@@ -133,7 +146,6 @@ class AMRBadgeManager: NSObject {
             }
           }
           self.clientBadgesCountdown = self.clientBadgesCountdown - 1
-          print("photos done")
         }
       }
     })
@@ -155,16 +167,15 @@ class AMRBadgeManager: NSObject {
             let meetingDay = cal.dateFromComponents(startDateComponents)
             if today!.isEqualToDate(meetingDay!) == true {
               let client = meeting.client
+              self.meetingsToday.append(meeting)
               if let badges = self.tempBadges[client.objectId!] {
                 badges.hasMeetingToday = true
               } else {
                 self.tempBadges[client.objectId!] = AMRClientBadges()
                 self.tempBadges[client.objectId!]?.hasMeetingToday = true
-                self.meetingsToday.append(meeting)
               }
             }
           }
-          print("meetings done")
           self.clientBadgesCountdown = self.clientBadgesCountdown - 1
         }
       }

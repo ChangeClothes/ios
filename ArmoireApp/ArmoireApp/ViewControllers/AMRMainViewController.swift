@@ -17,8 +17,6 @@ class AMRMainViewController: AMRViewController{
   @IBOutlet weak var newMessageImageView: UIImageView!
   
   @IBOutlet weak var menuView: UIView!
-  @IBOutlet weak var messagesImageView: UIImageView!
-  @IBOutlet weak var notesImageView: UIImageView!
   @IBOutlet weak var calendarImageView: UIImageView!
   @IBOutlet weak var profileIconImageView: UIImageView!
   @IBOutlet weak var containerView: UIView!
@@ -192,8 +190,6 @@ class AMRMainViewController: AMRViewController{
   
   // MARK: - Appearance Methods
   private func setupTabBarAppearance() {
-    messagesImageView.image = messagesImageView.image?.imageWithRenderingMode(.AlwaysTemplate)
-    notesImageView.image = notesImageView.image?.imageWithRenderingMode(.AlwaysTemplate)
     calendarImageView.image = calendarImageView.image?.imageWithRenderingMode(.AlwaysTemplate)
     profileIconImageView.image = profileIconImageView.image?.imageWithRenderingMode(.AlwaysTemplate)
     
@@ -209,8 +205,6 @@ class AMRMainViewController: AMRViewController{
   }
   
   private func resetIconColors() {
-    messagesImageView.tintColor = UIColor.AMRUnselectedTabBarButtonTintColor()
-    notesImageView.tintColor = UIColor.AMRUnselectedTabBarButtonTintColor()
     calendarImageView.tintColor = UIColor.AMRUnselectedTabBarButtonTintColor()
     profileIconImageView.tintColor = UIColor.AMRUnselectedTabBarButtonTintColor()
   }
