@@ -86,7 +86,17 @@ class AMRInventoryCategory {
     }
   }
   init(name:String?, imageUrl: String?){
-    self.name = name
+    let encodedData = name?.dataUsingEncoding(NSUTF8StringEncoding)
+    let attributedOptions : [ String: AnyObject ] = [
+      NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
+      NSCharacterEncodingDocumentAttribute: NSUTF8StringEncoding
+    ]
+    do {
+      let attributedString = try NSAttributedString(data: encodedData!, options: attributedOptions, documentAttributes: nil)
+      self.name = attributedString.string
+    } catch {
+      print("Error decoding inventory string")
+    }
     self.imageUrl = imageUrl
   }
 }
@@ -98,7 +108,17 @@ class AMRInventoryItem {
   var price: Float?
   
   init(name:String?, imageUrl: String?, id: String?, price: Float?) {
-    self.name = name
+    let encodedData = name?.dataUsingEncoding(NSUTF8StringEncoding)
+    let attributedOptions : [ String: AnyObject ] = [
+      NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
+      NSCharacterEncodingDocumentAttribute: NSUTF8StringEncoding
+    ]
+    do {
+      let attributedString = try NSAttributedString(data: encodedData!, options: attributedOptions, documentAttributes: nil)
+      self.name = attributedString.string
+    } catch {
+      print("Error decoding inventory string")
+    }
     self.imageUrl = imageUrl
     self.id = id
     self.price = price
