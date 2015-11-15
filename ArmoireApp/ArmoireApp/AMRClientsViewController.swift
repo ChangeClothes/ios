@@ -20,6 +20,7 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
   var layerClient: LYRClient!
   var filteredClients: [AMRUser]?
   var clients: [AMRUser] = []
+  var searchActive = true
   var sections = [String]()
   var clientSections = [String:[AMRUser]]()
 
@@ -108,6 +109,7 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
         print(error.localizedDescription)
       } else {
         self.clients = (arrayOfUsers as? [AMRUser])!
+        self.clients = self.clients.sort{$0.firstName < $1.firstName}
         self.setUpSections(self.clients)
         self.collectionView.reloadData()
       }
@@ -159,14 +161,7 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
 
   func setUpSections(clients:[AMRUser]) {
     clientSections = [String:[AMRUser]]()
-    for client in clients {
-      let firstLetter = String(client.firstName[client.firstName.startIndex])
-      if let _ = clientSections[firstLetter] {
-        clientSections[firstLetter]!.append(client)
-      } else {
-        clientSections[firstLetter] = [client]
-      }
-    }
+    clientSections[""] = clients
     sections = clientSections.keys.sort()
   }
 
