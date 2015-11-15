@@ -196,13 +196,8 @@ class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITabl
   }
   
   internal func setUpNavBar(){
-    if (stylist != nil && client != nil){
-      let leftNavBarButton = UIBarButtonItem(image: UIImage(named: "cancel"), style: .Plain, target: self, action: "exitModal")
-      self.navigationItem.leftBarButtonItem = leftNavBarButton
-    } else {
-      let leftNavBarButton = UIBarButtonItem(image: UIImage(named: "settings"), style: .Plain, target: self, action: "onSettingsTap")
-      self.navigationItem.leftBarButtonItem = leftNavBarButton
-    }
+    let leftNavBarButton = UIBarButtonItem(image: UIImage(named: "cancel"), style: .Plain, target: self, action: "exitModal")
+    self.navigationItem.leftBarButtonItem = leftNavBarButton
     if (client != nil){
       self.title = (client?.firstName)! + " " + (client?.lastName)!
     } else {

@@ -22,6 +22,13 @@ class AMRViewController: UIViewController {
           user?.profilePhoto = image
           user?.saveInBackground()
         })
+      } else if setting == AMRSettingsControllerSetting.Template {
+        let vc = AMRQANotesViewController()
+        vc.stylist = self.stylist
+        vc.client = self.client
+        let navController = UINavigationController(rootViewController: vc)
+        self.presentViewController(navController, animated: true, completion: { () -> Void in
+        })
       }
     }
     self.presentViewController(settingsVC, animated: true, completion: nil)
