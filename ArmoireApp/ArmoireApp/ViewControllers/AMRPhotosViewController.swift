@@ -21,9 +21,13 @@ class AMRPhotosViewController: AMRViewController {
   var photoPicker:PhotoPicker?
   var photoSections: [String: [AMRImage]]?
   var uiImageSections: [String: [UIImage]]?
+  var photosInitiallyLoaded: Bool = false
   var cachedCounter: Int! = 33 {
     didSet {
       if cachedCounter == 0 {
+        photosInitiallyLoaded = true
+      }
+      if cachedCounter == 0 && photosInitiallyLoaded == true {
         collectionView.reloadData()
       }
     }
@@ -59,8 +63,6 @@ class AMRPhotosViewController: AMRViewController {
   // MARK: - Utility
   private func sectionsForPhotosArray(images: [AMRImage]) -> [String: [AMRImage]] {
     var photoSections = [String: [AMRImage]]()
-    
-    
     
     for image in images {
       
@@ -127,14 +129,18 @@ class AMRPhotosViewController: AMRViewController {
     return photoSections
   }
   
+  
   private func refreshCollectionView() {
     AMRImage.imagesForUser(stylist, client: client) { (objects, error) -> Void in
       self.photos = objects! as [AMRImage]
-      
       self.photoSections = self.sectionsForPhotosArray(self.photos)
+      if self.photosInitiallyLoaded == false {
+        self.collectionView.reloadData()
+      }
       self.uiImageArrayFromAMRImageArray(self.amrImageArrayFromPhotoSections(self.photoSections!))
     }
   }
+  
   
   private func uiImageArrayFromAMRImageArray(array: [AMRImage]){
     let arrayCount = array.count
@@ -163,6 +169,7 @@ class AMRPhotosViewController: AMRViewController {
   // MARK - Notifications
   
   func onPictureAdded(notification: NSNotification){
+    photosInitiallyLoaded = true
     refreshCollectionView()
   }
   
@@ -211,7 +218,6 @@ extension AMRPhotosViewController: UICollectionViewDataSource{
     } else {
       cell.imageView.setAMRImage(image, withPlaceholder: "download", withCompletion: { (success) -> Void in
         cell.activityIndicatorView.stopAnimating()
-        print("from parse")
       })
     }
     return cell
