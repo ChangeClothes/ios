@@ -20,6 +20,7 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
   var layerClient: LYRClient!
   var filteredClients: [AMRUser]?
   var clients: [AMRUser] = []
+  var searchActive = true
   var sections = [String]()
   var clientSections = [String:[AMRUser]]()
 
@@ -159,14 +160,7 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
 
   func setUpSections(clients:[AMRUser]) {
     clientSections = [String:[AMRUser]]()
-    for client in clients {
-      let firstLetter = String(client.firstName[client.firstName.startIndex])
-      if let _ = clientSections[firstLetter] {
-        clientSections[firstLetter]!.append(client)
-      } else {
-        clientSections[firstLetter] = [client]
-      }
-    }
+    clientSections[""] = clients
     sections = clientSections.keys.sort()
   }
 
