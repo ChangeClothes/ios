@@ -355,6 +355,11 @@ class AMRClientsDetailViewController: AMRViewController, LYRQueryControllerDeleg
           let shouldShowAddressBar: Bool  = conversation.participants.count > 2 || conversation.participants.count == 0
           vc.displaysAddressBar = shouldShowAddressBar
           vc.conversation = conversation
+          nc.navigationBar.tintColor = UIColor.blackColor()
+          nc.navigationBar.barTintColor = UIColor.whiteColor()
+          nc.navigationBar.backgroundColor = UIColor.whiteColor()
+          nc.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.AMRSecondaryBackgroundColor()]
+          nc.navigationBar.layer.addBorder(UIRectEdge.Bottom, color: UIColor.grayColor(), thickness: 1.0)
           self.presentViewController(nc, animated: true, completion: nil)
         } else {
           print("error occurred in transitioning to conversation detail, conversation nil")
