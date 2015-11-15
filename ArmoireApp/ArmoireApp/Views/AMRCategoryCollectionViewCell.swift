@@ -40,6 +40,8 @@ class AMRCategoryCollectionViewCell: UICollectionViewCell {
 
   override func prepareForReuse() {
     self.imageView.image = nil;
+    constraintImageWidth.constant = 165
+    constraintImageHeight.constant = 254
   }
 
   func getDataFromUrl(url:NSURL, completion: ((data: NSData?, response: NSURLResponse?, error: NSError? ) -> Void)) {
