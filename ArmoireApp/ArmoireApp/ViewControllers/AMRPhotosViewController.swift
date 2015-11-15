@@ -13,13 +13,21 @@ let kImageCellReuseIdentifier = "com.armoire.imageCellReuseIdentifier"
 let kItemSectionHeaderViewID = "com.armoire.photoSectionHeaderViewID"
 let kPictureAddedNotification = "com.armoire.pictureAddedToClientNotification"
 class AMRPhotosViewController: AMRViewController {
-
+  
   
   @IBOutlet weak var collectionView: UICollectionView!
   var photos: [AMRImage] = []
   var photosAsUIImage = [UIImage]()
   var photoPicker:PhotoPicker?
   var photoSections: [String: [AMRImage]]?
+  var uiImageSections: [String: [UIImage]]?
+  var cachedCounter: Int! = 33 {
+    didSet {
+      if cachedCounter == 0 {
+        collectionView.reloadData()
+      }
+    }
+  }
   
   // MARK: - Lifecycle
   override func viewDidLoad() {
@@ -52,6 +60,8 @@ class AMRPhotosViewController: AMRViewController {
   private func sectionsForPhotosArray(images: [AMRImage]) -> [String: [AMRImage]] {
     var photoSections = [String: [AMRImage]]()
     
+    
+    
     for image in images {
       
       if image.rating == nil {
@@ -63,21 +73,66 @@ class AMRPhotosViewController: AMRViewController {
       }
       photoSections[image.rating!.titleForRating()]!.append(image)
     }
+    
+    
+    uiImageSections = [String: [UIImage]]()
+    for (key, section) in photoSections {
+      uiImageSections![key] = [UIImage](count: section.count, repeatedValue: UIImage())
+    }
+    
+    
+    var unratedIndex = 0
+    var yepIndex = 0
+    var maybeIndex = 0
+    var nopeIndex = 0
+    cachedCounter = images.count
+    
+    
+    for image in images {
+      
+      if image.rating == nil {
+        image.rating = AMRPhotoRating.Unrated
+      }
+      
+      switch image.rating! {
+      case AMRPhotoRating.Unrated:
+        image.getImageAtIndex(unratedIndex, completion: { (uiImage: UIImage, index: Int) -> () in
+          self.uiImageSections![image.rating!.titleForRating()]![index] = uiImage
+          self.cachedCounter = self.cachedCounter - 1
+        })
+        unratedIndex++
+      case AMRPhotoRating.Yep:
+        image.getImageAtIndex(yepIndex, completion: { (uiImage: UIImage, index: Int) -> () in
+          self.uiImageSections![image.rating!.titleForRating()]![index] = uiImage
+          self.cachedCounter = self.cachedCounter - 1
+        })
+        yepIndex++
+      case AMRPhotoRating.Maybe:
+        image.getImageAtIndex(maybeIndex, completion: { (uiImage: UIImage, index: Int) -> () in
+          self.uiImageSections![image.rating!.titleForRating()]![index] = uiImage
+          self.cachedCounter = self.cachedCounter - 1
+        })
+        maybeIndex++
+      case AMRPhotoRating.Nope:
+        image.getImageAtIndex(nopeIndex, completion: { (uiImage: UIImage, index: Int) -> () in
+          self.uiImageSections![image.rating!.titleForRating()]![index] = uiImage
+          self.cachedCounter = self.cachedCounter - 1
+        })
+        nopeIndex++
+      }
+      
+
+    }
+    
     return photoSections
   }
   
   private func refreshCollectionView() {
     AMRImage.imagesForUser(stylist, client: client) { (objects, error) -> Void in
       self.photos = objects! as [AMRImage]
-
+      
       self.photoSections = self.sectionsForPhotosArray(self.photos)
       self.uiImageArrayFromAMRImageArray(self.amrImageArrayFromPhotoSections(self.photoSections!))
-      if let currentPhotoSections = self.photoSections {
-        for (key, section) in currentPhotoSections{
-          self.photoSections![key] = section.reverse()
-        }
-      }
-      self.collectionView.reloadData()
     }
   }
   
@@ -92,9 +147,10 @@ class AMRPhotosViewController: AMRViewController {
     }
   }
   
+  
   private func amrImageArrayFromPhotoSections(sections:[String: [AMRImage]]) -> [AMRImage] {
     var resultArray = [AMRImage]()
-
+    
     for rating in AMRPhotoRating.titleArray() {
       if let array = sections[rating] {
         resultArray.appendContentsOf(array)
@@ -103,13 +159,13 @@ class AMRPhotosViewController: AMRViewController {
     
     return resultArray
   }
-
+  
   // MARK - Notifications
-
+  
   func onPictureAdded(notification: NSNotification){
     refreshCollectionView()
   }
-
+  
 }
 
 // MARK: UICollectionViewDataSource
@@ -134,7 +190,7 @@ extension AMRPhotosViewController: UICollectionViewDataSource{
   
   func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
     let view = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: kItemSectionHeaderViewID, forIndexPath: indexPath) as! AMRPhotosSectionCollectionReusableView
-
+    
     view.sectionTitleLabel.text = AMRPhotoRating.titleArray()[indexPath.section]
     view.sectionTitleLabel.textColor = AMRPhotoRating.iconColorArray()[indexPath.section]
     view.ratingIconImageView.tintColor = AMRPhotoRating.iconColorArray()[indexPath.section]
@@ -147,30 +203,17 @@ extension AMRPhotosViewController: UICollectionViewDataSource{
     
     let cell = collectionView.dequeueReusableCellWithReuseIdentifier(kImageCellReuseIdentifier, forIndexPath: indexPath) as! imageCollectionViewCell
     
-    /*if indexPath.row == 0 && indexPath.section == 0{
+    cell.activityIndicatorView.startAnimating()
+    let image = photoSections![AMRPhotoRating.titleArray()[indexPath.section]]![indexPath.row]
+    if cachedCounter == 0 {
+      cell.imageView.image = uiImageSections![AMRPhotoRating.titleArray()[indexPath.section]]![indexPath.row]
       cell.activityIndicatorView.stopAnimating()
-      let addPhotoIcon = UIImage(named: "add-photo")
-      cell.imageView.image = addPhotoIcon
-      //cell.imageView.layer.borderColor = UIColor.whiteColor().CGColor
-      //cell.imageView.layer.borderWidth = 7.0
-      //cell.imageView.layer.cornerRadius = 8
-      cell.imageView.contentMode = .ScaleAspectFit
-      cell.backgroundColor = UIColor.clearColor()
-    } else if indexPath.section == 0 {
-      cell.activityIndicatorView.startAnimating()
-      let image = photoSections![AMRPhotoRating.titleArray()[indexPath.section]]![indexPath.row]// - 1]
+    } else {
       cell.imageView.setAMRImage(image, withPlaceholder: "download", withCompletion: { (success) -> Void in
         cell.activityIndicatorView.stopAnimating()
+        print("from parse")
       })
-      
-    } else {*/
-      cell.activityIndicatorView.startAnimating()
-      let image = photoSections![AMRPhotoRating.titleArray()[indexPath.section]]![indexPath.row]
-      cell.imageView.setAMRImage(image, withPlaceholder: "download", withCompletion: { (success) -> Void in
-        cell.activityIndicatorView.stopAnimating()
-      })
-      
-    //}
+    }
     return cell
   }
   
@@ -285,6 +328,6 @@ extension AMRPhotosViewController {
   func onSettingsTap(){
     showSettings()
   }
-
+  
 }
 
