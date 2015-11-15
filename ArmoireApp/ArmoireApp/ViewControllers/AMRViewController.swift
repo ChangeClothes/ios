@@ -14,13 +14,28 @@ class AMRViewController: UIViewController {
   var client: AMRUser?
   
   func showSettings () {
-    let settingsVC = UIAlertController.AMRSettingsController { (setting: AMRSettingsControllerSetting) -> () in
+    var settingsList: [AMRSettingsControllerSetting]
+    if CurrentUser.sharedInstance.user?.isStylist == true {
+      
+      settingsList = [AMRSettingsControllerSetting.ProfilePicture, AMRSettingsControllerSetting.Template, AMRSettingsControllerSetting.Logout]
+    } else {
+      settingsList = [AMRSettingsControllerSetting.ProfilePicture, AMRSettingsControllerSetting.Logout]
+    }
+    
+    let settingsVC = UIAlertController.AMRSettingsController(settingsList) { (setting: AMRSettingsControllerSetting) -> () in
       if setting == AMRSettingsControllerSetting.ProfilePicture {
         PhotoPicker.sharedInstance.selectPhoto(self.stylist, client: self.client, viewDelegate: self, completion: {
           (image: AMRImage) -> () in
           let user = CurrentUser.sharedInstance.user
           user?.profilePhoto = image
           user?.saveInBackground()
+        })
+      } else if setting == AMRSettingsControllerSetting.Template {
+        let vc = AMRQANotesViewController()
+        vc.stylist = self.stylist
+        vc.client = self.client
+        let navController = UINavigationController(rootViewController: vc)
+        self.presentViewController(navController, animated: true, completion: { () -> Void in
         })
       }
     }

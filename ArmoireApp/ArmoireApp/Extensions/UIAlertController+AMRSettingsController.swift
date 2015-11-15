@@ -9,13 +9,13 @@
 import Foundation
 
 enum AMRSettingsControllerSetting: String {
-  case Logout = "Logout", ProfilePicture = "Change Profile Picture", Cancel = "Cancel"
+  case Logout = "Logout", ProfilePicture = "Change Profile Picture", Cancel = "Cancel", Template = "Edit Template"
 }
 
 extension UIAlertController {
   
   class func AMRSettingsController(completion:(AMRSettingsControllerSetting) -> ()) -> UIAlertController {
-    return UIAlertController.AMRSettingsController([AMRSettingsControllerSetting.ProfilePicture, AMRSettingsControllerSetting.Logout], completion: completion)
+    return UIAlertController.AMRSettingsController([AMRSettingsControllerSetting.ProfilePicture, AMRSettingsControllerSetting.Template, AMRSettingsControllerSetting.Logout], completion: completion)
   }
   
   class func AMRSettingsController(settings:[AMRSettingsControllerSetting], completion:(AMRSettingsControllerSetting) -> ()) -> UIAlertController {
@@ -36,6 +36,7 @@ extension UIAlertController {
             NSNotificationCenter.defaultCenter().postNotificationName(kUserDidLogoutNotification, object: self)
           }
         }
+        
       default:
         break
         
