@@ -70,7 +70,6 @@ class AMRTodayTableCollectionViewCell: UICollectionViewCell {
   
   func updateData(){
     clientsWithBadges = sortClientsWithBadges(AMRBadgeManager.sharedInstance.clientBadges)
-    print(AMRBadgeManager.sharedInstance.clientBadges)
     todayTableView.reloadData()
   }
 }

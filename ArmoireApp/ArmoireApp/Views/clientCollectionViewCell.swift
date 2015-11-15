@@ -16,27 +16,20 @@ class clientCollectionViewCell: UICollectionViewCell {
   @IBOutlet weak var imageView: UIImageView!
   @IBOutlet weak var calendarIcon: UIImageView!
   @IBOutlet weak var photoIcon: UIImageView!
+  
   var client: AMRUser! {
     didSet{
       nameLabel.text = client.firstName
       lastNameLabel.text = client.lastName
+      showBadgesForClient(client)
       self.imageView.setAMRImage(client.profilePhoto, withPlaceholder: "profile-image-placeholder") { (success) -> Void in
-        self.activityIndicatorView.stopAnimating()
       }
-//      client.fetchIfNeededInBackgroundWithBlock{ (user: PFObject?, error: NSError?) -> Void in
-//        if let error = error {
-//          print(error.localizedDescription)
-//        } else {
-//            self.imageView.setAMRImage(profileImage, withPlaceholder: "profile-image-placeholder")
-//        }
-//      }
     }
   }
-  var activityIndicatorView: UIActivityIndicatorView!
 
   override func awakeFromNib() {
     super.awakeFromNib()
-    setIcons()
+    setupIcons()
     imageView.contentMode = UIViewContentMode.ScaleAspectFill
     imageView.layer.cornerRadius = 50
     imageView.clipsToBounds = true
@@ -44,29 +37,39 @@ class clientCollectionViewCell: UICollectionViewCell {
 
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
-    initialize()
   }
 
   override init(frame: CGRect) {
     super.init(frame: frame)
-    initialize()
   }
 
-  func initialize (){
-    activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
-    activityIndicatorView.startAnimating()
-    addSubview(activityIndicatorView)
-  }
-  
   override func prepareForReuse() {
-    self.photoIcon = nil;
+    self.photoIcon.image = nil;
+    messageIcon.hidden = true
+    calendarIcon.hidden = true
+    photoIcon.hidden = true
   }
 
-  private func setIcons(){
+  private func setupIcons(){
     for icon in [messageIcon, calendarIcon, photoIcon]{
       icon.image = icon.image?.imageWithRenderingMode(.AlwaysTemplate)
       icon.tintColor = UIColor.AMRClientNotificationIconColor()
+      icon.backgroundColor = 
       icon.hidden = true
     }
+  }
+  
+  private func showBadgesForClient(client: AMRUser){
+    let clientBadges = AMRBadgeManager.sharedInstance.tempBadges[client.objectId!]
+    if clientBadges?.hasUnratedPhotos == true {
+      photoIcon.hidden = false
+    }
+    if clientBadges?.hasMeetingToday == true {
+      calendarIcon.hidden = false
+    }
+    if clientBadges?.hasUnreadMessages == true {
+      messageIcon.hidden = false
+    }
+    
   }
 }

@@ -13,24 +13,24 @@
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="231" height="196"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xu4-M3-72B">
-                        <rect key="frame" x="66" y="26" width="100" height="100"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Xu4-M3-72B">
+                        <rect key="frame" x="66" y="48" width="100" height="100"/>
                         <animations/>
                         <constraints>
                             <constraint firstAttribute="width" constant="100" id="Y3m-Pa-JEZ"/>
                             <constraint firstAttribute="height" constant="100" id="seB-XH-P9d"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="messaging" translatesAutoresizingMaskIntoConstraints="NO" id="QVj-IZ-zTX">
-                        <rect key="frame" x="146" y="26" width="20" height="20"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="messaging" translatesAutoresizingMaskIntoConstraints="NO" id="QVj-IZ-zTX">
+                        <rect key="frame" x="146" y="48" width="20" height="20"/>
                         <animations/>
                         <constraints>
                             <constraint firstAttribute="width" constant="20" id="2T5-VN-axp"/>
                             <constraint firstAttribute="height" constant="20" id="Abh-wL-Wiq"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="wardrobe" translatesAutoresizingMaskIntoConstraints="NO" id="9rY-Is-zGS">
-                        <rect key="frame" x="66" y="26" width="20" height="20"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wardrobe" translatesAutoresizingMaskIntoConstraints="NO" id="9rY-Is-zGS">
+                        <rect key="frame" x="66" y="48" width="20" height="20"/>
                         <animations/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="Etc-Sv-qmX"/>
@@ -44,8 +44,8 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="calendar" translatesAutoresizingMaskIntoConstraints="NO" id="LRk-4N-owQ">
-                        <rect key="frame" x="146" y="107" width="20" height="20"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="calendar" translatesAutoresizingMaskIntoConstraints="NO" id="LRk-4N-owQ">
+                        <rect key="frame" x="146" y="129" width="20" height="20"/>
                         <animations/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="JOb-aP-Rab"/>
