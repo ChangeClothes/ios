@@ -20,6 +20,16 @@ class clientCollectionViewCell: UICollectionViewCell {
     didSet{
       nameLabel.text = client.firstName
       lastNameLabel.text = client.lastName
+      self.imageView.setAMRImage(client.profilePhoto, withPlaceholder: "profile-image-placeholder") { (success) -> Void in
+        self.activityIndicatorView.stopAnimating()
+      }
+//      client.fetchIfNeededInBackgroundWithBlock{ (user: PFObject?, error: NSError?) -> Void in
+//        if let error = error {
+//          print(error.localizedDescription)
+//        } else {
+//            self.imageView.setAMRImage(profileImage, withPlaceholder: "profile-image-placeholder")
+//        }
+//      }
     }
   }
   var activityIndicatorView: UIActivityIndicatorView!

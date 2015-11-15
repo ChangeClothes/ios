@@ -263,7 +263,7 @@ extension AMRPhotosViewController {
   }
   
   private func createCameraButton() {
-    let rightNavBarButton = UIBarButtonItem(image: UIImage(named: "camera"), style: .Plain, target: self, action: "exitModal")
+    let rightNavBarButton = UIBarButtonItem(image: UIImage(named: "camera"), style: .Plain, target: self, action: "selectPhoto")
     self.navigationItem.rightBarButtonItem = rightNavBarButton
   }
   
@@ -280,6 +280,7 @@ extension AMRPhotosViewController {
   // MARK: - On Tap Actions
   
   func exitModal(){
+    NSNotificationCenter.defaultCenter().postNotificationName(kDismissedModalNotification, object: self)
     self.dismissViewControllerAnimated(true, completion: nil)
   }
   

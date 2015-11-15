@@ -23,6 +23,7 @@ class AMRMainViewController: AMRViewController{
   @IBOutlet weak var profileIconImageView: UIImageView!
   @IBOutlet weak var containerView: UIView!
   @IBOutlet weak var selectedIconView: UIView!
+  @IBOutlet weak var unreadMessagesBadgeLabel: UILabel!
   
   @IBOutlet weak var selectedIconViewXPositionConstraint: NSLayoutConstraint!
   
@@ -41,6 +42,7 @@ class AMRMainViewController: AMRViewController{
     subscribeToNotifications()
     setupTabBarAppearance()
     setupNewMessageImageView()
+    setupUnreadMessagesBadgeLabel()
   }
   
   // MARK: - Initial setup
@@ -54,6 +56,16 @@ class AMRMainViewController: AMRViewController{
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "showNewMessageImageView", name: kNewMessageIconShown, object: nil)
     
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "deviceDidRotate", name: UIDeviceOrientationDidChangeNotification, object: nil)
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "updatedMessagesIconBadge", name: kUserConversationsChanged, object: nil)
+  }
+  
+  private func setupUnreadMessagesBadgeLabel() {
+    unreadMessagesBadgeLabel.textColor = UIColor.whiteColor()
+    unreadMessagesBadgeLabel.backgroundColor = ThemeManager.currentTheme().highlightColor
+    unreadMessagesBadgeLabel.clipsToBounds = true
+    unreadMessagesBadgeLabel.layer.cornerRadius = unreadMessagesBadgeLabel.frame.height/2
+    unreadMessagesBadgeLabel.hidden = true
+    
   }
   
   private func setupLayerQueryController() {
@@ -168,6 +180,16 @@ class AMRMainViewController: AMRViewController{
     }, completion: nil)
   }
   
+  func updatedMessagesIconBadge() {
+    let unreadMessages = AMRBadgeManager.sharedInstance.layerQueryController.count()
+    unreadMessagesBadgeLabel.text = String(unreadMessages)
+    if unreadMessages == 0 {
+      unreadMessagesBadgeLabel.hidden = true
+    } else {
+      unreadMessagesBadgeLabel.hidden = false
+    }
+  }
+  
   // MARK: - Appearance Methods
   private func setupTabBarAppearance() {
     messagesImageView.image = messagesImageView.image?.imageWithRenderingMode(.AlwaysTemplate)
@@ -238,7 +260,6 @@ class AMRMainViewController: AMRViewController{
       UIApplication.sharedApplication().windows[0].makeKeyAndVisible()
     } else {
       //stylist workflow
-      AMRBadgeManager.sharedInstance.getClientBadgesForStylist(AMRUser.currentUser()!, withCompletion: nil)
       selectViewController(vcArray[1])
       setSelectedAppearanceColorForImageView(profileIconImageView)
       setupLayerQueryController()
@@ -284,7 +305,6 @@ class AMRMainViewController: AMRViewController{
       UINavigationController(rootViewController: AMRLoginViewController()),
       UINavigationController(rootViewController: AMRClientsViewController(layerClient: layerClient!)),
       UINavigationController(rootViewController: AMRMessagesViewController(layerClient: layerClient) ),
-      //UINavigationController(rootViewController: AMRNotesViewController()),
       UINavigationController(rootViewController: AMRQANotesViewController()),
       UINavigationController(rootViewController: AMRUpcomingMeetingsViewController()),
       UINavigationController (rootViewController: AMRClientsDetailViewController(layerClient: layerClient!))
@@ -388,3 +408,4 @@ extension AMRMainViewController: UIGestureRecognizerDelegate {
     return true
   }
 }
+

@@ -49,6 +49,7 @@ class AMRImage: PFObject {
   @NSManaged var file: PFFile?
   @NSManaged var client: AMRUser?
   @NSManaged var stylist: AMRUser?
+  var cachedUIImage: UIImage?
   
   var rating: AMRPhotoRating? {
     get { return self["rating"] != nil ? AMRPhotoRating(rawValue: self["rating"] as! NSNumber) : nil }
@@ -144,8 +145,14 @@ extension UIImageView {
     setAMRImage(image, withPlaceholder: placeholder, withCompletion: nil)
   }
   
-  func setAMRImage(image: AMRImage?, withPlaceholder placeholder: String?, withCompletion completion: ((success: Bool) -> Void)?) {
-    if let myImage = image {
+  func setAMRImage(amrImage: AMRImage?, withPlaceholder placeholder: String?, withCompletion completion: ((success: Bool) -> Void)?) {
+    if let cachedImage = amrImage?.cachedUIImage {
+      self.image = cachedImage
+      completion?(success: true)
+      return
+    }
+    
+    if let myImage = amrImage {
       if placeholder != nil {
         self.image = UIImage(named: placeholder!)
       } else if (myImage.defaultImageName != nil){
@@ -158,6 +165,7 @@ extension UIImageView {
         profileImage?.file?.getDataInBackgroundWithBlock { (data: NSData?, error: NSError?) -> Void in
           if error == nil {
             self.image = UIImage(data: data!)
+            amrImage!.cachedUIImage = UIImage(data: data!)
             completion?(success: true)
           }
         }
@@ -201,6 +209,13 @@ class PhotoPicker: NSObject, UINavigationControllerDelegate, UIImagePickerContro
     viewDelegate?.presentViewController(photoVC!, animated: true, completion: nil)
   }
   
+  private func openShop() {
+    let shopVC = AMRShopViewController()
+    shopVC.client = client
+    let nav = UINavigationController(rootViewController: shopVC)
+    viewDelegate?.presentViewController(nav, animated: true, completion: nil)
+  }
+
   private func selectPhotoSource(){
     
     let alert:UIAlertController=UIAlertController(title: "Choose Image", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
@@ -215,6 +230,10 @@ class PhotoPicker: NSObject, UINavigationControllerDelegate, UIImagePickerContro
       UIAlertAction in
       self.open(UIImagePickerControllerSourceType.SavedPhotosAlbum)
     }
+    let shopAction = UIAlertAction(title: "Select From Shop", style: UIAlertActionStyle.Default){
+      UIAlertAction in
+      self.openShop()
+    }
     let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) {
       UIAlertAction in
     }
@@ -226,6 +245,7 @@ class PhotoPicker: NSObject, UINavigationControllerDelegate, UIImagePickerContro
     if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.SavedPhotosAlbum) {
       alert.addAction(galleryAction)
     }
+    alert.addAction(shopAction)
     alert.addAction(cancelAction)
     
     viewDelegate?.presentViewController(alert, animated: true, completion: nil)
