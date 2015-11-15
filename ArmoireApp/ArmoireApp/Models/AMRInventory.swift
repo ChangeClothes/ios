@@ -25,15 +25,24 @@ class AMRInventory {
       let aStore = AMRInventoryCategory(name: store, imageUrl: "http://c.nordstromimage.com/Assets/IDEV/brand/nordstrom/nordstrom-logo-7-adam-02172f8b-19da-43e5-915a-a1e9013250e4-fil-file.gif?Version=1")
       aStore.subcategories = []
       for (cat1, cat1Data) in nordstromData {
+        //Men and Women
         let aCat1 = AMRInventoryCategory(name: cat1, imageUrl: "http://c.nordstromimage.com/Assets/IDEV/brand/nordstrom/nordstrom-logo-7-adam-02172f8b-19da-43e5-915a-a1e9013250e4-fil-file.gif?Version=1")
         aCat1.subcategories = []
         for (cat2, cat2Data) in cat1Data {
+          // General Categories - Underwear, Shorts, etc.
           let aCat2 = AMRInventoryCategory(name: cat2, imageUrl: "http://c.nordstromimage.com/Assets/IDEV/brand/nordstrom/nordstrom-logo-7-adam-02172f8b-19da-43e5-915a-a1e9013250e4-fil-file.gif?Version=1")
           aCat2.subcategories = []
           for (cat3, cat3Data) in cat2Data {
+            // specific types of categories: boxer brief, printed pants, etc.
             let aCat3 = AMRInventoryCategory(name: cat3, imageUrl: "http://c.nordstromimage.com/Assets/IDEV/brand/nordstrom/nordstrom-logo-7-adam-02172f8b-19da-43e5-915a-a1e9013250e4-fil-file.gif?Version=1")
+
             aCat3.id = cat3Data
+            AMRInventory().retrieveFirstAssociatedImageForItem(aCat3.id!, completion: { (imageUrl) -> () in
+              aCat2.imageUrl = imageUrl
+              aCat3.imageUrl = imageUrl
+            })
             aCat2.subcategories!.append(aCat3)
+
           }
           aCat1.subcategories!.append(aCat2)
         }
@@ -44,11 +53,35 @@ class AMRInventory {
     }
     completion(inventory: inventory)
   }
+
+  func retrieveFirstAssociatedImageForItem(category:String, completion: String -> ()){
+
+    let urlString = "http://shop.nordstrom.com/FashionSearch.axd?category=\(category)&contextualsortcategoryid=0&instoreavailability=false&page=2&pagesize=1&partial=1&sizeFinderId=2&type=category"
+
+    let url = NSURL(string: urlString)
+    let request = NSURLRequest(URL:url!)
+
+    NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) { (response, dataOrNil, errorOrNil) -> Void in
+
+      if let data = dataOrNil {
+        let object = try! NSJSONSerialization.JSONObjectWithData(data, options: [])
+        let fashions = object["Fashions"] as! [NSDictionary]
+        let photoPath = fashions.first!["PhotoPath"] as! String
+        let imageUrl = "http://g.nordstromimage.com/imagegallery/store/product/Medium" + photoPath
+        completion(imageUrl)
+      } else {
+        if let error = errorOrNil {
+          NSLog("Error: \(error)")
+        }
+      }
+    }
+
+
+  }
 }
 
 func getItemsForCategory(category:String, completion: ([AMRInventoryItem]) -> ()) {
   let urlString = "http://shop.nordstrom.com/FashionSearch.axd?category=\(category)&contextualsortcategoryid=0&instoreavailability=false&page=2&pagesize=100&partial=1&sizeFinderId=2&type=category"
-  
   let url = NSURL(string: urlString)
   let request = NSURLRequest(URL:url!)
   
