@@ -230,7 +230,7 @@ class PhotoPicker: NSObject, UINavigationControllerDelegate, UIImagePickerContro
       UIAlertAction in
       self.open(UIImagePickerControllerSourceType.SavedPhotosAlbum)
     }
-    let shopAction = UIAlertAction(title: "Select From Shop", style: UIAlertActionStyle.Default){
+    let shopAction = UIAlertAction(title: "Select From Store", style: UIAlertActionStyle.Default){
       UIAlertAction in
       self.openShop()
     }
