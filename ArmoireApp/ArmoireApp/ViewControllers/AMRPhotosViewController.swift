@@ -285,8 +285,7 @@ extension AMRPhotosViewController {
   }
   
   func onSettingsTap(){
-    let settingsVC = UIAlertController.AMRSettingsController { (AMRSettingsControllerSetting) -> () in}
-    self.presentViewController(settingsVC, animated: true, completion: nil)
+    showSettings()
   }
 
 

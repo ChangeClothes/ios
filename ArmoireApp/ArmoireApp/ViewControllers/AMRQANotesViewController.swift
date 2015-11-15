@@ -24,14 +24,14 @@ class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITabl
   
   func buildCell(tableview: UITableView, indexPath: NSIndexPath) -> UITableViewCell {
     
-    if indexPath.row == 0 && client != nil{ // return notes cell
+    if indexPath.row == 0 && client != nil && CurrentUser.sharedInstance.user?.isStylist == true{ // return notes cell
       let cell = tableView.dequeueReusableCellWithIdentifier(AMRNoteTableViewCell.cellReuseIdentifier()) as! AMRNoteTableViewCell
       cell.contents.text = note?.content
       cell.contents.delegate = self
       return cell
     }
     
-    let isNotesOffset = client == nil ? 0 : 1
+    let isNotesOffset = (client == nil || CurrentUser.sharedInstance.user?.isStylist == false ) ? 0 : 1
     
     //return QA cell
     let cell = tableView.dequeueReusableCellWithIdentifier(AMRQuestionAnswerTableViewCell.cellReuseIdentifier()) as! AMRQuestionAnswerTableViewCell
@@ -64,7 +64,7 @@ class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITabl
     if let qa = questionAnswers {
       count += qa.qas!.count
     }
-    if client != nil {
+    if client != nil && CurrentUser.sharedInstance.user?.isStylist == true {
       count += 1
     }
     return count
@@ -141,9 +141,25 @@ class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITabl
     
     var noteLoaded = false
     var questionAnswerLoaded = false
+    var stylist: AMRUser
+    
+    if CurrentUser.sharedInstance.user?.isStylist == true  {
+      stylist = self.stylist!
+      AMRNote.getOrCreateNoteForUser(stylist, client: client) { (note, error) -> Void in
+        self.note = note
+        noteLoaded = true
+        if noteLoaded && questionAnswerLoaded {
+          self.updateData()
+        }
+      }
+ 
+    } else {
+      stylist = self.client!.stylist!
+      noteLoaded = true
+    }
     
     if client != nil {
-      AMRQuestionAnswer.getOrCreateForUser(self.stylist!, client: self.client) { (questionAnswer, error) -> Void in
+      AMRQuestionAnswer.getOrCreateForUser(stylist, client: self.client) { (questionAnswer, error) -> Void in
         self.questionAnswers = questionAnswer
         questionAnswerLoaded = true
         if noteLoaded && questionAnswerLoaded {
@@ -160,14 +176,7 @@ class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITabl
       })
     }
     
-    AMRNote.getOrCreateNoteForUser(stylist, client: client) { (note, error) -> Void in
-      self.note = note
-      noteLoaded = true
-      if noteLoaded && questionAnswerLoaded {
-        self.updateData()
-      }
-    }
-    
+   
   }
   
   func addQuestionAnswer(){
@@ -196,8 +205,13 @@ class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITabl
   }
   
   internal func setUpNavBar(){
-    let leftNavBarButton = UIBarButtonItem(image: UIImage(named: "cancel"), style: .Plain, target: self, action: "exitModal")
-    self.navigationItem.leftBarButtonItem = leftNavBarButton
+    if CurrentUser.sharedInstance.user?.isStylist == true {
+      let leftNavBarButton = UIBarButtonItem(image: UIImage(named: "cancel"), style: .Plain, target: self, action: "exitModal")
+      self.navigationItem.leftBarButtonItem = leftNavBarButton
+    } else {
+      let leftNavBarButton = UIBarButtonItem(image: UIImage(named: "settings"), style: .Plain, target: self, action: "onSettingsTap")
+      self.navigationItem.leftBarButtonItem = leftNavBarButton
+    }
     if (client != nil){
       self.title = (client?.firstName)! + " " + (client?.lastName)!
     } else {
@@ -207,6 +221,10 @@ class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITabl
       let rightNavBarButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "addQuestionAnswer")
       self.navigationItem.rightBarButtonItem = rightNavBarButton
     }
+  }
+  
+  func onSettingsTap() {
+    showSettings()
   }
   
   override func viewDidLoad() {

@@ -14,7 +14,15 @@ class AMRViewController: UIViewController {
   var client: AMRUser?
   
   func showSettings () {
-    let settingsVC = UIAlertController.AMRSettingsController { (setting: AMRSettingsControllerSetting) -> () in
+    var settingsList: [AMRSettingsControllerSetting]
+    if CurrentUser.sharedInstance.user?.isStylist == true {
+      
+      settingsList = [AMRSettingsControllerSetting.ProfilePicture, AMRSettingsControllerSetting.Template, AMRSettingsControllerSetting.Logout]
+    } else {
+      settingsList = [AMRSettingsControllerSetting.ProfilePicture, AMRSettingsControllerSetting.Logout]
+    }
+    
+    let settingsVC = UIAlertController.AMRSettingsController(settingsList) { (setting: AMRSettingsControllerSetting) -> () in
       if setting == AMRSettingsControllerSetting.ProfilePicture {
         PhotoPicker.sharedInstance.selectPhoto(self.stylist, client: self.client, viewDelegate: self, completion: {
           (image: AMRImage) -> () in
