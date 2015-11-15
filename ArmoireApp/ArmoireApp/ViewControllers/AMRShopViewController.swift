@@ -37,7 +37,7 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
   // MARK: - Initial Setup
   
   func setupNavBar(){
-    self.title = "Stores"
+    self.title = "Store Style Selection"
     let leftNavBarButton = UIBarButtonItem(image: UIImage(named: "cancel"), style: .Plain, target: self, action: "exit")
     self.navigationItem.leftBarButtonItem = leftNavBarButton
     setUpRightNavBarItem()
@@ -106,12 +106,18 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
 
   func selectedCategoryCell(indexPath: NSIndexPath){
     let category = inventoryCategoryHistory.topItem![indexPath.row]
+    print(category.name!)
+    if category.name! == "Nordstrom"{
+      let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 20, height: 100))
+      imageView.image = UIImage(named: "nordstrom2")
+      self.navigationItem.titleView = imageView
+    }
     if let subcategories = category.subcategories {
       collectionView.deselectItemAtIndexPath(indexPath, animated: true)
       inventoryCategoryHistory.push(subcategories)
       collectionView.reloadData()
     } else {
-      if let itemsExist = category.id {
+      if let _ = category.id {
         category.getItems(){ items in
           self.currentItems = items
           self.collectionView.reloadData()
@@ -196,6 +202,8 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
     self.dismissViewControllerAnimated(true, completion: nil)
   }
   
+  // MARK - Photo Selection Functions
+
   func approveAdditions(){
     for (key, item) in selectedPhotos {
       createAMRImage(item)
@@ -209,6 +217,10 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
       selectedPhotos = [String: UIImage]()
     } else {
       inventoryCategoryHistory.pop()
+    }
+    if inventoryCategoryHistory.count == 1 {
+      self.navigationItem.titleView = nil
+      self.title = "Store Style Selection"
     }
     collectionView.reloadData()
     setUpRightNavBarItem()
