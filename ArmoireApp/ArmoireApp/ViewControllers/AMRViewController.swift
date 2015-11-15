@@ -45,5 +45,7 @@ class AMRViewController: UIViewController {
   internal func setVcData(stylist: AMRUser?, client: AMRUser?) {
     self.stylist = stylist
     self.client = client
+    
+    
   }
 }

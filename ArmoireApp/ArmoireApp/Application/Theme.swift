@@ -36,8 +36,8 @@ enum Theme: Int {
     case .Default:
       return .Default
     case .Theme1:
-      //return .Black
-      return .Default
+      return .Black
+      //return .Default
     }
   }
   
@@ -157,6 +157,7 @@ struct ThemeManager {
     */
   }
   
+  
   static func applyTheme(theme: Theme) {
     NSUserDefaults.standardUserDefaults().setValue(theme.rawValue, forKey: SelectedThemeKey)
     NSUserDefaults.standardUserDefaults().synchronize()
@@ -170,10 +171,10 @@ struct ThemeManager {
     UINavigationBar.appearance().barTintColor = theme.mainColorSecondary
     UINavigationBar.appearance().backgroundColor = theme.mainColorSecondary
     
+    
     UITabBar.appearance().barStyle = theme.barStyle
-
     
-    
+    UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: false)
     
   }
 }
