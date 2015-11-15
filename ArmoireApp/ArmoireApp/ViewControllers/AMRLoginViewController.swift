@@ -22,6 +22,8 @@ class AMRLoginViewController: UIViewController {
   @IBOutlet weak var logoImageView: UIImageView!
   var customSignUpViewController: AMRSignUpViewController?
   
+  @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
+  
   weak var delegate: AMRLoginViewControllerDelegate?
   
   override func viewDidLoad() {
@@ -29,7 +31,7 @@ class AMRLoginViewController: UIViewController {
     
     signUpButton.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)
     signUpButton.addTarget(self, action: "signUpButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-    signUpButton.tintColor = ThemeManager.currentTheme().mainColorSecondary
+    signUpButton.tintColor = ThemeManager.currentTheme().highlightColor
     
     logInButton?.addTarget(self, action: "loginButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
     logInButton.layer.cornerRadius = 6.0
@@ -45,7 +47,7 @@ class AMRLoginViewController: UIViewController {
     passwordField.backgroundColor = UIColor(colorLiteralRed: 1.0, green: 1.0, blue: 1.0, alpha: 0.7)
     passwordField.textColor = UIColor(colorLiteralRed: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
     
-    backgroundImageView.image = UIImage.sd_animatedGIFNamed("Armoire_LoginPageBackground")
+    backgroundImageView.image = UIImage(named: "login-background")
     
     let tapGR = UITapGestureRecognizer(target: self, action: "dismissKeyboard:")
     view.addGestureRecognizer(tapGR)
@@ -54,6 +56,35 @@ class AMRLoginViewController: UIViewController {
   
   func dismissKeyboard(sender: UITapGestureRecognizer) {
     view.endEditing(true)
+    UIView.animateWithDuration(0.5) { () -> Void in
+      self.bottomConstraint.constant = 20
+      self.view.layoutIfNeeded()
+    }
+ 
+  }
+  
+  func keyboardWillShow(notification: NSNotification){
+      let userInfo = notification.userInfo as? NSDictionary
+      let endLocationOfKeyboard = userInfo?[UIKeyboardFrameEndUserInfoKey]?.CGRectValue
+      let size = endLocationOfKeyboard?.size
+      let keyboardHeight = size?.height
+      moveNoteUp(keyboardHeight)
+  }
+  
+  override func viewWillAppear(animated: Bool) {
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
+  }
+  override func viewWillDisappear(animated: Bool){
+    super.viewWillDisappear(animated)
+    NSNotificationCenter.defaultCenter().removeObserver(self)
+  }
+  
+  
+  private func moveNoteUp(keyboardHeight: CGFloat?){
+    UIView.animateWithDuration(1) { () -> Void in
+      self.bottomConstraint.constant = keyboardHeight! + 10
+      self.view.layoutIfNeeded()
+    }
   }
   
   func loginButtonTapped(sender: UIButton) {
