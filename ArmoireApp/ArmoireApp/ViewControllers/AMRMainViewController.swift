@@ -212,7 +212,7 @@ class AMRMainViewController: AMRViewController{
   private func setSelectedAppearanceColorForImageView(imageView: UIImageView) {
     selectedIconImageView = imageView
     
-    UIView.animateWithDuration(0.5) { () -> Void in
+    UIView.animateWithDuration(0.2) { () -> Void in
       self.resetIconColors()
       self.selectedIconViewXPositionConstraint.constant = imageView.center.x - self.selectedIconView.frame.width/2
       imageView.tintColor = UIColor.AMRSelectedTabBarButtonTintColor()
