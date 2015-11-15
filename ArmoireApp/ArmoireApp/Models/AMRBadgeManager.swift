@@ -20,6 +20,8 @@ class AMRBadgeManager: NSObject {
   var layerQueryController: LYRQueryController!
   var meetingsToday: [AMRMeeting]!
   
+  var clients: [AMRUser] = []
+  
   // MARK: - Shared Instance
   static let sharedInstance = AMRBadgeManager()
   
@@ -29,7 +31,24 @@ class AMRBadgeManager: NSObject {
     }
   }
   
-  var clientBadges = [AMRUser: AMRClientBadges]()
+  var clientBadges: [AMRUser: AMRClientBadges] {
+    get{
+      var badges =  [AMRUser: AMRClientBadges]()
+      
+      print(self.tempBadges)
+      for client in clients{
+        if let badge = tempBadges[client.objectId!]{
+          if badge.hasMeetingToday || badge.hasUnratedPhotos || badge.hasUnreadMessages {
+            badges[client] = tempBadges[client.objectId!]
+          }
+        }
+      }
+      print(badges)
+      return badges
+    }
+  }
+  
+  var tempBadges = [String: AMRClientBadges]()
   private var getClientBadgesCompletion: (([AMRUser: AMRClientBadges]) -> Void)?
   private let numberOfClientChecks = 3
   private var clientBadgesCountdown: Int! {
@@ -40,8 +59,7 @@ class AMRBadgeManager: NSObject {
       }
     }
   }
-  
-  
+
   // MARK: - Stylist Badges
   var numberOfUnreadConversations: Int?
   // Don't need to calculate this
@@ -59,7 +77,6 @@ class AMRBadgeManager: NSObject {
       }
     }
   }
-
   
   // MARK: - Stylists Client View Badges
   var numberOfUnreadMessagesForStylist: Int?
@@ -74,57 +91,61 @@ class AMRBadgeManager: NSObject {
   // MARK: - Today Client List
   func getClientBadgesForStylist(stylist: AMRUser, withCompletion completion: ((clientBadges: [AMRUser: AMRClientBadges]) -> Void)?) {
     getClientBadgesCompletion = completion
-    clientBadges = [AMRUser: AMRClientBadges]()
     AMRUserManager.sharedManager.queryForAllClientsOfStylist(stylist) { (clients: NSArray?, error: NSError?) -> Void in
       
       if let error = error {
         print(error.localizedDescription)
       } else {
         if let amrClients = clients as? [AMRUser] {
+          self.clients = amrClients
           
-          self.clientBadgesCountdown = amrClients.count * self.numberOfClientChecks
-          
-          for client in amrClients {
-            // Check for unrated images
-            self.determineUnratedImageBadgesForClient(client)
-            self.determineMeetingTodayBadgeForClient(client)
-            self.determineUnreadConversationForClient(client)
+          for client in amrClients{
+            self.tempBadges[client.objectId!] = AMRClientBadges()
           }
+          
+          self.clientBadgesCountdown = self.numberOfClientChecks + amrClients.count - 1
+          
+          self.determineUnratedImageBadgesForStylist(stylist)
+          self.determineMeetingTodayBadgeForStylist(stylist)
+          self.determineUnreadConversationForStylist(stylist)
+          
         }
       }
     }
-    
   }
   
-  private func determineUnratedImageBadgesForClient(client: AMRUser){
-    AMRImage.imagesForUser(nil, client: client, completion: { (objects, error) -> Void in
+  private func determineUnratedImageBadgesForStylist(stylist: AMRUser){
+    AMRImage.imagesForUser(stylist, client:nil, completion: { (objects, error) -> Void in
       if let error = error {
         print(error.localizedDescription)
       } else {
         if let images = objects {
           for image in images{
             if image.rating == AMRPhotoRating.Unrated {
-              if let badges = self.clientBadges[client] {
-                badges.hasUnratedPhotos = true
-              } else {
-                self.clientBadges[client] = AMRClientBadges()
-                self.clientBadges[client]?.hasUnratedPhotos = true
+              if let client = image.client {
+                if let badges = self.tempBadges[client.objectId!] {
+                  badges.hasUnratedPhotos = true
+                } else {
+                  self.tempBadges[client.objectId!] = AMRClientBadges()
+                  self.tempBadges[client.objectId!]?.hasUnratedPhotos = true
+                }
               }
             }
           }
           self.clientBadgesCountdown = self.clientBadgesCountdown - 1
+          print("photos done")
         }
       }
     })
   }
   
-  private func determineMeetingTodayBadgeForClient(client: AMRUser){
+  private func determineMeetingTodayBadgeForStylist(stylist: AMRUser){
     let cal = NSCalendar.currentCalendar()
     let components = cal.components([.Era, .Year, .Month, .Day], fromDate: NSDate())
     let today = cal.dateFromComponents(components)
     meetingsToday = [AMRMeeting]()
     
-    AMRMeeting.meetingArrayForStylist(nil, client: client) { (objects, error) -> Void in
+    AMRMeeting.meetingArrayForStylist(stylist, client: nil) { (objects, error) -> Void in
       if let error = error {
         print(error.localizedDescription)
       } else {
@@ -133,15 +154,17 @@ class AMRBadgeManager: NSObject {
             let startDateComponents = cal.components([.Era, .Year, .Month, .Day], fromDate: meeting.startDate)
             let meetingDay = cal.dateFromComponents(startDateComponents)
             if today!.isEqualToDate(meetingDay!) == true {
-              if let badges = self.clientBadges[client] {
+              let client = meeting.client
+              if let badges = self.tempBadges[client.objectId!] {
                 badges.hasMeetingToday = true
               } else {
-                self.clientBadges[client] = AMRClientBadges()
-                self.clientBadges[client]?.hasMeetingToday = true
+                self.tempBadges[client.objectId!] = AMRClientBadges()
+                self.tempBadges[client.objectId!]?.hasMeetingToday = true
                 self.meetingsToday.append(meeting)
               }
             }
           }
+          print("meetings done")
           self.clientBadgesCountdown = self.clientBadgesCountdown - 1
         }
       }
@@ -149,30 +172,31 @@ class AMRBadgeManager: NSObject {
     }
   }
   
-  private func determineUnreadConversationForClient(client: AMRUser) {
-    let query = LYRQuery(queryableClass: LYRMessage.self)
-    let unreadPredicate = LYRPredicate(property: "isUnread", predicateOperator: LYRPredicateOperator.IsEqualTo, value: true)
-    let userPredicate = LYRPredicate(property: "sender.userID", predicateOperator: LYRPredicateOperator.IsEqualTo, value: client.objectId)
-    
-    query.predicate = LYRCompoundPredicate(type: LYRCompoundPredicateType.And, subpredicates: [userPredicate, unreadPredicate])
-    
-    layerClient.executeQuery(query) { (conversations: NSOrderedSet!, error: NSError!) -> Void in
-      if let error = error {
-        print(error.localizedDescription)
-      } else {
-        if conversations.count != 0 {
-          if let badges = self.clientBadges[client] {
-            badges.hasUnreadMessages = true
-          } else {
-            self.clientBadges[client] = AMRClientBadges()
-            self.clientBadges[client]?.hasUnreadMessages = true
+  private func determineUnreadConversationForStylist(stylist: AMRUser) {
+    for client in clients{
+      let query = LYRQuery(queryableClass: LYRMessage.self)
+      let unreadPredicate = LYRPredicate(property: "isUnread", predicateOperator: LYRPredicateOperator.IsEqualTo, value: true)
+      let userPredicate = LYRPredicate(property: "sender.userID", predicateOperator: LYRPredicateOperator.IsEqualTo, value: client.objectId)
+      query.predicate = LYRCompoundPredicate(type: LYRCompoundPredicateType.And, subpredicates: [userPredicate, unreadPredicate])
+      
+      layerClient.countForQuery(query) { (count: UInt, error:NSError!) -> Void in
+        if let error = error {
+          print(error.localizedDescription)
+        } else {
+          if count > 0 {
+            
+            if let _ = self.tempBadges[client.objectId!] {
+              self.tempBadges[client.objectId!]?.hasUnreadMessages = true
+            } else {
+              self.tempBadges[client.objectId!] = AMRClientBadges()
+              self.tempBadges[client.objectId!]?.hasUnreadMessages = true
+            }
           }
+          self.clientBadgesCountdown = self.clientBadgesCountdown - 1
         }
-        self.clientBadgesCountdown = self.clientBadgesCountdown - 1
       }
     }
   }
-  
 }
 
 // MARK: - LYRQueryController Delegate
