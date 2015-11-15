@@ -13,8 +13,10 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
   var inventory: AMRInventory?
   var inventoryCategoryHistory = InventoryCategoryStack()
   var currentItems: [AMRInventoryItem]?
-  var selectedPhotos = [UIImage]()
+  var selectedPhotos = [String: UIImage]()
   var client: AMRUser?
+  var currentPageType: StorePageContent?
+  let kPictureAddedNotification = "com.armoire.pictureAddedToClientNotification"
 
   @IBOutlet weak var collectionView: UICollectionView!
 
@@ -35,7 +37,7 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
   // MARK: - Initial Setup
   
   func setupNavBar(){
-    self.title = "Stores"
+    self.title = "Store Style Selection"
     let leftNavBarButton = UIBarButtonItem(image: UIImage(named: "cancel"), style: .Plain, target: self, action: "exit")
     self.navigationItem.leftBarButtonItem = leftNavBarButton
     setUpRightNavBarItem()
@@ -63,6 +65,21 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
     }
   }
 
+  // MARK: - Utility
+
+  func storePageType() -> StorePageContent?{
+    if let _ = currentItems {
+      return StorePageContent.Items
+    } else if inventoryCategoryHistory.count > 1 {
+      return StorePageContent.Categories
+    } else if inventoryCategoryHistory.count == 1 {
+      return StorePageContent.Venues
+    } else {
+      print("no store page content found")
+      return nil
+    }
+  }
+
   // MARK: - Collection View
 
   func setupClientCollectionView(){
@@ -72,6 +89,8 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
     collectionView.registerNib(cellNib, forCellWithReuseIdentifier: "CategoryCell")
     let itemCellNib = UINib(nibName: "AMRInventoryItemCollectionViewCell", bundle: nil)
     collectionView.registerNib(itemCellNib, forCellWithReuseIdentifier: "ItemCell")
+    let venueCellNib = UINib(nibName: "AMRInventoryVenueCollectionViewCell", bundle: nil)
+    collectionView.registerNib(venueCellNib, forCellWithReuseIdentifier: "VenueCell")
     collectionView.backgroundColor = UIColor.whiteColor()
     self.view.addSubview(collectionView)
   }
@@ -87,28 +106,41 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
 
   func selectedCategoryCell(indexPath: NSIndexPath){
     let category = inventoryCategoryHistory.topItem![indexPath.row]
+    print(category.name!)
+    if category.name! == "Nordstrom"{
+      let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 20, height: 100))
+      imageView.image = UIImage(named: "nordstrom2")
+      self.navigationItem.titleView = imageView
+    }
     if let subcategories = category.subcategories {
       collectionView.deselectItemAtIndexPath(indexPath, animated: true)
       inventoryCategoryHistory.push(subcategories)
       collectionView.reloadData()
     } else {
-      category.getItems(){ items in
-        self.currentItems = items
-        self.collectionView.reloadData()
+      if let _ = category.id {
+        category.getItems(){ items in
+          self.currentItems = items
+          self.collectionView.reloadData()
+        }
+      } else {
+        showComingSoonAlert(category.name!)
       }
+
     }
   }
 
   func selectedItemCell(indexPath: NSIndexPath, items: [AMRInventoryItem]){
     let item = items[indexPath.row]
     var selectedCell = collectionView.cellForItemAtIndexPath(indexPath) as! AMRInventoryItemCollectionViewCell
-    if selectedCell.layer.borderWidth == 2.0 {
-      selectedCell.layer.borderWidth = 0.0
-      deselectItem(selectedCell.imageView.image!)
+    selectedCell.nameLabel.layer.cornerRadius = 10
+    selectedCell.nameLabel.clipsToBounds = true
+    selectedCell.layer.borderWidth = 0.0
+    if itemSelected(item.name!) {
+      selectedCell.nameLabel.textColor = UIColor.blackColor()
+      deselectItem(item.name!)
     } else {
-      selectedCell.layer.borderWidth = 2.0
-      selectedCell.layer.borderColor = UIColor.grayColor().CGColor
-      selectItem((selectedCell.imageView?.image)!)
+      selectedCell.nameLabel.textColor = UIColor.AMRClientNotificationIconColor()
+      selectItem(item.name!, item: (selectedCell.imageView?.image)!)
     }
   }
 
@@ -121,29 +153,47 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
   }
 
   func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    let pageType = storePageType()
 
     let itemCell: AMRInventoryItemCollectionViewCell?
     let categoryCell: AMRCategoryCollectionViewCell?
+    let venueCell: AMRInventoryVenueCollectionViewCell?
 
-    if let items = currentItems {
+    if pageType == StorePageContent.Items {
       itemCell = collectionView.dequeueReusableCellWithReuseIdentifier("ItemCell", forIndexPath: indexPath) as! AMRInventoryItemCollectionViewCell
-      let item = items[indexPath.row]
+      let item = currentItems![indexPath.row]
       itemCell!.item = item
+      if itemSelected(item.name!){
+        itemCell!.nameLabel.textColor = UIColor.AMRClientNotificationIconColor()
+      }
       return itemCell!
-    } else {
+    } else if pageType == StorePageContent.Categories {
       categoryCell = collectionView.dequeueReusableCellWithReuseIdentifier("CategoryCell", forIndexPath: indexPath) as! AMRCategoryCollectionViewCell
       let category = inventoryCategoryHistory.topItem![indexPath.row]
       categoryCell!.category = category
       return categoryCell!
+    } else if pageType == StorePageContent.Venues {
+      venueCell = collectionView.dequeueReusableCellWithReuseIdentifier("VenueCell", forIndexPath: indexPath) as! AMRInventoryVenueCollectionViewCell
+      let category = inventoryCategoryHistory.topItem![indexPath.row]
+      venueCell!.category = category
+      return venueCell!
+    } else {
+      print("No valid page type at cellForItemAtIndexPath")
+      return UICollectionViewCell()
     }
   }
 
   func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-    return CGSizeMake(115, 150)
+    let pageType = storePageType()
+    if pageType == StorePageContent.Venues{
+      return CGSizeMake(300,150)
+    } else {
+      return CGSizeMake(165, 370)
+    }
   }
 
   func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
-    return UIEdgeInsetsMake(-10, 0, 20, 0)
+    return UIEdgeInsetsMake(0, 0, 0, 0)
   }
 
   // MARK: - On Tap Functions
@@ -152,8 +202,10 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
     self.dismissViewControllerAnimated(true, completion: nil)
   }
   
+  // MARK - Photo Selection Functions
+
   func approveAdditions(){
-    for item in selectedPhotos {
+    for (key, item) in selectedPhotos {
       createAMRImage(item)
     }
     self.dismissViewControllerAnimated(true, completion: nil)
@@ -162,9 +214,13 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
   func revertToPreviousCategory(){
     if let items = currentItems {
       currentItems = nil
-      selectedPhotos = [UIImage]()
+      selectedPhotos = [String: UIImage]()
     } else {
       inventoryCategoryHistory.pop()
+    }
+    if inventoryCategoryHistory.count == 1 {
+      self.navigationItem.titleView = nil
+      self.title = "Store Style Selection"
     }
     collectionView.reloadData()
     setUpRightNavBarItem()
@@ -172,20 +228,22 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
 
   // MARK: - Item Engagemenet
 
-  func selectItem(item: UIImage){
-    selectedPhotos.append(item)
+  func selectItem(key: String, item: UIImage){
+    selectedPhotos[key] = item
     setUpRightNavBarItem()
   }
 
-  func deselectItem(item: UIImage){
-    var deleteAtIndex: Int?
-    for (index, element) in selectedPhotos.enumerate() {
-      if item === element {
-        deleteAtIndex = index
-      }
-    }
-    selectedPhotos.removeAtIndex(deleteAtIndex!)
+  func deselectItem(key: String){
+    selectedPhotos[key] = nil
     setUpRightNavBarItem()
+  }
+
+  func itemSelected(key: String) -> Bool{
+    if let value = selectedPhotos[key]{
+      return true
+    } else {
+      return false
+    }
   }
 
   // MARK: - Create AMRImage
@@ -203,9 +261,21 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
       if let error = error {
         print(error.localizedDescription)
       } else {
-        print("Saved")
+        NSNotificationCenter.defaultCenter().postNotificationName(self.kPictureAddedNotification, object: self)
       }
     }
+  }
+
+  // MARK - Alerts
+
+  func showComingSoonAlert(venue: String){
+    let alert:UIAlertController=UIAlertController(title: "\(venue) not yet available", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
+    alert.view.tintColor = UIColor.AMRSecondaryBackgroundColor()
+    let cancelAction = UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Cancel) {
+      UIAlertAction in
+    }
+    alert.addAction(cancelAction)
+    self.presentViewController(alert, animated: true, completion: nil)
   }
 
   /*
@@ -240,4 +310,11 @@ struct InventoryCategoryStack {
     return items.count
   }
 
+}
+
+enum StorePageContent {
+  case Venues
+  case Categories
+  case Items
+  case Unknown
 }

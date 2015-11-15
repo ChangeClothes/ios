@@ -1,5 +1,5 @@
 //
-//  AMRInventoryItemCollectionViewCell.swift
+//  AMRInventoryVenueCollectionViewCell.swift
 //  ArmoireApp
 //
 //  Created by Morgan Wildermuth on 11/14/15.
@@ -8,29 +8,26 @@
 
 import UIKit
 
-class AMRInventoryItemCollectionViewCell: UICollectionViewCell {
+class AMRInventoryVenueCollectionViewCell: UICollectionViewCell {
 
-  @IBOutlet weak var nameLabel: UILabel!
   @IBOutlet weak var imageView: UIImageView!
 
-  var item: AMRInventoryItem! {
+  override func awakeFromNib() {
+      super.awakeFromNib()
+      // Initialization code
+  }
+
+  var category: AMRInventoryCategory! {
     didSet{
-      nameLabel.text = item.name
-      if let checkedUrl = NSURL(string: item.imageUrl!) {
+      if let checkedUrl = NSURL(string: category.imageUrl!) {
         imageView.contentMode = .ScaleAspectFit
         setImageValue(checkedUrl)
       }
     }
   }
 
-  override func awakeFromNib() {
-    super.awakeFromNib()
-    // Initialization code
-  }
-
   override func prepareForReuse() {
     self.imageView.image = nil;
-    self.nameLabel.textColor = UIColor.blackColor()
   }
 
   func getDataFromUrl(url:NSURL, completion: ((data: NSData?, response: NSURLResponse?, error: NSError? ) -> Void)) {
@@ -47,4 +44,5 @@ class AMRInventoryItemCollectionViewCell: UICollectionViewCell {
       }
     }
   }
+
 }

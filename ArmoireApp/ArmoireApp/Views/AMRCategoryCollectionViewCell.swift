@@ -10,14 +10,23 @@ import UIKit
 
 class AMRCategoryCollectionViewCell: UICollectionViewCell {
 
+  @IBOutlet weak var constraintImageWidth: NSLayoutConstraint!
+  @IBOutlet weak var constraintImageHeight: NSLayoutConstraint!
   @IBOutlet weak var imageView: UIImageView!
   @IBOutlet weak var nameLabel: UILabel!
 
   var category: AMRInventoryCategory! {
     didSet{
       nameLabel.text = category.name
-      print(category.imageUrl)
-      if let checkedUrl = NSURL(string: category.imageUrl!) {
+      if category.name == "Women"{
+        imageView.image = UIImage(named: "female")
+        constraintImageHeight.constant = 150
+        constraintImageWidth.constant = 150
+      } else if category.name == "Men"{
+        imageView.image = UIImage(named: "male")
+        constraintImageWidth.constant = 150
+        constraintImageHeight.constant = 150
+      } else if let checkedUrl = NSURL(string: category.imageUrl!) {
         imageView.contentMode = .ScaleAspectFit
         setImageValue(checkedUrl)
       }
@@ -27,6 +36,12 @@ class AMRCategoryCollectionViewCell: UICollectionViewCell {
   override func awakeFromNib() {
       super.awakeFromNib()
       // Initialization code
+  }
+
+  override func prepareForReuse() {
+    self.imageView.image = nil;
+    constraintImageWidth.constant = 165
+    constraintImageHeight.constant = 254
   }
 
   func getDataFromUrl(url:NSURL, completion: ((data: NSData?, response: NSURLResponse?, error: NSError? ) -> Void)) {
@@ -43,5 +58,4 @@ class AMRCategoryCollectionViewCell: UICollectionViewCell {
       }
     }
   }
-
 }

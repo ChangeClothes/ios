@@ -11,6 +11,7 @@ import UIKit
 let uncategorizedSectionTitle = "Uncategorized"
 let kImageCellReuseIdentifier = "com.armoire.imageCellReuseIdentifier"
 let kItemSectionHeaderViewID = "com.armoire.photoSectionHeaderViewID"
+let kPictureAddedNotification = "com.armoire.pictureAddedToClientNotification"
 class AMRPhotosViewController: AMRViewController {
 
   
@@ -24,6 +25,7 @@ class AMRPhotosViewController: AMRViewController {
   override func viewDidLoad() {
     setupCollectionView()
     createNavBarButtonItems()
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "onPictureAdded:", name: kPictureAddedNotification, object: nil)
     title = client!.firstName + "'s Outfits"
   }
   
@@ -70,6 +72,11 @@ class AMRPhotosViewController: AMRViewController {
 
       self.photoSections = self.sectionsForPhotosArray(self.photos)
       self.uiImageArrayFromAMRImageArray(self.amrImageArrayFromPhotoSections(self.photoSections!))
+      if let currentPhotoSections = self.photoSections {
+        for (key, section) in currentPhotoSections{
+          self.photoSections![key] = section.reverse()
+        }
+      }
       self.collectionView.reloadData()
     }
   }
@@ -96,6 +103,13 @@ class AMRPhotosViewController: AMRViewController {
     
     return resultArray
   }
+
+  // MARK - Notifications
+
+  func onPictureAdded(notification: NSNotification){
+    refreshCollectionView()
+  }
+
 }
 
 // MARK: UICollectionViewDataSource
@@ -108,16 +122,8 @@ extension AMRPhotosViewController: UICollectionViewDataSource{
   func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     if let sections = photoSections {
       if let imagesArray = sections[AMRPhotoRating.titleArray()[section]] {
-        if section == 0 {
-          return imagesArray.count// + 1 // For camera button
-        } else {
-          return imagesArray.count
-        }
-        
+        return imagesArray.count
       }
-    }
-    if section == 0 {
-      //return 1  // For camera button
     }
     return 0
   }
@@ -174,16 +180,8 @@ extension AMRPhotosViewController: UICollectionViewDataSource{
 extension AMRPhotosViewController: UICollectionViewDelegate {
   func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
     collectionView.deselectItemAtIndexPath(indexPath, animated: true)
-    
-    if indexPath.row == 0 && indexPath.section == 0 {
-      selectPhoto()
-    } else if indexPath.section == 0 {
-      let photo = photoSections![AMRPhotoRating.titleArray()[indexPath.section]]![indexPath.row - 1]
-      showPicture(photo)
-    } else {
-      let photo = photoSections![AMRPhotoRating.titleArray()[indexPath.section]]![indexPath.row]
-      showPicture(photo)
-    }
+    let photo = photoSections![AMRPhotoRating.titleArray()[indexPath.section]]![indexPath.row]
+    showPicture(photo)
   }
   
   // MARK: - Utility
@@ -287,7 +285,6 @@ extension AMRPhotosViewController {
   func onSettingsTap(){
     showSettings()
   }
-
 
 }
 
