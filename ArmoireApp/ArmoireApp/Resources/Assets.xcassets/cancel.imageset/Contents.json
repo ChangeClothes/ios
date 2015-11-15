@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "iconmonstr-x-mark-icon_1x.png",
+      "filename" : "X 25.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "iconmonstr-x-mark-icon_2x.png",
+      "filename" : "X 50.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "iconmonstr-x-mark-icon_3x.png",
+      "filename" : "X75.png",
       "scale" : "3x"
     }
   ],
