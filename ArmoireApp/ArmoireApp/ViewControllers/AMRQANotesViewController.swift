@@ -8,28 +8,30 @@
 
 import UIKit
 
-class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITableViewDelegate, UITextViewDelegate {
+class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITableViewDelegate, UITextViewDelegate, UIGestureRecognizerDelegate {
   
+  @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
   @IBOutlet weak var tableView: UITableView!
   var note: AMRNote?
   var questionAnswers: AMRQuestionAnswer?
   var heights: [CGFloat]?
+  var currentTextView: UITextView?
+  var tapRecognizer: UITapGestureRecognizer?
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     return buildCell(tableView, indexPath: indexPath)
   }
   
   func buildCell(tableview: UITableView, indexPath: NSIndexPath) -> UITableViewCell {
-    print("section", indexPath.section, "row", indexPath.row)
     
-    if indexPath.row == 0 && client != nil{ // return notes cell
+    if indexPath.row == 0 && client != nil && CurrentUser.sharedInstance.user?.isStylist == true{ // return notes cell
       let cell = tableView.dequeueReusableCellWithIdentifier(AMRNoteTableViewCell.cellReuseIdentifier()) as! AMRNoteTableViewCell
       cell.contents.text = note?.content
       cell.contents.delegate = self
       return cell
     }
     
-    let isNotesOffset = client == nil ? 0 : 1
+    let isNotesOffset = (client == nil || CurrentUser.sharedInstance.user?.isStylist == false ) ? 0 : 1
     
     //return QA cell
     let cell = tableView.dequeueReusableCellWithIdentifier(AMRQuestionAnswerTableViewCell.cellReuseIdentifier()) as! AMRQuestionAnswerTableViewCell
@@ -62,10 +64,9 @@ class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITabl
     if let qa = questionAnswers {
       count += qa.qas!.count
     }
-    if client != nil {
+    if client != nil && CurrentUser.sharedInstance.user?.isStylist == true {
       count += 1
     }
-    print("returning count:", count)
     return count
   }
   
@@ -94,28 +95,30 @@ class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITabl
     if indexPath!.row != 0 {
       textView.textAlignment = .Right  // for some reason it defaults back to left on typing
     }
-    print("text did change for row", indexPath?.row, textView.center, height)
-
     if heights![indexPath!.row] != height {
       tableView.beginUpdates()
       heights![indexPath!.row] = cell.getCellHeight(nil)
       tableView.endUpdates()
     }
+    if indexPath?.row == 0 {
+      note?.content = textView.text
+    } else {
+      questionAnswers?.qas?[indexPath!.row - 1]["answer"] = textView.text
+    }
   }
   
   func textViewDidBeginEditing(textView: UITextView) {
+    currentTextView = textView
   }
   
   func textViewDidEndEditing(textView: UITextView) {
-      self.questionAnswers?.saveInBackground()
+    currentTextView = nil
+    self.questionAnswers?.saveInBackground()
   }
   
   func updateData(){
     calculateRowHeights()
     self.tableView.reloadData()
-    print("heights", heights)
-    print("note", note)
-    print("qa", questionAnswers!.qas, questionAnswers!.qas!.count)
   }
   
   func getCellHeight(index:Int) -> CGFloat{
@@ -129,7 +132,6 @@ class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITabl
     heights = [CGFloat]( count: numRows , repeatedValue: AMRDynamicHeightTableViewCell.getDefaultHeight())
     if numRows > 0 {
       for index in 0...numRows - 1 {
-        print("calculating row height for row", index)
         heights![index] = getCellHeight(index)
       }
     }
@@ -139,9 +141,25 @@ class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITabl
     
     var noteLoaded = false
     var questionAnswerLoaded = false
+    var stylist: AMRUser
+    
+    if CurrentUser.sharedInstance.user?.isStylist == true  {
+      stylist = self.stylist!
+      AMRNote.getOrCreateNoteForUser(stylist, client: client) { (note, error) -> Void in
+        self.note = note
+        noteLoaded = true
+        if noteLoaded && questionAnswerLoaded {
+          self.updateData()
+        }
+      }
+ 
+    } else {
+      stylist = self.client!.stylist!
+      noteLoaded = true
+    }
     
     if client != nil {
-      AMRQuestionAnswer.getOrCreateForUser(self.stylist!, client: self.client) { (questionAnswer, error) -> Void in
+      AMRQuestionAnswer.getOrCreateForUser(stylist, client: self.client) { (questionAnswer, error) -> Void in
         self.questionAnswers = questionAnswer
         questionAnswerLoaded = true
         if noteLoaded && questionAnswerLoaded {
@@ -158,15 +176,7 @@ class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITabl
       })
     }
     
-    AMRNote.getOrCreateNoteForUser(stylist, client: client) { (note, error) -> Void in
-      self.note = note
-      noteLoaded = true
-      print(noteLoaded, questionAnswerLoaded)
-      if noteLoaded && questionAnswerLoaded {
-        self.updateData()
-      }
-    }
-    
+   
   }
   
   func addQuestionAnswer(){
@@ -195,7 +205,7 @@ class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITabl
   }
   
   internal func setUpNavBar(){
-    if (stylist != nil && client != nil){
+    if CurrentUser.sharedInstance.user?.isStylist == true {
       let leftNavBarButton = UIBarButtonItem(image: UIImage(named: "cancel"), style: .Plain, target: self, action: "exitModal")
       self.navigationItem.leftBarButtonItem = leftNavBarButton
     } else {
@@ -213,12 +223,21 @@ class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITabl
     }
   }
   
+  func onSettingsTap() {
+    showSettings()
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     self.tableView.separatorStyle = .None
     if client != nil {
       self.automaticallyAdjustsScrollViewInsets = false
     }
+    
+    tapRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+    tapRecognizer!.delegate = self
+    self.view.addGestureRecognizer(tapRecognizer!)
+    
     
     //start fetching data
     getData()
@@ -234,6 +253,49 @@ class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITabl
     
     
     // Do any additional setup after loading the view.
+  }
+  
+  override func viewWillAppear(animated: Bool) {
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardDidShowNotification, object: nil)
+  }
+  override func viewWillDisappear(animated: Bool){
+    super.viewWillDisappear(false)
+    saveQAs()
+    saveNotes()
+    NSNotificationCenter.defaultCenter().removeObserver(self)
+  }
+  
+  func saveNotes(){
+    self.note?.saveInBackground()
+  }
+  func saveQAs(){
+    self.questionAnswers?.saveInBackground()
+  }
+  
+  func keyboardWillShow(notification: NSNotification){
+    if currentTextView != nil {
+      let userInfo = notification.userInfo as? NSDictionary
+      let endLocationOfKeyboard = userInfo?[UIKeyboardFrameEndUserInfoKey]?.CGRectValue
+      let size = endLocationOfKeyboard?.size
+      let keyboardHeight = size?.height
+      moveNoteUp(keyboardHeight)
+    }
+  }
+  
+  func dismissKeyboard(){
+    moveNoteDown()
+    currentTextView?.resignFirstResponder()
+    currentTextView = nil
+  }
+  
+  private func moveNoteUp(keyboardHeight: CGFloat?){
+    self.bottomConstraint.constant = keyboardHeight! - (self.navigationController?.navigationBar.frame.height)! - UIApplication.sharedApplication().statusBarFrame.size.height - 5.0
+    self.view.layoutIfNeeded()
+  }
+  
+  private func moveNoteDown(){
+    self.bottomConstraint.constant = 0
+    self.view.layoutIfNeeded()
   }
   
   override func didReceiveMemoryWarning() {

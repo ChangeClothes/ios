@@ -190,7 +190,7 @@ class AMRNotesViewController: AMRViewController, UITextViewDelegate{
     self.navigationItem.leftBarButtonItem = leftNavBarButton
   }
 
-  // MARK - Observor Actions
+  // MARK - Observer Actions
 
   func keyboardWillShow(notification: NSNotification){
     let userInfo = notification.userInfo as? NSDictionary
