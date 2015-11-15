@@ -29,7 +29,7 @@
                             <constraint firstAttribute="height" constant="20" id="Abh-wL-Wiq"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="add-photo" translatesAutoresizingMaskIntoConstraints="NO" id="9rY-Is-zGS">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="wardrobe" translatesAutoresizingMaskIntoConstraints="NO" id="9rY-Is-zGS">
                         <rect key="frame" x="66" y="26" width="20" height="20"/>
                         <animations/>
                         <constraints>
@@ -143,8 +143,8 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="add-photo" width="604" height="573"/>
         <image name="calendar" width="25" height="25"/>
         <image name="messaging" width="25" height="25"/>
+        <image name="wardrobe" width="25" height="25"/>
     </resources>
 </document>

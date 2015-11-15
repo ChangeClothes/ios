@@ -252,7 +252,8 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
 extension AMRClientsViewController: AMRTodayTableCollectionViewCellDelegate{
   func todayTableCollectionViewCell(cell: AMRTodayTableCollectionViewCell, didSelectClient client: AMRUser) {
     if AMRBadgeManager.sharedInstance.clientBadges[client]?.isEqualTo(AMRClientBadges.hasUnreadMessagesOnly()) == true {
-      print("here")
+      presentConversationWithClient(client)
+      return
     }
     
     let clientDetailVC = AMRClientsDetailViewController(layerClient: layerClient)
@@ -264,8 +265,47 @@ extension AMRClientsViewController: AMRTodayTableCollectionViewCellDelegate{
     let viewWidth = self.view.frame.width - 25
     formSheetController.presentationController?.contentViewSize = CGSizeMake(viewWidth, viewHeight)
     self.presentViewController(formSheetController, animated: true, completion: nil)
-
-    
-
+  }
+  
+  private func presentConversationWithClient(client: AMRUser){
+    let participants = [layerClient.authenticatedUserID, client.objectId, AMRUser.currentUser()!.objectId]
+    let query = LYRQuery(queryableClass: LYRConversation.self)
+    query.predicate = LYRPredicate(property: "participants", predicateOperator: LYRPredicateOperator.IsEqualTo, value: participants)
+    layerClient.executeQuery(query) { (conversations, error) -> Void in
+      if let error = error {
+        NSLog("Query failed with error %@", error)
+      } else if conversations.count <= 1 {
+        let nc = UINavigationController(rootViewController: AMRMessagesDetailsViewController(layerClient: self.layerClient))
+        let vc = nc.viewControllers.first as! AMRMessagesDetailsViewController
+        vc.client = client
+        vc.stylist = self.stylist
+        let conversation = self.retrieveConversation(conversations, participants: participants)
+        if let conversation = conversation {
+          let shouldShowAddressBar: Bool  = conversation.participants.count > 2 || conversation.participants.count == 0
+          vc.displaysAddressBar = shouldShowAddressBar
+          vc.conversation = conversation
+          self.presentViewController(nc, animated: true, completion: nil)
+        } else {
+          print("error occurred in transitioning to conversation detail, conversation nil")
+        }
+      } else {
+        NSLog("%tu conversations with participants %@", conversations.count, participants)
+      }
+    }
+  }
+  
+  private func retrieveConversation(conversations: NSOrderedSet, participants: [AnyObject]) -> LYRConversation? {
+    var conversation: LYRConversation?
+    if conversations.count == 1 {
+      conversation = conversations[0] as? LYRConversation
+    } else if conversations.count == 0{
+      do {
+        conversation = try self.layerClient.newConversationWithParticipants(NSSet(array: participants) as Set<NSObject>, options: nil)
+        print("new conversation created since none existed")
+      } catch let error {
+        print("no conversations; conversation not created. error: \(error)")
+      }
+    }
+    return conversation
   }
 }

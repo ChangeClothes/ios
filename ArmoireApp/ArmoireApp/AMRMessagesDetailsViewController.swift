@@ -16,11 +16,11 @@ class AMRMessagesDetailsViewController: ATLConversationViewController {
   var client: AMRUser?
   
   // MARK: - Lifecycle
-
+  
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(false)
   }
-
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     if (self.client == nil) {
@@ -52,9 +52,9 @@ class AMRMessagesDetailsViewController: ATLConversationViewController {
     if (self.client == nil){
       NSNotificationCenter.defaultCenter().postNotificationName(AMRMainShowMenuView, object: self)
     }
-
+    
   }
-
+  
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
@@ -63,22 +63,23 @@ class AMRMessagesDetailsViewController: ATLConversationViewController {
   // MARK - UI Configuration methods
   
   private func setUpNavBar(){
-      if (client != nil){
-        let leftNavBarButton = UIBarButtonItem(image: UIImage(named: "cancel"), style: .Plain, target: self, action: "exitModal")
-        self.navigationItem.leftBarButtonItem = leftNavBarButton
-      }
+    if (client != nil){
+      let leftNavBarButton = UIBarButtonItem(image: UIImage(named: "cancel"), style: .Plain, target: self, action: "exitModal")
+      self.navigationItem.leftBarButtonItem = leftNavBarButton
+    }
   }
-
+  
   func configureUI() {
     ATLOutgoingMessageCollectionViewCell.appearance().messageTextColor = UIColor.whiteColor()
   }
   
   // MARK - Transition Methods
-
+  
   func exitModal(){
+    NSNotificationCenter.defaultCenter().postNotificationName(kDismissedModalNotification, object: self)
     self.dismissViewControllerAnimated(true, completion: nil)
   }
-
+  
   // MARK - ATLAddressBarViewController Delegate methods methods
   
   override func addressBarViewController(addressBarViewController: ATLAddressBarViewController, didTapAddContactsButton addContactsButton: UIButton) {
@@ -94,7 +95,7 @@ class AMRMessagesDetailsViewController: ATLConversationViewController {
         print("Error querying for All Users: \(error)")
       }
     }
-  
+    
   }
   
   override func addressBarViewController(addressBarViewController: ATLAddressBarViewController, searchForParticipantsMatchingText searchText: String, completion: (([AnyObject]) -> Void)?) {
@@ -108,7 +109,7 @@ class AMRMessagesDetailsViewController: ATLConversationViewController {
       }
     }
   }
-
+  
   
 }
 
@@ -125,7 +126,7 @@ extension AMRMessagesDetailsViewController: ATLConversationViewControllerDelegat
   func conversationViewController(viewController: ATLConversationViewController, didSelectMessage message: LYRMessage) {
     print("Message selected")
   }
-
+  
 }
 
 // MARK: - ATLConversationViewController Datasource Methods
@@ -186,7 +187,7 @@ extension AMRMessagesDetailsViewController: ATLConversationViewControllerDataSou
     }
     return mergedStatuses;
   }
-
+  
 }
 
 // MARK: - ATLParticipantTableViewController Delegate Methods
