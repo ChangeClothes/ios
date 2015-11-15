@@ -111,10 +111,15 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
       inventoryCategoryHistory.push(subcategories)
       collectionView.reloadData()
     } else {
-      category.getItems(){ items in
-        self.currentItems = items
-        self.collectionView.reloadData()
+      if let itemsExist = category.id {
+        category.getItems(){ items in
+          self.currentItems = items
+          self.collectionView.reloadData()
+        }
+      } else {
+        showComingSoonAlert(category.name!)
       }
+
     }
   }
 
@@ -171,10 +176,8 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
     let pageType = storePageType()
     if pageType == StorePageContent.Venues{
       return CGSizeMake(300,150)
-    } else if pageType == StorePageContent.Items{
-      return CGSizeMake(165, 350)
     } else {
-      return CGSizeMake(115, 150)
+      return CGSizeMake(165, 350)
     }
   }
 
@@ -242,6 +245,18 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
         NSNotificationCenter.defaultCenter().postNotificationName(self.kPictureAddedNotification, object: self)
       }
     }
+  }
+
+  // MARK - Alerts
+
+  func showComingSoonAlert(venue: String){
+    let alert:UIAlertController=UIAlertController(title: "\(venue) not yet available", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
+    alert.view.tintColor = UIColor.AMRSecondaryBackgroundColor()
+    let cancelAction = UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Cancel) {
+      UIAlertAction in
+    }
+    alert.addAction(cancelAction)
+    self.presentViewController(alert, animated: true, completion: nil)
   }
 
   /*

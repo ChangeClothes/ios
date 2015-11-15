@@ -18,8 +18,15 @@ class AMRCategoryCollectionViewCell: UICollectionViewCell {
   var category: AMRInventoryCategory! {
     didSet{
       nameLabel.text = category.name
-      print(category.imageUrl)
-      if let checkedUrl = NSURL(string: category.imageUrl!) {
+      if category.name == "Women"{
+        imageView.image = UIImage(named: "female")
+        constraintImageHeight.constant = 150
+        constraintImageWidth.constant = 150
+      } else if category.name == "Men"{
+        imageView.image = UIImage(named: "male")
+        constraintImageWidth.constant = 150
+        constraintImageHeight.constant = 150
+      } else if let checkedUrl = NSURL(string: category.imageUrl!) {
         imageView.contentMode = .ScaleAspectFit
         setImageValue(checkedUrl)
       }
