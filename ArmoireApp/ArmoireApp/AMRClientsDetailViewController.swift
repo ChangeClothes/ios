@@ -329,10 +329,11 @@ class AMRClientsDetailViewController: AMRViewController, LYRQueryControllerDeleg
       if (index != 0) {
         let vc = value.viewControllers.first as? AMRViewController
         vc?.setVcData(self.stylist, client: self.client)
-        //value.navigationBar.tintColor = UIColor.AMRBrightButtonTintColor()
-        //value.navigationBar.barTintColor = UIColor.AMRUnselectedTabBarButtonTintColor()
-        //value.navigationBar.backgroundColor = UIColor.AMRUnselectedTabBarButtonTintColor()
-        //value.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.AMRBrightButtonTintColor()]
+        value.navigationBar.tintColor = UIColor.blackColor()
+        value.navigationBar.barTintColor = UIColor.whiteColor()
+        value.navigationBar.backgroundColor = UIColor.whiteColor()
+        value.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.AMRSecondaryBackgroundColor()]
+        value.navigationBar.layer.addBorder(UIRectEdge.Bottom, color: UIColor.grayColor(), thickness: 1.0)
       }
     }
   }
