@@ -12,7 +12,6 @@ import LayerKit
 class AMRClientsDetailViewController: AMRViewController, LYRQueryControllerDelegate  {
   
   @IBOutlet weak var tabBarBorderViewOne: UIView!
-  @IBOutlet weak var tabBarBorderViewTwo: UIView!
   @IBOutlet weak var newMessageImageViewContainerYConstraint: NSLayoutConstraint!
   @IBOutlet weak var newMessageImageViewContainerXConstraint: NSLayoutConstraint!
   @IBOutlet weak var newMessageImageViewContainer: UIView!
@@ -231,7 +230,6 @@ class AMRClientsDetailViewController: AMRViewController, LYRQueryControllerDeleg
     selectedIconView.backgroundColor = UIColor.AMRPrimaryBackgroundColor()
     
     tabBarBorderViewOne.layer.addBorder(UIRectEdge.Top, color: UIColor.grayColor(), thickness: 1.0)
-    tabBarBorderViewTwo.layer.addBorder(UIRectEdge.Top, color: UIColor.grayColor(), thickness: 1.0)
     
     menuView.backgroundColor = UIColor.whiteColor()
     
