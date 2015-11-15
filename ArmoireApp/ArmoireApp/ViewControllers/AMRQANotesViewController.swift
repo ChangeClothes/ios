@@ -235,9 +235,7 @@ class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITabl
   override func viewDidLoad() {
     super.viewDidLoad()
     self.tableView.separatorStyle = .None
-    if client != nil {
-      self.automaticallyAdjustsScrollViewInsets = false
-    }
+    self.automaticallyAdjustsScrollViewInsets = false
     
     tapRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
     tapRecognizer!.delegate = self
