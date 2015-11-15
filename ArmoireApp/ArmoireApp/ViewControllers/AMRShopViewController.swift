@@ -15,6 +15,7 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
   var currentItems: [AMRInventoryItem]?
   var selectedPhotos = [UIImage]()
   var client: AMRUser?
+  var currentPageType: StorePageContent?
   let kPictureAddedNotification = "com.armoire.pictureAddedToClientNotification"
 
   @IBOutlet weak var collectionView: UICollectionView!
@@ -64,6 +65,21 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
     }
   }
 
+  // MARK: - Utility
+
+  func storePageType() -> StorePageContent?{
+    if let _ = currentItems {
+      return StorePageContent.Items
+    } else if inventoryCategoryHistory.count > 1 {
+      return StorePageContent.Categories
+    } else if inventoryCategoryHistory.count == 1 {
+      return StorePageContent.Venues
+    } else {
+      print("no store page content found")
+      return nil
+    }
+  }
+
   // MARK: - Collection View
 
   func setupClientCollectionView(){
@@ -73,6 +89,8 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
     collectionView.registerNib(cellNib, forCellWithReuseIdentifier: "CategoryCell")
     let itemCellNib = UINib(nibName: "AMRInventoryItemCollectionViewCell", bundle: nil)
     collectionView.registerNib(itemCellNib, forCellWithReuseIdentifier: "ItemCell")
+    let venueCellNib = UINib(nibName: "AMRInventoryVenueCollectionViewCell", bundle: nil)
+    collectionView.registerNib(venueCellNib, forCellWithReuseIdentifier: "VenueCell")
     collectionView.backgroundColor = UIColor.whiteColor()
     self.view.addSubview(collectionView)
   }
@@ -122,25 +140,39 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
   }
 
   func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    let pageType = storePageType()
 
     let itemCell: AMRInventoryItemCollectionViewCell?
     let categoryCell: AMRCategoryCollectionViewCell?
+    let venueCell: AMRInventoryVenueCollectionViewCell?
 
-    if let items = currentItems {
+    if pageType == StorePageContent.Items {
       itemCell = collectionView.dequeueReusableCellWithReuseIdentifier("ItemCell", forIndexPath: indexPath) as! AMRInventoryItemCollectionViewCell
-      let item = items[indexPath.row]
+      let item = currentItems![indexPath.row]
       itemCell!.item = item
       return itemCell!
-    } else {
+    } else if pageType == StorePageContent.Categories {
       categoryCell = collectionView.dequeueReusableCellWithReuseIdentifier("CategoryCell", forIndexPath: indexPath) as! AMRCategoryCollectionViewCell
       let category = inventoryCategoryHistory.topItem![indexPath.row]
       categoryCell!.category = category
       return categoryCell!
+    } else if pageType == StorePageContent.Venues {
+      venueCell = collectionView.dequeueReusableCellWithReuseIdentifier("VenueCell", forIndexPath: indexPath) as! AMRInventoryVenueCollectionViewCell
+      let category = inventoryCategoryHistory.topItem![indexPath.row]
+      venueCell!.category = category
+      return venueCell!
+    } else {
+      print("No valid page type at cellForItemAtIndexPath")
+      return UICollectionViewCell()
     }
   }
 
   func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-    return CGSizeMake(115, 150)
+    if storePageType() == StorePageContent.Venues{
+      return CGSizeMake(300,150)
+    } else {
+      return CGSizeMake(115, 150)
+    }
   }
 
   func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
@@ -241,4 +273,11 @@ struct InventoryCategoryStack {
     return items.count
   }
 
+}
+
+enum StorePageContent {
+  case Venues
+  case Categories
+  case Items
+  case Unknown
 }

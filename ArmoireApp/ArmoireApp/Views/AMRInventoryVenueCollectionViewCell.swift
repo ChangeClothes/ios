@@ -1,34 +1,29 @@
 //
-//  AMRCategoryCollectionViewCell.swift
+//  AMRInventoryVenueCollectionViewCell.swift
 //  ArmoireApp
 //
-//  Created by Morgan Wildermuth on 11/13/15.
+//  Created by Morgan Wildermuth on 11/14/15.
 //  Copyright © 2015 Armoire. All rights reserved.
 //
 
 import UIKit
 
-class AMRCategoryCollectionViewCell: UICollectionViewCell {
+class AMRInventoryVenueCollectionViewCell: UICollectionViewCell {
 
-  @IBOutlet weak var constraintImageWidth: NSLayoutConstraint!
-  @IBOutlet weak var constraintImageHeight: NSLayoutConstraint!
   @IBOutlet weak var imageView: UIImageView!
-  @IBOutlet weak var nameLabel: UILabel!
+
+  override func awakeFromNib() {
+      super.awakeFromNib()
+      // Initialization code
+  }
 
   var category: AMRInventoryCategory! {
     didSet{
-      nameLabel.text = category.name
-      print(category.imageUrl)
       if let checkedUrl = NSURL(string: category.imageUrl!) {
         imageView.contentMode = .ScaleAspectFit
         setImageValue(checkedUrl)
       }
     }
-  }
-
-  override func awakeFromNib() {
-      super.awakeFromNib()
-      // Initialization code
   }
 
   override func prepareForReuse() {
@@ -49,4 +44,5 @@ class AMRCategoryCollectionViewCell: UICollectionViewCell {
       }
     }
   }
+
 }
