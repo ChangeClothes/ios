@@ -79,7 +79,7 @@ class AMRClientsDetailViewController: AMRViewController, LYRQueryControllerDeleg
     unreadMessagesBadgeLabel.hidden = true
     updatedMessagesIconBadge()
   }
-
+  
   func updatedMessagesIconBadge() {
     unreadMessagesBadgeLabel.hidden = true
     if let _ = stylist {
@@ -137,7 +137,7 @@ class AMRClientsDetailViewController: AMRViewController, LYRQueryControllerDeleg
     newMessageImageViewContainer.layer.shadowRadius = 5;
     newMessageImageViewContainer.layer.shadowOpacity = 0.7;
     newMessageImageViewContainer.clipsToBounds = false
-
+    
     hideNewMessageImageView()
   }
   
@@ -240,7 +240,7 @@ class AMRClientsDetailViewController: AMRViewController, LYRQueryControllerDeleg
         if let error = error {
           print(error.localizedDescription)
         } else {
-          self.clientProfileImageView.setAMRImage(self.client?.profilePhoto, withPlaceholder: "profile-image-placeholder")
+          self.clientProfileImageView.setProfileImageForClientId((self.client?.objectId)!, andClient: self.client!, withPlaceholder: "profile-image-placeholder", withCompletion: nil)
         }
       })
     } else {
@@ -421,11 +421,7 @@ extension AMRClientsDetailViewController {
           print(error.localizedDescription)
         } else {
           let user = users!.firstObject! as! AMRUser
-          if let profileImage = user.profilePhoto {
-            self.newMessageImageView.setAMRImage(profileImage, withPlaceholder: "messaging")
-          } else {
-            self.newMessageImageView.setAMRImage(nil, withPlaceholder: "messaging")
-          }
+          self.newMessageImageView.setProfileImageForClientId(user.objectId!, andClient: user, withPlaceholder: "messaging", withCompletion: nil)
           self.showNewMessageImageView()
         }
         
