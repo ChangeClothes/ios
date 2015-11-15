@@ -71,7 +71,14 @@ class AMRPhotosViewController: AMRViewController {
   }
   
   private func refreshCollectionView() {
-    AMRImage.imagesForUser(stylist, client: client) { (objects, error) -> Void in
+    var myStylist: AMRUser?
+    if stylist == nil {
+      myStylist = client?.stylist
+    } else {
+      myStylist = stylist
+    }
+    
+    AMRImage.imagesForUser(myStylist, client: client) { (objects, error) -> Void in
       self.photos = objects! as [AMRImage]
 
       self.photoSections = self.sectionsForPhotosArray(self.photos)
