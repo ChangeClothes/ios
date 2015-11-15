@@ -251,6 +251,10 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
 
 extension AMRClientsViewController: AMRTodayTableCollectionViewCellDelegate{
   func todayTableCollectionViewCell(cell: AMRTodayTableCollectionViewCell, didSelectClient client: AMRUser) {
+    if AMRBadgeManager.sharedInstance.clientBadges[client]?.isEqualTo(AMRClientBadges.hasUnreadMessagesOnly()) == true {
+      print("here")
+    }
+    
     let clientDetailVC = AMRClientsDetailViewController(layerClient: layerClient)
     clientDetailVC.stylist = self.stylist
     clientDetailVC.client = client
@@ -260,9 +264,7 @@ extension AMRClientsViewController: AMRTodayTableCollectionViewCellDelegate{
     let viewWidth = self.view.frame.width - 25
     formSheetController.presentationController?.contentViewSize = CGSizeMake(viewWidth, viewHeight)
     self.presentViewController(formSheetController, animated: true, completion: nil)
-    if AMRBadgeManager.sharedInstance.clientBadges[client]?.hasUnreadMessages == true {
-      clientDetailVC.filterByClient()
-    }
+
     
 
   }

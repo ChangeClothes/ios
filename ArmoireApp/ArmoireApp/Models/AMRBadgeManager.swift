@@ -14,6 +14,22 @@ class AMRClientBadges {
   var hasUnreadMessages = false
   var hasUnratedPhotos = false
   var hasMeetingToday = false
+  
+  class func hasUnreadMessagesOnly() -> AMRClientBadges {
+    let result = AMRClientBadges()
+    result.hasUnreadMessages = true
+    return result
+  }
+  
+  func isEqualTo(otherClientBadge: AMRClientBadges) -> Bool {
+    if self.hasUnreadMessages == otherClientBadge.hasUnreadMessages &&
+    self.hasMeetingToday == otherClientBadge.hasMeetingToday &&
+      self.hasUnratedPhotos == otherClientBadge.hasUnratedPhotos {
+        return true
+    }
+    
+    return false
+  }
 }
 
 class AMRBadgeManager: NSObject {
