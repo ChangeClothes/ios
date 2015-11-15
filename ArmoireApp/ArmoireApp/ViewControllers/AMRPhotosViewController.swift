@@ -117,16 +117,8 @@ extension AMRPhotosViewController: UICollectionViewDataSource{
   func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     if let sections = photoSections {
       if let imagesArray = sections[AMRPhotoRating.titleArray()[section]] {
-        if section == 0 {
-          return imagesArray.count// + 1 // For camera button
-        } else {
-          return imagesArray.count
-        }
-        
+        return imagesArray.count
       }
-    }
-    if section == 0 {
-      //return 1  // For camera button
     }
     return 0
   }
@@ -183,16 +175,8 @@ extension AMRPhotosViewController: UICollectionViewDataSource{
 extension AMRPhotosViewController: UICollectionViewDelegate {
   func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
     collectionView.deselectItemAtIndexPath(indexPath, animated: true)
-    
-    if indexPath.row == 0 && indexPath.section == 0 {
-      selectPhoto()
-    } else if indexPath.section == 0 {
-      let photo = photoSections![AMRPhotoRating.titleArray()[indexPath.section]]![indexPath.row - 1]
-      showPicture(photo)
-    } else {
-      let photo = photoSections![AMRPhotoRating.titleArray()[indexPath.section]]![indexPath.row]
-      showPicture(photo)
-    }
+    let photo = photoSections![AMRPhotoRating.titleArray()[indexPath.section]]![indexPath.row]
+    showPicture(photo)
   }
   
   // MARK: - Utility
