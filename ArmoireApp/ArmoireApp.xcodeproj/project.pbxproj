@@ -373,8 +373,8 @@
 				C58401A21BE6FD0B00D90117 /* AMRPhotoDetailViewController.xib */,
 				6F1B37BF1BF00BD5005DBA10 /* AMRViewController.swift */,
 				C5C268091BF04F7300B637AF /* AMRQANotesViewController.swift */,
-				C5D535FE1BE086750046A288 /* AMRPhotosViewController.xib */,
 				C5C2680A1BF04F7300B637AF /* AMRQANotesViewController.xib */,
+				C5D535FE1BE086750046A288 /* AMRPhotosViewController.xib */,
 				0F9B42581BF704B30045DE9D /* AMRShopViewController.swift */,
 				0F9B42591BF704B30045DE9D /* AMRShopViewController.xib */,
 			);
