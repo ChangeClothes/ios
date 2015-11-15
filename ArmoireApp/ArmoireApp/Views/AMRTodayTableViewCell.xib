@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
@@ -15,14 +15,6 @@
                 <rect key="frame" x="0.0" y="0.0" width="421" height="97"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="ozD-6h-CmO">
-                        <rect key="frame" x="18" y="28" width="50" height="50"/>
-                        <animations/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="50" id="JsT-pB-yS5"/>
-                            <constraint firstAttribute="width" constant="50" id="OxW-KJ-Eve"/>
-                        </constraints>
-                    </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" verticalCompressionResistancePriority="745" text="Has appointment today" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DP2-IO-vXa">
                         <rect key="frame" x="95" y="38" width="141" height="16"/>
                         <animations/>
@@ -60,20 +52,47 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="ozD-6h-CmO">
+                        <rect key="frame" x="27" y="10" width="50" height="50"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="50" id="JsT-pB-yS5"/>
+                            <constraint firstAttribute="width" constant="50" id="OxW-KJ-Eve"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <animations/>
                 <constraints>
                     <constraint firstItem="Thz-3g-fZZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="6" id="4ES-MU-y4f"/>
                     <constraint firstItem="ozD-6h-CmO" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="20" id="4JA-vy-MSf"/>
+                    <constraint firstItem="Thz-3g-fZZ" firstAttribute="leading" secondItem="ozD-6h-CmO" secondAttribute="trailing" constant="45" id="83f-Yn-76D"/>
+                    <constraint firstItem="ozD-6h-CmO" firstAttribute="top" relation="lessThanOrEqual" secondItem="Thz-3g-fZZ" secondAttribute="top" constant="10" id="OLj-uo-jgK"/>
                     <constraint firstItem="Thz-3g-fZZ" firstAttribute="leading" secondItem="ozD-6h-CmO" secondAttribute="trailing" constant="27" id="QK4-Zi-HDl"/>
                     <constraint firstItem="DP2-IO-vXa" firstAttribute="top" secondItem="Thz-3g-fZZ" secondAttribute="bottom" constant="3" id="TO0-fg-rqe"/>
                     <constraint firstItem="DP2-IO-vXa" firstAttribute="leading" secondItem="Thz-3g-fZZ" secondAttribute="leading" id="WCL-oV-9sD"/>
                     <constraint firstItem="I6Y-al-VRV" firstAttribute="top" secondItem="DP2-IO-vXa" secondAttribute="bottom" id="aHa-vr-I22"/>
+                    <constraint firstItem="Thz-3g-fZZ" firstAttribute="leading" secondItem="ozD-6h-CmO" secondAttribute="trailing" constant="18" id="bIY-8s-ogE"/>
+                    <constraint firstItem="ozD-6h-CmO" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="2" id="f5F-A5-IJ2"/>
+                    <constraint firstItem="ozD-6h-CmO" firstAttribute="top" secondItem="Thz-3g-fZZ" secondAttribute="top" id="iVD-JG-XRc"/>
                     <constraint firstItem="I6Y-al-VRV" firstAttribute="leading" secondItem="DP2-IO-vXa" secondAttribute="leading" id="imS-Dq-xz0"/>
                     <constraint firstItem="cFS-tH-Nz8" firstAttribute="top" secondItem="I6Y-al-VRV" secondAttribute="bottom" constant="2" id="nYh-R0-zu7"/>
                     <constraint firstItem="ozD-6h-CmO" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="o6i-cm-pPz"/>
+                    <constraint firstItem="ozD-6h-CmO" firstAttribute="leading" secondItem="Thz-3g-fZZ" secondAttribute="leading" id="psK-LQ-Ix5"/>
+                    <constraint firstItem="Thz-3g-fZZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="6" id="qXQ-7h-B5H"/>
+                    <constraint firstItem="Thz-3g-fZZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="87" id="wlD-h2-1BC"/>
                     <constraint firstItem="cFS-tH-Nz8" firstAttribute="leading" secondItem="DP2-IO-vXa" secondAttribute="leading" id="wue-8X-nCU"/>
                 </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="4JA-vy-MSf"/>
+                        <exclude reference="OLj-uo-jgK"/>
+                        <exclude reference="iVD-JG-XRc"/>
+                        <exclude reference="o6i-cm-pPz"/>
+                        <exclude reference="psK-LQ-Ix5"/>
+                        <exclude reference="83f-Yn-76D"/>
+                        <exclude reference="QK4-Zi-HDl"/>
+                    </mask>
+                </variation>
             </tableViewCellContentView>
             <animations/>
             <connections>
