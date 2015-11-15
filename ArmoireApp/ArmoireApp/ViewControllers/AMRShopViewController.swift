@@ -13,7 +13,7 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
   var inventory: AMRInventory?
   var inventoryCategoryHistory = InventoryCategoryStack()
   var currentItems: [AMRInventoryItem]?
-  var selectedPhotos = [UIImage]()
+  var selectedPhotos = [String: UIImage]()
   var client: AMRUser?
   var currentPageType: StorePageContent?
   let kPictureAddedNotification = "com.armoire.pictureAddedToClientNotification"
@@ -126,13 +126,15 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
   func selectedItemCell(indexPath: NSIndexPath, items: [AMRInventoryItem]){
     let item = items[indexPath.row]
     var selectedCell = collectionView.cellForItemAtIndexPath(indexPath) as! AMRInventoryItemCollectionViewCell
-    if selectedCell.layer.borderWidth == 2.0 {
-      selectedCell.layer.borderWidth = 0.0
-      deselectItem(selectedCell.imageView.image!)
+    selectedCell.nameLabel.layer.cornerRadius = 10
+    selectedCell.nameLabel.clipsToBounds = true
+    selectedCell.layer.borderWidth = 0.0
+    if itemSelected(item.name!) {
+      selectedCell.nameLabel.textColor = UIColor.blackColor()
+      deselectItem(item.name!)
     } else {
-      selectedCell.layer.borderWidth = 2.0
-      selectedCell.layer.borderColor = UIColor.grayColor().CGColor
-      selectItem((selectedCell.imageView?.image)!)
+      selectedCell.nameLabel.textColor = UIColor.AMRClientNotificationIconColor()
+      selectItem(item.name!, item: (selectedCell.imageView?.image)!)
     }
   }
 
@@ -155,6 +157,9 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
       itemCell = collectionView.dequeueReusableCellWithReuseIdentifier("ItemCell", forIndexPath: indexPath) as! AMRInventoryItemCollectionViewCell
       let item = currentItems![indexPath.row]
       itemCell!.item = item
+      if itemSelected(item.name!){
+        itemCell!.nameLabel.textColor = UIColor.AMRClientNotificationIconColor()
+      }
       return itemCell!
     } else if pageType == StorePageContent.Categories {
       categoryCell = collectionView.dequeueReusableCellWithReuseIdentifier("CategoryCell", forIndexPath: indexPath) as! AMRCategoryCollectionViewCell
@@ -177,12 +182,12 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
     if pageType == StorePageContent.Venues{
       return CGSizeMake(300,150)
     } else {
-      return CGSizeMake(165, 350)
+      return CGSizeMake(165, 370)
     }
   }
 
   func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
-    return UIEdgeInsetsMake(-10, 0, 20, 0)
+    return UIEdgeInsetsMake(0, 0, 0, 0)
   }
 
   // MARK: - On Tap Functions
@@ -192,7 +197,7 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
   }
   
   func approveAdditions(){
-    for item in selectedPhotos {
+    for (key, item) in selectedPhotos {
       createAMRImage(item)
     }
     self.dismissViewControllerAnimated(true, completion: nil)
@@ -201,7 +206,7 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
   func revertToPreviousCategory(){
     if let items = currentItems {
       currentItems = nil
-      selectedPhotos = [UIImage]()
+      selectedPhotos = [String: UIImage]()
     } else {
       inventoryCategoryHistory.pop()
     }
@@ -211,20 +216,22 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
 
   // MARK: - Item Engagemenet
 
-  func selectItem(item: UIImage){
-    selectedPhotos.append(item)
+  func selectItem(key: String, item: UIImage){
+    selectedPhotos[key] = item
     setUpRightNavBarItem()
   }
 
-  func deselectItem(item: UIImage){
-    var deleteAtIndex: Int?
-    for (index, element) in selectedPhotos.enumerate() {
-      if item === element {
-        deleteAtIndex = index
-      }
-    }
-    selectedPhotos.removeAtIndex(deleteAtIndex!)
+  func deselectItem(key: String){
+    selectedPhotos[key] = nil
     setUpRightNavBarItem()
+  }
+
+  func itemSelected(key: String) -> Bool{
+    if let value = selectedPhotos[key]{
+      return true
+    } else {
+      return false
+    }
   }
 
   // MARK: - Create AMRImage

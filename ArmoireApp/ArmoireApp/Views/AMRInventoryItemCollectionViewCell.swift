@@ -30,6 +30,7 @@ class AMRInventoryItemCollectionViewCell: UICollectionViewCell {
 
   override func prepareForReuse() {
     self.imageView.image = nil;
+    self.nameLabel.textColor = UIColor.blackColor()
   }
 
   func getDataFromUrl(url:NSURL, completion: ((data: NSData?, response: NSURLResponse?, error: NSError? ) -> Void)) {
