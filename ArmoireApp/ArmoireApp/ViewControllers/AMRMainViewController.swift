@@ -35,7 +35,7 @@ class AMRMainViewController: AMRViewController{
   var newConversationIdentifier: NSURL!
   
   override func viewDidLoad() {
-
+    
     super.viewDidLoad()
     subscribeToNotifications()
     setupTabBarAppearance()
@@ -92,7 +92,7 @@ class AMRMainViewController: AMRViewController{
     let newMessageTapGR = UITapGestureRecognizer(target: self, action: "onMessageIconTap:")
     newMessageImageView.addGestureRecognizer(newMessageTapGR)
     newMessageTapGestureStartPoint = newMessageImageViewContainerXConstraint.constant
-
+    
     containerView.layer.masksToBounds = false
     newMessageImageViewContainer.alpha = 0
     newMessageImageViewContainer.layer.masksToBounds = false;
@@ -174,8 +174,8 @@ class AMRMainViewController: AMRViewController{
     newMessageImageView.alpha = 1.0
     newMessageImageViewContainer.alpha = 1.0
     UIView.animateWithDuration(0.8, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.8, options: UIViewAnimationOptions.AllowUserInteraction, animations: { () -> Void in
-        self.containerView.layoutIfNeeded()
-    }, completion: nil)
+      self.containerView.layoutIfNeeded()
+      }, completion: nil)
   }
   
   func updatedMessagesIconBadge() {
@@ -375,22 +375,18 @@ extension AMRMainViewController: LYRQueryControllerDelegate {
       var remainingParticipants = conversation.participants
       remainingParticipants.remove(AMRUser.currentUser()!.objectId!)
       let senderObjectID = remainingParticipants.first as! String
-
+      
       AMRUserManager.sharedManager.queryForUserWithObjectID(senderObjectID) { (users: NSArray?, error: NSError?) -> Void in
         if let error = error {
           print(error.localizedDescription)
         } else {
           let user = users!.firstObject! as! AMRUser
-          if let profileImage = user.profilePhoto {
-            self.newMessageImageView.setAMRImage(profileImage, withPlaceholder: "messaging")
-          } else {
-            self.newMessageImageView.setAMRImage(nil, withPlaceholder: "messaging")
-          }
+          self.newMessageImageView.setProfileImageForClientId(user.objectId!, andClient: user, withPlaceholder: "messaging", withCompletion: nil)
           self.showNewMessageImageView()
         }
         
       }
-
+      
     }
   }
 }
