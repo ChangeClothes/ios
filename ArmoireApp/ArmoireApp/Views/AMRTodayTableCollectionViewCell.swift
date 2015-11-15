@@ -43,7 +43,6 @@ class AMRTodayTableCollectionViewCell: UICollectionViewCell {
     }
     
     for (k,v) in (Array(importanceScores).sort {$0.1 > $1.1}) {
-      print("\(k) , \(v)")
       resultArray.append(k)
     }
     
