@@ -57,7 +57,7 @@ class AMRLoginViewController: UIViewController {
   func dismissKeyboard(sender: UITapGestureRecognizer) {
     view.endEditing(true)
     UIView.animateWithDuration(0.5) { () -> Void in
-      self.bottomConstraint.constant = 20
+      self.bottomConstraint.constant = 75
       self.view.layoutIfNeeded()
     }
  

@@ -117,7 +117,11 @@ class AMRUpcomingMeetingsViewController: AMRViewController {
   }
   
     internal func setUpNavBar(){
-      title = "Upcoming Meetings"
+      if CurrentUser.sharedInstance.user?.isStylist == true && client != nil {
+        title = "Meetings with " + (client?.firstName)!
+      } else {
+        title = "Upcoming Meetings"
+      }
       if stylist != nil && client != nil {
         let newEventButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "createNewEvent:")
         navigationItem.rightBarButtonItem = newEventButton

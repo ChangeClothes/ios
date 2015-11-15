@@ -41,7 +41,6 @@ class AMRClientProfileViewController: AMRViewController, UIAlertViewDelegate{
   override func viewDidLoad() {
     self.navigationController?.navigationBar.translucent = false
     super.viewDidLoad()
-    
     setVcArray()
     setVcDataForTabs()
     setupPageController()

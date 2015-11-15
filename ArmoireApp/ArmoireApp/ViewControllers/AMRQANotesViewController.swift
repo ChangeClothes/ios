@@ -212,10 +212,15 @@ class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITabl
       let leftNavBarButton = UIBarButtonItem(image: UIImage(named: "settings"), style: .Plain, target: self, action: "onSettingsTap")
       self.navigationItem.leftBarButtonItem = leftNavBarButton
     }
-    if (client != nil){
-      self.title = (client?.firstName)! + " " + (client?.lastName)!
+    if (CurrentUser.sharedInstance.user?.isStylist == true){
+      if client == nil {
+        
+        self.title = "Template Builder"
+      } else {
+        self.title = (client?.firstName)! + "'s Profile"
+      }
     } else {
-      self.title = "Template Builder"
+      self.title = "Your Style Profile"
     }
     if CurrentUser.sharedInstance.user?.isStylist == true {
       let rightNavBarButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "addQuestionAnswer")
@@ -230,9 +235,7 @@ class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITabl
   override func viewDidLoad() {
     super.viewDidLoad()
     self.tableView.separatorStyle = .None
-    if client != nil {
-      self.automaticallyAdjustsScrollViewInsets = false
-    }
+    self.automaticallyAdjustsScrollViewInsets = false
     
     tapRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
     tapRecognizer!.delegate = self
