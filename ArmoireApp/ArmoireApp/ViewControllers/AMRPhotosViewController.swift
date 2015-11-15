@@ -72,6 +72,11 @@ class AMRPhotosViewController: AMRViewController {
 
       self.photoSections = self.sectionsForPhotosArray(self.photos)
       self.uiImageArrayFromAMRImageArray(self.amrImageArrayFromPhotoSections(self.photoSections!))
+      if let currentPhotoSections = self.photoSections {
+        for (key, section) in currentPhotoSections{
+          self.photoSections![key] = section.reverse()
+        }
+      }
       self.collectionView.reloadData()
     }
   }
