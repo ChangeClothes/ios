@@ -263,13 +263,10 @@ class AMRClientsDetailViewController: AMRViewController, LYRQueryControllerDeleg
   }
   
   private func setSelectedAppearanceColorForImageView(imageView: UIImageView) {
-    selectedIconImageView = imageView
-    UIView.animateWithDuration(0.5) { () -> Void in
-      self.resetIconColors()
-      self.selectedIconViewXPositionConstraint.constant = self.selectedIconImageView.center.x - self.selectedIconView.frame.width/2
-      self.menuView.layoutIfNeeded()
-      imageView.tintColor = UIColor.AMRSelectedTabBarButtonTintColor()
-    }
+    self.resetIconColors()
+    self.selectedIconViewXPositionConstraint.constant = self.selectedIconImageView.center.x - self.selectedIconView.frame.width/2
+    self.menuView.layoutIfNeeded()
+    imageView.tintColor = UIColor.AMRSelectedTabBarButtonTintColor()
   }
   
   func deviceDidRotate() {
