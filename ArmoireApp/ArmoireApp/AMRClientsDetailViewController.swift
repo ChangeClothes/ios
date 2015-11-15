@@ -333,7 +333,7 @@ class AMRClientsDetailViewController: AMRViewController, LYRQueryControllerDeleg
     }
   }
   
-  private func filterByClient(){
+  func filterByClient(){
     let participants = [layerClient.authenticatedUserID, client!.objectId, client!.stylist!.objectId]
     let query = LYRQuery(queryableClass: LYRConversation.self)
     query.predicate = LYRPredicate(property: "participants", predicateOperator: LYRPredicateOperator.IsEqualTo, value: participants)
