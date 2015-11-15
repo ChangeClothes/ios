@@ -168,8 +168,11 @@ class AMRShopViewController: UIViewController, UICollectionViewDelegate, UIColle
   }
 
   func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-    if storePageType() == StorePageContent.Venues{
+    let pageType = storePageType()
+    if pageType == StorePageContent.Venues{
       return CGSizeMake(300,150)
+    } else if pageType == StorePageContent.Items{
+      return CGSizeMake(165, 350)
     } else {
       return CGSizeMake(115, 150)
     }
