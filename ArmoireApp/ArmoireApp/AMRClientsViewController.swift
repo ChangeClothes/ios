@@ -109,6 +109,7 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
         print(error.localizedDescription)
       } else {
         self.clients = (arrayOfUsers as? [AMRUser])!
+        self.clients = self.clients.sort{$0.firstName < $1.firstName}
         self.setUpSections(self.clients)
         self.collectionView.reloadData()
       }
