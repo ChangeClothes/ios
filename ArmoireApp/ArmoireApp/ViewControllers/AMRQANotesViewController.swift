@@ -8,19 +8,21 @@
 
 import UIKit
 
-class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITableViewDelegate, UITextViewDelegate {
+class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITableViewDelegate, UITextViewDelegate, UIGestureRecognizerDelegate {
   
+  @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
   @IBOutlet weak var tableView: UITableView!
   var note: AMRNote?
   var questionAnswers: AMRQuestionAnswer?
   var heights: [CGFloat]?
+  var currentTextView: UITextView?
+  var tapRecognizer: UITapGestureRecognizer?
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     return buildCell(tableView, indexPath: indexPath)
   }
   
   func buildCell(tableview: UITableView, indexPath: NSIndexPath) -> UITableViewCell {
-    print("section", indexPath.section, "row", indexPath.row)
     
     if indexPath.row == 0 && client != nil{ // return notes cell
       let cell = tableView.dequeueReusableCellWithIdentifier(AMRNoteTableViewCell.cellReuseIdentifier()) as! AMRNoteTableViewCell
@@ -65,7 +67,6 @@ class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITabl
     if client != nil {
       count += 1
     }
-    print("returning count:", count)
     return count
   }
   
@@ -107,10 +108,12 @@ class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITabl
   }
   
   func textViewDidBeginEditing(textView: UITextView) {
+    currentTextView = textView
   }
   
   func textViewDidEndEditing(textView: UITextView) {
-      self.questionAnswers?.saveInBackground()
+    currentTextView = nil
+    self.questionAnswers?.saveInBackground()
   }
   
   func updateData(){
@@ -129,7 +132,6 @@ class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITabl
     heights = [CGFloat]( count: numRows , repeatedValue: AMRDynamicHeightTableViewCell.getDefaultHeight())
     if numRows > 0 {
       for index in 0...numRows - 1 {
-        print("calculating row height for row", index)
         heights![index] = getCellHeight(index)
       }
     }
@@ -161,7 +163,6 @@ class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITabl
     AMRNote.getOrCreateNoteForUser(stylist, client: client) { (note, error) -> Void in
       self.note = note
       noteLoaded = true
-      print(noteLoaded, questionAnswerLoaded)
       if noteLoaded && questionAnswerLoaded {
         self.updateData()
       }
@@ -220,6 +221,11 @@ class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITabl
       self.automaticallyAdjustsScrollViewInsets = false
     }
     
+    tapRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+    tapRecognizer!.delegate = self
+    self.view.addGestureRecognizer(tapRecognizer!)
+    
+    
     //start fetching data
     getData()
     setUpNavBar()
@@ -237,7 +243,7 @@ class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITabl
   }
   
   override func viewWillAppear(animated: Bool) {
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillChangeFrameNotification, object: nil)
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardDidShowNotification, object: nil)
   }
   override func viewWillDisappear(animated: Bool){
     super.viewWillDisappear(false)
@@ -254,20 +260,28 @@ class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITabl
   }
   
   func keyboardWillShow(notification: NSNotification){
-    let userInfo = notification.userInfo as? NSDictionary
-    let endLocationOfKeyboard = userInfo?[UIKeyboardFrameEndUserInfoKey]?.CGRectValue
-    let size = endLocationOfKeyboard?.size
-    let keyboardHeight = size?.height
-    moveNoteUp(keyboardHeight)
+    if currentTextView != nil {
+      let userInfo = notification.userInfo as? NSDictionary
+      let endLocationOfKeyboard = userInfo?[UIKeyboardFrameEndUserInfoKey]?.CGRectValue
+      let size = endLocationOfKeyboard?.size
+      let keyboardHeight = size?.height
+      moveNoteUp(keyboardHeight)
+    }
+  }
+  
+  func dismissKeyboard(){
+    moveNoteDown()
+    currentTextView?.resignFirstResponder()
+    currentTextView = nil
   }
   
   private func moveNoteUp(keyboardHeight: CGFloat?){
-    //self.constraintTextViewToBottom.constant = keyboardHeight! - (self.navigationController?.navigationBar.frame.height)! - UIApplication.sharedApplication().statusBarFrame.size.height - 5.0
+    self.bottomConstraint.constant = keyboardHeight! - (self.navigationController?.navigationBar.frame.height)! - UIApplication.sharedApplication().statusBarFrame.size.height - 5.0
     self.view.layoutIfNeeded()
   }
   
   private func moveNoteDown(){
-    //self.constraintTextViewToBottom.constant = 0
+    self.bottomConstraint.constant = 0
     self.view.layoutIfNeeded()
   }
   
