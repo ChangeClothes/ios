@@ -8,6 +8,8 @@
 
 import UIKit
 
+let kNewMessageReceivedNotification = "com.armoire.NewMessageReceivedNotification"
+
 class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
 
   let kTodayTableReuseIdentifier = "com.armoire.TodayTableReuseIdentifier"
@@ -46,6 +48,7 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
     self.navigationItem.rightBarButtonItem = rightNavBarButton
 
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateTableView", name: kDismissedModalNotification, object: nil)
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateTableView", name: kNewMessageReceivedNotification, object: nil)
     updateTableView()
   // Do any additional setup after loading the view.
   }
