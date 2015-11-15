@@ -97,34 +97,7 @@ extension AMRTodayTableCollectionViewCell: UITableViewDataSource {
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier(kTodayTableViewCellReuseIdentifier, forIndexPath: indexPath) as! AMRTodayTableViewCell
     
-    let client = clientsWithBadges[indexPath.row]
-    let badges = AMRBadgeManager.sharedInstance.clientBadges[client]
-    
-    client.fetchIfNeededInBackgroundWithBlock{ (user: PFObject?, error: NSError?) -> Void in
-      if let error = error {
-        print(error.localizedDescription)
-      } else {
-        cell.avatarImage.layer.cornerRadius = cell.avatarImage.frame.width/2
-        cell.avatarImage.clipsToBounds = true
-        cell.avatarImage.setAMRImage((user as! AMRUser).profilePhoto, withPlaceholder: "profile-image-placeholder")
-      }
-    }
-    cell.nameLabel.text = client.firstName + " " + client.lastName
-    cell.appointmentsLabelHeightConstraint.constant = 0
-    cell.newMessagesLabelHeightConstraint.constant = 0
-    cell.unratedPhotosHeightConstraint.constant = 0
-    
-    if badges?.hasMeetingToday == true {
-      cell.appointmentsLabelHeightConstraint.constant = 16
-    }
-    if badges?.hasUnreadMessages == true {
-      cell.newMessagesLabelHeightConstraint.constant = 16
-    }
-    if badges?.hasUnratedPhotos == true {
-      cell.unratedPhotosHeightConstraint.constant = 16
-    }
-    
-    
+    cell.client = clientsWithBadges[indexPath.row]
     
     return cell
   }
