@@ -26,7 +26,11 @@ class AMRPhotosViewController: AMRViewController {
     setupCollectionView()
     createNavBarButtonItems()
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "onPictureAdded:", name: kPictureAddedNotification, object: nil)
-    title = client!.firstName + "'s Outfits"
+    if CurrentUser.sharedInstance.user?.isStylist == true {
+      title = client!.firstName + "'s Outfits"
+    } else {
+      title = "Your Outfits"
+    }
   }
   
   override func viewWillAppear(animated: Bool) {
