@@ -37,6 +37,7 @@ class AMRMainViewController: AMRViewController{
   override func viewDidLoad() {
 
     super.viewDidLoad()
+    self.setNeedsStatusBarAppearanceUpdate()
     subscribeToNotifications()
     setupTabBarAppearance()
     setupNewMessageImageView()
@@ -44,6 +45,11 @@ class AMRMainViewController: AMRViewController{
   }
   
   // MARK: - Initial setup
+
+  override func preferredStatusBarStyle() -> UIStatusBarStyle {
+    return UIStatusBarStyle.LightContent
+  }
+
   private func subscribeToNotifications() {
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "onShowMenuView:", name: AMRMainShowMenuView, object: nil)
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "onHideMenuView:", name: AMRMainHideMenuView, object: nil)

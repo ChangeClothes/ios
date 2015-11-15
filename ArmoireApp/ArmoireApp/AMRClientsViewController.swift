@@ -55,12 +55,15 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
     // Dispose of any resources that can be recreated.
   }
   
+
+  // MARK: - Set Up
+
   func updateTableView() {
     AMRBadgeManager.sharedInstance.getClientBadgesForStylist(AMRUser.currentUser()!) { (clientBadges) -> Void in
       self.collectionView.reloadData()
     }
   }
-  
+
   // MARK: - On Taps Functions
 
   func onSettingsTap(){

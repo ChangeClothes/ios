@@ -50,6 +50,7 @@ class AMRClientsDetailViewController: AMRViewController, LYRQueryControllerDeleg
   override func viewDidLoad() {
     super.viewDidLoad()
     self.navigationController?.navigationBarHidden = true
+    UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: true)
     setVcArray()
     setVcDataForTabs()
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "deviceDidRotate", name: UIDeviceOrientationDidChangeNotification, object: nil)
