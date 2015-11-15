@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Clients 25.png",
+      "filename" : "home25.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Clients 50.png",
+      "filename" : "home50.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Clients 75.png",
+      "filename" : "home75.png",
       "scale" : "3x"
     }
   ],
