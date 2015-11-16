@@ -20,9 +20,9 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
   @IBOutlet weak var collectionViewConstraintTop: NSLayoutConstraint!
   var searchbar = UISearchBar()
   var layerClient: LYRClient!
-  var filteredClients: [AMRUser]?
+  var filteredClients: [AMRUser] = []
   var clients: [AMRUser] = []
-  var searchActive = true
+  var searchActive = false
 
 
   // MARK: - Lifecycle
@@ -89,19 +89,19 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
   }
 
   func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-//    if searchText != "" {
-//      filteredClients = clients.filter({
-//        let currentClient = $0
-//        return currentClient.fullName.lowercaseString.rangeOfString(searchText.lowercaseString) != nil
-//      })
-//      setUpSections(filteredClients!)
-//    } else {
-//      setUpSections(self.clients)
-//      filteredClients = []
-//      searchBar.performSelector("resignFirstResponder", withObject: nil, afterDelay: 0)
-//    }
-//    self.collectionView.reloadData()
-//    searchBar.becomeFirstResponder()
+    if searchText != "" {
+      searchActive = true
+      filteredClients = clients.filter({
+        let currentClient = $0
+        return currentClient.fullName.lowercaseString.rangeOfString(searchText.lowercaseString) != nil
+      })
+    } else {
+      searchActive = false
+      filteredClients = clients
+      searchBar.performSelector("resignFirstResponder", withObject: nil, afterDelay: 0)
+    }
+    self.collectionView.reloadData()
+    searchBar.becomeFirstResponder()
   }
 
   // MARK: clients
@@ -114,6 +114,7 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
       } else {
         self.clients = (arrayOfUsers as? [AMRUser])!
         self.clients = self.clients.sort{$0.firstName < $1.firstName}
+        self.filteredClients = self.clients
         self.collectionView.reloadData()
         AMRProfileImage.cache.cacheProfileImagesForClients(self.clients)
       }
@@ -140,7 +141,7 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
   func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
     searchbar.resignFirstResponder()
     collectionView.deselectItemAtIndexPath(indexPath, animated: true)
-    let client = clients[indexPath.row]
+    let client = filteredClients[indexPath.row]
     let clientDetailVC = AMRClientsDetailViewController(layerClient: layerClient)
     clientDetailVC.stylist = self.stylist
     clientDetailVC.client = client
@@ -153,7 +154,7 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
     if section == 0 {
       return 1
     } else {
-      return clients.count
+      return filteredClients.count
     }
   }
 
@@ -167,7 +168,7 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
       return cell
     } else {
       let cell = collectionView.dequeueReusableCellWithReuseIdentifier("ClientCell", forIndexPath: indexPath) as! clientCollectionViewCell
-      cell.client = clients[indexPath.row]
+      cell.client = filteredClients[indexPath.row]
       cell.imageView.backgroundColor = UIColor.grayColor()
       return cell
     }
@@ -176,7 +177,11 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
   
   func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
     if indexPath.section == 0 {
-      return CGSizeMake(collectionView.bounds.width, CGFloat(AMRBadgeManager.sharedInstance.clientBadges.count)*90+0.5)
+      if searchActive {
+        return CGSizeMake(collectionView.bounds.width, 0.5)
+      } else {
+        return CGSizeMake(collectionView.bounds.width, CGFloat(AMRBadgeManager.sharedInstance.clientBadges.count)*90+0.5)
+      }
     } else {
       return CGSizeMake(115, 200)
     }
