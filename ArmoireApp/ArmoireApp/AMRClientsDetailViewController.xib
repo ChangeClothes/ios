@@ -40,7 +40,7 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NWi-2h-Fry">
                             <rect key="frame" x="540" y="-499" width="50" height="50"/>
                             <subviews>
-                                <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XMV-RK-gGZ">
+                                <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XMV-RK-gGZ">
                                     <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                     <animations/>
                                     <constraints>
