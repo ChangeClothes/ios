@@ -402,6 +402,8 @@ extension AMRMainViewController: LYRQueryControllerDelegate {
   func queryController(controller: LYRQueryController!, didChangeObject object: AnyObject!, atIndexPath indexPath: NSIndexPath!, forChangeType type: LYRQueryControllerChangeType, newIndexPath: NSIndexPath!) {
     
     if type != LYRQueryControllerChangeType.Delete && controller.numberOfObjectsInSection(0) > 0{
+      NSNotificationCenter.defaultCenter().postNotificationName(kNewMessageReceivedNotification, object: self)
+      
       let conversation = object as! LYRConversation
       newConversationIdentifier = conversation.identifier
       var remainingParticipants = conversation.participants

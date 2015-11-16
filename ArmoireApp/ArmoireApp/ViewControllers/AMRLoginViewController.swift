@@ -78,6 +78,8 @@ class AMRLoginViewController: UIViewController {
   
   override func viewWillAppear(animated: Bool) {
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
+    self.bottomConstraint.constant = 75
+    self.view.layoutIfNeeded()
   }
   override func viewWillDisappear(animated: Bool){
     super.viewWillDisappear(animated)

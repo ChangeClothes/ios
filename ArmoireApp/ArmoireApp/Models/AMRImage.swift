@@ -94,6 +94,17 @@ class AMRImage: PFObject {
     })
   }
   
+  func getImageAtIndex(index: Int, completion: (UIImage, Int)-> ()) {
+    self.file?.getDataInBackgroundWithBlock({ (data: NSData?, error: NSError?) -> Void in
+      if error == nil {
+        completion(UIImage(data: data!)!, index)
+      } else {
+        print("error loading image from file")
+      }
+
+    })
+  }
+  
   func updateRating(rating: AMRPhotoRating, withCompletion completion:() -> Void) {
     self.rating = rating
     self.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in

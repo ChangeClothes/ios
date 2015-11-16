@@ -2,15 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "add clothing icon 25.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "add clothing icon 50.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Pictures Add 128x128 vCharc.png",
+      "filename" : "add clothing icon 75.png",
       "scale" : "3x"
     }
   ],
