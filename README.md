@@ -101,6 +101,15 @@ The above is the bare minimum that needs to be provided to ensure value is added
 
 
 ### Demo Workflow
+- Let's see how a typical Armoire user, Supreet, uses the app. This is a typical morning in Supreet's day. Supreet is sitting at the local Blue Bottle Coffee, sipping her favorite single origin cappucino with a rosetta pattern on top, looking at her new iPhone 6s - rose gold.
+- She opens up the Armoire app and checks her schedule for the day. In order to stay on track, she messages her first client, Jennifer Lawrence, to remind her of her appointment. -- Supreet: "Hi Jen! Are we still on for 10am today?"
+- As an independent personal stylist, her work revolves around both in-person appointments and direct communication with her clients.
+- Jen, who receives a notification through the Armoire app, promptly responds with his availability. -- Jen: "Hi Supreet! Actually, can we do 9 instead?"
+- Supreet jumps back to the calendar feature of the Armoire app to check her availability and change the appointment time, which Jen sees in his app. -- Supreet: "Sure, I just updated our appointment time, please check your calendar to make sure the location and time is correct. See you later!"
+- Because Supreet hasn't seen Jen in a while, she refreshes her memory by looking through Armoire profile and template; she shares a default template with all of her clients in order to get a baseline of their eneds -- Jen: "emoji - thumbs up"
+- Supreet looks at her notes on Jen and notices she has a large gala coming up. Supreet adds some clothes from Nordstrom she thinsk might fit her needs and then alerts her to the changes. -- Supreet: "Just added some new clothing for you to give me feedback on; let me know which types of styles you'd like to focus on for the gala!"
+- Jen checks the pictures that Supreet uploaded and updates her preferences.
+
 -	Let's see how a typical Armoire user, Veronica, uses the app. This is a typical morning in Veronica's day. Veronica is sitting at the local Blue Bottle Coffee, sipping her favorite single origin cappucino with a rosetta pattern on top, looking at her new iPhone 6s - rose gold.
 -	She opens up the Armoire app and checks her schedule for the day. In order to stay on track, she messages her first client, Zayn, to remind him of his appointment.
 -- Veronica: "Hi Zayn! Are we still on for 10am today?"
