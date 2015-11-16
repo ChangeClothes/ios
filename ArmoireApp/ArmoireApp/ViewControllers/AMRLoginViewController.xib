@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -13,6 +13,8 @@
                 <outlet property="bottomConstraint" destination="5oe-Nq-kqS" id="p0p-p2-0fB"/>
                 <outlet property="logInButton" destination="lCR-8T-Sjp" id="54A-lc-JDQ"/>
                 <outlet property="logoImageView" destination="YtA-U7-mbY" id="T4q-Mc-jM6"/>
+                <outlet property="networkErrorTopConstraint" destination="vdt-UH-dwh" id="ded-Rw-eOR"/>
+                <outlet property="networkErrorView" destination="JXC-Q3-j3I" id="jAn-8L-7RI"/>
                 <outlet property="passwordField" destination="uPp-77-zmR" id="zKz-oO-qqM"/>
                 <outlet property="signUpButton" destination="CVN-wq-5Rg" id="a3a-IB-4wZ"/>
                 <outlet property="usernameField" destination="4DS-Hd-CoC" id="CXD-HB-NEj"/>
@@ -42,21 +44,21 @@
                         <constraint firstAttribute="height" constant="10" id="dPN-XC-oBO"/>
                     </constraints>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New to Armoire? " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oo3-Ik-NkB">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="New to Armoire? " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oo3-Ik-NkB">
                     <rect key="frame" x="203" y="498" width="132" height="21"/>
                     <animations/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CVN-wq-5Rg">
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CVN-wq-5Rg">
                     <rect key="frame" x="335" y="492" width="61" height="33"/>
                     <animations/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <state key="normal" title="Sign Up"/>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lCR-8T-Sjp">
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lCR-8T-Sjp">
                     <rect key="frame" x="30" y="427" width="540" height="50"/>
                     <animations/>
                     <constraints>
@@ -66,24 +68,43 @@
                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <state key="normal" title="Login"/>
                 </button>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uPp-77-zmR">
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uPp-77-zmR">
                     <rect key="frame" x="30" y="370" width="540" height="50"/>
                     <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardAppearance="alert" secureTextEntry="YES"/>
                 </textField>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZZ1-wi-4ZK">
+                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZZ1-wi-4ZK">
                     <rect key="frame" x="397" y="590" width="204" height="10"/>
                     <animations/>
                 </view>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4DS-Hd-CoC">
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4DS-Hd-CoC">
                     <rect key="frame" x="30" y="313" width="540" height="50"/>
                     <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardAppearance="alert"/>
                 </textField>
+                <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JXC-Q3-j3I">
+                    <rect key="frame" x="0.0" y="-25" width="600" height="25"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Network Error" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o6I-fq-8ad">
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="25"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="o6I-fq-8ad" secondAttribute="bottom" id="1ZO-tv-0NG"/>
+                        <constraint firstItem="o6I-fq-8ad" firstAttribute="leading" secondItem="JXC-Q3-j3I" secondAttribute="leading" id="WmC-ZM-KNh"/>
+                        <constraint firstAttribute="height" constant="25" id="nRM-Lw-ZdJ"/>
+                        <constraint firstItem="o6I-fq-8ad" firstAttribute="top" secondItem="JXC-Q3-j3I" secondAttribute="top" id="ofD-Yw-U9E"/>
+                        <constraint firstAttribute="trailing" secondItem="o6I-fq-8ad" secondAttribute="trailing" id="rW2-Mb-DyW"/>
+                    </constraints>
+                </view>
             </subviews>
             <animations/>
             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -101,6 +122,7 @@
                 <constraint firstItem="lCR-8T-Sjp" firstAttribute="height" secondItem="4DS-Hd-CoC" secondAttribute="height" id="AdT-Dw-Hhu"/>
                 <constraint firstItem="4DS-Hd-CoC" firstAttribute="top" relation="greaterThanOrEqual" secondItem="YtA-U7-mbY" secondAttribute="bottom" constant="10" id="HRO-5e-cei"/>
                 <constraint firstAttribute="bottom" secondItem="glz-IB-zU4" secondAttribute="bottom" id="KTr-BL-bhD"/>
+                <constraint firstAttribute="trailing" secondItem="JXC-Q3-j3I" secondAttribute="trailing" id="N9s-mv-rNz"/>
                 <constraint firstAttribute="bottom" secondItem="ZZ1-wi-4ZK" secondAttribute="bottom" id="NHq-hv-ijj"/>
                 <constraint firstItem="YtA-U7-mbY" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" multiplier="0.3" id="NQa-Oy-M0q"/>
                 <constraint firstAttribute="trailing" secondItem="ZZ1-wi-4ZK" secondAttribute="trailing" id="QXk-3W-Ue8"/>
@@ -111,14 +133,22 @@
                 <constraint firstItem="lCR-8T-Sjp" firstAttribute="centerX" secondItem="YtA-U7-mbY" secondAttribute="centerX" id="fhn-gI-BZ7"/>
                 <constraint firstItem="uPp-77-zmR" firstAttribute="height" secondItem="4DS-Hd-CoC" secondAttribute="height" id="iir-lI-xd9"/>
                 <constraint firstItem="lCR-8T-Sjp" firstAttribute="top" secondItem="uPp-77-zmR" secondAttribute="bottom" constant="7" id="jqM-nv-pR5"/>
+                <constraint firstItem="JXC-Q3-j3I" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="kEL-Qf-bGT"/>
                 <constraint firstItem="lCR-8T-Sjp" firstAttribute="width" secondItem="4DS-Hd-CoC" secondAttribute="width" id="m46-ih-LU2"/>
                 <constraint firstItem="4DS-Hd-CoC" firstAttribute="centerX" secondItem="YtA-U7-mbY" secondAttribute="centerX" id="mW8-YF-WpK"/>
                 <constraint firstItem="lCR-8T-Sjp" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.9" id="q40-Je-dAq"/>
+                <constraint firstItem="JXC-Q3-j3I" firstAttribute="top" secondItem="YtA-U7-mbY" secondAttribute="bottom" id="s7h-PH-w8d"/>
                 <constraint firstItem="YtA-U7-mbY" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.8" id="tNE-Xs-yy7"/>
                 <constraint firstItem="ZZ1-wi-4ZK" firstAttribute="height" secondItem="zzu-Pl-QuA" secondAttribute="height" id="uW3-7Z-pTn"/>
+                <constraint firstItem="JXC-Q3-j3I" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="-25" id="vdt-UH-dwh"/>
                 <constraint firstItem="Oo3-Ik-NkB" firstAttribute="leading" secondItem="zzu-Pl-QuA" secondAttribute="trailing" id="vp0-m8-oWR"/>
                 <constraint firstItem="YtA-U7-mbY" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="z1Q-14-h2E"/>
             </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="s7h-PH-w8d"/>
+                </mask>
+            </variation>
             <point key="canvasLocation" x="153" y="264"/>
         </view>
     </objects>

@@ -11,6 +11,8 @@
                 <outlet property="calendarImageView" destination="oHp-Rt-Q73" id="P1R-ad-A5P"/>
                 <outlet property="containerView" destination="45x-mO-ZQ3" id="gKn-ck-2sl"/>
                 <outlet property="menuView" destination="484-uT-3HW" id="srU-hC-RiP"/>
+                <outlet property="networkErrorTopConstraint" destination="a3b-bn-1tV" id="5eq-pD-72s"/>
+                <outlet property="networkErrorView" destination="cqd-Dr-VRH" id="DXp-YG-GVc"/>
                 <outlet property="newMessageImageView" destination="Wd5-B4-IUQ" id="99f-et-vOT"/>
                 <outlet property="newMessageImageViewContainer" destination="gCd-Bd-nmz" id="mSY-gj-P6i"/>
                 <outlet property="newMessageImageViewContainerXConstraint" destination="p0d-bV-Vqm" id="E3n-vl-bMA"/>
@@ -156,15 +158,37 @@
                         <constraint firstAttribute="height" constant="49" id="yh7-su-R65"/>
                     </constraints>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cqd-Dr-VRH">
+                    <rect key="frame" x="0.0" y="-25" width="600" height="25"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Network Error" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NYu-hv-YWd">
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="25"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <constraints>
+                        <constraint firstItem="NYu-hv-YWd" firstAttribute="top" secondItem="cqd-Dr-VRH" secondAttribute="top" id="Mfe-j8-otZ"/>
+                        <constraint firstAttribute="trailing" secondItem="NYu-hv-YWd" secondAttribute="trailing" id="X0Z-hw-Za0"/>
+                        <constraint firstAttribute="height" constant="25" id="hFX-8t-usr"/>
+                        <constraint firstAttribute="bottom" secondItem="NYu-hv-YWd" secondAttribute="bottom" id="rxT-RX-Kvm"/>
+                        <constraint firstItem="NYu-hv-YWd" firstAttribute="leading" secondItem="cqd-Dr-VRH" secondAttribute="leading" id="ztF-dC-IAh"/>
+                    </constraints>
+                </view>
             </subviews>
             <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="45x-mO-ZQ3" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="3WO-cA-h8l"/>
                 <constraint firstAttribute="trailing" secondItem="484-uT-3HW" secondAttribute="trailing" id="63M-BB-gmt"/>
+                <constraint firstAttribute="trailing" secondItem="cqd-Dr-VRH" secondAttribute="trailing" id="DJF-ip-h1Z"/>
                 <constraint firstItem="45x-mO-ZQ3" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="LEk-wq-u58"/>
+                <constraint firstItem="cqd-Dr-VRH" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="-25" id="a3b-bn-1tV"/>
                 <constraint firstItem="484-uT-3HW" firstAttribute="top" secondItem="45x-mO-ZQ3" secondAttribute="bottom" id="gtx-LD-usC"/>
                 <constraint firstAttribute="trailing" secondItem="45x-mO-ZQ3" secondAttribute="trailing" id="iP2-cC-aSq"/>
+                <constraint firstItem="cqd-Dr-VRH" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ifY-rW-Epz"/>
                 <constraint firstItem="484-uT-3HW" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="lp8-SW-qhV"/>
                 <constraint firstAttribute="bottom" secondItem="484-uT-3HW" secondAttribute="bottom" id="s0z-Hq-kvZ"/>
             </constraints>
