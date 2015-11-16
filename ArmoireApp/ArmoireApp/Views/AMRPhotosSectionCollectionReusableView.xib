@@ -12,13 +12,6 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U8x-Xt-Uyz">
-                    <rect key="frame" x="60" y="17" width="245" height="16"/>
-                    <animations/>
-                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9aR-Hz-m70">
                     <rect key="frame" x="10" y="5" width="40" height="40"/>
                     <animations/>
@@ -26,6 +19,13 @@
                         <constraint firstAttribute="width" secondItem="9aR-Hz-m70" secondAttribute="height" multiplier="1:1" id="2sZ-aZ-FdP"/>
                     </constraints>
                 </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U8x-Xt-Uyz">
+                    <rect key="frame" x="58" y="17" width="245" height="16"/>
+                    <animations/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <animations/>
             <constraints>
@@ -37,6 +37,7 @@
                 <constraint firstItem="9aR-Hz-m70" firstAttribute="centerY" secondItem="U6b-Vx-4bR" secondAttribute="centerY" id="vnV-BJ-mvj"/>
             </constraints>
             <connections>
+                <outlet property="leadingTitleConstraint" destination="eIX-yM-jso" id="ANT-5O-BEd"/>
                 <outlet property="ratingIconImageView" destination="9aR-Hz-m70" id="QhJ-HY-4rY"/>
                 <outlet property="sectionTitleLabel" destination="U8x-Xt-Uyz" id="iFO-0S-FJH"/>
             </connections>

@@ -32,9 +32,9 @@ enum AMRPhotoRating: NSNumber {
     
   }
   
-  static func ratingIconArray() -> [UIImage] {
-    let imageArray: [UIImage] = [
-      UIImage(named: "unrated")!.imageWithRenderingMode(.AlwaysTemplate),
+  static func ratingIconArray() -> [UIImage?] {
+    let imageArray: [UIImage?] = [
+      nil,
       UIImage(named: "love")!.imageWithRenderingMode(.AlwaysTemplate),
       UIImage(named: "maybe")!.imageWithRenderingMode(.AlwaysTemplate),
       UIImage(named: "nope")!.imageWithRenderingMode(.AlwaysTemplate), ]

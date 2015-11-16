@@ -443,7 +443,7 @@ extension CALayer {
 
   func addBorder(edge: UIRectEdge, color: UIColor, thickness: CGFloat) {
 
-    var border = CALayer()
+    let border = CALayer()
 
     switch edge {
     case UIRectEdge.Top:

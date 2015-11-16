@@ -212,7 +212,13 @@ extension AMRPhotosViewController: UICollectionViewDataSource{
     view.sectionTitleLabel.text = AMRPhotoRating.titleArray()[indexPath.section]
     view.sectionTitleLabel.textColor = AMRPhotoRating.iconColorArray()[indexPath.section]
     view.ratingIconImageView.tintColor = AMRPhotoRating.iconColorArray()[indexPath.section]
-    view.ratingIconImageView.image = AMRPhotoRating.ratingIconArray()[indexPath.section]
+    if let img = AMRPhotoRating.ratingIconArray()[indexPath.section] {
+      view.ratingIconImageView.image = img
+      view.leadingTitleConstraint.constant = 10
+    } else {
+      view.ratingIconImageView.image = nil
+      view.leadingTitleConstraint.constant = -20
+    }
     
     return view
   }
