@@ -23,8 +23,6 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
   var filteredClients: [AMRUser]?
   var clients: [AMRUser] = []
   var searchActive = true
-  var sections = [String]()
-  var clientSections = [String:[AMRUser]]()
 
 
   // MARK: - Lifecycle
@@ -91,19 +89,19 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
   }
 
   func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-    if searchText != "" {
-      filteredClients = clients.filter({
-        let currentClient = $0
-        return currentClient.fullName.lowercaseString.rangeOfString(searchText.lowercaseString) != nil
-      })
-      setUpSections(filteredClients!)
-    } else {
-      setUpSections(self.clients)
-      filteredClients = []
-      searchBar.performSelector("resignFirstResponder", withObject: nil, afterDelay: 0)
-    }
-    self.collectionView.reloadData()
-    searchBar.becomeFirstResponder()
+//    if searchText != "" {
+//      filteredClients = clients.filter({
+//        let currentClient = $0
+//        return currentClient.fullName.lowercaseString.rangeOfString(searchText.lowercaseString) != nil
+//      })
+//      setUpSections(filteredClients!)
+//    } else {
+//      setUpSections(self.clients)
+//      filteredClients = []
+//      searchBar.performSelector("resignFirstResponder", withObject: nil, afterDelay: 0)
+//    }
+//    self.collectionView.reloadData()
+//    searchBar.becomeFirstResponder()
   }
 
   // MARK: clients
@@ -116,7 +114,6 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
       } else {
         self.clients = (arrayOfUsers as? [AMRUser])!
         self.clients = self.clients.sort{$0.firstName < $1.firstName}
-        self.setUpSections(self.clients)
         self.collectionView.reloadData()
         AMRProfileImage.cache.cacheProfileImagesForClients(self.clients)
       }
@@ -143,7 +140,7 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
   func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
     searchbar.resignFirstResponder()
     collectionView.deselectItemAtIndexPath(indexPath, animated: true)
-    let client = clientSections[sections[indexPath.section - 1]]![indexPath.row]
+    let client = clients[indexPath.row]
     let clientDetailVC = AMRClientsDetailViewController(layerClient: layerClient)
     clientDetailVC.stylist = self.stylist
     clientDetailVC.client = client
@@ -153,20 +150,13 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
   }
   
   func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    if sections.count == 0 {
-      return 0
-    } else if section == 0 {
+    if section == 0 {
       return 1
     } else {
-      return clientSections[sections[section - 1]]!.count
+      return clients.count
     }
   }
 
-  func setUpSections(clients:[AMRUser]) {
-    clientSections = [String:[AMRUser]]()
-    clientSections[""] = clients
-    sections = clientSections.keys.sort()
-  }
 
   func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
     if indexPath.section == 0 {
@@ -177,8 +167,7 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
       return cell
     } else {
       let cell = collectionView.dequeueReusableCellWithReuseIdentifier("ClientCell", forIndexPath: indexPath) as! clientCollectionViewCell
-      let client = clientSections[sections[indexPath.section - 1]]![indexPath.row]
-      cell.client = client
+      cell.client = clients[indexPath.row]
       cell.imageView.backgroundColor = UIColor.grayColor()
       return cell
     }
@@ -187,7 +176,7 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
   
   func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
     if indexPath.section == 0 {
-      return CGSizeMake(collectionView.bounds.width, CGFloat(AMRBadgeManager.sharedInstance.clientBadges.count)*90)
+      return CGSizeMake(collectionView.bounds.width, CGFloat(AMRBadgeManager.sharedInstance.clientBadges.count)*90+0.5)
     } else {
       return CGSizeMake(115, 200)
     }
@@ -223,7 +212,7 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
   }
 
   func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-    return sections.count + 1
+    return 2
   }
   
   deinit {
