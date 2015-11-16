@@ -188,7 +188,6 @@ extension UIImageView {
         profileImage?.file?.getDataInBackgroundWithBlock { (data: NSData?, error: NSError?) -> Void in
           if error == nil {
             if amrImage?.objectId == self.imageObjectId{
-              print("setting image from parse")
               self.image = UIImage(data: data!)
               amrImage!.cachedUIImage = UIImage(data: data!)
               completion?(success: true)
@@ -208,12 +207,10 @@ extension UIImageView {
   func setProfileImageForClientId(clientId: String, andClient client: AMRUser, withPlaceholder placeholder: String?, withCompletion completion: ((success: Bool) -> Void)?) {
 
     if let cachedUIImage = AMRProfileImage.cache.profileImages[clientId] {
-      print("getting cachedImage")
       self.imageObjectId = ""
       self.image = cachedUIImage
       completion?(success: true)
     } else {
-      print("set AMRImage")
       setAMRImage(client.profilePhoto, withPlaceholder: placeholder, withCompletion: completion)
     }
     

@@ -16,7 +16,6 @@ class AMRProfileImage: NSObject {
   
   func cacheProfileImagesForClients(clients: [AMRUser]) {
     for client in clients {
-      print(client.fullName)
       getImageForClient(client)
     }
   }
@@ -29,7 +28,6 @@ class AMRProfileImage: NSObject {
       } else {
         let profilePic = photo as! AMRImage
         profilePic.getImage({ (image: UIImage) -> () in
-          print("here \(client.fullName)")
           self.profileImages[objId] = image
         })
       }
