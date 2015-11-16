@@ -10,9 +10,12 @@ import UIKit
 
 class AMRTodayTableViewCell: UITableViewCell {
   
+  @IBOutlet weak var hasUnratedPhotosLabel: UILabel!
   let labelHeight = CGFloat(16)
   let iconHeight = CGFloat(12)
+  @IBOutlet weak var hasNewMessagesLabel: UILabel!
   
+  @IBOutlet weak var hasAppointmentLabel: UILabel!
   @IBOutlet weak var appointmentIconHeightConstraint: NSLayoutConstraint!
   @IBOutlet weak var cellBackgroundView: UIView!
   @IBOutlet weak var appointmentIconView: UIImageView!
@@ -38,6 +41,7 @@ class AMRTodayTableViewCell: UITableViewCell {
       
 
       nameLabel.text = client.firstName + " " + client.lastName
+      nameLabel.tintColor = UIColor.whiteColor()
       appointmentsLabelHeightConstraint.constant = 0
       appointmentIconHeightConstraint.constant = 0
       
@@ -47,9 +51,9 @@ class AMRTodayTableViewCell: UITableViewCell {
       unratedPhotosHeightConstraint.constant = 0
       unratedPhotoIconHeightConstraint.constant = 0
       
-      appointmentIconView.tintColor = UIColor.darkGrayColor()
-      newMessageIconView.tintColor = UIColor.darkGrayColor()
-      unratedPhotoIconView.tintColor = UIColor.darkGrayColor()
+      appointmentIconView.tintColor = UIColor.whiteColor()
+      newMessageIconView.tintColor = UIColor.whiteColor()
+      unratedPhotoIconView.tintColor = UIColor.whiteColor()
       
       appointmentIconView.image = appointmentIconView.image?.imageWithRenderingMode(.AlwaysTemplate)
       newMessageIconView.image = newMessageIconView.image?.imageWithRenderingMode(.AlwaysTemplate)
@@ -69,8 +73,6 @@ class AMRTodayTableViewCell: UITableViewCell {
         unratedPhotosHeightConstraint.constant = labelHeight
         unratedPhotoIconHeightConstraint.constant = iconHeight
       }
-      
-      
     }
   }
 
@@ -90,10 +92,14 @@ class AMRTodayTableViewCell: UITableViewCell {
     super.awakeFromNib()
 //    self.selectionStyle = .None
     
+    cellBackgroundView.backgroundColor = UIColor.blackColor()
     cellBackgroundView.layer.cornerRadius = 8.0
     cellBackgroundView.clipsToBounds = true
-    cellBackgroundView.layer.borderColor = UIColor.blackColor().CGColor
-    cellBackgroundView.layer.borderWidth = 2.0
+    
+    hasUnratedPhotosLabel.tintColor = UIColor.whiteColor()
+    hasNewMessagesLabel.tintColor = UIColor.whiteColor()
+    hasAppointmentLabel.tintColor = UIColor.whiteColor()
+    
     
   }
   
