@@ -1,4 +1,25 @@
 PODS:
+  - AFNetworking (2.6.3):
+    - AFNetworking/NSURLConnection (= 2.6.3)
+    - AFNetworking/NSURLSession (= 2.6.3)
+    - AFNetworking/Reachability (= 2.6.3)
+    - AFNetworking/Security (= 2.6.3)
+    - AFNetworking/Serialization (= 2.6.3)
+    - AFNetworking/UIKit (= 2.6.3)
+  - AFNetworking/NSURLConnection (2.6.3):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/NSURLSession (2.6.3):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (2.6.3)
+  - AFNetworking/Security (2.6.3)
+  - AFNetworking/Serialization (2.6.3)
+  - AFNetworking/UIKit (2.6.3):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
   - Atlas (1.0.13):
     - LayerKit (>= 0.17.0)
   - Bolts/Tasks (1.3.0)
@@ -10,12 +31,14 @@ PODS:
   - SDWebImage/Core (3.7.3)
 
 DEPENDENCIES:
+  - AFNetworking (~> 2.6.0)
   - Atlas
   - LayerKit
   - Parse
   - SDWebImage
 
 SPEC CHECKSUMS:
+  AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
   Atlas: b72929aac7d8b5d653d07bed0333a8e9318f9d93
   Bolts: 805a4a87413e49d4a0c2b7d469084cbc46b09342
   LayerKit: 81d635966427859230deb8ede88dbc710dcac8fd

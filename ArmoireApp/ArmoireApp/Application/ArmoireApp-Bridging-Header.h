@@ -6,3 +6,4 @@
 #import <Parse/PFObject+Subclass.h>
 #import <Atlas/Atlas.h>
 #import <SDWebImage/UIImage+GIF.h>
+#import <AFNetworking/AFNetworking.h>
