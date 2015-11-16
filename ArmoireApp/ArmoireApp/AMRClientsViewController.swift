@@ -25,6 +25,7 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
   var searchActive = true
   var sections = [String]()
   var clientSections = [String:[AMRUser]]()
+  var todayViewActive = false
 
 
   // MARK: - Lifecycle
@@ -63,6 +64,9 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
 
   func updateTableView() {
     AMRBadgeManager.sharedInstance.getClientBadgesForStylist(AMRUser.currentUser()!) { (clientBadges) -> Void in
+      if (clientBadges.count > 0 ){
+        self.todayViewActive = true
+      }
       self.collectionView.reloadData()
     }
   }
@@ -153,12 +157,10 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
   }
   
   func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    if sections.count == 0 {
-      return 0
-    } else if section == 0 {
+    if self.todayViewActive && section == 0 {
       return 1
     } else {
-      return clientSections[sections[section - 1]]!.count
+      return clients.count
     }
   }
 
