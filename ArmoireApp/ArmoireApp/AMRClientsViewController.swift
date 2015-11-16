@@ -13,7 +13,7 @@ let kNewMessageReceivedNotification = "com.armoire.NewMessageReceivedNotificatio
 class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
 
   let kTodayTableReuseIdentifier = "com.armoire.TodayTableReuseIdentifier"
-  
+  let kSectionHeaderReuseIdentifier = "com.armoire.SectionHeaderReuseIdentifier"
   // MARK: - Outlets
   
   @IBOutlet weak var collectionView: UICollectionView!
@@ -132,9 +132,9 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
     collectionView.registerNib(cellNib, forCellWithReuseIdentifier: "ClientCell")
     collectionView.backgroundColor = UIColor.whiteColor()
     self.view.addSubview(collectionView)
-    self.collectionView!.registerClass(UICollectionReusableView.self,
-      forSupplementaryViewOfKind:UICollectionElementKindSectionHeader,
-      withReuseIdentifier:"Header")
+
+    let sectionHeaderNib = UINib(nibName: "AMRSectionCollectionReusableView", bundle: nil)
+    collectionView.registerNib(sectionHeaderNib, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: kSectionHeaderReuseIdentifier)
     
     let todayCellNib = UINib(nibName: "AMRTodayTableCollectionViewCell", bundle: nil)
     collectionView.registerNib(todayCellNib, forCellWithReuseIdentifier: kTodayTableReuseIdentifier)
@@ -203,39 +203,23 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
   
   func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
     if section == 0 {
-      return CGSize(width: collectionView.frame.size.width, height: 40)
+      return CGSize(width: collectionView.frame.size.width, height: 40 + 50)
     } else {
-      return CGSize(width: collectionView.frame.size.width, height: 30)
+      return CGSize(width: collectionView.frame.size.width, height: 50)
     }
   }
-
+  
   func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-
-    var v : UICollectionReusableView! = nil
-    if kind == UICollectionElementKindSectionHeader {
-      v = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier:"Header", forIndexPath:indexPath)
-      if v.subviews.count == 0 {
-        let lab = UILabel() // we will size it later
-        v.addSubview(lab)
-        lab.textAlignment = .Center
-        lab.textColor = UIColor.AMRClientCollectionLabel()
-        lab.layer.masksToBounds = true // has to be added for iOS 8 label
-        lab.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activateConstraints([
-          NSLayoutConstraint.constraintsWithVisualFormat("H:|-10-[lab(35)]",
-            options:[], metrics:nil, views:["lab":lab]),
-          NSLayoutConstraint.constraintsWithVisualFormat("V:[lab(30)]-5-|",
-            options:[], metrics:nil, views:["lab":lab])
-          ].flatten().map{$0})
-      }
-      let lab = v.subviews[0] as! UILabel
-      if indexPath.section != 0 {
-        lab.text = self.sections[indexPath.section - 1]
-      } else {
-        lab.text = ""
-      }
+    let view = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: kSectionHeaderReuseIdentifier, forIndexPath: indexPath) as! AMRSectionCollectionReusableView
+    
+    
+    if indexPath.section == 0 {
+      view.sectionTitleLabel.text = "Today"
+    } else {
+      view.sectionTitleLabel.text = "Clients"
     }
-    return v
+    
+    return view
   }
 
   func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="U6b-Vx-4bR" customClass="AMRSectionCollectionReusableView" customModule="ArmoireApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Czf-XP-URC">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                    <animations/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="8OI-pH-kOj"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PmY-ai-kpK">
+                    <rect key="frame" x="15" y="14" width="290" height="21"/>
+                    <animations/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <animations/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="Czf-XP-URC" secondAttribute="bottom" id="2UY-rX-6bO"/>
+                <constraint firstAttribute="bottom" secondItem="PmY-ai-kpK" secondAttribute="bottom" constant="15" id="Cud-UN-mWe"/>
+                <constraint firstItem="Czf-XP-URC" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" id="D3p-TI-Z0r"/>
+                <constraint firstAttribute="trailing" secondItem="Czf-XP-URC" secondAttribute="trailing" id="WbI-oh-086"/>
+                <constraint firstItem="PmY-ai-kpK" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" constant="15" id="oY7-0v-Hfa"/>
+                <constraint firstAttribute="trailing" secondItem="PmY-ai-kpK" secondAttribute="trailing" constant="15" id="xHp-9f-Alu"/>
+            </constraints>
+            <connections>
+                <outlet property="sectionTitleLabel" destination="PmY-ai-kpK" id="SO3-K6-Qrd"/>
+            </connections>
+        </collectionReusableView>
+    </objects>
+</document>
