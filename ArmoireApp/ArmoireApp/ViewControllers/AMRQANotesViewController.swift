@@ -145,11 +145,13 @@ class AMRQANotesViewController: AMRViewController, UITableViewDataSource, UITabl
     
     if CurrentUser.sharedInstance.user?.isStylist == true  {
       stylist = self.stylist!
-      AMRNote.getOrCreateNoteForUser(stylist, client: client) { (note, error) -> Void in
-        self.note = note
-        noteLoaded = true
-        if noteLoaded && questionAnswerLoaded {
-          self.updateData()
+      if client != nil {
+        AMRNote.getOrCreateNoteForUser(stylist, client: client) { (note, error) -> Void in
+          self.note = note
+          noteLoaded = true
+          if noteLoaded && questionAnswerLoaded {
+            self.updateData()
+          }
         }
       }
  
