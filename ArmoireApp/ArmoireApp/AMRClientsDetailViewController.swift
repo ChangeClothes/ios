@@ -11,6 +11,8 @@ import LayerKit
 
 class AMRClientsDetailViewController: AMRViewController, LYRQueryControllerDelegate  {
   
+  @IBOutlet weak var networkErrorTopConstraint: NSLayoutConstraint!
+  @IBOutlet weak var networkErrorView: UIView!
   @IBOutlet weak var tabBarBorderViewOne: UIView!
   @IBOutlet weak var newMessageImageViewContainerYConstraint: NSLayoutConstraint!
   @IBOutlet weak var newMessageImageViewContainerXConstraint: NSLayoutConstraint!
@@ -26,7 +28,7 @@ class AMRClientsDetailViewController: AMRViewController, LYRQueryControllerDeleg
   
   private var queryController: LYRQueryController!
   var layerQueryController: LYRQueryController!
-  
+
   @IBOutlet weak var containerView: UIView!
   @IBOutlet weak var menuView: UIView!
   
@@ -48,12 +50,15 @@ class AMRClientsDetailViewController: AMRViewController, LYRQueryControllerDeleg
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    Reachability().initializeReachabilityMonitoring()
     self.navigationController?.navigationBarHidden = true
     UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: true)
     setVcArray()
     setVcDataForTabs()
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "deviceDidRotate", name: UIDeviceOrientationDidChangeNotification, object: nil)
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "updatedMessagesIconBadge", name: kUserConversationsChanged, object: nil)
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "showNetworkError:", name: kActiveNetworkError, object: nil)
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "hideNetworkError:", name: kInactiveNetworkError, object: nil)
     
     setupTabBarAppearance()
     selectViewController(vcArray[3])
@@ -400,6 +405,22 @@ class AMRClientsDetailViewController: AMRViewController, LYRQueryControllerDeleg
     NSNotificationCenter.defaultCenter().removeObserver(self)
   }
   
+  // MARK: - Reachability
+
+  func showNetworkError(notification: NSNotification){
+    UIView.animateWithDuration(0.5) { () -> Void in
+      self.networkErrorTopConstraint.constant = -35
+      self.view.layoutIfNeeded()
+    }
+  }
+
+  func hideNetworkError(notification: NSNotification){
+    UIView.animateWithDuration(0.5) { () -> Void in
+      self.networkErrorTopConstraint.constant = -100
+      self.view.layoutIfNeeded()
+    }
+  }
+
 }
 
 // MARK: - LYRQueryController Delegate

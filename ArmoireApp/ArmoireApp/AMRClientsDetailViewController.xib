@@ -14,6 +14,8 @@
                 <outlet property="containerView" destination="mnm-6d-jB8" id="gM0-XR-FMu"/>
                 <outlet property="menuView" destination="wVd-Rb-1D5" id="4px-sh-9Xz"/>
                 <outlet property="messagesIconImageView" destination="4dW-fm-G3h" id="3by-BT-R9a"/>
+                <outlet property="networkErrorTopConstraint" destination="Tej-r5-lel" id="iVA-CO-0om"/>
+                <outlet property="networkErrorView" destination="Gwm-6l-AVq" id="GQK-Hy-CcP"/>
                 <outlet property="newMessageImageView" destination="XMV-RK-gGZ" id="mHr-LG-4mN"/>
                 <outlet property="newMessageImageViewContainer" destination="NWi-2h-Fry" id="Onf-Dc-cKy"/>
                 <outlet property="newMessageImageViewContainerXConstraint" destination="G7j-eU-5kV" id="GVv-UF-yrg"/>
@@ -194,14 +196,55 @@
                         <constraint firstItem="uJI-kq-ivD" firstAttribute="leading" secondItem="gs0-Bc-OGw" secondAttribute="trailing" id="yN6-zd-iSo"/>
                     </constraints>
                 </view>
+                <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gwm-6l-AVq">
+                    <rect key="frame" x="0.0" y="-100" width="600" height="100"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Network Error" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XKh-7p-y0f" userLabel="Network Error">
+                            <rect key="frame" x="0.0" y="79" width="600" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="highlightedColor" cocoaTouchSystemColor="darkTextColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="XKh-7p-y0f" secondAttribute="trailing" id="Gnf-6r-ikE"/>
+                        <constraint firstAttribute="height" constant="100" id="Hf8-df-F01"/>
+                        <constraint firstItem="XKh-7p-y0f" firstAttribute="top" secondItem="Gwm-6l-AVq" secondAttribute="top" id="MQZ-1E-jSp"/>
+                        <constraint firstItem="XKh-7p-y0f" firstAttribute="leading" secondItem="Gwm-6l-AVq" secondAttribute="leading" id="Q3H-Bd-kf7"/>
+                        <constraint firstAttribute="bottom" secondItem="XKh-7p-y0f" secondAttribute="bottom" id="TTS-R8-7Ws"/>
+                        <constraint firstAttribute="trailing" secondItem="XKh-7p-y0f" secondAttribute="trailing" id="TrJ-WL-RVL"/>
+                        <constraint firstItem="XKh-7p-y0f" firstAttribute="top" secondItem="Gwm-6l-AVq" secondAttribute="top" id="ct4-hT-abF"/>
+                        <constraint firstItem="XKh-7p-y0f" firstAttribute="leading" secondItem="Gwm-6l-AVq" secondAttribute="leading" id="dGl-tu-T84"/>
+                        <constraint firstAttribute="trailing" secondItem="XKh-7p-y0f" secondAttribute="trailing" id="fUd-jT-NQH"/>
+                        <constraint firstAttribute="bottom" secondItem="XKh-7p-y0f" secondAttribute="bottom" id="fan-93-Qs2"/>
+                        <constraint firstItem="XKh-7p-y0f" firstAttribute="leading" secondItem="Gwm-6l-AVq" secondAttribute="leading" id="pIt-wt-rs0"/>
+                        <constraint firstAttribute="bottom" secondItem="XKh-7p-y0f" secondAttribute="bottom" id="pKF-Sy-s62"/>
+                    </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="MQZ-1E-jSp"/>
+                            <exclude reference="TTS-R8-7Ws"/>
+                            <exclude reference="TrJ-WL-RVL"/>
+                            <exclude reference="ct4-hT-abF"/>
+                            <exclude reference="dGl-tu-T84"/>
+                            <exclude reference="fUd-jT-NQH"/>
+                            <exclude reference="fan-93-Qs2"/>
+                            <exclude reference="pIt-wt-rs0"/>
+                        </mask>
+                    </variation>
+                </view>
             </subviews>
             <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="wVd-Rb-1D5" secondAttribute="trailing" id="1Zg-cH-TeR"/>
+                <constraint firstAttribute="trailing" secondItem="Gwm-6l-AVq" secondAttribute="trailing" id="3RE-wV-JWW"/>
                 <constraint firstItem="wVd-Rb-1D5" firstAttribute="top" secondItem="mnm-6d-jB8" secondAttribute="bottom" id="D10-da-p0J"/>
                 <constraint firstAttribute="bottom" secondItem="wVd-Rb-1D5" secondAttribute="bottom" id="FLo-LF-P0f"/>
                 <constraint firstItem="mnm-6d-jB8" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Mk6-dd-o7c"/>
+                <constraint firstItem="Gwm-6l-AVq" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="-100" id="Tej-r5-lel"/>
+                <constraint firstItem="Gwm-6l-AVq" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="UYv-PP-Dw8"/>
                 <constraint firstItem="mnm-6d-jB8" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Yln-xn-4CY"/>
                 <constraint firstItem="wVd-Rb-1D5" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="qhY-Ou-v0m"/>
                 <constraint firstAttribute="trailing" secondItem="mnm-6d-jB8" secondAttribute="trailing" id="qp0-Jv-mfv"/>

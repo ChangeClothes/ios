@@ -21,7 +21,7 @@ class clientCollectionViewCell: UICollectionViewCell {
     didSet{
       nameLabel.text = client.firstName
       lastNameLabel.text = client.lastName
-      showBadgesForClient(client)
+//      showBadgesForClient(client)
       imageView.setProfileImageForClientId(client.objectId!, andClient: client, withPlaceholder: "profile-image-placeholder", withCompletion: nil)
     }
   }

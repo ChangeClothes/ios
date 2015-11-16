@@ -13,7 +13,7 @@ let kNewMessageReceivedNotification = "com.armoire.NewMessageReceivedNotificatio
 class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
 
   let kTodayTableReuseIdentifier = "com.armoire.TodayTableReuseIdentifier"
-  
+  let kSectionHeaderReuseIdentifier = "com.armoire.SectionHeaderReuseIdentifier"
   // MARK: - Outlets
   
   @IBOutlet weak var collectionView: UICollectionView!
@@ -23,8 +23,6 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
   var filteredClients: [AMRUser]?
   var clients: [AMRUser] = []
   var searchActive = true
-  var sections = [String]()
-  var clientSections = [String:[AMRUser]]()
 
 
   // MARK: - Lifecycle
@@ -91,19 +89,19 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
   }
 
   func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-    if searchText != "" {
-      filteredClients = clients.filter({
-        let currentClient = $0
-        return currentClient.fullName.lowercaseString.rangeOfString(searchText.lowercaseString) != nil
-      })
-      setUpSections(filteredClients!)
-    } else {
-      setUpSections(self.clients)
-      filteredClients = []
-      searchBar.performSelector("resignFirstResponder", withObject: nil, afterDelay: 0)
-    }
-    self.collectionView.reloadData()
-    searchBar.becomeFirstResponder()
+//    if searchText != "" {
+//      filteredClients = clients.filter({
+//        let currentClient = $0
+//        return currentClient.fullName.lowercaseString.rangeOfString(searchText.lowercaseString) != nil
+//      })
+//      setUpSections(filteredClients!)
+//    } else {
+//      setUpSections(self.clients)
+//      filteredClients = []
+//      searchBar.performSelector("resignFirstResponder", withObject: nil, afterDelay: 0)
+//    }
+//    self.collectionView.reloadData()
+//    searchBar.becomeFirstResponder()
   }
 
   // MARK: clients
@@ -116,7 +114,6 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
       } else {
         self.clients = (arrayOfUsers as? [AMRUser])!
         self.clients = self.clients.sort{$0.firstName < $1.firstName}
-        self.setUpSections(self.clients)
         self.collectionView.reloadData()
         AMRProfileImage.cache.cacheProfileImagesForClients(self.clients)
       }
@@ -132,9 +129,9 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
     collectionView.registerNib(cellNib, forCellWithReuseIdentifier: "ClientCell")
     collectionView.backgroundColor = UIColor.whiteColor()
     self.view.addSubview(collectionView)
-    self.collectionView!.registerClass(UICollectionReusableView.self,
-      forSupplementaryViewOfKind:UICollectionElementKindSectionHeader,
-      withReuseIdentifier:"Header")
+
+    let sectionHeaderNib = UINib(nibName: "AMRSectionCollectionReusableView", bundle: nil)
+    collectionView.registerNib(sectionHeaderNib, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: kSectionHeaderReuseIdentifier)
     
     let todayCellNib = UINib(nibName: "AMRTodayTableCollectionViewCell", bundle: nil)
     collectionView.registerNib(todayCellNib, forCellWithReuseIdentifier: kTodayTableReuseIdentifier)
@@ -143,7 +140,7 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
   func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
     searchbar.resignFirstResponder()
     collectionView.deselectItemAtIndexPath(indexPath, animated: true)
-    let client = clientSections[sections[indexPath.section - 1]]![indexPath.row]
+    let client = clients[indexPath.row]
     let clientDetailVC = AMRClientsDetailViewController(layerClient: layerClient)
     clientDetailVC.stylist = self.stylist
     clientDetailVC.client = client
@@ -153,20 +150,13 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
   }
   
   func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    if sections.count == 0 {
-      return 0
-    } else if section == 0 {
+    if section == 0 {
       return 1
     } else {
-      return clientSections[sections[section - 1]]!.count
+      return clients.count
     }
   }
 
-  func setUpSections(clients:[AMRUser]) {
-    clientSections = [String:[AMRUser]]()
-    clientSections[""] = clients
-    sections = clientSections.keys.sort()
-  }
 
   func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
     if indexPath.section == 0 {
@@ -177,8 +167,7 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
       return cell
     } else {
       let cell = collectionView.dequeueReusableCellWithReuseIdentifier("ClientCell", forIndexPath: indexPath) as! clientCollectionViewCell
-      let client = clientSections[sections[indexPath.section - 1]]![indexPath.row]
-      cell.client = client
+      cell.client = clients[indexPath.row]
       cell.imageView.backgroundColor = UIColor.grayColor()
       return cell
     }
@@ -187,7 +176,7 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
   
   func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
     if indexPath.section == 0 {
-      return CGSizeMake(collectionView.bounds.width, CGFloat(AMRBadgeManager.sharedInstance.clientBadges.count)*90)
+      return CGSizeMake(collectionView.bounds.width, CGFloat(AMRBadgeManager.sharedInstance.clientBadges.count)*90+0.5)
     } else {
       return CGSizeMake(115, 200)
     }
@@ -203,43 +192,27 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
   
   func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
     if section == 0 {
-      return CGSize(width: collectionView.frame.size.width, height: 40)
+      return CGSize(width: collectionView.frame.size.width, height: 40 + 50)
     } else {
-      return CGSize(width: collectionView.frame.size.width, height: 30)
+      return CGSize(width: collectionView.frame.size.width, height: 50)
     }
   }
-
+  
   func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-
-    var v : UICollectionReusableView! = nil
-    if kind == UICollectionElementKindSectionHeader {
-      v = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier:"Header", forIndexPath:indexPath)
-      if v.subviews.count == 0 {
-        let lab = UILabel() // we will size it later
-        v.addSubview(lab)
-        lab.textAlignment = .Center
-        lab.textColor = UIColor.AMRClientCollectionLabel()
-        lab.layer.masksToBounds = true // has to be added for iOS 8 label
-        lab.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activateConstraints([
-          NSLayoutConstraint.constraintsWithVisualFormat("H:|-10-[lab(35)]",
-            options:[], metrics:nil, views:["lab":lab]),
-          NSLayoutConstraint.constraintsWithVisualFormat("V:[lab(30)]-5-|",
-            options:[], metrics:nil, views:["lab":lab])
-          ].flatten().map{$0})
-      }
-      let lab = v.subviews[0] as! UILabel
-      if indexPath.section != 0 {
-        lab.text = self.sections[indexPath.section - 1]
-      } else {
-        lab.text = ""
-      }
+    let view = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: kSectionHeaderReuseIdentifier, forIndexPath: indexPath) as! AMRSectionCollectionReusableView
+    
+    
+    if indexPath.section == 0 {
+      view.sectionTitleLabel.text = "Today"
+    } else {
+      view.sectionTitleLabel.text = "Clients"
     }
-    return v
+    
+    return view
   }
 
   func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-    return sections.count + 1
+    return 2
   }
   
   deinit {
