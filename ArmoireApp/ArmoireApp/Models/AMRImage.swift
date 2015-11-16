@@ -147,7 +147,18 @@ extension AMRImage: PFSubclassing {
   }
 }
 
+
+private var xoAssociationKey: UInt8 = 0
 extension UIImageView {
+  var imageObjectId: String {
+    get {
+      return (objc_getAssociatedObject(self, &xoAssociationKey) as? String)!
+    }
+    set(newValue) {
+      objc_setAssociatedObject(self, &xoAssociationKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
+    }
+  }
+  
   func setAMRImage(image: AMRImage?){
     setAMRImage(image, withPlaceholder: nil)
   }
@@ -171,13 +182,18 @@ extension UIImageView {
       } else {
         self.image = UIImage(named: "image-placeholder")
       }
+      self.imageObjectId = (myImage.objectId)!
+      print("on set \(self.imageObjectId) , \((myImage.objectId)!)")
       myImage.fetchIfNeededInBackgroundWithBlock({ (image, error) -> Void in
         let profileImage = image as? AMRImage
         profileImage?.file?.getDataInBackgroundWithBlock { (data: NSData?, error: NSError?) -> Void in
           if error == nil {
-            self.image = UIImage(data: data!)
-            amrImage!.cachedUIImage = UIImage(data: data!)
-            completion?(success: true)
+            print("In block \(self.imageObjectId) , \((myImage.objectId)!)")
+            if amrImage?.objectId == self.imageObjectId{
+              self.image = UIImage(data: data!)
+              amrImage!.cachedUIImage = UIImage(data: data!)
+              completion?(success: true)
+            }
           }
         }
       })
