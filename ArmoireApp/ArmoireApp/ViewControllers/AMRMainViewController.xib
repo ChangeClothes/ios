@@ -159,10 +159,13 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cqd-Dr-VRH">
-                    <rect key="frame" x="0.0" y="-25" width="600" height="25"/>
+                    <rect key="frame" x="0.0" y="-100" width="600" height="100"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Network Error" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NYu-hv-YWd">
-                            <rect key="frame" x="0.0" y="0.0" width="600" height="25"/>
+                            <rect key="frame" x="0.0" y="75" width="600" height="25"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="25" id="qUj-D8-pAT"/>
+                            </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -172,10 +175,21 @@
                     <constraints>
                         <constraint firstItem="NYu-hv-YWd" firstAttribute="top" secondItem="cqd-Dr-VRH" secondAttribute="top" id="Mfe-j8-otZ"/>
                         <constraint firstAttribute="trailing" secondItem="NYu-hv-YWd" secondAttribute="trailing" id="X0Z-hw-Za0"/>
-                        <constraint firstAttribute="height" constant="25" id="hFX-8t-usr"/>
+                        <constraint firstAttribute="height" constant="100" id="hFX-8t-usr"/>
+                        <constraint firstAttribute="bottom" secondItem="NYu-hv-YWd" secondAttribute="bottom" id="kao-FL-UmM"/>
+                        <constraint firstItem="NYu-hv-YWd" firstAttribute="leading" secondItem="cqd-Dr-VRH" secondAttribute="leading" id="mpC-yY-fIe"/>
                         <constraint firstAttribute="bottom" secondItem="NYu-hv-YWd" secondAttribute="bottom" id="rxT-RX-Kvm"/>
+                        <constraint firstAttribute="trailing" secondItem="NYu-hv-YWd" secondAttribute="trailing" id="u91-Sd-SFf"/>
                         <constraint firstItem="NYu-hv-YWd" firstAttribute="leading" secondItem="cqd-Dr-VRH" secondAttribute="leading" id="ztF-dC-IAh"/>
                     </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="Mfe-j8-otZ"/>
+                            <exclude reference="X0Z-hw-Za0"/>
+                            <exclude reference="rxT-RX-Kvm"/>
+                            <exclude reference="ztF-dC-IAh"/>
+                        </mask>
+                    </variation>
                 </view>
             </subviews>
             <animations/>
@@ -185,7 +199,7 @@
                 <constraint firstAttribute="trailing" secondItem="484-uT-3HW" secondAttribute="trailing" id="63M-BB-gmt"/>
                 <constraint firstAttribute="trailing" secondItem="cqd-Dr-VRH" secondAttribute="trailing" id="DJF-ip-h1Z"/>
                 <constraint firstItem="45x-mO-ZQ3" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="LEk-wq-u58"/>
-                <constraint firstItem="cqd-Dr-VRH" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="-25" id="a3b-bn-1tV"/>
+                <constraint firstItem="cqd-Dr-VRH" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="-100" id="a3b-bn-1tV"/>
                 <constraint firstItem="484-uT-3HW" firstAttribute="top" secondItem="45x-mO-ZQ3" secondAttribute="bottom" id="gtx-LD-usC"/>
                 <constraint firstAttribute="trailing" secondItem="45x-mO-ZQ3" secondAttribute="trailing" id="iP2-cC-aSq"/>
                 <constraint firstItem="cqd-Dr-VRH" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ifY-rW-Epz"/>
