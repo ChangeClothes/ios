@@ -11,6 +11,8 @@ import LayerKit
 
 class AMRClientsDetailViewController: AMRViewController, LYRQueryControllerDelegate  {
   
+  @IBOutlet weak var networkErrorTopConstraint: NSLayoutConstraint!
+  @IBOutlet weak var networkErrorView: UIView!
   @IBOutlet weak var tabBarBorderViewOne: UIView!
   @IBOutlet weak var tabBarBorderViewTwo: UIView!
   @IBOutlet weak var newMessageImageViewContainerYConstraint: NSLayoutConstraint!
@@ -49,6 +51,7 @@ class AMRClientsDetailViewController: AMRViewController, LYRQueryControllerDeleg
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    Reachability().initializeReachabilityMonitoring()
     self.navigationController?.navigationBarHidden = true
     UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: true)
     setVcArray()
@@ -402,6 +405,22 @@ class AMRClientsDetailViewController: AMRViewController, LYRQueryControllerDeleg
     NSNotificationCenter.defaultCenter().removeObserver(self)
   }
   
+  // MARK: - Reachability
+
+  func showNetworkError(notification: NSNotification){
+    UIView.animateWithDuration(0.5) { () -> Void in
+      self.networkErrorTopConstraint.constant = 0
+      self.view.layoutIfNeeded()
+    }
+  }
+
+  func hideNetworkError(notification: NSNotification){
+    UIView.animateWithDuration(0.5) { () -> Void in
+      self.networkErrorTopConstraint.constant = -25
+      self.view.layoutIfNeeded()
+    }
+  }
+
 }
 
 // MARK: - LYRQueryController Delegate

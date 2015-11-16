@@ -14,6 +14,8 @@ protocol AMRLoginViewControllerDelegate: class{
 
 class AMRLoginViewController: UIViewController {
   
+  @IBOutlet weak var networkErrorTopConstraint: NSLayoutConstraint!
+  @IBOutlet weak var networkErrorView: UIView!
   @IBOutlet weak var signUpButton: UIButton!
   @IBOutlet weak var logInButton: UIButton!
   @IBOutlet weak var usernameField: UITextField!
@@ -28,6 +30,9 @@ class AMRLoginViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    Reachability().initializeReachabilityMonitoring()
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "showNetworkError:", name: kActiveNetworkError, object: nil)
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "hideNetworkError:", name: kInactiveNetworkError, object: nil)
     
     signUpButton.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)
     signUpButton.addTarget(self, action: "signUpButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
@@ -106,4 +111,22 @@ class AMRLoginViewController: UIViewController {
     presentViewController(customSignUpViewController!, animated: true, completion: nil)
   }
   
+  // MARK: - Reachability
+
+  func showNetworkError(notification: NSNotification){
+    print("showing")
+    UIView.animateWithDuration(0.5) { () -> Void in
+      self.networkErrorTopConstraint.constant = 0
+      self.view.layoutIfNeeded()
+    }
+  }
+
+  func hideNetworkError(notification: NSNotification){
+    print("hiding")
+    UIView.animateWithDuration(0.5) { () -> Void in
+      self.networkErrorTopConstraint.constant = -25
+      self.view.layoutIfNeeded()
+    }
+  }
+
 }
