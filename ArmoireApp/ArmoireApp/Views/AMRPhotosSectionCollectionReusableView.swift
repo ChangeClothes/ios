@@ -10,6 +10,7 @@ import UIKit
 
 class AMRPhotosSectionCollectionReusableView: UICollectionReusableView {
   
+  @IBOutlet weak var leadingTitleConstraint: NSLayoutConstraint!
   @IBOutlet weak var sectionTitleLabel: UILabel!
   @IBOutlet weak var ratingIconImageView: UIImageView!
   
