@@ -10,13 +10,22 @@ import UIKit
 
 class AMRTodayTableViewCell: UITableViewCell {
   
+  let labelHeight = CGFloat(16)
+  let iconHeight = CGFloat(12)
+  
+  @IBOutlet weak var cellBackgroundView: UIView!
+  @IBOutlet weak var appointmentIconView: UIImageView!
+  @IBOutlet weak var appointmentIconHeightConstraint: NSLayoutConstraint!
+  @IBOutlet weak var newMessageIconView: UIImageView!
+  @IBOutlet weak var newMessageIconHeightConstraint: NSLayoutConstraint!
+  @IBOutlet weak var unratedPhotoIconView: UIImageView!
+  @IBOutlet weak var unratedPhotoIconHeightConstraint: NSLayoutConstraint!
   @IBOutlet weak var avatarImage: UIImageView!
   
+
   @IBOutlet weak var nameLabel: UILabel!
   @IBOutlet weak var appointmentsLabelHeightConstraint: NSLayoutConstraint!
-  
   @IBOutlet weak var newMessagesLabelHeightConstraint: NSLayoutConstraint!
-  
   @IBOutlet weak var unratedPhotosHeightConstraint: NSLayoutConstraint!
   
   var client: AMRUser! {
@@ -30,17 +39,32 @@ class AMRTodayTableViewCell: UITableViewCell {
 
       nameLabel.text = client.firstName + " " + client.lastName
       appointmentsLabelHeightConstraint.constant = 0
+      appointmentIconHeightConstraint.constant = 0
+      
       newMessagesLabelHeightConstraint.constant = 0
+      newMessageIconHeightConstraint.constant = 0
+      
       unratedPhotosHeightConstraint.constant = 0
+      unratedPhotoIconHeightConstraint.constant = 0
+      
+      appointmentIconView.tintColor = ThemeManager.currentTheme().highlightColor
+      newMessageIconView.tintColor = ThemeManager.currentTheme().highlightColor
+      unratedPhotoIconView.tintColor = ThemeManager.currentTheme().highlightColor
+      
+      
+      
       
       if badges?.hasMeetingToday == true {
-        appointmentsLabelHeightConstraint.constant = 16
+        appointmentsLabelHeightConstraint.constant = labelHeight
+        appointmentIconHeightConstraint.constant = iconHeight
       }
       if badges?.hasUnreadMessages == true {
-        newMessagesLabelHeightConstraint.constant = 16
+        newMessagesLabelHeightConstraint.constant = labelHeight
+        newMessageIconHeightConstraint.constant = iconHeight
       }
       if badges?.hasUnratedPhotos == true {
-        unratedPhotosHeightConstraint.constant = 16
+        unratedPhotosHeightConstraint.constant = labelHeight
+        unratedPhotoIconHeightConstraint.constant = iconHeight
       }
       
       
@@ -49,6 +73,11 @@ class AMRTodayTableViewCell: UITableViewCell {
   
   override func awakeFromNib() {
     super.awakeFromNib()
+    cellBackgroundView.backgroundColor = ThemeManager.currentTheme().todayViewCellBackgroundColor
+    cellBackgroundView.layer.cornerRadius = 8.0
+    cellBackgroundView.clipsToBounds = true
+    cellBackgroundView.layer.borderColor = ThemeManager.currentTheme().highlightColor.CGColor
+    cellBackgroundView.layer.borderWidth = 1.0
     // Initialization code
   }
   
