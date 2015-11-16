@@ -136,6 +136,15 @@ enum Theme: Int {
     }
   }
   
+  var todayViewCellBackgroundColor: UIColor {
+    switch self {
+    case .Default:
+      return ColorHelper.sharedInstance.colorFromHexString("#ecf0f1")
+    case .Theme1:
+      return ColorHelper.sharedInstance.colorFromHexString("#ecf0f1")
+    }
+  }
+  
 }
 
 let SelectedThemeKey = "SelectedTheme"

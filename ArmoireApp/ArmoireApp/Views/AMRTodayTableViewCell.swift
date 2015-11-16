@@ -10,13 +10,25 @@ import UIKit
 
 class AMRTodayTableViewCell: UITableViewCell {
   
+  @IBOutlet weak var hasUnratedPhotosLabel: UILabel!
+  let labelHeight = CGFloat(16)
+  let iconHeight = CGFloat(12)
+  @IBOutlet weak var hasNewMessagesLabel: UILabel!
+  
+  @IBOutlet weak var hasAppointmentLabel: UILabel!
+  @IBOutlet weak var appointmentIconHeightConstraint: NSLayoutConstraint!
+  @IBOutlet weak var cellBackgroundView: UIView!
+  @IBOutlet weak var appointmentIconView: UIImageView!
+  @IBOutlet weak var newMessageIconView: UIImageView!
+  @IBOutlet weak var newMessageIconHeightConstraint: NSLayoutConstraint!
+  @IBOutlet weak var unratedPhotoIconView: UIImageView!
+  @IBOutlet weak var unratedPhotoIconHeightConstraint: NSLayoutConstraint!
   @IBOutlet weak var avatarImage: UIImageView!
   
+
   @IBOutlet weak var nameLabel: UILabel!
   @IBOutlet weak var appointmentsLabelHeightConstraint: NSLayoutConstraint!
-  
   @IBOutlet weak var newMessagesLabelHeightConstraint: NSLayoutConstraint!
-  
   @IBOutlet weak var unratedPhotosHeightConstraint: NSLayoutConstraint!
   
   var client: AMRUser! {
@@ -29,33 +41,71 @@ class AMRTodayTableViewCell: UITableViewCell {
       
 
       nameLabel.text = client.firstName + " " + client.lastName
+      nameLabel.tintColor = UIColor.whiteColor()
       appointmentsLabelHeightConstraint.constant = 0
+      appointmentIconHeightConstraint.constant = 0
+      
       newMessagesLabelHeightConstraint.constant = 0
+      newMessageIconHeightConstraint.constant = 0
+      
       unratedPhotosHeightConstraint.constant = 0
+      unratedPhotoIconHeightConstraint.constant = 0
+      
+      appointmentIconView.tintColor = UIColor.whiteColor()
+      newMessageIconView.tintColor = UIColor.whiteColor()
+      unratedPhotoIconView.tintColor = UIColor.whiteColor()
+      
+      appointmentIconView.image = appointmentIconView.image?.imageWithRenderingMode(.AlwaysTemplate)
+      newMessageIconView.image = newMessageIconView.image?.imageWithRenderingMode(.AlwaysTemplate)
+      unratedPhotoIconView.image = unratedPhotoIconView.image?.imageWithRenderingMode(.AlwaysTemplate)
+      
       
       if badges?.hasMeetingToday == true {
-        appointmentsLabelHeightConstraint.constant = 16
+        appointmentsLabelHeightConstraint.constant = labelHeight
+        appointmentIconHeightConstraint.constant = iconHeight
       }
       if badges?.hasUnreadMessages == true {
-        newMessagesLabelHeightConstraint.constant = 16
+        newMessagesLabelHeightConstraint.constant = labelHeight
+        newMessageIconHeightConstraint.constant = iconHeight
+        newMessageIconView.tintColor = ThemeManager.currentTheme().highlightColor
       }
       if badges?.hasUnratedPhotos == true {
-        unratedPhotosHeightConstraint.constant = 16
+        unratedPhotosHeightConstraint.constant = labelHeight
+        unratedPhotoIconHeightConstraint.constant = iconHeight
       }
-      
-      
     }
+  }
+
+  func didTapCell(sender: UITapGestureRecognizer) {
+    switch sender.state {
+    case .Began:
+      cellBackgroundView.backgroundColor = ThemeManager.currentTheme().highlightColor
+    case .Ended:
+      cellBackgroundView.backgroundColor = UIColor.clearColor()
+    default:
+      break
+    }
+    
   }
   
   override func awakeFromNib() {
     super.awakeFromNib()
-    // Initialization code
+//    self.selectionStyle = .None
+    
+    cellBackgroundView.backgroundColor = UIColor.blackColor()
+    cellBackgroundView.layer.cornerRadius = 8.0
+    cellBackgroundView.clipsToBounds = true
+    
+    hasUnratedPhotosLabel.tintColor = UIColor.whiteColor()
+    hasNewMessagesLabel.tintColor = UIColor.whiteColor()
+    hasAppointmentLabel.tintColor = UIColor.whiteColor()
+    
+    
   }
   
   override func setSelected(selected: Bool, animated: Bool) {
     super.setSelected(selected, animated: animated)
     
-    // Configure the view for the selected state
   }
   
   override func prepareForReuse() {
