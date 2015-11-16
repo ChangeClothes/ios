@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -142,7 +142,7 @@
                                 <constraint firstAttribute="height" constant="4" id="6Zx-jl-T45"/>
                             </constraints>
                         </view>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" image="profile-image-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="RdM-bh-dIA">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" image="profile-image-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="RdM-bh-dIA">
                             <rect key="frame" x="5" y="-31" width="75" height="75"/>
                             <animations/>
                             <constraints>
@@ -276,7 +276,7 @@
         <image name="calendar" width="25" height="25"/>
         <image name="messaging" width="25" height="25"/>
         <image name="note" width="25" height="25"/>
-        <image name="profile-image-placeholder" width="75" height="75"/>
+        <image name="profile-image-placeholder" width="1546" height="1546"/>
         <image name="wardrobe" width="25" height="25"/>
     </resources>
 </document>
