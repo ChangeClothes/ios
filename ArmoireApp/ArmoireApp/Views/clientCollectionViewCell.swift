@@ -22,7 +22,9 @@ class clientCollectionViewCell: UICollectionViewCell {
       nameLabel.text = client.firstName
       lastNameLabel.text = client.lastName
 //      showBadgesForClient(client)
+//      print(client.fullName, client.objectId)
       imageView.setProfileImageForClientId(client.objectId!, andClient: client, withPlaceholder: "profile-image-placeholder", withCompletion: nil)
+//      print("past setProfileImage")
     }
   }
 

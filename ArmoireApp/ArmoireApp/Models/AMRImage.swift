@@ -183,13 +183,12 @@ extension UIImageView {
         self.image = UIImage(named: "image-placeholder")
       }
       self.imageObjectId = (myImage.objectId)!
-      print("on set \(self.imageObjectId) , \((myImage.objectId)!)")
       myImage.fetchIfNeededInBackgroundWithBlock({ (image, error) -> Void in
         let profileImage = image as? AMRImage
         profileImage?.file?.getDataInBackgroundWithBlock { (data: NSData?, error: NSError?) -> Void in
           if error == nil {
-            print("In block \(self.imageObjectId) , \((myImage.objectId)!)")
             if amrImage?.objectId == self.imageObjectId{
+              print("setting image from parse")
               self.image = UIImage(data: data!)
               amrImage!.cachedUIImage = UIImage(data: data!)
               completion?(success: true)
@@ -207,11 +206,14 @@ extension UIImageView {
   }
   
   func setProfileImageForClientId(clientId: String, andClient client: AMRUser, withPlaceholder placeholder: String?, withCompletion completion: ((success: Bool) -> Void)?) {
-    
+
     if let cachedUIImage = AMRProfileImage.cache.profileImages[clientId] {
+      print("getting cachedImage")
+      self.imageObjectId = ""
       self.image = cachedUIImage
       completion?(success: true)
     } else {
+      print("set AMRImage")
       setAMRImage(client.profilePhoto, withPlaceholder: placeholder, withCompletion: completion)
     }
     
