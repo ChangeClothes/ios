@@ -26,6 +26,7 @@
 		0F4590C61BD4B88100C839F9 /* AMRMessagesDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4590C41BD4B88100C839F9 /* AMRMessagesDetailsViewController.swift */; };
 		0F5E5BF81BDF2D0E00464DB2 /* AMRClientProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5E5BF61BDF2D0E00464DB2 /* AMRClientProfileViewController.swift */; };
 		0F5E5BF91BDF2D0E00464DB2 /* AMRClientProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F5E5BF71BDF2D0E00464DB2 /* AMRClientProfileViewController.xib */; };
+		0F6140F51BF93C9D00694127 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6140F41BF93C9D00694127 /* Reachability.swift */; };
 		0F838BE61BF802350071C0E6 /* AMRInventoryVenueCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F838BE41BF802350071C0E6 /* AMRInventoryVenueCollectionViewCell.swift */; };
 		0F838BE71BF802350071C0E6 /* AMRInventoryVenueCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F838BE51BF802350071C0E6 /* AMRInventoryVenueCollectionViewCell.xib */; };
 		0F9B425A1BF704B30045DE9D /* AMRShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F9B42581BF704B30045DE9D /* AMRShopViewController.swift */; };
@@ -130,6 +131,7 @@
 		0F4590C41BD4B88100C839F9 /* AMRMessagesDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AMRMessagesDetailsViewController.swift; sourceTree = "<group>"; };
 		0F5E5BF61BDF2D0E00464DB2 /* AMRClientProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRClientProfileViewController.swift; path = ViewControllers/AMRClientProfileViewController.swift; sourceTree = "<group>"; };
 		0F5E5BF71BDF2D0E00464DB2 /* AMRClientProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AMRClientProfileViewController.xib; path = ViewControllers/AMRClientProfileViewController.xib; sourceTree = "<group>"; };
+		0F6140F41BF93C9D00694127 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Reachability.swift; path = Application/Reachability.swift; sourceTree = "<group>"; };
 		0F838BE41BF802350071C0E6 /* AMRInventoryVenueCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRInventoryVenueCollectionViewCell.swift; path = Views/AMRInventoryVenueCollectionViewCell.swift; sourceTree = "<group>"; };
 		0F838BE51BF802350071C0E6 /* AMRInventoryVenueCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AMRInventoryVenueCollectionViewCell.xib; path = Views/AMRInventoryVenueCollectionViewCell.xib; sourceTree = "<group>"; };
 		0F9B42581BF704B30045DE9D /* AMRShopViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AMRShopViewController.swift; path = ViewControllers/AMRShopViewController.swift; sourceTree = "<group>"; };
@@ -296,6 +298,7 @@
 				6F41E1F91BCE0FF900729AC5 /* AppDelegate.swift */,
 				6FDD838D1BD080B000028E3D /* ArmoireApp-Bridging-Header.h */,
 				C5B6127B1BE75AF600B3B738 /* Theme.swift */,
+				0F6140F41BF93C9D00694127 /* Reachability.swift */,
 			);
 			name = Application;
 			sourceTree = "<group>";
@@ -569,6 +572,7 @@
 				0F08E2371BF3C9CB00458E94 /* clientCollectionViewCell.swift in Sources */,
 				C5CE84801BF3CD23005A634E /* AMRDynamicHeightTableViewCell.swift in Sources */,
 				0F4590B81BD4A5D500C839F9 /* AMRAppointmentTableViewCell.swift in Sources */,
+				0F6140F51BF93C9D00694127 /* Reachability.swift in Sources */,
 				0FD0BAC21BD6038C00D91504 /* AMRUpcomingMeetingsTableViewCell.swift in Sources */,
 				6F1B37C01BF00BD5005DBA10 /* AMRViewController.swift in Sources */,
 				0F9B425A1BF704B30045DE9D /* AMRShopViewController.swift in Sources */,

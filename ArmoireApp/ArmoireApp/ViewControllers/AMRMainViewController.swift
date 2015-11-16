@@ -9,8 +9,13 @@
 import UIKit
 import LayerKit
 
+let kActiveNetworkError = "com.armoire.activeNetworkErrorNotification"
+let kInactiveNetworkError = "com.armoire.inactiveNetworkErrorNotification"
+
 class AMRMainViewController: AMRViewController{
   
+  @IBOutlet weak var networkErrorTopConstraint: NSLayoutConstraint!
+  @IBOutlet weak var networkErrorView: UIView!
   @IBOutlet weak var newMessageImageViewContainerXConstraint: NSLayoutConstraint!
   @IBOutlet weak var newMessageImageViewContainerYConstraint: NSLayoutConstraint!
   @IBOutlet weak var newMessageImageViewContainer: UIView!
@@ -38,6 +43,7 @@ class AMRMainViewController: AMRViewController{
     
     super.viewDidLoad()
     self.setNeedsStatusBarAppearanceUpdate()
+    Reachability().initializeReachabilityMonitoring()
     subscribeToNotifications()
     setupTabBarAppearance()
     setupNewMessageImageView()
@@ -61,6 +67,10 @@ class AMRMainViewController: AMRViewController{
     
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "deviceDidRotate", name: UIDeviceOrientationDidChangeNotification, object: nil)
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "updatedMessagesIconBadge", name: kUserConversationsChanged, object: nil)
+
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "showNetworkError:", name: kActiveNetworkError, object: nil)
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "hideNetworkError:", name: kInactiveNetworkError, object: nil)
+
   }
   
   private func setupUnreadMessagesBadgeLabel() {
@@ -334,6 +344,22 @@ class AMRMainViewController: AMRViewController{
     }
   }
   
+  // MARK: - Reachability
+
+  func showNetworkError(notification: NSNotification){
+    UIView.animateWithDuration(0.5) { () -> Void in
+      self.networkErrorTopConstraint.constant = -35
+      self.view.layoutIfNeeded()
+    }
+  }
+
+  func hideNetworkError(notification: NSNotification){
+    UIView.animateWithDuration(0.5) { () -> Void in
+      self.networkErrorTopConstraint.constant = -100
+      self.view.layoutIfNeeded()
+    }
+  }
+
   // MARK: - Tap Icon Actions
   
   @IBAction func onTapMessages(sender: UITapGestureRecognizer) {
