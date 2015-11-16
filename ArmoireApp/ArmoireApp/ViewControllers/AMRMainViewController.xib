@@ -32,7 +32,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="45x-mO-ZQ3">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
                     <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gCd-Bd-nmz">
+                        <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="gCd-Bd-nmz">
                             <rect key="frame" x="540" y="-499" width="50" height="50"/>
                             <subviews>
                                 <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Wd5-B4-IUQ">

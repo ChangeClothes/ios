@@ -37,7 +37,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mnm-6d-jB8">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
                     <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NWi-2h-Fry">
+                        <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="NWi-2h-Fry">
                             <rect key="frame" x="540" y="-499" width="50" height="50"/>
                             <subviews>
                                 <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XMV-RK-gGZ">
