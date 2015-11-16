@@ -115,7 +115,6 @@ class AMRClientsViewController: AMRViewController, UIGestureRecognizerDelegate, 
         self.clients = (arrayOfUsers as? [AMRUser])!
         self.clients = self.clients.sort{$0.firstName < $1.firstName}
         self.filteredClients = self.clients
-        print(self.clients)
         self.collectionView.reloadData()
         AMRProfileImage.cache.cacheProfileImagesForClients(self.clients)
       }
