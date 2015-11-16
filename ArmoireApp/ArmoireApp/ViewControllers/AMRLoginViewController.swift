@@ -116,7 +116,7 @@ class AMRLoginViewController: UIViewController {
   func showNetworkError(notification: NSNotification){
     print("showing")
     UIView.animateWithDuration(0.5) { () -> Void in
-      self.networkErrorTopConstraint.constant = 0
+      self.networkErrorTopConstraint.constant = -35
       self.view.layoutIfNeeded()
     }
   }
@@ -124,7 +124,7 @@ class AMRLoginViewController: UIViewController {
   func hideNetworkError(notification: NSNotification){
     print("hiding")
     UIView.animateWithDuration(0.5) { () -> Void in
-      self.networkErrorTopConstraint.constant = -25
+      self.networkErrorTopConstraint.constant = -100
       self.view.layoutIfNeeded()
     }
   }
