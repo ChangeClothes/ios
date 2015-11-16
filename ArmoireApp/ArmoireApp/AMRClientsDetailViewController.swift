@@ -29,7 +29,7 @@ class AMRClientsDetailViewController: AMRViewController, LYRQueryControllerDeleg
   
   private var queryController: LYRQueryController!
   var layerQueryController: LYRQueryController!
-  
+
   @IBOutlet weak var containerView: UIView!
   @IBOutlet weak var menuView: UIView!
   
@@ -58,6 +58,8 @@ class AMRClientsDetailViewController: AMRViewController, LYRQueryControllerDeleg
     setVcDataForTabs()
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "deviceDidRotate", name: UIDeviceOrientationDidChangeNotification, object: nil)
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "updatedMessagesIconBadge", name: kUserConversationsChanged, object: nil)
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "showNetworkError:", name: kActiveNetworkError, object: nil)
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "hideNetworkError:", name: kInactiveNetworkError, object: nil)
     
     setupTabBarAppearance()
     selectViewController(vcArray[3])
@@ -409,14 +411,14 @@ class AMRClientsDetailViewController: AMRViewController, LYRQueryControllerDeleg
 
   func showNetworkError(notification: NSNotification){
     UIView.animateWithDuration(0.5) { () -> Void in
-      self.networkErrorTopConstraint.constant = 0
+      self.networkErrorTopConstraint.constant = -35
       self.view.layoutIfNeeded()
     }
   }
 
   func hideNetworkError(notification: NSNotification){
     UIView.animateWithDuration(0.5) { () -> Void in
-      self.networkErrorTopConstraint.constant = -25
+      self.networkErrorTopConstraint.constant = -100
       self.view.layoutIfNeeded()
     }
   }
